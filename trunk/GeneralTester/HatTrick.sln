@@ -13,6 +13,30 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Game\Game.csproj", 
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonModel", "CommonModel\CommonModel.csproj", "{AC139903-5638-44D4-8A17-0C94A11D33AF}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextualView", "TextualView\TextualView.csproj", "{8748B692-ECA8-44FB-A76E-3C72F550ECD6}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{B4A3CBCF-1C62-448A-A071-D2AF9F25387B}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainProgram", "MainProgram\MainProgram.csproj", "{1C9055B2-8500-49E3-9332-EFC867578468}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +51,22 @@ Global
 		{78DF7BB6-75F8-4204-B3B1-FE80D1209C7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78DF7BB6-75F8-4204-B3B1-FE80D1209C7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78DF7BB6-75F8-4204-B3B1-FE80D1209C7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC139903-5638-44D4-8A17-0C94A11D33AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC139903-5638-44D4-8A17-0C94A11D33AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC139903-5638-44D4-8A17-0C94A11D33AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC139903-5638-44D4-8A17-0C94A11D33AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8748B692-ECA8-44FB-A76E-3C72F550ECD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8748B692-ECA8-44FB-A76E-3C72F550ECD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8748B692-ECA8-44FB-A76E-3C72F550ECD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8748B692-ECA8-44FB-A76E-3C72F550ECD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4A3CBCF-1C62-448A-A071-D2AF9F25387B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4A3CBCF-1C62-448A-A071-D2AF9F25387B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4A3CBCF-1C62-448A-A071-D2AF9F25387B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4A3CBCF-1C62-448A-A071-D2AF9F25387B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C9055B2-8500-49E3-9332-EFC867578468}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C9055B2-8500-49E3-9332-EFC867578468}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C9055B2-8500-49E3-9332-EFC867578468}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C9055B2-8500-49E3-9332-EFC867578468}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

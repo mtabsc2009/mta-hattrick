@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="false">
+  <TopNode>[0-1000]D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\GeneralTester.csproj</TopNode>
+  <SelectedNode>[0-1002]HatTrick.GeneralTester.TestUserLoginSuccess</SelectedNode>
+  <ExcludeCategories>false</ExcludeCategories>
+  <Nodes>
+    <Node UniqueName="[0-1000]D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\GeneralTester.csproj" Expanded="true">
+      <Nodes>
+        <Node UniqueName="[0-1006]D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.dll" Expanded="true">
+          <Nodes>
+            <Node UniqueName="[0-1007]HatTrick" Expanded="true">
+              <Nodes>
+                <Node UniqueName="[0-1001]HatTrick.GeneralTester" Expanded="true">
+                  <Nodes>
+                    <Node UniqueName="[0-1003]HatTrick.GeneralTester.TestUserCreationFailure" />
+                    <Node UniqueName="[0-1005]HatTrick.GeneralTester.TestUserCreationSuccess" />
+                    <Node UniqueName="[0-1004]HatTrick.GeneralTester.TestUserLoginFailure" />
+                    <Node UniqueName="[0-1002]HatTrick.GeneralTester.TestUserLoginSuccess" />
+                  </Nodes>
+                </Node>
+              </Nodes>
+            </Node>
+          </Nodes>
+        </Node>
+      </Nodes>
+    </Node>
+  </Nodes>
+</VisualState>

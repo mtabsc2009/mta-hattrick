@@ -1,16 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!--This file represents the results of running a test suite-->
-<test-results name="D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.exe" total="2" failures="0" not-run="0" date="2009-03-05" time="15:39:30">
-  <environment nunit-version="2.4.8.0" clr-version="2.0.50727.42" os-version="Microsoft Windows NT 5.1.2600 Service Pack 2" platform="Win32NT" cwd="D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug" machine-name="ORON" user="Slim" user-domain="ORON" />
+<test-results name="D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.nunit" total="5" failures="1" not-run="0" date="2009-03-05" time="17:32:05">
+  <environment nunit-version="2.4.8.0" clr-version="2.0.50727.42" os-version="Microsoft Windows NT 5.1.2600 Service Pack 2" platform="Win32NT" cwd="D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester" machine-name="ORON" user="Slim" user-domain="ORON" />
   <culture-info current-culture="he-IL" current-uiculture="en-US" />
-  <test-suite name="D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.exe" success="True" time="0.031" asserts="0">
+  <test-suite name="D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.nunit" success="False" time="0.219" asserts="0">
     <results>
-      <test-suite name="HatTrick" success="True" time="0.031" asserts="0">
+      <test-suite name="D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.exe" success="False" time="0.219" asserts="0">
         <results>
-          <test-suite name="GeneralTester" success="True" time="0.016" asserts="0">
+          <test-suite name="HatTrick" success="False" time="0.219" asserts="0">
             <results>
-              <test-case name="HatTrick.GeneralTester.TestGameStart" executed="True" success="True" time="0.016" asserts="1" />
-              <test-case name="HatTrick.GeneralTester.TestUserCreation" executed="True" success="True" time="0.000" asserts="1" />
+              <test-suite name="GeneralTester" success="False" time="0.188" asserts="0">
+                <results>
+                  <test-case name="HatTrick.GeneralTester.TestGameStart" executed="True" success="True" time="0.156" asserts="1" />
+                  <test-case name="HatTrick.GeneralTester.TestUserCreationFailure" executed="True" success="True" time="0.000" asserts="1" />
+                  <test-case name="HatTrick.GeneralTester.TestUserCreationSuccess" executed="True" success="False" time="0.031" asserts="1">
+                    <failure>
+                      <message><![CDATA[  Expected: True
+  But was:  False
+]]></message>
+                      <stack-trace><![CDATA[at HatTrick.GeneralTester.TestUserCreationSuccess() in D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\Program.cs:line 57
+]]></stack-trace>
+                    </failure>
+                  </test-case>
+                  <test-case name="HatTrick.GeneralTester.TestUserLoginFailure" executed="True" success="True" time="0.000" asserts="1" />
+                  <test-case name="HatTrick.GeneralTester.TestUserLoginSuccess" executed="True" success="True" time="0.000" asserts="1" />
+                </results>
+              </test-suite>
             </results>
           </test-suite>
         </results>

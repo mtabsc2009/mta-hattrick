@@ -1,9 +1,15 @@
 obj\Debug\ResolveAssemblyReference.cache
-bin\Debug\GeneralTester.exe
 bin\Debug\GeneralTester.pdb
 bin\Debug\Game.dll
 bin\Debug\Game.pdb
-obj\Debug\GeneralTester.exe
 obj\Debug\GeneralTester.pdb
 bin\Debug\nunit.framework.dll
 bin\Debug\nunit.framework.xml
+bin\Debug\CommonModel.dll
+bin\Debug\CommonModel.pdb
+bin\Debug\TextualView.dll
+bin\Debug\TextualView.pdb
+bin\Debug\DAL.dll
+bin\Debug\DAL.pdb
+bin\Debug\GeneralTester.dll
+obj\Debug\GeneralTester.dll
