@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="HatTrick">
+</Property><Property Name="Solution File" Value="D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\HatTrick.sln">
+</Property><Property Name="User Options File" Value="D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\HatTrick.suo">
+</Property><Property Name="Date" Value="יום שישי 06 מרץ 2009">
+</Property><Property Name="Time" Value="18:26">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="HatTrick.sln" Description="File successfully backed up as D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\2005back\Backup\HatTrick.sln">
+</Event><Event ErrorLevel="0" Project="" Source="HatTrick.suo" Description="File successfully backed up as D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\2005back\Backup\HatTrick.suo">
+</Event><Event ErrorLevel="0" Project="GeneralTester" Source="GeneralTester\GeneralTester.csproj" Description="Project file successfully backed up as D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\2005back\Backup\GeneralTester\GeneralTester.csproj">
+</Event><Event ErrorLevel="0" Project="GeneralTester" Source="GeneralTester\Tester.cs" Description="File successfully backed up as D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\2005back\Backup\GeneralTester\Tester.cs">
+</Event><Event ErrorLevel="0" Project="GeneralTester" Source="GeneralTester\Properties\AssemblyInfo.cs" Description="File successfully backed up as D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\2005back\Backup\GeneralTester\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="GeneralTester" Source="GeneralTester\GeneralTester.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="GeneralTester" Source="GeneralTester\GeneralTester.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Game" Source="Game\Game.csproj" Description="Project file successfully backed up as D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\2005back\Backup\Game\Game.csproj">
+</Event><Event ErrorLevel="0" Project="Game" Source="Game\Game.cs" Description="File successfully backed up as D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\2005back\Backup\Game\Game.cs">
+</Event><Event ErrorLevel="0" Project="Game" Source="Game\Properties\AssemblyInfo.cs" Description="File successfully backed up as D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\2005back\Backup\Game\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="Game" Source="Game\Game.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="Game" Source="Game\Game.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="CommonModel" Source="CommonModel\CommonModel.csproj" Description="Project file successfully backed up as D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\2005back\Backup\CommonModel\CommonModel.csproj">
+</Event><Event ErrorLevel="0" Project="CommonModel" Source="CommonModel\User.cs" Description="File successfully backed up as D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\2005back\Backup\CommonModel\User.cs">
+</Event><Event ErrorLevel="0" Project="CommonModel" Source="CommonModel\Properties\AssemblyInfo.cs" Description="File successfully backed up as D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\2005back\Backup\CommonModel\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="CommonModel" Source="CommonModel\CommonModel.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="CommonModel" Source="CommonModel\CommonModel.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="TextualView" Source="TextualView\TextualView.csproj" Description="Project file successfully backed up as D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\2005back\Backup\TextualView\TextualView.csproj">
+</Event><Event ErrorLevel="0" Project="TextualView" Source="TextualView\Menu.cs" Description="File successfully backed up as D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\2005back\Backup\TextualView\Menu.cs">
+</Event><Event ErrorLevel="0" Project="TextualView" Source="TextualView\Properties\AssemblyInfo.cs" Description="File successfully backed up as D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\2005back\Backup\TextualView\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="TextualView" Source="TextualView\TextualView.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="TextualView" Source="TextualView\TextualView.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DAL" Source="DAL\DAL.csproj" Description="Project file successfully backed up as D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\2005back\Backup\DAL\DAL.csproj">
+</Event><Event ErrorLevel="0" Project="DAL" Source="DAL\DAL.csproj.user" Description="Project user file successfully backed up as D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\2005back\Backup\DAL\DAL.csproj.user">
+</Event><Event ErrorLevel="0" Project="DAL" Source="DAL\DBAccess.cs" Description="File successfully backed up as D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\2005back\Backup\DAL\DBAccess.cs">
+</Event><Event ErrorLevel="0" Project="DAL" Source="DAL\Properties\AssemblyInfo.cs" Description="File successfully backed up as D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\2005back\Backup\DAL\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="DAL" Source="DAL\Properties\Settings.Designer.cs" Description="File successfully backed up as D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\2005back\Backup\DAL\Properties\Settings.Designer.cs">
+</Event><Event ErrorLevel="0" Project="DAL" Source="DAL\Settings.cs" Description="File successfully backed up as D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\2005back\Backup\DAL\Settings.cs">
+</Event><Event ErrorLevel="0" Project="DAL" Source="DAL\app.config" Description="File successfully backed up as D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\2005back\Backup\DAL\app.config">
+</Event><Event ErrorLevel="0" Project="DAL" Source="DAL\Properties\Settings.settings" Description="File successfully backed up as D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\2005back\Backup\DAL\Properties\Settings.settings">
+</Event><Event ErrorLevel="0" Project="DAL" Source="DAL\DAL.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DAL" Source="DAL\DAL.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="MainProgram" Source="MainProgram\MainProgram.csproj" Description="Project file successfully backed up as D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\2005back\Backup\MainProgram\MainProgram.csproj">
+</Event><Event ErrorLevel="0" Project="MainProgram" Source="MainProgram\MainProgram.cs" Description="File successfully backed up as D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\2005back\Backup\MainProgram\MainProgram.cs">
+</Event><Event ErrorLevel="0" Project="MainProgram" Source="MainProgram\Properties\AssemblyInfo.cs" Description="File successfully backed up as D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\2005back\Backup\MainProgram\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="MainProgram" Source="MainProgram\MainProgram.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="MainProgram" Source="MainProgram\MainProgram.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="HatTrick.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="HatTrick.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="GeneralTester" Source="GeneralTester\GeneralTester.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="Game" Source="Game\Game.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="CommonModel" Source="CommonModel\CommonModel.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="TextualView" Source="TextualView\TextualView.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DAL" Source="DAL\DAL.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="MainProgram" Source="MainProgram\MainProgram.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>
