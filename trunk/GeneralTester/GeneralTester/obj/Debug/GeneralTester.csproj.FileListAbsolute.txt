@@ -1,0 +1,15 @@
+D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.dll
+D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.pdb
+D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\CommonModel.dll
+D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\Game.dll
+D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\nunit.framework.dll
+D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\TextualView.dll
+D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\DAL.dll
+D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\CommonModel.pdb
+D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\TextualView.pdb
+D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\Game.pdb
+D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\DAL.pdb
+D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\nunit.framework.xml
+D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\obj\Debug\ResolveAssemblyReference.cache
+D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\obj\Debug\GeneralTester.dll
+D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\obj\Debug\GeneralTester.pdb
