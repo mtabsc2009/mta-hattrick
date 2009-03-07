@@ -42,6 +42,7 @@ namespace HatTrick
         [Test]
         public void TestManageTeam()
         {
+            Game.Login("etay", "etay");
             Assert.IsNotNull(Game.ManageTeam());
         }
     }

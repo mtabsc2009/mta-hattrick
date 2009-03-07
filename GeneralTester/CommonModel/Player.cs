@@ -27,11 +27,11 @@ namespace HatTrick.CommonModel
             set { nAge = value; }
         }
 
-        private int nTeamID;
-        public int TeamID
+        private string strTeamName;
+        public string TeamName
         {
-            get { return nTeamID; }
-            set { nTeamID = value; }
+            get { return strTeamName; }
+            set { strTeamName = value; }
         }
 
         private Consts.PlayerAbilities paKeeperVal;
@@ -94,7 +94,7 @@ namespace HatTrick.CommonModel
         /// Loading an exsisting player
         /// </summary>
         /// <param name="nPlayerID"></param>
-        public Player(int nPlayerID, string strPlayerName, DateTime dtBDate, int nTeamID,
+        public Player(int nPlayerID, string strPlayerName, DateTime dtBDate, string strTeamName,
                         Consts.PlayerAbilities paKeeperVal,
                         Consts.PlayerAbilities paDefendingVal,
                         Consts.PlayerAbilities paPlaymakingVal,
@@ -105,7 +105,7 @@ namespace HatTrick.CommonModel
         {
             this.ID = nPlayerID;
             this.Name = strPlayerName;
-            this.TeamID = nTeamID;
+            this.TeamName = strTeamName;
             this.KeeperVal = paKeeperVal;
             this.DefendingVal = paDefendingVal;
             this.PlaymakingVal = paPlaymakingVal;

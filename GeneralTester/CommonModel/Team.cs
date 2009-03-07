@@ -13,13 +13,6 @@ namespace HatTrick.CommonModel
             set { pPlayers = value; }
         }
 
-        private int nID;
-        public int ID
-        {
-            get { return nID; }
-            set { nID = value; }
-        }
-
         private string strName;
         public string Name
         {
@@ -42,9 +35,8 @@ namespace HatTrick.CommonModel
         }
 
         public Team() { }
-        public Team(int nTeamID, string strTeamName, DateTime dtCreationDate, List<Player> pPlayers, string strOwner)
+        public Team(string strTeamName, DateTime dtCreationDate, List<Player> pPlayers, string strOwner)
         {
-            this.ID = nTeamID;
             this.Name = strTeamName;
             this.CreationDate = dtCreationDate;
             this.Owner = strOwner;
