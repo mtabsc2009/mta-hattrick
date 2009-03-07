@@ -69,6 +69,12 @@ namespace HatTrick.TextualView
             Console.ReadLine();
         }
 
+        public static void ShowCreateNewTeam(out string strTeamName)
+        {
+            Console.WriteLine("Please choose your team name");
+            strTeamName = Console.ReadLine();
+        }
+
         public static void ShowCreateAcouunt(out string strUsername, out string strPassword)
         {
             Console.WriteLine("Welcome to HatTrick!");
