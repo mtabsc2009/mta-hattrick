@@ -9,6 +9,8 @@ namespace HatTrick
     public class Game
     {
         private static User m_usrCurrent = null;
+        private static Team tMyTeam = null;
+        
 
         #region Game Presentation Flow
 
@@ -80,7 +82,7 @@ namespace HatTrick
                 switch (strChoice)
                 {
                     case "1":
-                        Menu.ShowTeamManagement();
+                        ManageTeam();
                         break;
 
                     case "2":
@@ -122,6 +124,19 @@ namespace HatTrick
             return m_usrCurrent;
         }
 
+        public static Team ManageTeam()
+        {
+            if (true)
+            {
+                string strTeamName;
+                Console.Clear();
+                Menu.ShowCreateNewTeam(out strTeamName);
+                DAL.DBAccess.CreateTeam(m_usrCurrent, strTeamName);
+            }
+            Menu.ShowTeamManagement();
+
+            return null;
+        }
         #endregion
     }
 }

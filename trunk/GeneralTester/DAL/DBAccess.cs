@@ -96,5 +96,85 @@ namespace DAL
                 Close();
             }
         }
+
+        public static Team LoadTeam(User usrCurrentUser)
+        {
+            return null;
+        }
+
+        public static Team CreateTeam(User usrCurrentUser, string strTeamName)
+        {
+            OleDbTransaction trTrans;
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+            cmdCommand.CommandText = string.Format(
+            "INSERT INTO Teams(TeamName, Owner, AU_CreationDate) Values(\"{0}\", \"{1}\", \"{2}\")", strTeamName, usrCurrentUser.Username, DateTime.Now);
+
+            Connect();
+            trTrans = m_cnConnection.BeginTransaction();
+            cmdCommand.Transaction = trTrans;
+            try
+            {
+                cmdCommand.ExecuteNonQuery();
+                CreateNewTeamPlayers(strTeamName, trTrans);
+
+                trTrans.Commit();
+                return null;
+            }
+            catch
+            {
+                trTrans.Rollback();
+                return null;
+            }
+            finally
+            {
+                Close();
+            }
+
+        }
+
+        private static void CreateNewTeamPlayers(string strTeamName, OleDbTransaction trCurrTrans)
+        {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+            cmdCommand.Transaction = trCurrTrans;
+
+            for (int nCurrPlayer = 0; nCurrPlayer < 18; nCurrPlayer++)
+            {
+                // Get First Names amount
+                cmdCommand.CommandText = string.Format(
+                "SELECT max(ID) FROM FirstNames");
+                int nFirstNamesAmount = (int)cmdCommand.ExecuteScalar();
+
+                // Get last Names amount
+                cmdCommand.CommandText = string.Format(
+                "SELECT max(ID) FROM LastNames");
+                int nLastNamesAmount = (int)cmdCommand.ExecuteScalar();
+
+                // Get First Name
+                cmdCommand.CommandText = string.Format(
+                "SELECT FirstName FROM FirstNames WHERE id = {0}",  Consts.GameRandom.Next(1,nFirstNamesAmount));
+                string strFirstName = (string)cmdCommand.ExecuteScalar();
+
+                // Get Last Name
+                cmdCommand.CommandText = string.Format(
+                "SELECT LastName FROM LastNames WHERE id = {0}", Consts.GameRandom.Next(1, nLastNamesAmount));
+                string strLastName = (string)cmdCommand.ExecuteScalar();
+
+                DateTime dtBDate = new DateTime(DateTime.Now.Year - Consts.GameRandom.Next(18, 30),
+                    Consts.GameRandom.Next(1, 12),
+                    Consts.GameRandom.Next(1, 28));
+
+                cmdCommand.CommandText = string.Format(
+                "INSERT INTO Players(PlayerName, Birth_date, KeeperSkill, DefendingSkill, PlaymakingSkill, WingerSkill, " +
+                "PassingSkill, ScoringSkill, SetPiecesSkill, PlayerTeam)" +
+                "Values(\"{0} {1}\", \"{2}\", \"{3}\", \"{4}\", \"{5}\", \"{6}\", \"{7}\", \"{8}\", \"{9}\", \"{10}\")",
+                strFirstName, strLastName, dtBDate.ToShortDateString(), Consts.GameRandom.Next(1, 4), Consts.GameRandom.Next(1, 4),
+                Consts.GameRandom.Next(1, 4), Consts.GameRandom.Next(1, 4), Consts.GameRandom.Next(1, 4), Consts.GameRandom.Next(1, 4),
+                Consts.GameRandom.Next(1, 4), strTeamName);
+
+                cmdCommand.ExecuteNonQuery();
+            }
+        }
+
     }
 }

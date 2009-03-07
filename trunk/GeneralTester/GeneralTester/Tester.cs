@@ -38,5 +38,11 @@ namespace HatTrick
             Game.Reset();
             Assert.IsTrue(Game.CreateUser("DebugUser", "DebugUser"));
         }
+
+        [Test]
+        public void TestManageTeam()
+        {
+            Assert.IsNotNull(Game.ManageTeam());
+        }
     }
 }
