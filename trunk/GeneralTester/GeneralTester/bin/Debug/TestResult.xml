@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!--This file represents the results of running a test suite-->
-<test-results name="D:\winutils\University\SoftwareDev\פרויקט סיכום\hattrick-mta\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.dll" total="5" failures="0" not-run="0" date="2009-03-08" time="02:01:25">
+<test-results name="D:\winutils\University\SoftwareDev\פרויקט סיכום\hattrick-mta\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.dll" total="5" failures="0" not-run="0" date="2009-03-08" time="02:21:09">
   <environment nunit-version="2.4.8.0" clr-version="2.0.50727.1433" os-version="Microsoft Windows NT 6.0.6000.0" platform="Win32NT" cwd="C:\Program Files\NUnit 2.4.8\bin" machine-name="ETAYLAP" user="EtayAdmin" user-domain="EtayLap" />
   <culture-info current-culture="he-IL" current-uiculture="en-US" />
-  <test-suite name="D:\winutils\University\SoftwareDev\פרויקט סיכום\hattrick-mta\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.dll" success="True" time="1.030" asserts="0">
+  <test-suite name="D:\winutils\University\SoftwareDev\פרויקט סיכום\hattrick-mta\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.dll" success="True" time="1.014" asserts="0">
     <results>
-      <test-suite name="HatTrick" success="True" time="1.030" asserts="0">
+      <test-suite name="HatTrick" success="True" time="0.983" asserts="0">
         <results>
-          <test-suite name="GeneralTester" success="True" time="1.014" asserts="0">
+          <test-suite name="GeneralTester" success="True" time="0.967" asserts="0">
             <results>
-              <test-case name="HatTrick.GeneralTester.TestLoadTeam" executed="True" success="True" time="0.608" asserts="2" />
-              <test-case name="HatTrick.GeneralTester.TestUserCreationFailure" executed="True" success="True" time="0.187" asserts="1" />
+              <test-case name="HatTrick.GeneralTester.TestLoadTeam" executed="True" success="True" time="0.530" asserts="2" />
+              <test-case name="HatTrick.GeneralTester.TestUserCreationFailure" executed="True" success="True" time="0.203" asserts="1" />
               <test-case name="HatTrick.GeneralTester.TestUserCreationSuccess" executed="True" success="True" time="0.094" asserts="1" />
               <test-case name="HatTrick.GeneralTester.TestUserLoginFailure" executed="True" success="True" time="0.047" asserts="1" />
               <test-case name="HatTrick.GeneralTester.TestUserLoginSuccess" executed="True" success="True" time="0.047" asserts="2" />
