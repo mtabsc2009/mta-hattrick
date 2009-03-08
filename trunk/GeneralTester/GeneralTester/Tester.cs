@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
 using HatTrick.CommonModel;
+using DAL;
 
 namespace HatTrick
 {
@@ -40,10 +41,12 @@ namespace HatTrick
         }
 
         [Test]
-        public void TestManageTeam()
+        public void TestLoadTeam()
         {
+            Assert.IsNull(DBAccess.LoadTeam(Game.User));
             Game.Login("etay", "etay");
-            Assert.IsNotNull(Game.ManageTeam());
+            Assert.IsNotNull(DBAccess.LoadTeam(Game.User));
+            
         }
     }
 }

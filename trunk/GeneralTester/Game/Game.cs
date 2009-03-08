@@ -9,6 +9,11 @@ namespace HatTrick
     public class Game
     {
         private static User m_usrCurrent = null;
+
+        public static User User
+        {
+            get { return Game.m_usrCurrent; }
+        }
         private static Team tMyTeam = null;
         
 

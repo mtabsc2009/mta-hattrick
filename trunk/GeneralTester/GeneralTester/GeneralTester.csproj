@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.50727</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{4E9FBB31-45ED-4EF6-A827-CAE01BEA7BA4}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -48,6 +48,10 @@
     <ProjectReference Include="..\CommonModel\CommonModel.csproj">
       <Project>{AC139903-5638-44D4-8A17-0C94A11D33AF}</Project>
       <Name>CommonModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{B4A3CBCF-1C62-448A-A071-D2AF9F25387B}</Project>
+      <Name>DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Game\Game.csproj">
       <Project>{78DF7BB6-75F8-4204-B3B1-FE80D1209C7E}</Project>

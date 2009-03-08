@@ -101,16 +101,15 @@ namespace DAL
         {
             OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
 
-            cmdCommand.CommandText = string.Format(
-            "SELECT * FROM Teams WHERE Owner = \"{0}\"", usrCurrentUser.Username);
             Connect();
             try
             {
+                cmdCommand.CommandText = string.Format(
+                "SELECT * FROM Teams WHERE Owner = \"{0}\"", usrCurrentUser.Username);
                 OleDbDataReader drTeam;
                 drTeam = cmdCommand.ExecuteReader();
                 drTeam.Read();
                 return(new Team(drTeam["TeamName"].ToString(), (DateTime)drTeam["AU_CreationDate"], LoadPlayers(drTeam["TeamName"].ToString()), usrCurrentUser.Username));
-                
             }
             catch
             {
@@ -127,13 +126,15 @@ namespace DAL
             OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
             List<Player> pPlayers = new List<Player>();
 
-            cmdCommand.CommandText = string.Format(
-            "SELECT * FROM Players WHERE PlayerTeam = \"{0}\"", strTeamName);
-            Connect();
             try
             {
+                cmdCommand.CommandText = string.Format(
+                "SELECT * FROM Players WHERE PlayerTeam = \"{0}\"", strTeamName);
+                Connect();
                 OleDbDataReader drPlayers; 
+                    
                 drPlayers = cmdCommand.ExecuteReader();
+                
                 while (drPlayers.Read())
                 {
                     Player pCurrPlayer = new Player(int.Parse(drPlayers["PlayerID"].ToString()), drPlayers["PlayerName"].ToString(),
@@ -161,6 +162,44 @@ namespace DAL
             }            
         }
 
+        private static List<Player> LoadPlayers(string strTeamName, OleDbTransaction trTrans)
+        {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+            List<Player> pPlayers = new List<Player>();
+            
+            try
+            {
+                Connect();
+                cmdCommand.Transaction = trTrans;
+                cmdCommand.CommandText = string.Format(
+                "SELECT * FROM Players WHERE PlayerTeam = \"{0}\"", strTeamName);
+                OleDbDataReader drPlayers;
+
+                drPlayers = cmdCommand.ExecuteReader();
+
+                while (drPlayers.Read())
+                {
+                    Player pCurrPlayer = new Player(int.Parse(drPlayers["PlayerID"].ToString()), drPlayers["PlayerName"].ToString(),
+                    Convert.ToDateTime(drPlayers["Birth_date"]),
+                    strTeamName,
+                    ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["KeeperSkill"].ToString())))),
+                    ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["DefendingSkill"].ToString())))),
+                    ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["PlaymakingSkill"].ToString())))),
+                    ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["WingerSkill"].ToString())))),
+                    ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["PassingSkill"].ToString())))),
+                    ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["ScoringSkill"].ToString())))),
+                    ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["SetPiecesSkill"].ToString())))));
+                    pPlayers.Add(pCurrPlayer);
+                }
+                return (pPlayers);
+
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public static Team CreateTeam(User usrCurrentUser, string strTeamName)
         {
             OleDbTransaction trTrans;
@@ -177,7 +216,7 @@ namespace DAL
                 cmdCommand.ExecuteNonQuery();
                 CreateNewTeamPlayers(strTeamName, trTrans);
 
-                Team tmMyTeam = new Team(strTeamName, dtCurrDate, LoadPlayers(strTeamName), usrCurrentUser.Username);
+                Team tmMyTeam = new Team(strTeamName, dtCurrDate, LoadPlayers(strTeamName,trTrans), usrCurrentUser.Username);
 
                 trTrans.Commit();
                 return tmMyTeam;
