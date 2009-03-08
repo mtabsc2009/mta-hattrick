@@ -206,7 +206,7 @@ namespace DAL
             OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
             DateTime dtCurrDate = DateTime.Now;
             cmdCommand.CommandText = string.Format(
-            "INSERT INTO Teams(TeamName, Owner, AU_CreationDate) Values(\"{0}\", \"{1}\", \"{2}\")", strTeamName, usrCurrentUser.Username, dtCurrDate.ToLongTimeString());
+            "INSERT INTO Teams(TeamName, Owner, AU_CreationDate) Values(\"{0}\", \"{1}\", \"{2}\")", strTeamName, usrCurrentUser.Username, dtCurrDate.ToString());
 
             Connect();
             trTrans = m_cnConnection.BeginTransaction();
