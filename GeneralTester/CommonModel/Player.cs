@@ -83,6 +83,14 @@ namespace HatTrick.CommonModel
             set { paSetPiecesVal = value; }
         }
 
+        private int nPosition;
+        public int Position
+        {
+            get { return nPosition; }
+            set { nPosition = value; }
+        }
+
+
         /// <summary>
         /// Empty - to create a new player
         /// </summary>
@@ -101,7 +109,8 @@ namespace HatTrick.CommonModel
                         Consts.PlayerAbilities paWingerVal,
                         Consts.PlayerAbilities paPassingVal,
                         Consts.PlayerAbilities paScoringVal,
-                        Consts.PlayerAbilities paSetPiecesVal)
+                        Consts.PlayerAbilities paSetPiecesVal,
+                        int nPlayerPosition)
         {
             this.ID = nPlayerID;
             this.Name = strPlayerName;
@@ -113,6 +122,7 @@ namespace HatTrick.CommonModel
             this.PassingVal = paPassingVal;
             this.ScoringVal = paScoringVal;
             this.SetPiecesVal = paSetPiecesVal;
+            this.Position = nPlayerPosition;
 
             DateTime comparisonDate = new DateTime(dtBDate.Year, DateTime.Now.Month, DateTime.Now.Day);
 

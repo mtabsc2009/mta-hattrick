@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data.OleDb;
 using HatTrick.CommonModel;
+using System.Data;
 
 namespace DAL
 {
@@ -109,7 +110,8 @@ namespace DAL
                 OleDbDataReader drTeam;
                 drTeam = cmdCommand.ExecuteReader();
                 drTeam.Read();
-                return(new Team(drTeam["TeamName"].ToString(), (DateTime)drTeam["AU_CreationDate"], LoadPlayers(drTeam["TeamName"].ToString()), usrCurrentUser.Username));
+                string strFormation = drTeam["TeamPos"].ToString();
+                return(new Team(drTeam["TeamName"].ToString(), (DateTime)drTeam["AU_CreationDate"], LoadPlayers(drTeam["TeamName"].ToString()), usrCurrentUser.Username, strFormation));
             }
             catch
             {
@@ -146,7 +148,7 @@ namespace DAL
                     ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["WingerSkill"].ToString())))),
                     ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["PassingSkill"].ToString())))),
                     ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["ScoringSkill"].ToString())))),
-                    ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["SetPiecesSkill"].ToString())))));
+                    ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["SetPiecesSkill"].ToString())))), int.Parse(drPlayers["PlayerPos"].ToString()));
                     pPlayers.Add(pCurrPlayer);
                 }
                 return (pPlayers);
@@ -188,8 +190,9 @@ namespace DAL
                     ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["WingerSkill"].ToString())))),
                     ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["PassingSkill"].ToString())))),
                     ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["ScoringSkill"].ToString())))),
-                    ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["SetPiecesSkill"].ToString())))));
+                    ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["SetPiecesSkill"].ToString())))),int.Parse(drPlayers["PlayerPos"].ToString()));
                     pPlayers.Add(pCurrPlayer);
+
                 }
                 return (pPlayers);
 
@@ -206,7 +209,7 @@ namespace DAL
             OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
             DateTime dtCurrDate = DateTime.Now;
             cmdCommand.CommandText = string.Format(
-            "INSERT INTO Teams(TeamName, Owner, AU_CreationDate) Values(\"{0}\", \"{1}\", \"{2}\")", strTeamName, usrCurrentUser.Username, dtCurrDate.ToString());
+            "INSERT INTO Teams(TeamName, Owner, AU_CreationDate, TeamPos) Values(\"{0}\", \"{1}\", \"{2}\", \"{3}\")", strTeamName, usrCurrentUser.Username, dtCurrDate.ToString(), "4-4-2");
 
             Connect();
             trTrans = m_cnConnection.BeginTransaction();
@@ -216,7 +219,7 @@ namespace DAL
                 cmdCommand.ExecuteNonQuery();
                 CreateNewTeamPlayers(strTeamName, trTrans);
 
-                Team tmMyTeam = new Team(strTeamName, dtCurrDate, LoadPlayers(strTeamName,trTrans), usrCurrentUser.Username);
+                Team tmMyTeam = new Team(strTeamName, dtCurrDate, LoadPlayers(strTeamName,trTrans), usrCurrentUser.Username,"4-4-2");
 
                 trTrans.Commit();
                 return tmMyTeam;
@@ -230,7 +233,6 @@ namespace DAL
             {
                 Close();
             }
-
         }
 
         private static void CreateNewTeamPlayers(string strTeamName, OleDbTransaction trCurrTrans)
@@ -265,15 +267,87 @@ namespace DAL
                     Consts.GameRandom.Next(1, 28));
 
                 cmdCommand.CommandText = string.Format(
-                "INSERT INTO Players(PlayerName, Birth_date, KeeperSkill, DefendingSkill, PlaymakingSkill, WingerSkill, " +
-                "PassingSkill, ScoringSkill, SetPiecesSkill, PlayerTeam)" +
-                "Values(\"{0} {1}\", \"{2}\", \"{3}\", \"{4}\", \"{5}\", \"{6}\", \"{7}\", \"{8}\", \"{9}\", \"{10}\")",
+                "INSERT INTO Players " +
+                "(PlayerName, Birth_date, KeeperSkill, DefendingSkill, PlaymakingSkill, WingerSkill, " +
+                "PassingSkill, ScoringSkill, SetPiecesSkill, PlayerTeam, PlayerPos) " +
+                "Values(\"{0} {1}\", \"{2}\", \"{3}\", \"{4}\", \"{5}\", \"{6}\", \"{7}\", \"{8}\", \"{9}\", \"{10}\", \"{11}\")",
                 strFirstName, strLastName, dtBDate.ToShortDateString(), Consts.GameRandom.Next(1, 4), Consts.GameRandom.Next(1, 4),
                 Consts.GameRandom.Next(1, 4), Consts.GameRandom.Next(1, 4), Consts.GameRandom.Next(1, 4), Consts.GameRandom.Next(1, 4),
-                Consts.GameRandom.Next(1, 4), strTeamName);
+                Consts.GameRandom.Next(1, 4), strTeamName, nCurrPlayer + 1);
 
                 cmdCommand.ExecuteNonQuery();
             }
+        }
+
+        public static void UpdatePlayerPosition(Player plrToUpdate)
+        {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+            try
+            {
+                Connect();
+                cmdCommand.CommandText = string.Format("UPDATE players SET PlayerPos = {0} WHERE players.PlayerID = {1}", plrToUpdate.Position, plrToUpdate.ID);
+                cmdCommand.ExecuteNonQuery();
+            }
+            finally
+            {
+                Close();
+            }
+        }
+
+        public static bool DoesTeamExist(string strTeamName)
+        {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+            try
+            {
+                Connect();
+                cmdCommand.CommandText = string.Format("SELECT count(*) from teams where teamname = \"{0}\"", strTeamName);
+                int nCount = int.Parse(cmdCommand.ExecuteScalar().ToString());
+
+                return (nCount == 1);
+            }
+            finally
+            {
+                Close();
+            }
+        }
+
+        public static DataRowCollection GetFormations()
+        {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+            try
+            {
+                Connect();
+                cmdCommand.CommandText = string.Format("SELECT PosDisplay from positions");
+                DataTable dtNew = new DataTable();
+                OleDbDataAdapter oldba = new OleDbDataAdapter(cmdCommand);
+                oldba.Fill(dtNew);
+
+                return dtNew.Rows;
+            }
+            finally
+            {
+                Close();
+            }
+        }
+
+        public static void ChangeTeamFormation(Team tmToChange, string strNewFormation)
+        {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+            try
+            {
+                Connect();
+                cmdCommand.CommandText = string.Format("UPDATE teams SET teampos = \"{0}\" WHERE teamname = \"{1}\"", strNewFormation, tmToChange.Name);
+                cmdCommand.ExecuteNonQuery();
+            }
+            finally
+            {
+                Close();
+            }
+
         }
 
     }
