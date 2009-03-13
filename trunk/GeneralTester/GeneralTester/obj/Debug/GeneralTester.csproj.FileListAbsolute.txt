@@ -28,3 +28,18 @@ D:\winutils\University\SoftwareDev\פרויקט סיכום\hattrick-mta\mta-hatt
 D:\winutils\University\SoftwareDev\פרויקט סיכום\hattrick-mta\mta-hattrick\GeneralTester\GeneralTester\obj\Debug\ResolveAssemblyReference.cache
 D:\winutils\University\SoftwareDev\פרויקט סיכום\hattrick-mta\mta-hattrick\GeneralTester\GeneralTester\obj\Debug\GeneralTester.dll
 D:\winutils\University\SoftwareDev\פרויקט סיכום\hattrick-mta\mta-hattrick\GeneralTester\GeneralTester\obj\Debug\GeneralTester.pdb
+D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.pdb
+D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\CommonModel.dll
+D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\DAL.dll
+D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\Game.dll
+D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\TextualView.dll
+D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\CommonModel.pdb
+D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\TextualView.pdb
+D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\DAL.pdb
+D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\Game.pdb
+D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\nunit.framework.xml
+D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\obj\Debug\ResolveAssemblyReference.cache
+D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\obj\Debug\GeneralTester.pdb
+D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\nunit.framework.dll
+D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.exe
+D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\obj\Debug\GeneralTester.exe

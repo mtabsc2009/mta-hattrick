@@ -20,6 +20,13 @@ namespace HatTrick.CommonModel
             set { strName = value; }
         }
 
+        private string strFormation;
+        public string Formation
+        {
+            get { return strFormation; }
+            set { strFormation = value; }
+        }
+
         private string strOwner;
         public string Owner
         {
@@ -35,12 +42,13 @@ namespace HatTrick.CommonModel
         }
 
         public Team() { }
-        public Team(string strTeamName, DateTime dtCreationDate, List<Player> pPlayers, string strOwner)
+        public Team(string strTeamName, DateTime dtCreationDate, List<Player> pPlayers, string strOwner, string strNewFor)
         {
             this.Name = strTeamName;
             this.CreationDate = dtCreationDate;
             this.Owner = strOwner;
             this.Players = pPlayers;
+            this.strFormation = strNewFor;
         }
     }
 }
