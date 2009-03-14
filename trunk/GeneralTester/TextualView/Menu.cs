@@ -257,5 +257,108 @@ namespace HatTrick.TextualView
                 Console.Write(" ");
             }
         }
+
+        public static string ShowLeague(User m_usrCurrent)
+        {
+            Console.WriteLine("Welcome to your league:");
+            Console.WriteLine("-------------------------");
+            Console.WriteLine("Select your choice:");
+            Console.WriteLine(" 1. Match 2 Teams");
+            Console.WriteLine(" 2. Exit");
+
+            string strChoice = string.Empty;
+            strChoice = Console.ReadLine();
+            while (strChoice != "1" && strChoice != "2")// && strChoice != "3" && strChoice != "4" && strChoice != "5")
+            {
+                Console.WriteLine("Invalid choice, choose again:");
+                strChoice = Console.ReadLine();
+            }
+
+            return strChoice;
+
+        }
+
+        public static void ShowStartMatch(out string strHomeTeam, out string strAwayTeam)
+        {
+            Console.WriteLine("Chose the two team names:");
+            Console.WriteLine("-------------------------");
+
+            Console.WriteLine("Enter home team:");
+            strHomeTeam = GetNoneEmptyString();
+            Console.WriteLine("Enter away team:");
+            strAwayTeam = GetNoneEmptyString();
+        }
+
+        private static string GetNoneEmptyString()
+        {
+            string strReturn = string.Empty;
+            while (strReturn == string.Empty)
+            {
+                strReturn = Console.ReadLine();
+            }
+            return strReturn;
+        }
+
+        public static void ShowGameStory(GameStory gsGameStory)
+        {
+            Console.Clear();
+            Console.WriteLine("Game Summary");
+            Console.WriteLine("---------------------------------");
+            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-us");
+            Console.WriteLine(string.Format("{0} hosted the game against {1} at {2}",
+                gsGameStory.HomeTeam.Team.Name, gsGameStory.AwayTeam.Team.Name, gsGameStory.GameDate.ToLongDateString()));
+            Console.WriteLine("{0} sport's fans watched the game in a {1} weather", gsGameStory.Watchers, gsGameStory.Weather);
+            Console.WriteLine("");
+            Console.WriteLine(string.Format("{0} played the game with {1} formation playing mostly through the {2}",
+                gsGameStory.HomeTeam.Team.Name, gsGameStory.HomeTeam.Formation, 
+                (gsGameStory.HomeTeam.IsTeamMiddleMethod == true ? "Middle Field" : "Wings")));
+
+            Console.WriteLine(string.Format("visitors {0} chose the {1} formation using the {2}",
+                gsGameStory.AwayTeam.Team.Name, gsGameStory.AwayTeam.Formation,
+                (gsGameStory.AwayTeam.IsTeamMiddleMethod == true ? "Middle Field" : "Wings")));
+
+            if (gsGameStory.Winner == null)
+            {
+                string strDesc = "a";
+                if (gsGameStory.HomeScore <= 1) strDesc = "a boring";
+                else if (gsGameStory.HomeScore > 2) strDesc = "a dramatic";
+                Console.WriteLine("The game ended with {0} tie of {1} each.",strDesc, gsGameStory.HomeScore);
+            }
+            else
+            {
+                string strDesc = "a";
+                int nDiff = Math.Abs(gsGameStory.HomeScore - gsGameStory.AwayScore);
+                if ( nDiff == 1) strDesc = "a close";
+                else if (nDiff > 2) strDesc = "a staggering";
+
+                Console.WriteLine("{0} won the game with {1} score of {2}-{3}", gsGameStory.Winner, strDesc, gsGameStory.HomeScore, gsGameStory.AwayScore);
+            }
+
+            Console.WriteLine("Game Events:");
+            Console.WriteLine("-----------------------------------:");
+            foreach (GameEvent evtCurr in gsGameStory.GameEvents)
+            {
+                if (evtCurr is ScoreEvent)
+                {
+                    if ((evtCurr as ScoreEvent).bShowInSummary)
+                    {
+                        Console.WriteLine(evtCurr.ToString());
+                    }
+                }
+                else
+                {
+                    Console.WriteLine(evtCurr.ToString());
+                }
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Press ENTER to return...");
+            Console.ReadLine();
+        }
+
+        public static void ShowMatchError()
+        {
+            Console.WriteLine("There has been an error starting the match.");
+        }
     }
 }

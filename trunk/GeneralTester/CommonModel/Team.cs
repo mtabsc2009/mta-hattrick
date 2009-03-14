@@ -21,10 +21,18 @@ namespace HatTrick.CommonModel
         }
 
         private string strFormation;
+        private TeamFormation m_tfTeamFormation;
         public string Formation
         {
             get { return strFormation; }
-            set { strFormation = value; }
+            set 
+            { 
+                strFormation = value;
+                if (strFormation != string.Empty)
+                {
+                    m_tfTeamFormation = new TeamFormation(value);
+                }
+            }
         }
 
         private string strOwner;
@@ -49,6 +57,39 @@ namespace HatTrick.CommonModel
             this.Owner = strOwner;
             this.Players = pPlayers;
             this.strFormation = strNewFor;
+        }
+        public override string ToString()
+        {
+            return this.Name;
+        }
+    }
+
+    public class TeamFormation
+    {
+        public int Defence;
+        public int MiddleField;
+        public int Offence;
+
+        public TeamFormation(string strFormation)
+        {
+            try
+            {
+                string[] strFormations = strFormation.Split('-');
+                Defence = int.Parse(strFormations[0]);
+                MiddleField = int.Parse(strFormations[1]);
+                Offence = int.Parse(strFormations[2]);
+            }
+            catch
+            {
+                Defence = 4;
+                MiddleField = 4;
+                Offence = 2;
+
+            }
+        }
+        public override string ToString()
+        {
+            return string.Format("{0}-{1}-{2}", Defence, MiddleField, Offence);
         }
     }
 }
