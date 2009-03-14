@@ -113,5 +113,17 @@ namespace HatTrick
             Assert.AreEqual(tMyTeam.Formation, "4-3-3");
 
         }
+
+        [Test]
+        public void MatchTeamsSuccessfully()
+        {
+            Assert.IsNotNull(Game.MatchTeams("oron", "Monery"));
+        }
+
+        [Test]
+        public void MatchTeamsFailure()
+        {
+            Assert.IsNull(Game.MatchTeams("oron1", "Monery"));
+        }
     }
 }

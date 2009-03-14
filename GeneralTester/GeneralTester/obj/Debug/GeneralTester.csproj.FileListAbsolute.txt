@@ -1,4 +1,3 @@
-D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.dll
 D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.pdb
 D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\CommonModel.dll
 D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\Game.dll
@@ -11,7 +10,6 @@ D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\m
 D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\DAL.pdb
 D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\nunit.framework.xml
 D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\obj\Debug\ResolveAssemblyReference.cache
-D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\obj\Debug\GeneralTester.dll
 D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\obj\Debug\GeneralTester.pdb
 D:\winutils\University\SoftwareDev\פרויקט סיכום\hattrick-mta\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.dll
 D:\winutils\University\SoftwareDev\פרויקט סיכום\hattrick-mta\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.pdb
@@ -43,3 +41,5 @@ D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\obj\Debug\GeneralTester.pd
 D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\nunit.framework.dll
 D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.exe
 D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\obj\Debug\GeneralTester.exe
+D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.exe
+D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\obj\Debug\GeneralTester.exe

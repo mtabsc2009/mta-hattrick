@@ -92,20 +92,51 @@ namespace HatTrick
                         ManageTeam();
                         break;
 
-                    case "2":
+                    case "2": // check games
                         Console.WriteLine("These functions arent available yet..");
                         Console.WriteLine("Press enter to return");
                         Console.ReadLine();
                         break;
 
-                    case "3":
-                        Console.WriteLine("These functions arent available yet..");
-                        Console.WriteLine("Press enter to return");
-                        Console.ReadLine();
+                    case "3": // league
+                        HandleLeague();
                         break;
                 }
                 Console.Clear();
                 strChoice = Menu.ShowWelcome(m_usrCurrent);
+            }
+        }
+
+        private static void HandleLeague()
+        {
+            Console.Clear();
+            string strChoice = Menu.ShowLeague(m_usrCurrent);
+            while (strChoice != "2")
+            {
+                switch (strChoice)
+                {
+                    case "1":
+                        StartMatch();
+                        break;
+                }
+                Console.Clear();
+                strChoice = Menu.ShowLeague(m_usrCurrent);
+            }
+        }
+
+        private static void StartMatch()
+        {
+            string strHomeTeam, strAwayTeam;
+            Console.Clear();
+            Menu.ShowStartMatch(out strHomeTeam, out strAwayTeam);
+            GameStory gsGameStory = Game.MatchTeams(strHomeTeam, strAwayTeam);
+            if (gsGameStory != null)
+            {
+                Menu.ShowGameStory(gsGameStory);
+            }
+            else
+            {
+                Menu.ShowMatchError();
             }
         }
 
@@ -411,6 +442,318 @@ namespace HatTrick
                 Console.WriteLine();
             }
         }
+
+        public static GameStory MatchTeams(string strHomeTeam, string strAwayTeam)
+        {
+            GameStory gsGameStory = null;
+            Team tmHomeTeam, tmAwayTeam;
+
+            tmAwayTeam = DAL.DBAccess.LoadTeam(strAwayTeam);
+            tmHomeTeam = DAL.DBAccess.LoadTeam(strHomeTeam);
+
+            // Teams are OK
+            if ((tmHomeTeam != null) && (tmAwayTeam != null))
+            {
+                // Set Teams
+                gsGameStory = new GameStory();
+                gsGameStory.AwayTeam.Team = tmAwayTeam;
+                gsGameStory.HomeTeam.Team = tmHomeTeam;
+
+                // Set General Data
+                GameStorySetWatchers(gsGameStory);
+                GameStorySetWeather(gsGameStory);
+                GameStorySetTeamFormation(gsGameStory, tmHomeTeam, tmAwayTeam);
+                GameStorySetTeamFormationMethod(gsGameStory, tmHomeTeam, tmAwayTeam);
+
+                // Create events
+                int nTotalEvents = Consts.GameRandom.Next(GameStory.MinEvents, GameStory.MaxEvents);
+                int nHomeTeamEvents = CalculateHomeTeamEvents(gsGameStory, nTotalEvents);
+                gsGameStory.TotalEvents = nTotalEvents;
+                gsGameStory.HomeTeamEvents = nHomeTeamEvents;
+                GameStoryCreateEvents(gsGameStory);
+                GameStoryDetermineScore(gsGameStory);
+            }
+            
+            return gsGameStory;
+        }
+
+        private static void GameStoryDetermineScore(GameStory gsGameStory)
+        {
+            foreach (GameEvent evtCurr in gsGameStory.GameEvents)
+            {
+                if (evtCurr is ScoreEvent)
+                {
+                    if (evtCurr.teamAttacking.Name == gsGameStory.HomeTeam.Team.Name)
+                    {
+                        gsGameStory.HomeScore++;
+                    }
+                    else
+                    {
+                        gsGameStory.AwayScore++;
+                    }
+                }
+            }
+        }
+
+        private static void GameStoryCreateEvents(GameStory gsGameStory)
+        {
+            int nCurrNumOfEvents = gsGameStory.HomeTeamEvents;
+            TeamGameData datCurrTeam = gsGameStory.HomeTeam;
+
+            GameStoryClacPowers(gsGameStory.HomeTeam);
+            GameStoryClacPowers(gsGameStory.AwayTeam);
+
+            GameStoryCreateEventsForTeam(gsGameStory, gsGameStory.HomeTeam, gsGameStory.AwayTeam, gsGameStory.HomeTeamEvents);
+            GameStoryCreateEventsForTeam(gsGameStory, gsGameStory.AwayTeam, gsGameStory.HomeTeam, gsGameStory.AwayTeamEvents);
+        }
+
+        private static void GameStoryClacPowers(TeamGameData teamGameData)
+        {
+            Player pCurrPlayer = ((Player)(teamGameData.Team.Players.Where(T => T.Position == 1)).First());
+            teamGameData.KeepingGrade = (int)pCurrPlayer.KeeperVal;
+
+            for (int i = 2; i <= teamGameData.Formation.Defence + 1; i++)
+            {
+                pCurrPlayer = ((Player)(teamGameData.Team.Players.Where(T => T.Position == i)).First());
+                teamGameData.DefenceGrade += (int)pCurrPlayer.DefendingVal;
+            }
+
+            // Clac Kishur
+            /*for (int i = nDefence + 2; i <= nMidField + nDefence + 1; i++)
+            {
+                pCurrPlayer = ((Player)(teamGameData.Players.Where(T => T.Position == i)).First());
+                
+            }*/
+
+            for (int i = teamGameData.Formation.MiddleField + teamGameData.Formation.Defence + 2; i <= 11; i++)
+            {
+                pCurrPlayer = ((Player)(teamGameData.Team.Players.Where(T => T.Position == i)).First());
+                teamGameData.OffenceGrade += (int)pCurrPlayer.ScoringVal;
+            }
+
+
+            for (int i = 1; i <= 11; i++)
+            {
+                pCurrPlayer = ((Player)(teamGameData.Team.Players.Where(T => T.Position == i)).First());
+                teamGameData.SetPiecesGrade = Math.Max((int)pCurrPlayer.SetPiecesVal, teamGameData.SetPiecesGrade);
+            }
+
+        }
+
+        private static void GameStoryCreateEventsForTeam(GameStory gsGameStory, TeamGameData datAttackingTeam, TeamGameData datDefendingTeam, int nNumOfEvents)
+        {
+            for (int i = 1; i <= nNumOfEvents; i++)
+            {
+                GameEvent evtMain = GameStoryCreateMainEvent(gsGameStory, datAttackingTeam, datDefendingTeam);
+                gsGameStory.AddEvent(evtMain);
+            }
+        }
+
+        private static GameEvent GameStoryCreateMainEvent(GameStory gsGameStory, TeamGameData datAttackingTeam, TeamGameData datDefendingTeam)
+        {
+            int nAttackGrade = datAttackingTeam.OffenceGrade * 1;
+            int nDefenceGrade = datDefendingTeam.DefenceGrade * 3;
+
+            bool bIsAttackBetter = nAttackGrade > nDefenceGrade;
+            int nTotalGrades = nAttackGrade + nDefenceGrade;
+            float fRatio = !bIsAttackBetter ? (float)nAttackGrade / nTotalGrades : (float)nDefenceGrade / nTotalGrades;
+            fRatio *= (float)0.6;
+            GameEvent evtNewEvent;
+
+            fRatio *= 100;
+            int nEventRnd = Consts.GameRandom.Next(1, 100);
+            
+            if (bIsAttackBetter)
+            {
+                // Defence < 50 = ratio
+                if (nEventRnd <= fRatio)
+                {
+                    int nMissedRnd = Consts.GameRandom.Next(1, 100);
+                    if (nMissedRnd <= 40)
+                    {
+                        evtNewEvent = GameStoryCreateFailedEvent(gsGameStory, datAttackingTeam, datDefendingTeam, (int)fRatio);
+                    }
+                    else
+                    {
+                        evtNewEvent = GameStoryCreateFouledEvent(gsGameStory, datAttackingTeam, datDefendingTeam);
+                    }
+                }
+                else
+                {
+                    evtNewEvent = new ScoreEvent(datAttackingTeam.Team, true);
+                }
+            }
+            else
+            {
+                // attack < 50 = ratio
+                if (nEventRnd <= fRatio)
+                {
+                    evtNewEvent = new ScoreEvent(datAttackingTeam.Team, true);
+                }
+                else
+                {
+                    int nMissedRnd = Consts.GameRandom.Next(1, 100);
+                    if (nMissedRnd <= 40)
+                    {
+                        evtNewEvent = GameStoryCreateFouledEvent(gsGameStory, datAttackingTeam, datDefendingTeam);
+                    }
+                    else
+                    {
+                        evtNewEvent = GameStoryCreateFailedEvent(gsGameStory, datAttackingTeam, datDefendingTeam, (int)(100 - fRatio));
+                    }
+                }                
+            }
+            return evtNewEvent;
+        }
+
+        private static GameEvent GameStoryCreateFouledEvent(GameStory gsGameStory, TeamGameData datAttackingTeam, TeamGameData datDefendingTeam)
+        {
+            FouledEvent evtFoul;
+            int nMissedRnd = Consts.GameRandom.Next(1, 100);
+            if (nMissedRnd <= 10)
+            {
+                evtFoul = new PaneltyEvent(datAttackingTeam.Team);
+                int nCardRnd = Consts.GameRandom.Next(1, 100);
+                evtFoul.ptCard = nCardRnd <= 10 ? PaneltyCard.ptRed : PaneltyCard.ptYellow;
+
+                int nTotalChance = 9*datAttackingTeam.SetPiecesGrade + datDefendingTeam.KeepingGrade;
+                bool bAttackIsBetter = 9*datAttackingTeam.SetPiecesGrade > datDefendingTeam.KeepingGrade;
+                float fRatio = bAttackIsBetter ? (float)(9 * datAttackingTeam.SetPiecesGrade) / nTotalChance : (float)datDefendingTeam.KeepingGrade / nTotalChance;
+                int nScoreRnd = Consts.GameRandom.Next(1, nTotalChance);
+
+                if (bAttackIsBetter) evtFoul.bScored = nScoreRnd > datDefendingTeam.KeepingGrade ? datAttackingTeam.Team : null;
+                else evtFoul.bScored = nScoreRnd > 9*datDefendingTeam.SetPiecesGrade ? datAttackingTeam.Team : null;
+
+                if (evtFoul.bScored != null) gsGameStory.AddEvent(new ScoreEvent(datAttackingTeam.Team, false));
+            }
+            else if (nMissedRnd <= 75)
+            {
+                evtFoul = new FreeKickEvent(datAttackingTeam.Team);
+                int nCardRnd = Consts.GameRandom.Next(1, 100);
+                if (nCardRnd <= 5) evtFoul.ptCard = PaneltyCard.ptRed;
+                else evtFoul.ptCard = nCardRnd <= 30 ? PaneltyCard.ptYellow : PaneltyCard.ptNone;
+
+                int DefendingGrade = (datDefendingTeam.KeepingGrade + datDefendingTeam.DefenceGrade) / 2;
+                int OffenceGrade = datAttackingTeam.SetPiecesGrade;
+
+                int nTotalChance = 4 * datAttackingTeam.SetPiecesGrade + 6*DefendingGrade;
+                bool bAttackIsBetter = 4 * OffenceGrade > 6*DefendingGrade;
+                float fRatio = bAttackIsBetter ? (float)(4 * OffenceGrade) / nTotalChance : (float)(6*DefendingGrade)/ nTotalChance;
+                int nScoreRnd = Consts.GameRandom.Next(1, nTotalChance);
+
+                if (bAttackIsBetter) evtFoul.bScored = nScoreRnd > 6*DefendingGrade ? datAttackingTeam.Team : null;
+                else evtFoul.bScored = nScoreRnd > 4 * OffenceGrade ? datAttackingTeam.Team : null;
+
+                if (evtFoul.bScored != null) gsGameStory.AddEvent(new ScoreEvent(datAttackingTeam.Team, false));
+            }
+            else
+            {
+                evtFoul = new MissedFouledEvent(datAttackingTeam.Team);
+            }
+            return evtFoul;
+        }
+
+        private static GameEvent GameStoryCreateFailedEvent(GameStory gsGameStory, TeamGameData datAttackingTeam, TeamGameData datDefendingTeam, int nDefenceRatio)
+        {
+            int nFailedRnd = Consts.GameRandom.Next(1, 100);
+            if (nFailedRnd <= nDefenceRatio)
+            {
+                return new StoppedEvent(datAttackingTeam.Team);
+            }
+            else
+            {
+                return new MissedEvent(datAttackingTeam.Team);
+            }
+        }
+
+        static int CalculateHomeTeamEvents(GameStory gsGameStory, int nTotalEvents)
+        {
+            int nHomeMidFieldPower;
+            int nAwayMidFieldPower;
+
+            nHomeMidFieldPower = CalculateMidFieldPower(gsGameStory.HomeTeam);
+            nAwayMidFieldPower = CalculateMidFieldPower(gsGameStory.AwayTeam);
+
+            bool bIsHomeLarger = nHomeMidFieldPower > nAwayMidFieldPower;
+            float fLargerPower = bIsHomeLarger == true ? (float)nHomeMidFieldPower : (float)nAwayMidFieldPower;
+            float fLowerPower = bIsHomeLarger == false ? (float)nHomeMidFieldPower : (float)nAwayMidFieldPower;
+
+            float fRatio = fLowerPower / fLargerPower;
+            int nLargerEvents = nTotalEvents - (int)(fRatio * nTotalEvents);
+            return bIsHomeLarger ? nLargerEvents : nTotalEvents - nLargerEvents;
+        }
+
+        private static int CalculateMidFieldPower(TeamGameData tmCurrTeam)
+        {
+            int nHomeMidFieldPower = 0;
+            TeamFormation tfCurrFormation = tmCurrTeam.Formation;
+            // Run on Home playmakers
+            for (int i = tfCurrFormation.Defence + 2; i <= tfCurrFormation.MiddleField + tfCurrFormation.Defence + 1; i++)
+            {
+                Player pCurrPlayer = ((Player)(tmCurrTeam.Team.Players.Where(T => T.Position == i)).First());
+                nHomeMidFieldPower += (int)pCurrPlayer.PlaymakingVal * 40;
+                nHomeMidFieldPower += (int)pCurrPlayer.WingerVal * 40;
+                nHomeMidFieldPower += (int)pCurrPlayer.PassingVal * 20;
+            }
+            return nHomeMidFieldPower;
+        }
+
+        private static void GameStorySetTeamFormationMethod(GameStory gsGameStory, Team tmHomeTeam, Team tmAwayTeam)
+        {
+            int nDefenceHome = int.Parse(tmHomeTeam.Formation.Split('-')[0]);
+            int nMidFieldHome = int.Parse(tmHomeTeam.Formation.Split('-')[1]);
+            int nDefenceAway = int.Parse(tmAwayTeam.Formation.Split('-')[0]);
+            int nMidFieldAway = int.Parse(tmAwayTeam.Formation.Split('-')[1]);
+
+            int nHomeTeamPlayMaking = 0;
+            int nAwayTeamPlayMaking = 0;
+            int nHomeTeamWings = 0;
+            int nAwayTeamWings = 0;
+
+            SumTeamMethod(tmHomeTeam, nDefenceHome, nMidFieldHome, ref nHomeTeamPlayMaking, ref nHomeTeamWings);
+            SumTeamMethod(tmAwayTeam, nDefenceAway, nMidFieldAway, ref nAwayTeamPlayMaking, ref nAwayTeamWings);
+
+            gsGameStory.HomeTeam.IsTeamMiddleMethod = nHomeTeamPlayMaking >= nHomeTeamWings;
+            gsGameStory.AwayTeam.IsTeamMiddleMethod  = nAwayTeamPlayMaking >= nAwayTeamWings;
+
+        }
+
+        private static void SumTeamMethod(Team tmHomeTeam, int nDefenceHome, int nMidFieldHome, ref int nHomeTeamPlayMaking, ref int nHomeTeamWings)
+        {
+            // Run on Home defence playrs
+            for (int i = 2; i <= nDefenceHome + 1; i++)
+            {
+                Player pCurrPlayer = ((Player)(tmHomeTeam.Players.Where(T => T.Position == i)).First());
+                nHomeTeamPlayMaking += (int)pCurrPlayer.PlaymakingVal;
+                nHomeTeamWings += (int)pCurrPlayer.WingerVal;
+            }
+
+            // Run on Home playmakers
+            for (int i = nDefenceHome + 2; i <= nMidFieldHome + nDefenceHome + 1; i++)
+            {
+                Player pCurrPlayer = ((Player)(tmHomeTeam.Players.Where(T => T.Position == i)).First());
+                nHomeTeamPlayMaking += (int)pCurrPlayer.PlaymakingVal;
+                nHomeTeamWings += (int)pCurrPlayer.WingerVal;
+            }
+        }
+
+        private static void GameStorySetTeamFormation(GameStory gsGameStory, Team tmHomeTeam, Team tmAwayTeam)
+        {
+            gsGameStory.AwayTeam.Formation = new TeamFormation(tmAwayTeam.Formation);
+            gsGameStory.HomeTeam.Formation = new TeamFormation(tmHomeTeam.Formation);
+        }
+
+        private static void GameStorySetWeather(GameStory gsGameStory)
+        {
+            gsGameStory.Weather = Weather.GetRandomWeather();
+        }
+
+        private static void GameStorySetWatchers(GameStory gsGameStory)
+        {
+            int nWatchers = Consts.GameRandom.Next(GameStory.MinWatchers, GameStory.MaxWatchers);
+            gsGameStory.Watchers = nWatchers;
+        }
+
         #endregion
     }
 }

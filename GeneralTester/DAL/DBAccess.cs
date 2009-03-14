@@ -111,7 +111,7 @@ namespace DAL
                 drTeam = cmdCommand.ExecuteReader();
                 drTeam.Read();
                 string strFormation = drTeam["TeamPos"].ToString();
-                return(new Team(drTeam["TeamName"].ToString(), (DateTime)drTeam["AU_CreationDate"], LoadPlayers(drTeam["TeamName"].ToString()), usrCurrentUser.Username, strFormation));
+                return (new Team(drTeam["TeamName"].ToString(), (DateTime)drTeam["AU_CreationDate"], LoadPlayers(drTeam["TeamName"].ToString()), usrCurrentUser.Username, strFormation));
             }
             catch
             {
@@ -122,6 +122,34 @@ namespace DAL
                 Close();
             }
         }
+
+
+        public static Team LoadTeam(string strTeamName)
+        {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+            Connect();
+            try
+            {
+                cmdCommand.CommandText = string.Format(
+                "SELECT * FROM Teams WHERE TeamName = \"{0}\"", strTeamName);
+                OleDbDataReader drTeam;
+                drTeam = cmdCommand.ExecuteReader();
+                drTeam.Read();
+                string strFormation = drTeam["TeamPos"].ToString();
+                return(new Team(drTeam["TeamName"].ToString(), (DateTime)drTeam["AU_CreationDate"], LoadPlayers(drTeam["TeamName"].ToString()), null, strFormation));
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                Close();
+            }
+        }
+
+
 
         private static List<Player> LoadPlayers(string strTeamName)
         {
