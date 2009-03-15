@@ -557,7 +557,6 @@ namespace HatTrick
             bool bIsAttackBetter = nAttackGrade > nDefenceGrade;
             int nTotalGrades = nAttackGrade + nDefenceGrade;
             float fRatio = !bIsAttackBetter ? (float)nAttackGrade / nTotalGrades : (float)nDefenceGrade / nTotalGrades;
-            fRatio *= (float)0.6;
             GameEvent evtNewEvent;
 
             fRatio *= 100;
@@ -566,6 +565,7 @@ namespace HatTrick
             if (bIsAttackBetter)
             {
                 // Defence < 50 = ratio
+                fRatio *= (float)0.6;
                 if (nEventRnd <= fRatio)
                 {
                     int nMissedRnd = Consts.GameRandom.Next(1, 100);
