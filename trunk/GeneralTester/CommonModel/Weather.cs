@@ -5,6 +5,7 @@ using System.Text;
 
 namespace HatTrick.CommonModel
 {
+    [SerializableAttribute]
     public class Weather
     {
         private static readonly string[] WEATHERS = { "Cloudy", "Rainy", "Stormy", "Bright", "Very Hot", "Hot", "Semi-Cloudy", "Dry", "Dusty", "Windy", "Pretty", "Nice" };

@@ -263,12 +263,14 @@ namespace HatTrick.TextualView
             Console.WriteLine("Welcome to your league:");
             Console.WriteLine("-------------------------");
             Console.WriteLine("Select your choice:");
-            Console.WriteLine(" 1. Match 2 Teams");
-            Console.WriteLine(" 2. Exit");
+            Console.WriteLine(" 1. Play a friendly match");
+            Console.WriteLine(" 2. Show League Cycles");
+            Console.WriteLine(" 3. Run  League Next cycle");
+            Console.WriteLine(" 4. Exit");
 
             string strChoice = string.Empty;
             strChoice = Console.ReadLine();
-            while (strChoice != "1" && strChoice != "2")// && strChoice != "3" && strChoice != "4" && strChoice != "5")
+            while (strChoice != "1" && strChoice != "2" && strChoice != "3" && strChoice != "4")//  && strChoice != "5")
             {
                 Console.WriteLine("Invalid choice, choose again:");
                 strChoice = Console.ReadLine();
@@ -278,13 +280,11 @@ namespace HatTrick.TextualView
 
         }
 
-        public static void ShowStartMatch(out string strHomeTeam, out string strAwayTeam)
+        public static void ShowStartMatch(out string strAwayTeam)
         {
-            Console.WriteLine("Chose the two team names:");
+            Console.WriteLine("Chose the you'r opponent team:");
             Console.WriteLine("-------------------------");
 
-            Console.WriteLine("Enter home team:");
-            strHomeTeam = GetNoneEmptyString();
             Console.WriteLine("Enter away team:");
             strAwayTeam = GetNoneEmptyString();
         }

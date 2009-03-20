@@ -1,15 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!--This file represents the results of running a test suite-->
-<test-results name="D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.exe" total="1" failures="0" not-run="0" date="2009-03-13" time="02:03:33">
+<test-results name="D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.exe" total="13" failures="0" not-run="0" date="2009-03-20" time="21:18:38">
   <environment nunit-version="2.4.8.0" clr-version="2.0.50727.1433" os-version="Microsoft Windows NT 5.1.2600 Service Pack 3" platform="Win32NT" cwd="D:\Program Files\NUnit 2.4.8\bin" machine-name="ELAD" user="Elad Lebovitch" user-domain="ELAD" />
   <culture-info current-culture="he-IL" current-uiculture="en-US" />
-  <test-suite name="D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.exe" success="True" time="0.406" asserts="0">
+  <test-suite name="D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.exe" success="True" time="3.266" asserts="0">
     <results>
-      <test-suite name="HatTrick" success="True" time="0.391" asserts="0">
+      <test-suite name="HatTrick" success="True" time="3.266" asserts="0">
         <results>
-          <test-suite name="GeneralTester" success="True" time="0.391" asserts="0">
+          <test-suite name="GeneralTester" success="True" time="3.250" asserts="0">
             <results>
-              <test-case name="HatTrick.GeneralTester.CheckPlayerPosition" executed="True" success="True" time="0.391" asserts="1" />
+              <test-case name="HatTrick.GeneralTester.ChangePlayerPosition" executed="True" success="True" time="0.516" asserts="3" />
+              <test-case name="HatTrick.GeneralTester.ChangeTeamFormation" executed="True" success="True" time="0.219" asserts="3" />
+              <test-case name="HatTrick.GeneralTester.CheckCreateLeague" executed="True" success="True" time="0.703" asserts="1" />
+              <test-case name="HatTrick.GeneralTester.CheckPlayerPosition" executed="True" success="True" time="0.031" asserts="1" />
+              <test-case name="HatTrick.GeneralTester.GameSavedInDB" executed="True" success="True" time="0.188" asserts="5" />
+              <test-case name="HatTrick.GeneralTester.MatchTeamsFailure" executed="True" success="True" time="0.078" asserts="1" />
+              <test-case name="HatTrick.GeneralTester.MatchTeamsSuccessfully" executed="True" success="True" time="0.078" asserts="1" />
+              <test-case name="HatTrick.GeneralTester.PlayACycle" executed="True" success="True" time="1.031" asserts="1" />
+              <test-case name="HatTrick.GeneralTester.TestLoadTeam" executed="True" success="True" time="0.094" asserts="2" />
+              <test-case name="HatTrick.GeneralTester.TestUserCreationFailure" executed="True" success="True" time="0.141" asserts="1" />
+              <test-case name="HatTrick.GeneralTester.TestUserCreationSuccess" executed="True" success="True" time="0.063" asserts="1" />
+              <test-case name="HatTrick.GeneralTester.TestUserLoginFailure" executed="True" success="True" time="0.047" asserts="1" />
+              <test-case name="HatTrick.GeneralTester.TestUserLoginSuccess" executed="True" success="True" time="0.031" asserts="2" />
             </results>
           </test-suite>
         </results>

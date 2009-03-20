@@ -4,6 +4,7 @@ using System.Text;
 
 namespace HatTrick.CommonModel
 {
+    [SerializableAttribute]
     public class Team
     {
         private List<Player> pPlayers;
@@ -64,6 +65,7 @@ namespace HatTrick.CommonModel
         }
     }
 
+    [SerializableAttribute]
     public class TeamFormation
     {
         public int Defence;

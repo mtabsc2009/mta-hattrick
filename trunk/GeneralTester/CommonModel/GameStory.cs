@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections;
 
 namespace HatTrick.CommonModel
 {
+    [SerializableAttribute]
     public class GameStory
     {
         public static int MaxWatchers = 40000;
@@ -26,7 +28,7 @@ namespace HatTrick.CommonModel
         private TeamGameData m_datAwayTeam;
         private int m_nTotalEvents;
         private int m_nHomeTeamEvents;
-        private List<GameEvent> m_lstGameEvents = new List<GameEvent>();
+        private ArrayList m_lstGameEvents = new ArrayList();
         private int m_nHomeScore = 0;
         private int m_nAwayScore = 0;
 
@@ -52,7 +54,7 @@ namespace HatTrick.CommonModel
             set { m_nHomeScore = value; }
         }
 
-        public List<GameEvent> GameEvents
+        public ArrayList GameEvents
         {
             get { return m_lstGameEvents; }
         }
@@ -144,6 +146,8 @@ namespace HatTrick.CommonModel
         }
     }
 
+
+    [SerializableAttribute]
     public class TeamGameData
     {
         public Team Team;

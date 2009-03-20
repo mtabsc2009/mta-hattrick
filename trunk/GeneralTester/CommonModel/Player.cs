@@ -4,6 +4,7 @@ using System.Text;
 
 namespace HatTrick.CommonModel
 {
+    [SerializableAttribute]
     public class Player
     {
         private int nID;
