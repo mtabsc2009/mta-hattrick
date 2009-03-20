@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Consts.cs" />
+    <Compile Include="CycleGame.cs" />
     <Compile Include="GameEvent.cs" />
     <Compile Include="GameStory.cs" />
     <Compile Include="Player.cs" />

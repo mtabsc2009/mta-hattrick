@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Text;
 using HatTrick.CommonModel;
 using HatTrick.TextualView;
+using System.Collections;
+using System.Diagnostics;
 
 namespace HatTrick
 {
@@ -17,7 +19,6 @@ namespace HatTrick
             get { return Game.m_usrCurrent; }
         }
         private static Team tMyTeam = null;
-        
 
         #region Game Presentation Flow
 
@@ -111,12 +112,18 @@ namespace HatTrick
         {
             Console.Clear();
             string strChoice = Menu.ShowLeague(m_usrCurrent);
-            while (strChoice != "2")
+            while (strChoice != "4")
             {
                 switch (strChoice)
                 {
                     case "1":
                         StartMatch();
+                        break;
+                    case "2":
+                        ShowCycles();
+                        break;
+                    case "3":
+                        PlayNextCycle();
                         break;
                 }
                 Console.Clear();
@@ -124,11 +131,214 @@ namespace HatTrick
             }
         }
 
+        public static void PlayNextCycle()
+        {
+            DataView dvAllCycles = DAL.DBAccess.GetAllCycles();
+
+            List<CycleGame> lstCycleGames = CyclesToList(dvAllCycles);
+
+            int nMin = (lstCycleGames.Where(T => T.GameID == -1)).Min(T => T.CycleNum);
+
+            foreach (CycleGame gmCurr in (lstCycleGames.Where(T=>T.CycleNum == nMin)))
+            {
+                // Run Game
+                GameStory gsNewGame = Game.MatchTeams(gmCurr.HomeTeam, gmCurr.AwayTeam);
+                gmCurr.GameID = DAL.DBAccess.SaveStoryToDB(gsNewGame);
+                gmCurr.CycleDate = DateTime.Now;
+                DAL.DBAccess.UpdateCycleData(gmCurr);
+            }
+        }
+
+        public static List<CycleGame> CyclesToList(DataView dvAllCycles)
+        {
+            List<CycleGame> lstCycleGames = new List<CycleGame>();
+
+            foreach (DataRowView item in dvAllCycles)
+            {
+                if (item["GameId"].ToString() != "")
+                {
+                    lstCycleGames.Add(new CycleGame(int.Parse(item["CycleNum"].ToString()),
+                                                item["HomeTeam"].ToString(),
+                                                item["AwayTeam"].ToString(),
+                                                int.Parse(item["GameId"].ToString()),
+                                                DateTime.Parse(item["CycleDate"].ToString())));
+                }
+                else
+                {
+                    lstCycleGames.Add(new CycleGame(int.Parse(item["CycleNum"].ToString()),
+                                                item["HomeTeam"].ToString(),
+                                                item["AwayTeam"].ToString()));
+                }
+            }
+            return lstCycleGames;
+        }
+
+        public static void ShowCycles()
+        {
+            if (DAL.DBAccess.CheckShouldCreateNewLeague())
+            {
+                Console.WriteLine("Creating new league cycles, press any key to contiue");
+                CreateNewLeagueCycles();
+                Console.ReadLine();
+            }
+            else
+            {
+                Console.Clear();
+                DataView dvAllCycles = DAL.DBAccess.GetAllCycles();
+
+                string strGameID;
+
+                foreach (DataRowView drvCurr in dvAllCycles)
+                {
+                    if (drvCurr["GameId"].ToString().Trim() == "")
+                    {
+                        strGameID = "N\\A";
+                    }
+                    else
+                    {
+                        strGameID = drvCurr["GameId"].ToString();
+                    }
+                    Console.WriteLine("Cycle number : {0} \t | {1} - {2} game id: {3}", drvCurr["CycleNum"], drvCurr["HomeTeam"], drvCurr["AwayTeam"],strGameID);
+                }
+
+                Console.WriteLine("Please choose a game id to view, or press 0 to return");
+                int nGameToShow = 0;
+
+                try
+                {
+                    // It's ok to error here..
+                    string str = Console.ReadLine();
+                    if (str != "")
+                    {
+                        nGameToShow = int.Parse(str);
+                    }
+                }
+                catch
+                {
+
+                }
+
+                if (nGameToShow != 0)
+                {
+                    try
+                    {
+                        GameStory gsToShow = LoadGameStory(nGameToShow);
+                        Menu.ShowGameStory(gsToShow);
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Game doesn't exists...");
+                    }
+                }
+            }
+        }
+
+        public static void CreateNewLeagueCycles()
+        {
+            if (DAL.DBAccess.CheckShouldCreateNewLeague())
+            {
+                DataView alTeams;
+                ArrayList alCycles = new ArrayList();
+                alTeams = DAL.DBAccess.GetAllTeams();
+
+                for (int nHomeTeam = 0; nHomeTeam < alTeams.Count; nHomeTeam++)
+                {
+                    for (int nAwayTeam = 0; nAwayTeam < alTeams.Count; nAwayTeam++)
+                    {
+                        if (nHomeTeam != nAwayTeam)
+                        {
+                            CycleGame cgNew = new CycleGame();
+                            cgNew.HomeTeam = (string)alTeams[nHomeTeam]["TeamName"];
+                            cgNew.AwayTeam = (string)alTeams[nAwayTeam]["TeamName"];
+                            alCycles.Add(cgNew);
+                        }
+                    }
+                }
+
+                ArrayList alCurrCycle = new ArrayList();
+                alCurrCycle.Add(alCycles[0]);
+                ((CycleGame)alCycles[0]).CycleNum = 1;
+                alCycles.RemoveAt(0);
+
+                bool bWasGameFound;
+                bool bAreTeamsExists;
+                int nTeamCount = DAL.DBAccess.GetTeamCount();
+                int nLastAddition = 0;
+                int nCycleNum = 1;
+
+                while (alCycles.Count > 0)
+                {
+
+                    while (alCurrCycle.Count < nTeamCount / 2)
+                    {
+                        bWasGameFound = false;
+                        for (int nAllGames = nLastAddition; nAllGames < alCycles.Count && !bWasGameFound; nAllGames++)
+                        {
+
+                            bAreTeamsExists = false;
+                            for (int nCurrCycleGame = 0; nCurrCycleGame < alCurrCycle.Count; nCurrCycleGame++)
+                            {
+                                if ((((CycleGame)alCycles[nAllGames]).HomeTeam == ((CycleGame)alCurrCycle[nCurrCycleGame]).HomeTeam) ||
+                                    (((CycleGame)alCycles[nAllGames]).HomeTeam == ((CycleGame)alCurrCycle[nCurrCycleGame]).AwayTeam) ||
+                                    (((CycleGame)alCycles[nAllGames]).AwayTeam == ((CycleGame)alCurrCycle[nCurrCycleGame]).HomeTeam) ||
+                                    (((CycleGame)alCycles[nAllGames]).AwayTeam == ((CycleGame)alCurrCycle[nCurrCycleGame]).AwayTeam))
+                                {
+                                    bAreTeamsExists = true;
+                                    break;
+                                }
+                            }
+
+                            if (!bAreTeamsExists)
+                            {
+                                bWasGameFound = true;
+                                ((CycleGame)alCycles[nAllGames]).CycleNum = nCycleNum;
+                                //Debug.Print(((CycleGame)alCycles[nAllGames]).HomeTeam + " - " + ((CycleGame)alCycles[nAllGames]).AwayTeam);
+                                alCurrCycle.Add(alCycles[nAllGames]);
+
+                                alCycles.RemoveAt(nAllGames);
+                                nLastAddition = nAllGames;
+                            }
+                        }
+
+                        if (!bWasGameFound)
+                        {
+                            nLastAddition = 0;
+                        }
+                    }
+
+                    // Save to DB
+                    DAL.DBAccess.SaveCycleToDB(alCurrCycle);
+                    alCurrCycle.Clear();
+                    nCycleNum++;
+
+                    if (alCycles.Count > 0)
+                    {
+                        if (nLastAddition == alCycles.Count)
+                        {
+                            nLastAddition = 0;
+                        }
+
+                        ((CycleGame)alCycles[nLastAddition]).CycleNum = nCycleNum;
+                        alCurrCycle.Add(alCycles[nLastAddition]);
+                        alCycles.RemoveAt(nLastAddition);
+                    }
+                }
+            }
+        }
+
         private static void StartMatch()
         {
             string strHomeTeam, strAwayTeam;
             Console.Clear();
-            Menu.ShowStartMatch(out strHomeTeam, out strAwayTeam);
+            Menu.ShowStartMatch(out strAwayTeam);
+
+            if (tMyTeam == null)
+            {
+                tMyTeam = DAL.DBAccess.LoadTeam(m_usrCurrent);
+            }
+
+            strHomeTeam = Game.tMyTeam.Name;
+
             GameStory gsGameStory = Game.MatchTeams(strHomeTeam, strAwayTeam);
             if (gsGameStory != null)
             {
@@ -509,7 +719,9 @@ namespace HatTrick
 
         private static void GameStoryClacPowers(TeamGameData teamGameData)
         {
-            Player pCurrPlayer = ((Player)(teamGameData.Team.Players.Where(T => T.Position == 1)).First());
+            //Player pCurrPlayer = ((Player)(teamGameData.Team.Players.Where(T => T.Position == 1)).First());
+            
+            Player pCurrPlayer = ((Player)(teamGameData.Team.Players.Where(T => T.Position == teamGameData.Team.Players.Min(J=>J.Position))).First());
             teamGameData.KeepingGrade = (int)pCurrPlayer.KeeperVal;
 
             for (int i = 2; i <= teamGameData.Formation.Defence + 1; i++)
@@ -754,6 +966,16 @@ namespace HatTrick
             gsGameStory.Watchers = nWatchers;
         }
 
+        public static GameStory LoadGameStory(int nStoryID)
+        {
+            return DAL.DBAccess.LoadGameStory(nStoryID);
+        }
+
         #endregion
+
+        public static int SaveStoryToDB(GameStory gsNewGame)
+        {
+            return DAL.DBAccess.SaveStoryToDB(gsNewGame);
+        }
     }
 }

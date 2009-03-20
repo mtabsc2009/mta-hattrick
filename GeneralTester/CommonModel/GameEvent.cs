@@ -5,12 +5,14 @@ using System.Text;
 
 namespace HatTrick.CommonModel
 {
+    [SerializableAttribute]
     public enum PaneltyCard
     {
         ptNone = 1,
         ptYellow = 2,
         ptRed = 3
     }
+    [SerializableAttribute]
     public abstract class GameEvent
     {
         public Team teamAttacking = null;
@@ -20,6 +22,7 @@ namespace HatTrick.CommonModel
         }
     }
 
+    [SerializableAttribute]
     public class ScoreEvent : GameEvent
     {
         public bool bShowInSummary = true;
@@ -34,6 +37,7 @@ namespace HatTrick.CommonModel
         }
     }
 
+    [SerializableAttribute]
     public abstract class FailedEvent : GameEvent
     {
         public FailedEvent(Team teamSubject) : base(teamSubject)
@@ -42,6 +46,7 @@ namespace HatTrick.CommonModel
         }
     }
 
+    [SerializableAttribute]
     public abstract class FouledEvent : GameEvent
     {
         public FouledEvent(Team teamSubject) : base(teamSubject)
@@ -52,6 +57,7 @@ namespace HatTrick.CommonModel
         public Team bScored = null;
     }
 
+    [SerializableAttribute]
     public class FreeKickEvent : FouledEvent
     {
         public FreeKickEvent(Team teamAttacker) : base(teamAttacker)
@@ -71,6 +77,7 @@ namespace HatTrick.CommonModel
         }
     }
 
+    [SerializableAttribute]
     public class PaneltyEvent : FouledEvent
     {
         public PaneltyEvent(Team teamSubject) : base(teamSubject)
@@ -89,6 +96,7 @@ namespace HatTrick.CommonModel
         }
     }
 
+    [SerializableAttribute]
     public class MissedFouledEvent : FouledEvent
     {
         public MissedFouledEvent (Team teamSubject) : base(teamSubject)
@@ -102,6 +110,7 @@ namespace HatTrick.CommonModel
         }
     }
 
+    [SerializableAttribute]
     public class MissedEvent : FailedEvent
     {
         public MissedEvent(Team teamSubject) : base(teamSubject)
@@ -114,6 +123,7 @@ namespace HatTrick.CommonModel
         }
     }
 
+    [SerializableAttribute]
     public class StoppedEvent : FailedEvent
     {
         public StoppedEvent(Team teamSubject) : base(teamSubject)

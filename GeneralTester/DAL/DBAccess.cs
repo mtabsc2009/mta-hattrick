@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Data.OleDb;
 using HatTrick.CommonModel;
 using System.Data;
+using System.Collections;
+using System.Runtime.Serialization.Formatters;
+using System.IO;
 
 namespace DAL
 {
@@ -168,7 +172,7 @@ namespace DAL
                 while (drPlayers.Read())
                 {
                     Player pCurrPlayer = new Player(int.Parse(drPlayers["PlayerID"].ToString()), drPlayers["PlayerName"].ToString(),
-                    Convert.ToDateTime(drPlayers["Birth_date"]),
+                    Convert.ToDateTime(drPlayers["Birth_date"].ToString()),
                     strTeamName,
                     ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["KeeperSkill"].ToString())))),
                     ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["DefendingSkill"].ToString())))),
@@ -378,5 +382,211 @@ namespace DAL
 
         }
 
+        public static int SaveStoryToDB(GameStory gsNewGame)
+        {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+            System.IO.MemoryStream msEvents = new System.IO.MemoryStream(10000);
+
+            BinaryFormatter bf = new BinaryFormatter();
+            bf.Serialize(msEvents, gsNewGame);
+            byte[] bt =  msEvents.GetBuffer();
+
+            cmdCommand.CommandText = string.Format("INSERT INTO games (HOMETEAM,AwayTeam,gamedate,homescore,awayscore,gamestory) values (\"{0}\", \"{1}\", \"{2}\", \"{3}\", \"{4}\", \"{5}\")", gsNewGame.HomeTeam.Team.Name, gsNewGame.AwayTeam.Team.Name, gsNewGame.GameDate.ToString(), gsNewGame.HomeScore, gsNewGame.AwayScore, Convert.ToBase64String(bt));
+
+
+
+            try
+            {
+                Connect();
+
+                cmdCommand.ExecuteNonQuery();
+                cmdCommand.CommandText = "SELECT MAX(ID) FROM games";
+
+                return (int)cmdCommand.ExecuteScalar();
+            }
+            finally
+            {
+                Close();
+            }
+        }
+
+        public static GameStory LoadGameStory(int nStoryID)
+        {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+            cmdCommand.CommandText = string.Format("SELECT * from games  where id = {0}", nStoryID);
+
+            try
+            {
+                Connect();
+
+                GameStory gsToReturn = new GameStory();
+
+                DataTable dtNew = new DataTable();
+                OleDbDataAdapter oldba = new OleDbDataAdapter(cmdCommand);
+                oldba.Fill(dtNew);
+
+                byte[] bt = Convert.FromBase64String(dtNew.Rows[0]["GameStory"].ToString());
+                
+                System.IO.MemoryStream msEvents2 = new System.IO.MemoryStream(bt);
+
+                BinaryFormatter bf = new BinaryFormatter();
+                gsToReturn = (GameStory)bf.Deserialize(msEvents2);
+
+                return gsToReturn;
+
+            }
+            finally
+            {
+                Close();
+            }
+        }
+
+        public static int GetTeamCount()
+        {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+            try
+            {
+                Connect();
+
+                cmdCommand.CommandText = "SELECT count(*) FROM teams";
+
+                return (int)cmdCommand.ExecuteScalar();
+            }
+            finally
+            {
+                Close();
+            }
+        }
+
+        public static DataView GetAllTeams()
+        {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+            try
+            {
+                Connect();
+                cmdCommand.CommandText = string.Format("SELECT * from teams");
+                DataTable dtNew = new DataTable();
+                OleDbDataAdapter oldba = new OleDbDataAdapter(cmdCommand);
+                oldba.Fill(dtNew);
+
+                return dtNew.DefaultView;
+            }
+            finally
+            {
+                Close();
+            }
+        }
+
+        public static void SaveCycleToDB(ArrayList alCurrCycle)
+        {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+            try
+            {
+                Connect();
+
+                for (int nCurr = 0; nCurr < alCurrCycle.Count; nCurr++)
+                {
+                    cmdCommand.CommandText = string.Format("INSERT into cycles (CYCLENUM, HomeTeam, AwayTeam) VALUES (\"{0}\", \"{1}\", \"{2}\")", 
+                                                          ((CycleGame)alCurrCycle[nCurr]).CycleNum, ((CycleGame)alCurrCycle[nCurr]).HomeTeam, ((CycleGame)alCurrCycle[nCurr]).AwayTeam);
+                    cmdCommand.ExecuteNonQuery();
+                }
+            }
+            finally
+            {
+                Close();
+            }
+        }
+
+        public static bool CheckShouldCreateNewLeague()
+        {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+            try
+            {
+                Connect();
+                cmdCommand.CommandText = string.Format("SELECT count(*) from cycles where gameid is null");
+                return ((int)cmdCommand.ExecuteScalar() == 0);
+            }
+            finally
+            {
+                Close();
+            }
+        }
+
+        public static int GetNumOfCycles()
+        {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+            try
+            {
+                Connect();
+                cmdCommand.CommandText = string.Format("SELECT count(*) from cycles");
+                return ((int)cmdCommand.ExecuteScalar());
+            }
+            finally
+            {
+                Close();
+            }
+        }
+
+        public static int ClearAllCycles()
+        {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+            try
+            {
+                Connect();
+                cmdCommand.CommandText = string.Format("Delete from cycles");
+                return ((int)cmdCommand.ExecuteNonQuery());
+            }
+            finally
+            {
+                Close();
+            }
+        }
+
+        public static DataView GetAllCycles()
+        {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+            try
+            {
+                Connect();
+                cmdCommand.CommandText = string.Format("SELECT * from cycles");
+                DataTable dtNew = new DataTable();
+                OleDbDataAdapter oldba = new OleDbDataAdapter(cmdCommand);
+                oldba.Fill(dtNew);
+
+                return dtNew.DefaultView;
+            }
+            finally
+            {
+                Close();
+            }
+        }
+
+        public static void UpdateCycleData(CycleGame gmCurr)
+        {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+            try
+            {
+                Connect();
+
+                cmdCommand.CommandText = string.Format("UPDATE cycles  SET gameid = {2} , cycledate = \"{3}\" where cyclenum = \"{0}\" AND homeTeam = \"{1}\"",
+                                                       gmCurr.CycleNum, gmCurr.HomeTeam, gmCurr.GameID, gmCurr.CycleDate.ToString());
+                                                      
+                cmdCommand.ExecuteNonQuery();
+            }
+            finally
+            {
+                Close();
+            }
+        }
     }
 }
