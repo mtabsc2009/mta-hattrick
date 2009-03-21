@@ -189,5 +189,39 @@ namespace HatTrick
 
             Assert.AreEqual(Game.CyclesToList(DAL.DBAccess.GetAllCycles()).Where(T => T.GameID != -1).Count(), DAL.DBAccess.GetTeamCount() / 2);
         }
+
+        [Test]
+        public void BuyPlayer()
+        {
+            User usr = new User("q", "q");
+            Team tMyTeam = DAL.DBAccess.LoadTeam(usr);
+
+            int eyalTeamBeforeSelling = tMyTeam.TeamCash;
+
+            string playerName = "Shmulik Shazar";
+
+            DAL.DBAccess.UpdateSellPlayer(playerName, 500);
+
+            User usr2 = new User("eyal", "eyal");
+            Team tMyTeam2 = DAL.DBAccess.LoadTeam(usr2);
+
+            int qTeamBeforeSelling = tMyTeam2.TeamCash;
+
+            Player playerToBuy = tMyTeam.Players.Where(T => T.Name.Equals(playerName)).First();
+            DAL.DBAccess.BuyPlayer(tMyTeam2, playerToBuy);
+
+            tMyTeam = DAL.DBAccess.LoadTeam(usr);
+            int eyalTeamAfterSelling = tMyTeam.TeamCash;
+
+            tMyTeam2 = DAL.DBAccess.LoadTeam(usr2);
+            int qTeamAfterSelling = tMyTeam2.TeamCash;
+
+            Assert.AreEqual(eyalTeamBeforeSelling + playerToBuy.PlayerCost, eyalTeamAfterSelling);
+            Assert.AreEqual(qTeamBeforeSelling - playerToBuy.PlayerCost, qTeamAfterSelling);
+
+            //reverse
+            DAL.DBAccess.UpdateSellPlayer(playerName, 500);
+            DAL.DBAccess.BuyPlayer(tMyTeam, playerToBuy);        
+        }
     }
 }
