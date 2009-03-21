@@ -7,6 +7,7 @@ using HatTrick.CommonModel;
 using HatTrick.TextualView;
 using System.Collections;
 using System.Diagnostics;
+using TextualView;
 
 namespace HatTrick
 {
@@ -19,6 +20,8 @@ namespace HatTrick
             get { return Game.m_usrCurrent; }
         }
         private static Team tMyTeam = null;
+
+        private static IGameView m_ConsoleGameView = new ConsoleGameView();
 
         #region Game Presentation Flow
 
@@ -420,12 +423,128 @@ namespace HatTrick
                         Menu.ShowMyFormation(tMyTeam);
                         break;
                     case "5":
-                        ShowSellPlayers(tMyTeam);
-                        break;
-                        
+                        HandleTransaferPlayers();
+                        break;                        
                 }
+
                 Console.Clear();
                 strChoice = Menu.ShowManageTeam(m_usrCurrent);
+            }
+        }
+
+        private static void HandleTransaferPlayers()
+        {
+
+            Console.Clear();
+            string strChoice = Menu.ShowTransafersMenu();
+
+            while (strChoice != "3")
+            {
+                switch (strChoice)
+                {
+                    case "1":
+                        ShowSellPlayers(tMyTeam);
+                        break;
+                    case "2":
+                        List<Player> playersForSale = DAL.DBAccess.GetPlayersForSale(tMyTeam);
+                        if (playersForSale.Count > 0)
+                        {
+                            m_ConsoleGameView.PrintLine("You Have " + tMyTeam.TeamCash + " Cash to buy players. you them wizely! :)");
+                            PrintPlayers(playersForSale);
+                            Player playerToBuy = GetPlayerByID(playersForSale);
+                            if (BuyPlayer(playerToBuy))
+                            {
+                                m_ConsoleGameView.PrintLine("Player " + playerToBuy.Name + " was trasfered to you team!.");                                                            
+                            }
+                            else
+                            {
+                                m_ConsoleGameView.PrintLine("Cannot buy player..");                            
+                            }
+                        }
+                        else
+                        {
+                            m_ConsoleGameView.PrintLine("No players for sale at this time.");                            
+                        }
+
+                        m_ConsoleGameView.PrintLine("Press enter to return");
+                        m_ConsoleGameView.ReadLine();
+                        break;
+                }
+                Console.Clear();
+
+                strChoice = Menu.ShowTransafersMenu();
+            }
+        }
+
+        private static bool BuyPlayer(Player playerToBuy)
+        {
+            try
+            {
+                if(TeamHasEnoughMoneyToBuyPlayer(playerToBuy))
+                {
+                    DAL.DBAccess.BuyPlayer(tMyTeam, playerToBuy);
+                    tMyTeam.Players.Add(playerToBuy);
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        private static bool TeamHasEnoughMoneyToBuyPlayer(Player playerToBuy)
+        {
+            return tMyTeam.TeamCash >= playerToBuy.PlayerCost;
+        }
+
+        private static Player GetPlayerByID(List<Player> i_Players)
+        {
+            int n;
+
+            m_ConsoleGameView.PrintLine("Please choose player id");
+            string strPlayerID;
+            Player player = null;
+
+            strPlayerID = Console.ReadLine();
+
+            bool bDoesExists = false;
+
+            while (!bDoesExists)
+            {
+                if (int.TryParse(strPlayerID, out n))
+                {
+                    IEnumerable<Player> enumerable = i_Players.Where(T => T.ID == int.Parse(strPlayerID));
+                    if (enumerable.Count() == 1)
+                    {
+                        player = enumerable.First();
+                        bDoesExists = true;
+                    }
+                    else
+                    {
+                        m_ConsoleGameView.PrintLine("Please choose player id");
+                        strPlayerID = m_ConsoleGameView.ReadLine();
+                    }
+                }
+                else
+                {
+                    m_ConsoleGameView.PrintLine("Please choose player id");
+                    strPlayerID = m_ConsoleGameView.ReadLine();
+                }
+            }
+
+            return player;
+        }
+
+        private static void PrintPlayers(List<Player> players)
+        {
+            m_ConsoleGameView.PrintLine("Players:");
+            m_ConsoleGameView.PrintLine(string.Empty);
+            foreach (Player player in players)
+            {
+                Console.WriteLine(player);
             }
         }
 
