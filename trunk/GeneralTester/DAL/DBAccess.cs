@@ -718,19 +718,56 @@ namespace DAL
            try
            {
                Connect();
-               cmdCommand.CommandText = string.Format("UPDATE players  SET PlayerTeam = \"{1}\" , IsForSale = \"0\" where PlayerName = \"{0}\"",
-                                                      playerToBuy.Name, tMyTeam.Name);
-               cmdCommand.ExecuteNonQuery();
 
-               cmdCommand.CommandText = string.Format("UPDATE teams  SET TeamCash = \"{0}\" where TeamName = \"{1}\"",
-                                           (tMyTeam.TeamCash - playerToBuy.PlayerCost), tMyTeam.Name);
-               cmdCommand.ExecuteNonQuery();
+               changePlayerTeams(cmdCommand, playerToBuy, tMyTeam);
 
+               decreaseCashForTeamThatBoughtThePlayer(cmdCommand, playerToBuy, tMyTeam);
+
+               payTeamThatSold(cmdCommand, playerToBuy);
+           }
+           catch(Exception)
+           {               
            }
            finally
            {
                Close();
            }
        }
+
+        private static void changePlayerTeams(OleDbCommand cmdCommand, Player playerToBuy, Team tMyTeam)
+        {
+            cmdCommand.CommandText = string.Format("UPDATE players  SET PlayerTeam = \"{1}\" , IsForSale = \"0\" where PlayerName = \"{0}\"",
+                                                   playerToBuy.Name, tMyTeam.Name);
+            cmdCommand.ExecuteNonQuery();
+        }
+
+        private static void decreaseCashForTeamThatBoughtThePlayer(OleDbCommand cmdCommand, Player playerToBuy, Team tMyTeam)
+        {
+            cmdCommand.CommandText = string.Format("UPDATE teams  SET TeamCash = \"{0}\" where TeamName = \"{1}\"",
+                                                   (tMyTeam.TeamCash - playerToBuy.PlayerCost), tMyTeam.Name);
+            cmdCommand.ExecuteNonQuery();
+        }
+
+        private static void payTeamThatSold(OleDbCommand cmdCommand, Player playerToBuy)
+        {
+            cmdCommand.CommandText = string.Format(
+                "SELECT * FROM Teams WHERE TeamName = \"{0}\"", playerToBuy.TeamName);
+            OleDbDataReader drTeam;
+            drTeam = cmdCommand.ExecuteReader();
+            drTeam.Read();
+            string owner = drTeam["Owner"].ToString();
+            string strFormation = drTeam["TeamPos"].ToString();
+            int teamCash = Convert.ToInt32(drTeam["TeamCash"]);
+            Team teamThatSoldThePlayer = new Team(drTeam["TeamName"].ToString(), (DateTime)drTeam["AU_CreationDate"], LoadPlayers(drTeam["TeamName"].ToString()), owner, strFormation, teamCash);
+
+            drTeam.Close();
+
+            Connect();
+
+            cmdCommand.CommandText = string.Format("UPDATE teams  SET TeamCash = \"{0}\" where TeamName = \"{1}\"",
+                                                   (teamThatSoldThePlayer.TeamCash + playerToBuy.PlayerCost), teamThatSoldThePlayer.Name);
+
+            cmdCommand.ExecuteNonQuery();
+        }
     }
 }
