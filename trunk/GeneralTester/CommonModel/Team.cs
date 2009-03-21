@@ -36,6 +36,14 @@ namespace HatTrick.CommonModel
             }
         }
 
+        private Consts.TrainingType ttTeamTrainingType;
+        public Consts.TrainingType TeamTrainingType
+        {
+            get { return ttTeamTrainingType; }
+            set { ttTeamTrainingType = value; }
+        }
+
+
         private string strOwner;
         public string Owner
         {

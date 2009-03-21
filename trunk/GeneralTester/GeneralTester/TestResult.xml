@@ -1,26 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!--This file represents the results of running a test suite-->
-<test-results name="D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\GeneralTester.csproj" total="10" failures="0" not-run="0" date="2009-03-15" time="00:34:44">
-  <environment nunit-version="2.4.8.0" clr-version="2.0.50727.1433" os-version="Microsoft Windows NT 5.1.2600 Service Pack 2" platform="Win32NT" cwd="D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester" machine-name="ORON" user="Slim" user-domain="ORON" />
+<test-results name="D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\GeneralTester.csproj" total="18" failures="0" not-run="0" date="2009-03-21" time="21:26:40">
+  <environment nunit-version="2.4.8.0" clr-version="2.0.50727.1433" os-version="Microsoft Windows NT 5.1.2600 Service Pack 2" platform="Win32NT" cwd="C:\Program Files\NUnit 2.4.8\bin" machine-name="ORON" user="Slim" user-domain="ORON" />
   <culture-info current-culture="he-IL" current-uiculture="en-US" />
-  <test-suite name="D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\GeneralTester.csproj" success="True" time="1.828" asserts="0">
+  <test-suite name="D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\GeneralTester.csproj" success="True" time="4.859" asserts="0">
     <results>
-      <test-suite name="D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.exe" success="True" time="1.828" asserts="0">
+      <test-suite name="D:\Winutils\College\קורסים\שנה ב'\פיתוח תוכנה\פרויקט\mta-hattrick\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.exe" success="True" time="4.859" asserts="0">
         <results>
-          <test-suite name="HatTrick" success="True" time="1.828" asserts="0">
+          <test-suite name="HatTrick" success="True" time="4.859" asserts="0">
             <results>
-              <test-suite name="GeneralTester" success="True" time="1.797" asserts="0">
+              <test-suite name="GeneralTester" success="True" time="4.813" asserts="0">
                 <results>
-                  <test-case name="HatTrick.GeneralTester.ChangePlayerPosition" executed="True" success="True" time="0.781" asserts="3" />
+                  <test-case name="HatTrick.GeneralTester.BuyPlayer" executed="True" success="True" time="0.797" asserts="2" />
+                  <test-case name="HatTrick.GeneralTester.ChangePlayerPosition" executed="True" success="True" time="0.188" asserts="3" />
                   <test-case name="HatTrick.GeneralTester.ChangeTeamFormation" executed="True" success="True" time="0.234" asserts="3" />
+                  <test-case name="HatTrick.GeneralTester.ChangeTrainingType" executed="True" success="True" time="0.078" asserts="2" />
+                  <test-case name="HatTrick.GeneralTester.CheckCreateLeague" executed="True" success="True" time="0.766" asserts="1" />
                   <test-case name="HatTrick.GeneralTester.CheckPlayerPosition" executed="True" success="True" time="0.031" asserts="1" />
-                  <test-case name="HatTrick.GeneralTester.MatchTeamsFailure" executed="True" success="True" time="0.141" asserts="1" />
-                  <test-case name="HatTrick.GeneralTester.MatchTeamsSuccessfully" executed="True" success="True" time="0.141" asserts="1" />
-                  <test-case name="HatTrick.GeneralTester.TestLoadTeam" executed="True" success="True" time="0.109" asserts="2" />
-                  <test-case name="HatTrick.GeneralTester.TestUserCreationFailure" executed="True" success="True" time="0.203" asserts="1" />
+                  <test-case name="HatTrick.GeneralTester.CheckTraining" executed="True" success="True" time="0.047" asserts="1" />
+                  <test-case name="HatTrick.GeneralTester.GameSavedInDB" executed="True" success="True" time="0.188" asserts="5" />
+                  <test-case name="HatTrick.GeneralTester.MatchTeamsFailure" executed="True" success="True" time="0.078" asserts="1" />
+                  <test-case name="HatTrick.GeneralTester.MatchTeamsSuccessfully" executed="True" success="True" time="0.094" asserts="1" />
+                  <test-case name="HatTrick.GeneralTester.PlayACycle" executed="True" success="True" time="1.125" asserts="1" />
+                  <test-case name="HatTrick.GeneralTester.TestLoadTeam" executed="True" success="True" time="0.078" asserts="1" />
+                  <test-case name="HatTrick.GeneralTester.TestLoadTeamWithoutLogin" executed="True" success="True" time="0.063" asserts="1" />
+                  <test-case name="HatTrick.GeneralTester.TestUserCreationFailure" executed="True" success="True" time="0.156" asserts="1" />
                   <test-case name="HatTrick.GeneralTester.TestUserCreationSuccess" executed="True" success="True" time="0.078" asserts="1" />
-                  <test-case name="HatTrick.GeneralTester.TestUserLoginFailure" executed="True" success="True" time="0.031" asserts="1" />
+                  <test-case name="HatTrick.GeneralTester.TestUserLoginFailure" executed="True" success="True" time="0.047" asserts="1" />
                   <test-case name="HatTrick.GeneralTester.TestUserLoginSuccess" executed="True" success="True" time="0.031" asserts="2" />
+                  <test-case name="HatTrick.GeneralTester.TrainAllTeams" executed="True" success="True" time="0.688" asserts="0" />
                 </results>
               </test-suite>
             </results>

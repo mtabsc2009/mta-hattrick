@@ -35,50 +35,50 @@ namespace HatTrick.CommonModel
             set { strTeamName = value; }
         }
 
-        private Consts.PlayerAbilities paKeeperVal;
-        public Consts.PlayerAbilities KeeperVal
+        private float paKeeperVal;
+        public float KeeperVal
         {
             get { return paKeeperVal; }
             set { paKeeperVal = value; }
         }
 
-        private Consts.PlayerAbilities paDefendingVal;
-        public Consts.PlayerAbilities DefendingVal
+        private float paDefendingVal;
+        public float DefendingVal
         {
             get { return paDefendingVal; }
             set { paDefendingVal = value; }
         }
         
-        private Consts.PlayerAbilities paPlaymakingVal;
-        public Consts.PlayerAbilities PlaymakingVal
+        private float paPlaymakingVal;
+        public float PlaymakingVal
         {
             get { return paPlaymakingVal; }
             set { paPlaymakingVal = value; }
         }
         
-        private Consts.PlayerAbilities paWingerVal;
-        public Consts.PlayerAbilities WingerVal
+        private float paWingerVal;
+        public float WingerVal
         {
             get { return paWingerVal; }
             set { paWingerVal = value; }
         }
         
-        private Consts.PlayerAbilities paPassingVal;
-        public Consts.PlayerAbilities PassingVal
+        private float paPassingVal;
+        public float PassingVal
         {
             get { return paPassingVal; }
             set { paPassingVal = value; }
         }
 
-        private Consts.PlayerAbilities paScoringVal;
-        public Consts.PlayerAbilities ScoringVal
+        private float paScoringVal;
+        public float ScoringVal
         {
             get { return paScoringVal; }
             set { paScoringVal = value; }
         }
         
-        private Consts.PlayerAbilities paSetPiecesVal;
-        public Consts.PlayerAbilities SetPiecesVal
+        private float paSetPiecesVal;
+        public float SetPiecesVal
         {
             get { return paSetPiecesVal; }
             set { paSetPiecesVal = value; }
@@ -106,13 +106,13 @@ namespace HatTrick.CommonModel
         /// </summary>
         /// <param name="nPlayerID"></param>
         public Player(int nPlayerID, string strPlayerName, DateTime dtBDate, string strTeamName,
-                        Consts.PlayerAbilities paKeeperVal,
-                        Consts.PlayerAbilities paDefendingVal,
-                        Consts.PlayerAbilities paPlaymakingVal,
-                        Consts.PlayerAbilities paWingerVal,
-                        Consts.PlayerAbilities paPassingVal,
-                        Consts.PlayerAbilities paScoringVal,
-                        Consts.PlayerAbilities paSetPiecesVal,
+                        float paKeeperVal,
+                        float paDefendingVal,
+                        float paPlaymakingVal,
+                        float paWingerVal,
+                        float paPassingVal,
+                        float paScoringVal,
+                        float paSetPiecesVal,
                         int nPlayerPosition,
                         int? playerCost,
                         bool isForSale)

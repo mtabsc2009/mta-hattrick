@@ -174,13 +174,13 @@ namespace DAL
                     Player pCurrPlayer = new Player(int.Parse(drPlayers["PlayerID"].ToString()), drPlayers["PlayerName"].ToString(),
                     Convert.ToDateTime(drPlayers["Birth_date"].ToString()),
                     strTeamName,
-                    ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["KeeperSkill"].ToString())))),
-                    ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["DefendingSkill"].ToString())))),
-                    ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["PlaymakingSkill"].ToString())))),
-                    ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["WingerSkill"].ToString())))),
-                    ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["PassingSkill"].ToString())))),
-                    ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["ScoringSkill"].ToString())))),
-                    ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["SetPiecesSkill"].ToString())))), int.Parse(drPlayers["PlayerPos"].ToString()),
+                    float.Parse(drPlayers["KeeperSkill"].ToString()),
+                    float.Parse(drPlayers["DefendingSkill"].ToString()),
+                    float.Parse(drPlayers["PlaymakingSkill"].ToString()),
+                    float.Parse(drPlayers["WingerSkill"].ToString()),
+                    float.Parse(drPlayers["PassingSkill"].ToString()),
+                    float.Parse(drPlayers["ScoringSkill"].ToString()),
+                    float.Parse(drPlayers["SetPiecesSkill"].ToString()), int.Parse(drPlayers["PlayerPos"].ToString()),
                     Convert.ToInt32(drPlayers["PlayerCost"]),
                     Convert.ToBoolean(drPlayers["IsForSale"]));
                     pPlayers.Add(pCurrPlayer);
@@ -218,13 +218,13 @@ namespace DAL
                     Player pCurrPlayer = new Player(int.Parse(drPlayers["PlayerID"].ToString()), drPlayers["PlayerName"].ToString(),
                     Convert.ToDateTime(drPlayers["Birth_date"]),
                     strTeamName,
-                    ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["KeeperSkill"].ToString())))),
-                    ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["DefendingSkill"].ToString())))),
-                    ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["PlaymakingSkill"].ToString())))),
-                    ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["WingerSkill"].ToString())))),
-                    ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["PassingSkill"].ToString())))),
-                    ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["ScoringSkill"].ToString())))),
-                    ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["SetPiecesSkill"].ToString())))),int.Parse(drPlayers["PlayerPos"].ToString()),
+                    float.Parse(drPlayers["KeeperSkill"].ToString()),
+                    float.Parse(drPlayers["DefendingSkill"].ToString()),
+                    float.Parse(drPlayers["PlaymakingSkill"].ToString()),
+                    float.Parse(drPlayers["WingerSkill"].ToString()),
+                    float.Parse(drPlayers["PassingSkill"].ToString()),
+                    float.Parse(drPlayers["ScoringSkill"].ToString()),
+                    float.Parse(drPlayers["SetPiecesSkill"].ToString()), int.Parse(drPlayers["PlayerPos"].ToString()),
                     Convert.ToInt32(drPlayers["PlayerCost"]),
                     Convert.ToBoolean(drPlayers["IsForSale"]));
                     pPlayers.Add(pCurrPlayer);
@@ -686,14 +686,13 @@ namespace DAL
                    Player pCurrPlayer = new Player(int.Parse(drPlayers["PlayerID"].ToString()), drPlayers["PlayerName"].ToString(),
                    Convert.ToDateTime(drPlayers["Birth_date"]),
                    drPlayers["PlayerTeam"].ToString(),
-                   ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["KeeperSkill"].ToString())))),
-                   ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["DefendingSkill"].ToString())))),
-                   ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["PlaymakingSkill"].ToString())))),
-                   ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["WingerSkill"].ToString())))),
-                   ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["PassingSkill"].ToString())))),
-                   ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["ScoringSkill"].ToString())))),
-                   ((Consts.PlayerAbilities)Enum.Parse(typeof(Consts.PlayerAbilities), Enum.GetName(typeof(Consts.PlayerAbilities), int.Parse(drPlayers["SetPiecesSkill"].ToString())))), 
-                   int.Parse(drPlayers["PlayerPos"].ToString()),
+                    float.Parse(drPlayers["KeeperSkill"].ToString()),
+                    float.Parse(drPlayers["DefendingSkill"].ToString()),
+                    float.Parse(drPlayers["PlaymakingSkill"].ToString()),
+                    float.Parse(drPlayers["WingerSkill"].ToString()),
+                    float.Parse(drPlayers["PassingSkill"].ToString()),
+                    float.Parse(drPlayers["ScoringSkill"].ToString()),
+                    float.Parse(drPlayers["SetPiecesSkill"].ToString()), int.Parse(drPlayers["PlayerPos"].ToString()),
                    int.Parse(drPlayers["PlayerCost"].ToString()),
                    Convert.ToBoolean(drPlayers["IsForSale"]));
                    pPlayers.Add(pCurrPlayer);
@@ -769,5 +768,53 @@ namespace DAL
 
             cmdCommand.ExecuteNonQuery();
         }
+
+
+        public static void ChangeTeamTrainingType(Team tmToChange)
+        {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+            try
+            {
+                Connect();
+                cmdCommand.CommandText = string.Format("UPDATE teams SET teamtrainingType = {0} WHERE teamname = \"{1}\"", ((int)tmToChange.TeamTrainingType), tmToChange.Name);
+                cmdCommand.ExecuteNonQuery();
+            }
+            finally
+            {
+                Close();
+            }
+        }
+
+        public static void SaveTeamSkills(Team tmTeamToTrain)
+        {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+            try
+            {
+                Connect();
+                foreach (Player plrCurr in tmTeamToTrain.Players)
+                {
+                    cmdCommand.CommandText = string.Format(
+                        "UPDATE players SET " +
+                        "KeeperSkill = {1}, " +
+                        "DefendingSkill = {2}, PlaymakingSkill = {3}, WingerSkill = {4}, PassingSkill = {5}, ScoringSkill = {6}, SetPiecesSkill = {7} " +
+                        "WHERE players.PlayerID = {0}", plrCurr.ID,
+                        plrCurr.KeeperVal,
+                        plrCurr.DefendingVal,
+                        plrCurr.PlaymakingVal,
+                        plrCurr.WingerVal,
+                        plrCurr.PassingVal,
+                        plrCurr.ScoringVal,
+                        plrCurr.SetPiecesVal);
+                    cmdCommand.ExecuteNonQuery();
+                }
+            }
+            finally
+            {
+                Close();
+            }
+        }
+    
     }
 }
