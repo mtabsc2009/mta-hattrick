@@ -65,7 +65,6 @@ namespace HatTrick.TextualView
 
         public static string ShowManageTeam(User m_usrCurrent)
         {
-            int iChoise = 0;
             Console.WriteLine(string.Format("Hi {0}", m_usrCurrent.Username));
             Console.WriteLine("----------------------");
             Console.WriteLine("Select your choice:");
@@ -73,13 +72,12 @@ namespace HatTrick.TextualView
             Console.WriteLine(" 2. Update player position");
             Console.WriteLine(" 3. Change team formation ");
             Console.WriteLine(" 4. View team formation ");
-            Console.WriteLine(" 5. Sell Players");
+            Console.WriteLine(" 5. Transfers");
             Console.WriteLine(" 6. Back to team menu");
 
             string strChoice = string.Empty;
             strChoice = Console.ReadLine();
-
-            while (!int.TryParse(strChoice, out iChoise) && iChoise > 0 && iChoise < 7)
+            while (strChoice != "1" && strChoice != "2" && strChoice != "3" && strChoice != "4" && strChoice != "5" && strChoice != "6")
             {
                 Console.WriteLine("Invalid choice, choose again:");
                 strChoice = Console.ReadLine();
@@ -362,6 +360,26 @@ namespace HatTrick.TextualView
         public static void ShowMatchError()
         {
             Console.WriteLine("There has been an error starting the match.");
+        }
+
+        public static string ShowTransafersMenu()
+        {
+            Console.WriteLine("Transfer Players:");
+            Console.WriteLine("-----------------");
+            Console.WriteLine("Select your choice:");
+            Console.WriteLine(" 1. Sell a player");
+            Console.WriteLine(" 2. Buy a player");
+            Console.WriteLine(" 3. Exit");
+
+            string strChoice = string.Empty;
+            strChoice = Console.ReadLine();
+            while (strChoice != "1" && strChoice != "2" && strChoice != "3")
+            {
+                Console.WriteLine("Invalid choice, choose again:");
+                strChoice = Console.ReadLine();
+            }
+
+            return strChoice;
         }
     }
 }
