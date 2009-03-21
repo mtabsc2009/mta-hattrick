@@ -72,7 +72,8 @@ namespace HatTrick.TextualView
             Console.WriteLine(" 2. Update player position");
             Console.WriteLine(" 3. Change team formation ");
             Console.WriteLine(" 4. View team formation ");
-            Console.WriteLine(" 5. Back to team menu");
+            Console.WriteLine(" 5. Sell Players");
+            Console.WriteLine(" 6. Back to team menu");
 
             string strChoice = string.Empty;
             strChoice = Console.ReadLine();
