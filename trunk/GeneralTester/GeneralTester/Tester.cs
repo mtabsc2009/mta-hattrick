@@ -50,9 +50,16 @@ namespace HatTrick
         }
 
         [Test]
+        public void TestLoadTeamWithoutLogin()
+        {
+            Game.Reset();
+            Assert.IsNull(DBAccess.LoadTeam(Game.User));
+
+        }
+        
+        [Test]
         public void TestLoadTeam()
         {
-            Assert.IsNull(DBAccess.LoadTeam(Game.User));
             Game.Login("etay", "etay");
             Assert.IsNotNull(DBAccess.LoadTeam(Game.User));
             
@@ -170,6 +177,17 @@ namespace HatTrick
             Game.PlayNextCycle();
 
             Assert.AreEqual(Game.CyclesToList(DAL.DBAccess.GetAllCycles()).Where(T => T.GameID != -1).Count(),DAL.DBAccess.GetTeamCount() / 2) ;
+        }
+
+        [Test]
+        public void TrainingAttack()
+        {
+
+            Game.ChangeTeamTrainngType();
+            Game.CreateNewLeagueCycles();
+            Game.PlayNextCycle();
+
+            Assert.AreEqual(Game.CyclesToList(DAL.DBAccess.GetAllCycles()).Where(T => T.GameID != -1).Count(), DAL.DBAccess.GetTeamCount() / 2);
         }
     }
 }

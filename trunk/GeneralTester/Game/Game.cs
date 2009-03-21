@@ -357,6 +357,7 @@ namespace HatTrick
         public static void Reset()
         {
             DAL.DBAccess.ResetDebugUser();
+            Game.m_usrCurrent = null;
         }
 
         public static bool CreateUser(string strName, string strPass)
