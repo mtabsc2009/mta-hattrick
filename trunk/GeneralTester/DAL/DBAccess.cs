@@ -116,7 +116,10 @@ namespace DAL
                 drTeam.Read();
                 string strFormation = drTeam["TeamPos"].ToString();
                 int teamCash = Convert.ToInt32(drTeam["TeamCash"]);
-                return (new Team(drTeam["TeamName"].ToString(), (DateTime)drTeam["AU_CreationDate"], LoadPlayers(drTeam["TeamName"].ToString()), usrCurrentUser.Username, strFormation, teamCash));
+                Consts.TrainingType tType = ((Consts.TrainingType)(int.Parse(drTeam["TeamTrainingType"].ToString())));
+                Team tMyTeam = new Team(drTeam["TeamName"].ToString(), (DateTime)drTeam["AU_CreationDate"], LoadPlayers(drTeam["TeamName"].ToString()), usrCurrentUser.Username, strFormation, teamCash);
+                tMyTeam.TeamTrainingType = tType;
+                return (tMyTeam);
             }
             catch
             {
@@ -127,7 +130,6 @@ namespace DAL
                 Close();
             }
         }
-
 
         public static Team LoadTeam(string strTeamName)
         {
@@ -143,7 +145,10 @@ namespace DAL
                 drTeam.Read();
                 string strFormation = drTeam["TeamPos"].ToString();
                 int teamCash = Convert.ToInt32(drTeam["TeamCash"].ToString());
-                return(new Team(drTeam["TeamName"].ToString(), (DateTime)drTeam["AU_CreationDate"], LoadPlayers(drTeam["TeamName"].ToString()), null, strFormation, teamCash));
+                Consts.TrainingType tType = ((Consts.TrainingType)(int.Parse(drTeam["TeamTrainingType"].ToString())));
+                Team tmMyTeam = new Team(drTeam["TeamName"].ToString(), (DateTime)drTeam["AU_CreationDate"], LoadPlayers(drTeam["TeamName"].ToString()), null, strFormation, teamCash);
+                tmMyTeam.TeamTrainingType = tType;
+                return (tmMyTeam);
             }
             catch
             {
