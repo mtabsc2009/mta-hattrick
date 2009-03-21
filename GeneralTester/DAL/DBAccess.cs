@@ -721,6 +721,11 @@ namespace DAL
                cmdCommand.CommandText = string.Format("UPDATE players  SET PlayerTeam = \"{1}\" , IsForSale = \"0\" where PlayerName = \"{0}\"",
                                                       playerToBuy.Name, tMyTeam.Name);
                cmdCommand.ExecuteNonQuery();
+
+               cmdCommand.CommandText = string.Format("UPDATE teams  SET TeamCash = \"{0}\" where TeamName = \"{1}\"",
+                                           (tMyTeam.TeamCash - playerToBuy.PlayerCost), tMyTeam.Name);
+               cmdCommand.ExecuteNonQuery();
+
            }
            finally
            {
