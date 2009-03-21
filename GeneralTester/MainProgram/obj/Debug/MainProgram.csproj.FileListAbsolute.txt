@@ -37,3 +37,16 @@ D:\Elad\Projects\hattrick\GeneralTester\MainProgram\bin\Debug\DAL.pdb
 D:\Elad\Projects\hattrick\GeneralTester\MainProgram\obj\Debug\ResolveAssemblyReference.cache
 D:\Elad\Projects\hattrick\GeneralTester\MainProgram\obj\Debug\MainProgram.exe
 D:\Elad\Projects\hattrick\GeneralTester\MainProgram\obj\Debug\MainProgram.pdb
+D:\C-Sharp Proj\Projects\HatTrick\MainProgram\bin\Debug\MainProgram.exe
+D:\C-Sharp Proj\Projects\HatTrick\MainProgram\bin\Debug\MainProgram.pdb
+D:\C-Sharp Proj\Projects\HatTrick\MainProgram\bin\Debug\Game.dll
+D:\C-Sharp Proj\Projects\HatTrick\MainProgram\bin\Debug\CommonModel.dll
+D:\C-Sharp Proj\Projects\HatTrick\MainProgram\bin\Debug\TextualView.dll
+D:\C-Sharp Proj\Projects\HatTrick\MainProgram\bin\Debug\DAL.dll
+D:\C-Sharp Proj\Projects\HatTrick\MainProgram\bin\Debug\CommonModel.pdb
+D:\C-Sharp Proj\Projects\HatTrick\MainProgram\bin\Debug\TextualView.pdb
+D:\C-Sharp Proj\Projects\HatTrick\MainProgram\bin\Debug\DAL.pdb
+D:\C-Sharp Proj\Projects\HatTrick\MainProgram\bin\Debug\Game.pdb
+D:\C-Sharp Proj\Projects\HatTrick\MainProgram\obj\Debug\ResolveAssemblyReference.cache
+D:\C-Sharp Proj\Projects\HatTrick\MainProgram\obj\Debug\MainProgram.exe
+D:\C-Sharp Proj\Projects\HatTrick\MainProgram\obj\Debug\MainProgram.pdb
