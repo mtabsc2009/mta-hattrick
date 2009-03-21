@@ -183,7 +183,7 @@ namespace HatTrick
         public void TrainingAttack()
         {
 
-            Game.ChangeTeamTrainngType();
+            //Game.ChangeTeamTrainngType();
             Game.CreateNewLeagueCycles();
             Game.PlayNextCycle();
 
