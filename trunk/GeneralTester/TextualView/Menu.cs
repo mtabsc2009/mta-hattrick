@@ -65,6 +65,7 @@ namespace HatTrick.TextualView
 
         public static string ShowManageTeam(User m_usrCurrent)
         {
+            int iChoise = 0;
             Console.WriteLine(string.Format("Hi {0}", m_usrCurrent.Username));
             Console.WriteLine("----------------------");
             Console.WriteLine("Select your choice:");
@@ -77,7 +78,8 @@ namespace HatTrick.TextualView
 
             string strChoice = string.Empty;
             strChoice = Console.ReadLine();
-            while (strChoice != "1" && strChoice != "2" && strChoice != "3" && strChoice != "4" && strChoice != "5")
+
+            while (!int.TryParse(strChoice, out iChoise) && iChoise > 0 && iChoise < 7)
             {
                 Console.WriteLine("Invalid choice, choose again:");
                 strChoice = Console.ReadLine();
