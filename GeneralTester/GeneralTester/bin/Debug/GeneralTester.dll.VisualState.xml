@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="false">
-  <TopNode>[0-1008]D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.dll</TopNode>
-  <SelectedNode>[0-1007]HatTrick.GeneralTester.ChangePlayerPosition</SelectedNode>
+  <TopNode>[0-1007]D:\winutils\University\SoftwareDev\פרויקט סיכום\hattrick-mta\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.dll</TopNode>
+  <SelectedNode>[0-1005]HatTrick.GeneralTester.TestLoadTeamWithoutLogin</SelectedNode>
   <ExcludeCategories>false</ExcludeCategories>
   <Nodes>
-    <Node UniqueName="[0-1008]D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.dll" Expanded="true">
+    <Node UniqueName="[0-1007]D:\winutils\University\SoftwareDev\פרויקט סיכום\hattrick-mta\mta-hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.dll" Expanded="true">
       <Nodes>
-        <Node UniqueName="[0-1009]HatTrick" Expanded="true">
+        <Node UniqueName="[0-1008]HatTrick" Expanded="true">
           <Nodes>
             <Node UniqueName="[0-1000]HatTrick.GeneralTester" Expanded="true">
               <Nodes>
-                <Node UniqueName="[0-1007]HatTrick.GeneralTester.ChangePlayerPosition" />
-                <Node UniqueName="[0-1006]HatTrick.GeneralTester.CheckPlayerPosition" />
-                <Node UniqueName="[0-1005]HatTrick.GeneralTester.TestLoadTeam" />
+                <Node UniqueName="[0-1006]HatTrick.GeneralTester.TestLoadTeam" />
+                <Node UniqueName="[0-1005]HatTrick.GeneralTester.TestLoadTeamWithoutLogin" />
                 <Node UniqueName="[0-1002]HatTrick.GeneralTester.TestUserCreationFailure" />
                 <Node UniqueName="[0-1004]HatTrick.GeneralTester.TestUserCreationSuccess" />
                 <Node UniqueName="[0-1003]HatTrick.GeneralTester.TestUserLoginFailure" />
