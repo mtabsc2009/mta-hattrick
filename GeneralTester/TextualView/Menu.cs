@@ -65,6 +65,7 @@ namespace HatTrick.TextualView
 
         public static string ShowManageTeam(User m_usrCurrent)
         {
+            int iChoise = 0;
             Console.WriteLine(string.Format("Hi {0}", m_usrCurrent.Username));
             Console.WriteLine("----------------------");
             Console.WriteLine("Select your choice:");
@@ -74,10 +75,13 @@ namespace HatTrick.TextualView
             Console.WriteLine(" 4. View team formation ");
             Console.WriteLine(" 5. Transfers");
             Console.WriteLine(" 6. Back to team menu");
+            Console.WriteLine(" 6. Set team training type ");
+            Console.WriteLine(" 7. Back to team menu");
 
             string strChoice = string.Empty;
             strChoice = Console.ReadLine();
-            while (strChoice != "1" && strChoice != "2" && strChoice != "3" && strChoice != "4" && strChoice != "5" && strChoice != "6")
+
+            while (!int.TryParse(strChoice, out iChoise) && iChoise > 0 && iChoise < 8)
             {
                 Console.WriteLine("Invalid choice, choose again:");
                 strChoice = Console.ReadLine();
@@ -267,11 +271,12 @@ namespace HatTrick.TextualView
             Console.WriteLine(" 1. Play a friendly match");
             Console.WriteLine(" 2. Show League Cycles");
             Console.WriteLine(" 3. Run  League Next cycle");
-            Console.WriteLine(" 4. Exit");
+            Console.WriteLine(" 4. Train all teams");
+            Console.WriteLine(" 5. Exit");
 
             string strChoice = string.Empty;
             strChoice = Console.ReadLine();
-            while (strChoice != "1" && strChoice != "2" && strChoice != "3" && strChoice != "4")//  && strChoice != "5")
+            while (strChoice != "1" && strChoice != "2" && strChoice != "3" && strChoice != "4" && strChoice != "5")
             {
                 Console.WriteLine("Invalid choice, choose again:");
                 strChoice = Console.ReadLine();
@@ -280,6 +285,7 @@ namespace HatTrick.TextualView
             return strChoice;
 
         }
+
 
         public static void ShowStartMatch(out string strAwayTeam)
         {
@@ -380,6 +386,52 @@ namespace HatTrick.TextualView
             }
 
             return strChoice;
+        }
+
+
+        public static string ShowTrainingTypes(Team tMyTeam)
+        {
+            Console.Clear();
+            Console.WriteLine("Your current training type is: " + tMyTeam.TeamTrainingType.ToString());
+
+            Console.WriteLine("Select The training of your team:");
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine("1. Attack");
+            Console.WriteLine("2. Defence");
+            Console.WriteLine("3. Wings");
+            Console.WriteLine("4. PlayMaking");
+            Console.WriteLine("5. SetPieces");
+
+
+            string strChoice = string.Empty;
+            strChoice = Console.ReadLine();
+
+            while (int.Parse(strChoice) <= 0 || int.Parse(strChoice) > 5)
+            {
+                Console.WriteLine("Invalid choice, choose again:");
+                strChoice = Console.ReadLine();
+            }
+
+            return strChoice;
+        }
+
+        public static int ShowGetNumOfTrains()
+        {
+            Console.Clear();
+            Console.WriteLine("Insert the number of trainings:");
+
+            string strChoice = string.Empty;
+            strChoice = Console.ReadLine();
+            int nChoice;
+            bool b = int.TryParse(strChoice, out nChoice);
+            while (!b || nChoice <= 0)
+            {
+                Console.WriteLine("Invalid choice, choose again:");
+                strChoice = Console.ReadLine();
+                b = int.TryParse(strChoice, out nChoice);
+            }
+
+            return nChoice;
         }
     }
 }

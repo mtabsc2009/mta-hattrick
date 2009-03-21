@@ -20,6 +20,12 @@ namespace HatTrick
             get { return Game.m_usrCurrent; }
         }
         private static Team tMyTeam = null;
+        public static Team MyTeam
+        {
+            get { return Game.tMyTeam; }
+            set { Game.tMyTeam = value; }
+        }
+
 
         private static IGameView m_ConsoleGameView = new ConsoleGameView();
 
@@ -115,19 +121,32 @@ namespace HatTrick
         {
             Console.Clear();
             string strChoice = Menu.ShowLeague(m_usrCurrent);
-            while (strChoice != "4")
+            while (strChoice != "7")
             {
                 switch (strChoice)
                 {
                     case "1":
-                        StartMatch();
+                        ShowMyTeam(tMyTeam);
                         break;
+
                     case "2":
-                        ShowCycles();
+                        ChangePlayerPosition();
                         break;
+
                     case "3":
-                        PlayNextCycle();
+                        ChangeTeamFomation();
                         break;
+                    case "4":
+                        Menu.ShowMyFormation(tMyTeam);
+                        break;
+                    case "5":
+                        ShowSellPlayers(tMyTeam);
+                        break;
+                    case "6":
+                        ShowTrainingTypes(tMyTeam);
+                        break;
+
+
                 }
                 Console.Clear();
                 strChoice = Menu.ShowLeague(m_usrCurrent);
@@ -353,6 +372,46 @@ namespace HatTrick
             }
         }
 
+        private static void ShowTrainAllTeams()
+        {
+            int nNumOfTrains = Menu.ShowGetNumOfTrains();
+            TrainAllTeams(nNumOfTrains);
+        }
+
+
+        private static void ShowTrainingTypes(Team tMyTeam)
+        {
+            string strChoice = Menu.ShowTrainingTypes(tMyTeam);
+            Game.tMyTeam = tMyTeam;
+            ChangeTeamTrainngType((Consts.TrainingType)(int.Parse(strChoice)));
+            DAL.DBAccess.ChangeTeamTrainingType(tMyTeam);
+            Console.WriteLine("Training type changed");
+            Console.ReadLine();
+        }
+
+        public static Team ManageTeam()
+        {
+            tMyTeam = DAL.DBAccess.LoadTeam(m_usrCurrent);
+            if (tMyTeam == null)
+            {
+                string strTeamName;
+                Console.Clear();
+                Menu.ShowCreateNewTeam(out strTeamName);
+
+                while (DAL.DBAccess.DoesTeamExist(strTeamName))
+                {
+                    Console.WriteLine("Team already exists");
+                    Menu.ShowCreateNewTeam(out strTeamName);
+                }
+
+                tMyTeam = DAL.DBAccess.CreateTeam(m_usrCurrent, strTeamName);
+            }
+
+            HandleManageTeam();
+
+            return tMyTeam;
+        }
+
         #endregion
 
         #region Game Enging
@@ -376,28 +435,6 @@ namespace HatTrick
             return m_usrCurrent;
         }
 
-        public static Team ManageTeam()
-        {
-            tMyTeam = DAL.DBAccess.LoadTeam(m_usrCurrent);
-            if (tMyTeam == null)
-            {
-                string strTeamName;
-                Console.Clear();
-                Menu.ShowCreateNewTeam(out strTeamName);
-                
-                while (DAL.DBAccess.DoesTeamExist(strTeamName))
-                {
-                    Console.WriteLine("Team already exists");
-                    Menu.ShowCreateNewTeam(out strTeamName);
-                }
-
-                tMyTeam = DAL.DBAccess.CreateTeam(m_usrCurrent, strTeamName);
-            }
-
-            HandleManageTeam();
-
-            return tMyTeam;
-        }
 
         private static void HandleManageTeam()
         {
@@ -1141,11 +1178,161 @@ namespace HatTrick
             return DAL.DBAccess.LoadGameStory(nStoryID);
         }
 
-        #endregion
 
         public static int SaveStoryToDB(GameStory gsNewGame)
         {
             return DAL.DBAccess.SaveStoryToDB(gsNewGame);
         }
+
+        public static void ChangeTeamTrainngType(Consts.TrainingType ttTeamTrainingType)
+        {
+            tMyTeam.TeamTrainingType = ttTeamTrainingType;
+        }
+
+        public static void TrainTeam(Team tmTeamToTrain)
+        {
+            TeamFormation tmFormation = new TeamFormation(tmTeamToTrain.Formation);
+            Consts.TrainingType trType = tmTeamToTrain.TeamTrainingType;
+            float[] nChances = { 0, 0, 0 };
+            switch (trType)
+            {
+                case Consts.TrainingType.ATTACK:
+                    {
+                        nChances[0] = (0.2F);
+                        nChances[1] = (0.45F);
+                        nChances[2] = (1F);
+                    }
+                    break;
+                case Consts.TrainingType.DEFENCE:
+                    {
+                        nChances[0] = (1F);
+                        nChances[1] = (0.6F);
+                        nChances[2] = (0.2F);
+                    }
+
+                    break;
+                case Consts.TrainingType.WING:
+                    {
+                        nChances[0] = (0.6F);
+                        nChances[1] = (0.8F);
+                        nChances[2] = (0.7F);
+                    }
+
+                    break;
+                case Consts.TrainingType.PLAYMAKING:
+                    nChances[0] = (0.4F);
+                    nChances[1] = (1F);
+                    nChances[2] = (0.5F);
+
+                    break;
+                case Consts.TrainingType.SETPIECES:
+                    nChances[0] = (1F);
+                    nChances[1] = (1F);
+                    nChances[2] = (1F);
+
+                    break;
+                default:
+                    break;
+            }
+            Player plrKeeper = (Player)tmTeamToTrain.Players.Where(T => T.Position == 1).First();
+            plrKeeper.KeeperVal = AdvancePlayerSkill(plrKeeper, 0.25F, 1F, plrKeeper.KeeperVal);
+            for (int i = 2; i <= 11; i++)
+            {
+                Player plrToTrain = (Player)tmTeamToTrain.Players.Where(T => T.Position == i).First();
+
+                if (i <= tmFormation.Defence + 1)
+                {
+                    TrainPlayer(trType, plrToTrain, nChances[0]);
+                }
+                else if (i <= tmFormation.MiddleField + tmFormation.Defence + 1)
+                {
+                    TrainPlayer(trType, plrToTrain, nChances[1]);
+                }
+                else
+                {
+                    TrainPlayer(trType, plrToTrain, nChances[2]);
+                }
+            }
+        }
+
+        public static void TrainAllTeams(int nNumOfTrainings)
+        {
+            DataView allTeams;
+            allTeams = DAL.DBAccess.GetAllTeams();
+            foreach (DataRowView drTeam in allTeams)
+            {
+                Team tCurrTeam = DAL.DBAccess.LoadTeam(drTeam["TeamName"].ToString());
+                for (int nCurrTrain = 0; nCurrTrain < nNumOfTrainings; ++nCurrTrain)
+                {
+                    TrainTeam(tCurrTeam);
+                }
+                DAL.DBAccess.SaveTeamSkills(tCurrTeam);
+            }
+        }
+
+        private static void TrainPlayer(Consts.TrainingType trType, Player plrToTrain, float fAdvancedLevel)
+        {
+
+            switch (trType)
+            {
+                case Consts.TrainingType.ATTACK:
+                    float fCurrentSkillAdvance = 1F;
+                    plrToTrain.ScoringVal = AdvancePlayerSkill(plrToTrain, fAdvancedLevel, fCurrentSkillAdvance, plrToTrain.ScoringVal);
+
+                    fCurrentSkillAdvance = 0.3F;
+                    plrToTrain.SetPiecesVal = AdvancePlayerSkill(plrToTrain, fAdvancedLevel, fCurrentSkillAdvance, plrToTrain.SetPiecesVal);
+
+                    fCurrentSkillAdvance = 0.5F;
+                    plrToTrain.WingerVal = AdvancePlayerSkill(plrToTrain, fAdvancedLevel, fCurrentSkillAdvance, plrToTrain.WingerVal);
+                    break;
+
+                case Consts.TrainingType.DEFENCE:
+                    fCurrentSkillAdvance = 1F;
+                    plrToTrain.DefendingVal = AdvancePlayerSkill(plrToTrain, fAdvancedLevel, fCurrentSkillAdvance, plrToTrain.DefendingVal);
+
+                    break;
+                case Consts.TrainingType.WING:
+                    fCurrentSkillAdvance = 1F;
+                    plrToTrain.WingerVal = AdvancePlayerSkill(plrToTrain, fAdvancedLevel, fCurrentSkillAdvance, plrToTrain.WingerVal);
+
+                    fCurrentSkillAdvance = 0.5F;
+                    plrToTrain.PassingVal = AdvancePlayerSkill(plrToTrain, fAdvancedLevel, fCurrentSkillAdvance, plrToTrain.PassingVal);
+                    break;
+                case Consts.TrainingType.PLAYMAKING:
+                    fCurrentSkillAdvance = 1F;
+                    plrToTrain.PlaymakingVal = AdvancePlayerSkill(plrToTrain, fAdvancedLevel, fCurrentSkillAdvance, plrToTrain.PlaymakingVal);
+                    plrToTrain.PassingVal = AdvancePlayerSkill(plrToTrain, fAdvancedLevel, fCurrentSkillAdvance, plrToTrain.PassingVal);
+
+                    fCurrentSkillAdvance = 0.5F;
+                    plrToTrain.WingerVal = AdvancePlayerSkill(plrToTrain, fAdvancedLevel, fCurrentSkillAdvance, plrToTrain.WingerVal);
+
+                    break;
+                case Consts.TrainingType.SETPIECES:
+                    fCurrentSkillAdvance = 1F;
+                    plrToTrain.SetPiecesVal = AdvancePlayerSkill(plrToTrain, fAdvancedLevel, fCurrentSkillAdvance, plrToTrain.SetPiecesVal);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private static float AdvancePlayerSkill(Player plrToTrain, float fAdvancedLevel, float fCurrentSkillAdvance, float fCurrentSkill)
+        {
+            int nPlayerWholeLevel;
+            float fAdvancePower;
+
+            nPlayerWholeLevel = (int)fCurrentSkill;
+            if (nPlayerWholeLevel < 20)
+            {
+                fAdvancePower = 1F / (Consts.fTrainPeroid[nPlayerWholeLevel - 1] * Consts.nTrainsPerMonth);
+                fCurrentSkill += fAdvancePower * fAdvancedLevel * fCurrentSkillAdvance;
+            }
+            else
+            {
+                fCurrentSkill = 20F;
+            }
+            return fCurrentSkill;
+        }
+        #endregion
     }
 }

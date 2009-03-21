@@ -16,7 +16,7 @@ namespace HatTrick
         {
             GeneralTester gtNew = new GeneralTester();
 
-            gtNew.ChangePlayerPosition();
+            gtNew.PlayACycle();
         }
             
         [Test]
@@ -180,17 +180,6 @@ namespace HatTrick
         }
 
         [Test]
-        public void TrainingAttack()
-        {
-
-            //Game.ChangeTeamTrainngType();
-            Game.CreateNewLeagueCycles();
-            Game.PlayNextCycle();
-
-            Assert.AreEqual(Game.CyclesToList(DAL.DBAccess.GetAllCycles()).Where(T => T.GameID != -1).Count(), DAL.DBAccess.GetTeamCount() / 2);
-        }
-
-        [Test]
         public void BuyPlayer()
         {
             User usr = new User("q", "q");
@@ -222,6 +211,104 @@ namespace HatTrick
             //reverse
             DAL.DBAccess.UpdateSellPlayer(playerName, 500);
             DAL.DBAccess.BuyPlayer(tMyTeam, playerToBuy);        
+        }
+
+        [Test]
+        public void ChangeTrainingType()
+        {
+            User usr = new User("DebugUser", "DebugUser");
+
+            Team tMyTeam = DAL.DBAccess.LoadTeam(usr);
+            Game.MyTeam = tMyTeam;
+
+            Game.ChangeTeamTrainngType(Consts.TrainingType.ATTACK);
+            Assert.AreEqual(tMyTeam.TeamTrainingType, Consts.TrainingType.ATTACK);
+
+            tMyTeam = DAL.DBAccess.LoadTeam(usr);
+            Game.MyTeam = tMyTeam;
+
+            Game.ChangeTeamTrainngType(Consts.TrainingType.PLAYMAKING);
+            Assert.AreEqual(tMyTeam.TeamTrainingType, Consts.TrainingType.PLAYMAKING);
+        }
+
+        [Test]
+        public void CheckTraining()
+        {
+            User usr = new User("DebugUser", "DebugUser");
+
+            Team tMyTeam = DAL.DBAccess.LoadTeam(usr);
+            Game.MyTeam = tMyTeam;
+
+            Game.ChangeTeamTrainngType(Consts.TrainingType.ATTACK);
+            Player plrAttacker = (Player)tMyTeam.Players.Where(T => T.Position == 11).First();
+            float fLastLevel = plrAttacker.ScoringVal;
+            Game.TrainTeam(tMyTeam);
+            plrAttacker = (Player)tMyTeam.Players.Where(T => T.Position == 11).First();
+            Assert.Greater(plrAttacker.ScoringVal, fLastLevel);
+        }
+
+        public void TrainTeamAlot()
+        {
+            User usr = new User("DebugUser", "DebugUser");
+
+            Team tMyTeam = DAL.DBAccess.LoadTeam(usr);
+            Game.MyTeam = tMyTeam;
+
+            for (int i = 1; i < 200; i++)
+            {
+                tMyTeam.TeamTrainingType = (Consts.TrainingType.ATTACK);
+                Game.TrainTeam(tMyTeam);
+                tMyTeam.TeamTrainingType = (Consts.TrainingType.DEFENCE);
+                Game.TrainTeam(tMyTeam);
+                tMyTeam.TeamTrainingType = (Consts.TrainingType.PLAYMAKING);
+                Game.TrainTeam(tMyTeam);
+                tMyTeam.TeamTrainingType = (Consts.TrainingType.SETPIECES);
+                Game.TrainTeam(tMyTeam);
+                tMyTeam.TeamTrainingType = (Consts.TrainingType.WING);
+                Game.TrainTeam(tMyTeam);
+            }
+            DAL.DBAccess.SaveTeamSkills(tMyTeam);
+        }
+
+        public void TrainTeamAttackAlot()
+        {
+            User usr = new User("DebugUser", "DebugUser");
+
+            Team tMyTeam = DAL.DBAccess.LoadTeam(usr);
+            Game.MyTeam = tMyTeam;
+
+            tMyTeam.TeamTrainingType = (Consts.TrainingType.ATTACK);
+            for (int i = 1; i < 200; i++)
+            {
+                Game.TrainTeam(tMyTeam);
+            }
+            DAL.DBAccess.SaveTeamSkills(tMyTeam);
+        }
+
+        public void ResetDebugTeamAbilities()
+        {
+            User usr = new User("DebugUser", "DebugUser");
+
+            Team tMyTeam = DAL.DBAccess.LoadTeam(usr);
+            Game.MyTeam = tMyTeam;
+
+            foreach (Player plrCurr in tMyTeam.Players)
+            {
+                plrCurr.SetPiecesVal = 1;
+                plrCurr.ScoringVal = 1;
+                plrCurr.WingerVal = 1;
+                plrCurr.PassingVal = 1;
+                plrCurr.DefendingVal = 1;
+                plrCurr.PlaymakingVal = 1;
+                plrCurr.KeeperVal = 1;
+            }
+            DAL.DBAccess.SaveTeamSkills(tMyTeam);
+        }
+
+        [Test]
+        public void TrainAllTeams()
+        {
+            Game.TrainAllTeams(1);
         }
     }
 }
