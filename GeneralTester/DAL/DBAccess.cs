@@ -153,8 +153,6 @@ namespace DAL
             }
         }
 
-
-
         private static List<Player> LoadPlayers(string strTeamName)
         {
             OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
@@ -587,6 +585,80 @@ namespace DAL
             {
                 Close();
             }
-        }
+       }
+
+       public static void UpdateSellPlayer(String playerName, int cost)
+       {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+            try
+            {
+                Connect();
+                cmdCommand.CommandText = string.Format("UPDATE players  SET PlayerCost = {1} , IsForSale = \"1\" where PlayerName = \"{0}\"",
+                                                       playerName, cost);
+                cmdCommand.ExecuteNonQuery();
+            }
+            finally
+            {
+                Close();
+            }
+       }
+         
+       public static void UpdateTransfersPlayer(String playerName, String newTeam)
+       {
+           OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+           try
+           {
+               Connect();
+               cmdCommand.CommandText = string.Format("UPDATE players  SET PlayerTeam = {1} , IsForSale = \"0\" where PlayerName = \"{0}\"",
+                                                      playerName, newTeam);
+               cmdCommand.ExecuteNonQuery();
+           }
+           finally
+           {
+               Close();
+           }
+       }
+
+       public static DataView GetNotForSellTeamPlayers(String TeamName)
+       {
+           OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+           try
+           {
+               Connect();
+               cmdCommand.CommandText = string.Format("SELECT PlayerName From players  where PlayerTeam like \'{0}\' and IsForSale = 0", TeamName);
+               DataTable dtNew = new DataTable();
+               OleDbDataAdapter oldba = new OleDbDataAdapter(cmdCommand);
+               oldba.Fill(dtNew);
+
+               return dtNew.DefaultView;
+           }
+           finally
+           {
+               Close();
+           }
+       }
+
+
+       public static bool CanISellPlayer(string strPlayerName, Team tMyTeam)
+       {
+           OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+           try
+           {
+               Connect();
+               cmdCommand.CommandText = string.Format("SELECT PlayerName From players  where PlayerTeam like \'{0}\' and PlayerName like \'{1}\'",
+                                                      tMyTeam.Name, strPlayerName);
+               DataTable dtNew = new DataTable();
+               OleDbDataAdapter oldba = new OleDbDataAdapter(cmdCommand);
+               oldba.Fill(dtNew);
+               return dtNew.Rows.Count == 1;
+           }
+           finally
+           {
+               Close();
+           }
+       }
     }
 }
