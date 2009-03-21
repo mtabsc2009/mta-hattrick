@@ -50,14 +50,17 @@ namespace HatTrick.CommonModel
             set { dtCreationDate = value; }
         }
 
+        public int TeamCash { get; set; }
+
         public Team() { }
-        public Team(string strTeamName, DateTime dtCreationDate, List<Player> pPlayers, string strOwner, string strNewFor)
+        public Team(string strTeamName, DateTime dtCreationDate, List<Player> pPlayers, string strOwner, string strNewFor, int i_TeamCash)
         {
             this.Name = strTeamName;
             this.CreationDate = dtCreationDate;
             this.Owner = strOwner;
             this.Players = pPlayers;
             this.strFormation = strNewFor;
+            this.TeamCash = i_TeamCash;
         }
         public override string ToString()
         {
