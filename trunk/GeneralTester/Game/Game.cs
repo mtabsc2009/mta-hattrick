@@ -400,7 +400,7 @@ namespace HatTrick
             Console.Clear();
             string strChoice = Menu.ShowManageTeam(m_usrCurrent);
 
-            while (strChoice != "5")
+            while (strChoice != "6")
             {
                 switch (strChoice)
                 {
@@ -418,6 +418,9 @@ namespace HatTrick
                     case "4":
                         Menu.ShowMyFormation(tMyTeam);
                         break;
+                    case "5":
+                        ShowSellPlayers(tMyTeam);
+                        break;
                         
                 }
                 Console.Clear();
@@ -425,6 +428,53 @@ namespace HatTrick
             }
         }
 
+        private static void ShowSellPlayers(Team tMyTeam)
+        {
+            String strPlayerName = String.Empty;
+            String strPlayerCost = String.Empty;
+            int intCost = -1;
+        
+            DataView dtNew = DAL.DBAccess.GetNotForSellTeamPlayers(tMyTeam.Name);
+            Console.Clear();
+            Console.WriteLine("Chose What Player you want to sell:");
+            foreach (DataRowView drvCurr in dtNew)
+            {
+                Console.WriteLine(" {0}", drvCurr["PlayerName"]);
+            }
+            while (dtNew.Count > 0)
+            {    
+                Console.Write("Sell Player:");
+                strPlayerName = Console.ReadLine();
+                if (DAL.DBAccess.CanISellPlayer(strPlayerName, tMyTeam))
+                {
+                    while (true)
+                    {
+                        Console.WriteLine("Enter {0} cost:", strPlayerName);
+                        strPlayerCost = Console.ReadLine();
+                        if (int.TryParse(strPlayerCost, out intCost) && intCost > 0)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("YOU MAST ENTER A NUMBER!!!");
+                        }
+                    }
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("you can not sell this player!!!");    
+                }
+
+            }
+            if (strPlayerName.Length > 0)
+            {
+                DAL.DBAccess.UpdateSellPlayer(strPlayerName, intCost);
+            }
+        }
+
+        
         //private static void ShowMyFormation(Team tMyTeam)
         //{
         //    int nDefence = int.Parse(tMyTeam.Formation.Split('-')[0]);
