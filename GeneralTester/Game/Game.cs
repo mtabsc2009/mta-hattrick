@@ -249,6 +249,7 @@ namespace HatTrick
             if (DAL.DBAccess.CheckShouldCreateNewLeague())
             {
                 Console.WriteLine("Creating new league cycles, press any key to contiue");
+                CreateLeagueTable();                
                 CreateNewLeagueCycles();
                 Console.ReadLine();
             }
@@ -314,6 +315,11 @@ namespace HatTrick
                     }
                 }
             }
+        }
+
+        private static void CreateLeagueTable()
+        {
+            DAL.DBAccess.CreateLeagueEmptyTable();
         }
 
         public static void CreateNewLeagueCycles()
