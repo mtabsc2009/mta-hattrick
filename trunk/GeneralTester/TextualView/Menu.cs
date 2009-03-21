@@ -74,7 +74,6 @@ namespace HatTrick.TextualView
             Console.WriteLine(" 3. Change team formation ");
             Console.WriteLine(" 4. View team formation ");
             Console.WriteLine(" 5. Transfers");
-            Console.WriteLine(" 6. Back to team menu");
             Console.WriteLine(" 6. Set team training type ");
             Console.WriteLine(" 7. Back to team menu");
 
