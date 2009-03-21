@@ -91,6 +91,8 @@ namespace HatTrick.CommonModel
             set { nPosition = value; }
         }
 
+        public int? PlayerCost { get; set; }
+        public bool IsForSale { get; set; }
 
         /// <summary>
         /// Empty - to create a new player
@@ -111,7 +113,9 @@ namespace HatTrick.CommonModel
                         Consts.PlayerAbilities paPassingVal,
                         Consts.PlayerAbilities paScoringVal,
                         Consts.PlayerAbilities paSetPiecesVal,
-                        int nPlayerPosition)
+                        int nPlayerPosition,
+                        int? playerCost,
+                        bool isForSale)
         {
             this.ID = nPlayerID;
             this.Name = strPlayerName;
@@ -124,6 +128,8 @@ namespace HatTrick.CommonModel
             this.ScoringVal = paScoringVal;
             this.SetPiecesVal = paSetPiecesVal;
             this.Position = nPlayerPosition;
+            PlayerCost = playerCost;
+            IsForSale = isForSale;
 
             DateTime comparisonDate = new DateTime(dtBDate.Year, DateTime.Now.Month, DateTime.Now.Day);
 
@@ -156,6 +162,76 @@ namespace HatTrick.CommonModel
 
             // Each year is realty equals to 3 years in the game
             this.Age = nTempAge / 4;*/
+        }
+
+        public override string ToString()
+        {
+            string ans = "";
+            ans += "ID:   " + ID + "\n";
+            ans += "Name: " + Name + "\n";
+            ans += "Age:  " + Age + "\n";
+            ans += "Position:  " + Position + "\n";
+
+            if (IsForSale)
+            {
+                ans += "Player is for sale at Cost: " + PlayerCost + "\n";
+            }
+
+            ans += "Skills:   " + "\n";
+            ans += "Keeping:    ";
+            for (int nSkill = 0; nSkill < (int)KeeperVal; ++nSkill)
+            {
+                ans += "*";
+            }
+
+            ans += "\n";
+
+            ans += "Defending:  ";
+            for (int nSkill = 0; nSkill < (int)DefendingVal; ++nSkill)
+            {
+                ans += "*";
+            }
+
+            ans += "\n";
+            ans += "Playmaking: ";
+            for (int nSkill = 0; nSkill < (int)PlaymakingVal; ++nSkill)
+            {
+                ans += "*";
+            }
+
+            ans += "\n";
+            ans += "Winger:     ";
+            for (int nSkill = 0; nSkill < (int)WingerVal; ++nSkill)
+            {
+                ans += "*";
+            }
+
+            ans += "\n";
+            ans += "Passing:    ";
+            for (int nSkill = 0; nSkill < (int)PassingVal; ++nSkill)
+            {
+                ans += "*";
+            }
+
+            ans += "\n";
+            ans += "Scoring:    ";
+            for (int nSkill = 0; nSkill < (int)ScoringVal; ++nSkill)
+            {
+                ans += "*";
+            }
+
+            ans += "\n";
+            ans += "SetPieces:  ";
+            for (int nSkill = 0; nSkill < (int)SetPiecesVal; ++nSkill)
+            {
+                ans += "*";
+            }
+
+            ans += "\n";
+            ans += "\n";
+            ans += "\n";
+
+            return ans;
         }
     }
 }
