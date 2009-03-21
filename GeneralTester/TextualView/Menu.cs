@@ -144,7 +144,7 @@ namespace HatTrick.TextualView
             }
             if (nCurrSkillVal > 10)
             {
-                Console.Write("({0})", nCurrSkillVal);
+                Console.Write("({0}) ", nCurrSkillVal);
             }
             else
             {
