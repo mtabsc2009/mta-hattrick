@@ -121,6 +121,33 @@ namespace HatTrick
         {
             Console.Clear();
             string strChoice = Menu.ShowLeague(m_usrCurrent);
+            while (strChoice != "5")
+            {
+                switch (strChoice)
+                {
+                    case "1":
+                        StartMatch();
+                        break;
+                    case "2":
+                        ShowCycles();
+                        break;
+                    case "3":
+                        PlayNextCycle();
+                        break;
+                    case "4":
+                        ShowTrainAllTeams();
+                        break;
+                }
+                Console.Clear();
+                strChoice = Menu.ShowLeague(m_usrCurrent);
+            }
+        }
+
+        private static void HandleManageTeam()
+        {
+            Console.Clear();
+            string strChoice = Menu.ShowManageTeam(m_usrCurrent);
+
             while (strChoice != "7")
             {
                 switch (strChoice)
@@ -140,17 +167,40 @@ namespace HatTrick
                         Menu.ShowMyFormation(tMyTeam);
                         break;
                     case "5":
-                        ShowSellPlayers(tMyTeam);
+                        HandleTransaferPlayers();
                         break;
                     case "6":
                         ShowTrainingTypes(tMyTeam);
                         break;
-
-
                 }
+
                 Console.Clear();
-                strChoice = Menu.ShowLeague(m_usrCurrent);
+                strChoice = Menu.ShowManageTeam(m_usrCurrent);
             }
+        }
+
+
+        public static Team ManageTeam()
+        {
+            tMyTeam = DAL.DBAccess.LoadTeam(m_usrCurrent);
+            if (tMyTeam == null)
+            {
+                string strTeamName;
+                Console.Clear();
+                Menu.ShowCreateNewTeam(out strTeamName);
+
+                while (DAL.DBAccess.DoesTeamExist(strTeamName))
+                {
+                    Console.WriteLine("Team already exists");
+                    Menu.ShowCreateNewTeam(out strTeamName);
+                }
+
+                tMyTeam = DAL.DBAccess.CreateTeam(m_usrCurrent, strTeamName);
+            }
+
+            HandleManageTeam();
+
+            return tMyTeam;
         }
 
         public static void PlayNextCycle()
@@ -378,7 +428,6 @@ namespace HatTrick
             TrainAllTeams(nNumOfTrains);
         }
 
-
         private static void ShowTrainingTypes(Team tMyTeam)
         {
             string strChoice = Menu.ShowTrainingTypes(tMyTeam);
@@ -387,29 +436,6 @@ namespace HatTrick
             DAL.DBAccess.ChangeTeamTrainingType(tMyTeam);
             Console.WriteLine("Training type changed");
             Console.ReadLine();
-        }
-
-        public static Team ManageTeam()
-        {
-            tMyTeam = DAL.DBAccess.LoadTeam(m_usrCurrent);
-            if (tMyTeam == null)
-            {
-                string strTeamName;
-                Console.Clear();
-                Menu.ShowCreateNewTeam(out strTeamName);
-
-                while (DAL.DBAccess.DoesTeamExist(strTeamName))
-                {
-                    Console.WriteLine("Team already exists");
-                    Menu.ShowCreateNewTeam(out strTeamName);
-                }
-
-                tMyTeam = DAL.DBAccess.CreateTeam(m_usrCurrent, strTeamName);
-            }
-
-            HandleManageTeam();
-
-            return tMyTeam;
         }
 
         #endregion
@@ -435,39 +461,6 @@ namespace HatTrick
             return m_usrCurrent;
         }
 
-
-        private static void HandleManageTeam()
-        {
-            Console.Clear();
-            string strChoice = Menu.ShowManageTeam(m_usrCurrent);
-
-            while (strChoice != "6")
-            {
-                switch (strChoice)
-                {
-                    case "1":
-                        ShowMyTeam(tMyTeam);
-                        break;
-
-                    case "2":
-                        ChangePlayerPosition();
-                        break;
-
-                    case "3":
-                        ChangeTeamFomation();
-                        break;
-                    case "4":
-                        Menu.ShowMyFormation(tMyTeam);
-                        break;
-                    case "5":
-                        HandleTransaferPlayers();
-                        break;                        
-                }
-
-                Console.Clear();
-                strChoice = Menu.ShowManageTeam(m_usrCurrent);
-            }
-        }
 
         private static void HandleTransaferPlayers()
         {
@@ -770,7 +763,14 @@ namespace HatTrick
             {
                 if (int.TryParse(strPlayerID, out n))
                 {
-                    plrToChange = (Player)tMyTeam.Players.Where(T => T.ID == int.Parse(strPlayerID)).First();
+                    try
+                    {
+                        plrToChange = (Player)tMyTeam.Players.Where(T => T.ID == int.Parse(strPlayerID)).First();
+                    }
+                    catch
+                    {
+                        plrToChange = null;
+                    }
 
                     if (plrToChange != null)
                     {
