@@ -179,7 +179,6 @@ namespace HatTrick
             }
         }
 
-
         public static Team ManageTeam()
         {
             tMyTeam = DAL.DBAccess.LoadTeam(m_usrCurrent);
@@ -260,8 +259,18 @@ namespace HatTrick
 
                 string strGameID;
 
+                Console.WriteLine("Game#\tHome Team\tAway Team");
+                Console.WriteLine("===============================================================");
+                Console.WriteLine();
+
+                int nCycleNo = 1;
                 foreach (DataRowView drvCurr in dvAllCycles)
                 {
+                    if ((int.Parse((string)drvCurr["CycleNum"]) != nCycleNo))
+                    {
+                        nCycleNo = (int.Parse((string)drvCurr["CycleNum"]));
+                        Console.WriteLine("------------------------------------------------------(C{0})-----", nCycleNo-1);
+                    }
                     if (drvCurr["GameId"].ToString().Trim() == "")
                     {
                         strGameID = "N\\A";
@@ -270,8 +279,10 @@ namespace HatTrick
                     {
                         strGameID = drvCurr["GameId"].ToString();
                     }
-                    Console.WriteLine("Cycle number : {0} \t | {1} - {2} game id: {3}", drvCurr["CycleNum"], drvCurr["HomeTeam"], drvCurr["AwayTeam"],strGameID);
+                    Console.WriteLine("{2}\t{0}\t\t{1}", drvCurr["HomeTeam"], drvCurr["AwayTeam"],strGameID);
                 }
+                Console.WriteLine("------------------------------------------------------(C{0})-----", nCycleNo - 1);
+                Console.WriteLine();
 
                 Console.WriteLine("Please choose a game id to view, or press 0 to return");
                 int nGameToShow = 0;
@@ -460,7 +471,6 @@ namespace HatTrick
             m_usrCurrent = DAL.DBAccess.GetUser(strUsername, strPassword);
             return m_usrCurrent;
         }
-
 
         private static void HandleTransaferPlayers()
         {
@@ -740,14 +750,14 @@ namespace HatTrick
 
         private static void ShowMyTeam(Team tMyTeam)
         {
-            PrintPlayers(tMyTeam);
+            Menu.ShowPrintPlayers(tMyTeam);
             Console.WriteLine("Press any key to return");
             Console.ReadLine();
         }
 
         private static void ChangePlayerPosition()
         {
-            PrintPlayers(tMyTeam);
+            Menu.ShowPrintPlayers(tMyTeam);
 
             int n; 
 
@@ -794,70 +804,6 @@ namespace HatTrick
             DAL.DBAccess.UpdatePlayerPosition(plrToChange);
             Console.WriteLine("The new player position is {0}", plrToChange.Position.ToString());
             Console.ReadLine();
-        }
-
-        private static void PrintPlayers(Team tMyTeam)
-        {
-            Console.Clear();
-            Console.WriteLine("Welcome " + tMyTeam.Owner);
-            Console.WriteLine("Team name: " + tMyTeam.Name);
-            Console.WriteLine("Created: " + tMyTeam.CreationDate.ToShortDateString());
-            Console.WriteLine("Current formation: " + tMyTeam.Formation);
-            Console.WriteLine();
-            Console.WriteLine("Players: ");
-            Console.WriteLine();
-            for (int nCurrPlayer = 0; nCurrPlayer < tMyTeam.Players.Count; ++nCurrPlayer)
-            {
-                Console.WriteLine("ID:   " + tMyTeam.Players[nCurrPlayer].ID.ToString());
-                Console.WriteLine("Name: " + tMyTeam.Players[nCurrPlayer].Name);
-                Console.WriteLine("Age:  " + tMyTeam.Players[nCurrPlayer].Age);
-                Console.WriteLine("Position:  " + tMyTeam.Players[nCurrPlayer].Position);
-                Console.WriteLine("Skills:   ");
-                Console.Write("Keeping:    ");
-                for (int nSkill = 0; nSkill < (int)tMyTeam.Players[nCurrPlayer].KeeperVal; ++nSkill)
-                {
-                    Console.Write("*");
-                }
-                Console.WriteLine();
-                Console.Write("Defending:  ");
-                for (int nSkill = 0; nSkill < (int)tMyTeam.Players[nCurrPlayer].DefendingVal; ++nSkill)
-                {
-                    Console.Write("*");
-                }
-                Console.WriteLine();
-                Console.Write("Playmaking: ");
-                for (int nSkill = 0; nSkill < (int)tMyTeam.Players[nCurrPlayer].PlaymakingVal; ++nSkill)
-                {
-                    Console.Write("*");
-                }
-                Console.WriteLine();
-                Console.Write("Winger:     ");
-                for (int nSkill = 0; nSkill < (int)tMyTeam.Players[nCurrPlayer].WingerVal; ++nSkill)
-                {
-                    Console.Write("*");
-                }
-                Console.WriteLine();
-                Console.Write("Passing:    ");
-                for (int nSkill = 0; nSkill < (int)tMyTeam.Players[nCurrPlayer].PassingVal; ++nSkill)
-                {
-                    Console.Write("*");
-                }
-                Console.WriteLine();
-                Console.Write("Scoring:    ");
-                for (int nSkill = 0; nSkill < (int)tMyTeam.Players[nCurrPlayer].ScoringVal; ++nSkill)
-                {
-                    Console.Write("*");
-                }
-                Console.WriteLine();
-                Console.Write("SetPieces:  ");
-                for (int nSkill = 0; nSkill < (int)tMyTeam.Players[nCurrPlayer].SetPiecesVal; ++nSkill)
-                {
-                    Console.Write("*");
-                }
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
-            }
         }
 
         public static GameStory MatchTeams(string strHomeTeam, string strAwayTeam)

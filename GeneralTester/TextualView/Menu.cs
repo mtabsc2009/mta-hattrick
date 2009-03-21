@@ -89,6 +89,146 @@ namespace HatTrick.TextualView
             return strChoice;
         }
 
+        public static void ShowPrintPlayers(Team tMyTeam)
+        {
+            Console.Clear();
+            Console.WriteLine("Welcome " + tMyTeam.Owner);
+            Console.WriteLine("Team name: " + tMyTeam.Name);
+            Console.WriteLine("Created: " + tMyTeam.CreationDate.ToShortDateString());
+            Console.WriteLine("Current formation: " + tMyTeam.Formation);
+            Console.WriteLine();
+            Console.WriteLine("Players: ");
+            Console.WriteLine();
+            Console.WriteLine("ID  Pos\tName(Age)\tKeeping   Defending  PlayMaking Winger     Passing   Scoring    SetPieces ");
+            Console.WriteLine("====================================================================================================");
+            Console.WriteLine();
+
+
+            for (int nCurrPlayer = 1; nCurrPlayer <= tMyTeam.Players.Count; ++nCurrPlayer)
+            {
+                Player plrCurr = (Player)tMyTeam.Players.Where(T => T.Position == nCurrPlayer).First();
+
+                int nLength = plrCurr.Name.Length;
+                Console.Write("{0} {1} \t{2}({3})\t", 
+                    plrCurr.ID.ToString(),
+                    plrCurr.Position,
+                    plrCurr.Name.Substring(0, nLength < 11 ? nLength : 11),
+                    plrCurr.Age);
+                //if ((plrCurr.ID.ToString().Length + nLength) < 15)
+                //{
+                //    Console.Write("\t");
+                //}
+                PrintSingleSkill(tMyTeam, nCurrPlayer, (int)plrCurr.KeeperVal, 10);
+                PrintSingleSkill(tMyTeam, nCurrPlayer, (int)plrCurr.DefendingVal, 11);
+                PrintSingleSkill(tMyTeam, nCurrPlayer, (int)plrCurr.PlaymakingVal, 11);
+                PrintSingleSkill(tMyTeam, nCurrPlayer, (int)plrCurr.WingerVal, 11);
+                PrintSingleSkill(tMyTeam, nCurrPlayer, (int)plrCurr.PassingVal, 10);
+                PrintSingleSkill(tMyTeam, nCurrPlayer, (int)plrCurr.ScoringVal, 11);
+                PrintSingleSkill(tMyTeam, nCurrPlayer, (int)plrCurr.SetPiecesVal, 11);
+                Console.WriteLine();
+            }
+
+        }
+
+        private static int PrintSingleSkill(Team tMyTeam, int nCurrPlayer, int nCurrSkillVal, int nCompletion)
+        {
+            int nSkillPrint = nCurrSkillVal;
+            if (nCurrSkillVal > 10)
+            {
+                nSkillPrint = 6;
+            }
+            int nSkill;
+            for (nSkill = 0; nSkill < nSkillPrint; ++nSkill)
+            {
+                Console.Write("*");
+            }
+            if (nCurrSkillVal > 10)
+            {
+                Console.Write("({0})", nCurrSkillVal);
+            }
+            else
+            {
+                PrintRest(nCompletion - nCurrSkillVal);
+            }
+            return nSkill;
+        }
+
+        private static void PrintRest(int nRest)
+        {
+            if (nRest > 0)
+            {
+                for (int i = 1; i <= nRest; i++)
+                {
+                    Console.Write(" ");
+                }
+            }
+        }
+
+        public static void ShowPrintPlayersOld(Team tMyTeam)
+        {
+            Console.Clear();
+            Console.WriteLine("Welcome " + tMyTeam.Owner);
+            Console.WriteLine("Team name: " + tMyTeam.Name);
+            Console.WriteLine("Created: " + tMyTeam.CreationDate.ToShortDateString());
+            Console.WriteLine("Current formation: " + tMyTeam.Formation);
+            Console.WriteLine();
+            Console.WriteLine("Players: ");
+            Console.WriteLine();
+            for (int nCurrPlayer = 0; nCurrPlayer < tMyTeam.Players.Count; ++nCurrPlayer)
+            {
+                Console.WriteLine("ID:   " + tMyTeam.Players[nCurrPlayer].ID.ToString());
+                Console.WriteLine("Name: " + tMyTeam.Players[nCurrPlayer].Name);
+                Console.WriteLine("Age:  " + tMyTeam.Players[nCurrPlayer].Age);
+                Console.WriteLine("Position:  " + tMyTeam.Players[nCurrPlayer].Position);
+                Console.WriteLine("Skills:   ");
+                Console.Write("Keeping:    ");
+                for (int nSkill = 0; nSkill < (int)tMyTeam.Players[nCurrPlayer].KeeperVal; ++nSkill)
+                {
+                    Console.Write("*");
+                }
+                Console.WriteLine();
+                Console.Write("Defending:  ");
+                for (int nSkill = 0; nSkill < (int)tMyTeam.Players[nCurrPlayer].DefendingVal; ++nSkill)
+                {
+                    Console.Write("*");
+                }
+                Console.WriteLine();
+                Console.Write("Playmaking: ");
+                for (int nSkill = 0; nSkill < (int)tMyTeam.Players[nCurrPlayer].PlaymakingVal; ++nSkill)
+                {
+                    Console.Write("*");
+                }
+                Console.WriteLine();
+                Console.Write("Winger:     ");
+                for (int nSkill = 0; nSkill < (int)tMyTeam.Players[nCurrPlayer].WingerVal; ++nSkill)
+                {
+                    Console.Write("*");
+                }
+                Console.WriteLine();
+                Console.Write("Passing:    ");
+                for (int nSkill = 0; nSkill < (int)tMyTeam.Players[nCurrPlayer].PassingVal; ++nSkill)
+                {
+                    Console.Write("*");
+                }
+                Console.WriteLine();
+                Console.Write("Scoring:    ");
+                for (int nSkill = 0; nSkill < (int)tMyTeam.Players[nCurrPlayer].ScoringVal; ++nSkill)
+                {
+                    Console.Write("*");
+                }
+                Console.WriteLine();
+                Console.Write("SetPieces:  ");
+                for (int nSkill = 0; nSkill < (int)tMyTeam.Players[nCurrPlayer].SetPiecesVal; ++nSkill)
+                {
+                    Console.Write("*");
+                }
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+            }
+
+        }
+
         public static string ShowTeamFormation(User m_usrCurrent, DataRowCollection drFormations)
         {
             Console.Clear();
@@ -285,7 +425,6 @@ namespace HatTrick.TextualView
 
         }
 
-
         public static void ShowStartMatch(out string strAwayTeam)
         {
             Console.WriteLine("Chose the you'r opponent team:");
@@ -386,7 +525,6 @@ namespace HatTrick.TextualView
 
             return strChoice;
         }
-
 
         public static string ShowTrainingTypes(Team tMyTeam)
         {
