@@ -156,7 +156,7 @@ namespace DAL
             }
             finally
             {
-                Close();
+                    Close();
             }
         }
 
@@ -401,7 +401,9 @@ namespace DAL
             bf.Serialize(msEvents, gsNewGame);
             byte[] bt =  msEvents.GetBuffer();
 
-            cmdCommand.CommandText = string.Format("INSERT INTO games (HOMETEAM,AwayTeam,gamedate,homescore,awayscore,gamestory) values (\"{0}\", \"{1}\", \"{2}\", \"{3}\", \"{4}\", \"{5}\")", gsNewGame.HomeTeam.Team.Name, gsNewGame.AwayTeam.Team.Name, gsNewGame.GameDate.ToString(), gsNewGame.HomeScore, gsNewGame.AwayScore, Convert.ToBase64String(bt));
+            int nCurrLeagueID = GetMaxLeagueID();
+
+            cmdCommand.CommandText = string.Format("INSERT INTO games (HOMETEAM,AwayTeam,gamedate,homescore,awayscore,gamestory, LeagueID) values (\"{0}\", \"{1}\", \"{2}\", \"{3}\", \"{4}\", \"{5}\", {6})", gsNewGame.HomeTeam.Team.Name, gsNewGame.AwayTeam.Team.Name, gsNewGame.GameDate.ToString(), gsNewGame.HomeScore, gsNewGame.AwayScore, Convert.ToBase64String(bt), nCurrLeagueID);
 
 
 
@@ -494,16 +496,40 @@ namespace DAL
         {
             OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
 
+            int nMaxLeagueID = GetMaxLeagueID();
+
             try
             {
                 Connect();
 
                 for (int nCurr = 0; nCurr < alCurrCycle.Count; nCurr++)
                 {
-                    cmdCommand.CommandText = string.Format("INSERT into cycles (CYCLENUM, HomeTeam, AwayTeam) VALUES (\"{0}\", \"{1}\", \"{2}\")", 
-                                                          ((CycleGame)alCurrCycle[nCurr]).CycleNum, ((CycleGame)alCurrCycle[nCurr]).HomeTeam, ((CycleGame)alCurrCycle[nCurr]).AwayTeam);
+                    cmdCommand.CommandText = string.Format("INSERT into cycles (CYCLENUM, HomeTeam, AwayTeam, LeagueID) VALUES (\"{0}\", \"{1}\", \"{2}\", {3})", 
+                                                          ((CycleGame)alCurrCycle[nCurr]).CycleNum, ((CycleGame)alCurrCycle[nCurr]).HomeTeam, ((CycleGame)alCurrCycle[nCurr]).AwayTeam, nMaxLeagueID);
                     cmdCommand.ExecuteNonQuery();
                 }
+            }
+            finally
+            {
+                Close();
+            }
+        }
+
+        private static int GetMaxLeagueID()
+        {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+            try
+            {
+                Connect();
+
+                cmdCommand.CommandText = "SELECT max(leagueid) FROM league";
+
+                return (int)cmdCommand.ExecuteScalar();
+            }
+            catch 
+            {
+                return 0;
             }
             finally
             {
@@ -820,6 +846,32 @@ namespace DAL
                 Close();
             }
         }
-    
+
+
+        public static void CreateLeagueEmptyTable()
+        {
+            DataView dvTeams = GetAllTeams();
+
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+            try
+            {
+                int nMaxLeagueID = GetMaxLeagueID() + 1;
+                foreach (DataRowView drCurrTeam in dvTeams)
+                {
+                    Team tCurrTeam = DAL.DBAccess.LoadTeam(drCurrTeam["TeamName"].ToString());
+
+                    Connect();
+
+                    cmdCommand.CommandText = string.Format("INSERT into league (LeagueID, Teamname, MatchesPlayed, Wins, Loses, GoalsFor, GoalsAgainst, Points) VALUES ({2}, \"{0}\", {1}, {1}, {1}, {1}, {1}, {1})", tCurrTeam.Name, 0, nMaxLeagueID);
+                    cmdCommand.ExecuteNonQuery();
+
+                }
+            }
+            finally
+            {
+                Close();
+            }
+        }
     }
 }
