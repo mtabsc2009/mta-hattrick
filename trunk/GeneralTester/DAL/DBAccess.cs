@@ -515,7 +515,7 @@ namespace DAL
             }
         }
 
-        private static int GetMaxLeagueID()
+        public static int GetMaxLeagueID()
         {
             OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
 
@@ -863,10 +863,102 @@ namespace DAL
 
                     Connect();
 
-                    cmdCommand.CommandText = string.Format("INSERT into league (LeagueID, Teamname, MatchesPlayed, Wins, Loses, GoalsFor, GoalsAgainst, Points) VALUES ({2}, \"{0}\", {1}, {1}, {1}, {1}, {1}, {1})", tCurrTeam.Name, 0, nMaxLeagueID);
+                    cmdCommand.CommandText = string.Format("INSERT into league (LeagueID, Teamname, MatchesPlayed, Wins, Draws, Loses, GoalsFor, GoalsAgainst, Points) VALUES ({2}, \"{0}\", {1}, {1}, {1}, {1}, {1}, {1}, {1})", tCurrTeam.Name, 0, nMaxLeagueID);
                     cmdCommand.ExecuteNonQuery();
 
                 }
+            }
+            finally
+            {
+                Close();
+            }
+        }
+
+        public static void UpdateGameLeagueStatus(GameStory gsNewGame)
+        {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+            int nHomeTeamPointsToAdd = 0;
+            int nAwayTeamPointsToAdd = 0;
+            int nAwayTeamWinToAdd = 0;
+            int nHomeTeamWinToAdd = 0;
+            int nAwayTeamLosesToAdd = 0;
+            int nHomeTeamLosesToAdd = 0;
+            int nAwayTeamDrawsToAdd = 0;
+            int nHomeTeamDrawsToAdd = 0;
+
+            if (gsNewGame.AwayScore > gsNewGame.HomeScore)
+            {
+                nAwayTeamPointsToAdd = 3;
+                nAwayTeamWinToAdd = 1;
+                nHomeTeamLosesToAdd = 1;
+            }
+            else if (gsNewGame.AwayScore < gsNewGame.HomeScore)
+            {
+                nHomeTeamPointsToAdd = 3;
+                nHomeTeamWinToAdd = 1;
+                nAwayTeamLosesToAdd = 1;
+            }
+            else
+            {
+                nHomeTeamPointsToAdd = 1;
+                nAwayTeamPointsToAdd = 1;
+                nAwayTeamDrawsToAdd = 1;
+                nHomeTeamDrawsToAdd = 1;
+            }
+            
+            int nMaxLeagueID = GetMaxLeagueID();
+            try
+            {
+                Connect();
+
+                // Update home team
+                cmdCommand.CommandText = string.Format( "UPDATE league SET " +
+                                                        "MatchesPlayed = MatchesPlayed + 1, " +
+                                                        "Wins = Wins + {0}, " +
+                                                        "Draws = Draws + {1}, " +
+                                                        "Loses = Loses + {2}, " +
+                                                        "GoalsFor = GoalsFor + {3}, " +
+                                                        "GoalsAgainst = GoalsAgainst + {4}, " +
+                                                        "Points = Points + {5} " +
+                                                        "where leagueid = {6} and teamname = \"{7}\"",
+                                                        nHomeTeamWinToAdd, nHomeTeamDrawsToAdd, nHomeTeamLosesToAdd, gsNewGame.HomeScore, gsNewGame.AwayScore, nHomeTeamPointsToAdd, nMaxLeagueID, gsNewGame.HomeTeam.Team.Name);
+                cmdCommand.ExecuteNonQuery();
+
+                // Update away team
+                cmdCommand.CommandText = string.Format("UPDATE league SET " +
+                                                        "MatchesPlayed = MatchesPlayed + 1, " +
+                                                        "Wins = Wins + {0}, " +
+                                                        "Draws = Draws + {1}, " +
+                                                        "Loses = Loses + {2}, " +
+                                                        "GoalsFor = GoalsFor + {3}, " +
+                                                        "GoalsAgainst = GoalsAgainst + {4}, " +
+                                                        "Points = Points + {5} " +
+                                                        "where leagueid = {6} and teamname = \"{7}\"",
+                                                        nAwayTeamWinToAdd, nAwayTeamDrawsToAdd, nAwayTeamLosesToAdd, gsNewGame.AwayScore, gsNewGame.HomeScore, nAwayTeamPointsToAdd, nMaxLeagueID, gsNewGame.AwayTeam.Team.Name);
+                cmdCommand.ExecuteNonQuery();
+
+            }
+            finally
+            {
+                Close();
+            } 
+        }
+
+
+        public static DataView LoadLeagueTable(int nCurrLeague)
+        {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+            try
+            {
+                Connect();
+                cmdCommand.CommandText = string.Format("select teamname, MatchesPlayed, wins,draws,loses,goalsfor, goalsagainst, goalsfor - goalsagainst as Diff, points from league where leagueid = {0} order by points desc", nCurrLeague);
+                DataTable dtNew = new DataTable();
+                OleDbDataAdapter oldba = new OleDbDataAdapter(cmdCommand);
+                oldba.Fill(dtNew);
+
+                return dtNew.DefaultView;
             }
             finally
             {

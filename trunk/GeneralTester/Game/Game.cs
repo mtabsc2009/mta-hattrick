@@ -121,7 +121,7 @@ namespace HatTrick
         {
             Console.Clear();
             string strChoice = Menu.ShowLeague(m_usrCurrent);
-            while (strChoice != "5")
+            while (strChoice != "6")
             {
                 switch (strChoice)
                 {
@@ -137,10 +137,19 @@ namespace HatTrick
                     case "4":
                         ShowTrainAllTeams();
                         break;
+                    case "5":
+                        ShowLeagueTable();
+                        break;
                 }
                 Console.Clear();
                 strChoice = Menu.ShowLeague(m_usrCurrent);
             }
+        }
+
+        private static void ShowLeagueTable()
+        {
+            int nCurrLeague = DAL.DBAccess.GetMaxLeagueID();
+            Menu.ShowLeagueTable(DAL.DBAccess.LoadLeagueTable(nCurrLeague));
         }
 
         private static void HandleManageTeam()
@@ -217,6 +226,7 @@ namespace HatTrick
                 gmCurr.GameID = DAL.DBAccess.SaveStoryToDB(gsNewGame);
                 gmCurr.CycleDate = DateTime.Now;
                 DAL.DBAccess.UpdateCycleData(gmCurr);
+                DAL.DBAccess.UpdateGameLeagueStatus(gsNewGame);
             }
         }
 

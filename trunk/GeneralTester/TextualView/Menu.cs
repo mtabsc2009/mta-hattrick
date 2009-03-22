@@ -411,11 +411,12 @@ namespace HatTrick.TextualView
             Console.WriteLine(" 2. Show League Cycles");
             Console.WriteLine(" 3. Run  League Next cycle");
             Console.WriteLine(" 4. Train all teams");
-            Console.WriteLine(" 5. Exit");
+            Console.WriteLine(" 5. Show League Table");
+            Console.WriteLine(" 6. Exit");
 
             string strChoice = string.Empty;
             strChoice = Console.ReadLine();
-            while (strChoice != "1" && strChoice != "2" && strChoice != "3" && strChoice != "4" && strChoice != "5")
+            while (strChoice != "1" && strChoice != "2" && strChoice != "3" && strChoice != "4" && strChoice != "5" && strChoice != "6")
             {
                 Console.WriteLine("Invalid choice, choose again:");
                 strChoice = Console.ReadLine();
@@ -569,6 +570,70 @@ namespace HatTrick.TextualView
             }
 
             return nChoice;
+        }
+
+        public static void ShowLeagueTable(DataView dvLeagueTable)
+        {
+            int nTeamIndex = 1;
+            Console.WriteLine("#  Team Name Matches Wins Draws Losts GoalsDiff Points");
+            Console.WriteLine("-- --------- ------- ---- ----- ----- --------- ------");
+
+            foreach (DataRowView drvCurrTeam in dvLeagueTable)
+            {
+                Console.Write(nTeamIndex.ToString());
+                for (int n = nTeamIndex.ToString().Length; n < 4; n++)
+                {
+                    Console.Write(" ");
+                }
+                nTeamIndex++;
+                Console.Write(drvCurrTeam["TeamName"].ToString());
+                for (int n = drvCurrTeam["TeamName"].ToString().Length; n <= 9; n++)
+                {
+                    Console.Write(" ");
+                }
+                
+                Console.Write(drvCurrTeam["MatchesPlayed"].ToString());
+                for (int n = drvCurrTeam["MatchesPlayed"].ToString().Length; n <= 7; n++)
+                {
+                    Console.Write(" ");
+                }
+
+                Console.Write(drvCurrTeam["Wins"].ToString());
+                for (int n = drvCurrTeam["Wins"].ToString().Length; n <= 4; n++)
+                {
+                    Console.Write(" ");
+                }
+
+                Console.Write(drvCurrTeam["Draws"].ToString());
+                for (int n = drvCurrTeam["Draws"].ToString().Length; n <= 5; n++)
+                {
+                    Console.Write(" ");
+                }
+
+                Console.Write(drvCurrTeam["Loses"].ToString());
+                for (int n = drvCurrTeam["Loses"].ToString().Length; n <= 5; n++)
+                {
+                    Console.Write(" ");
+                }
+
+                Console.Write(drvCurrTeam["GoalsFor"].ToString() + "-" +drvCurrTeam["GoalsAgainst"].ToString());
+                for (int n = (drvCurrTeam["GoalsFor"].ToString() + "-" + drvCurrTeam["GoalsAgainst"].ToString()).Length; n < 9; n++)
+                {
+                    Console.Write(" ");
+                }
+
+                Console.Write(drvCurrTeam["Points"].ToString());
+                for (int n = drvCurrTeam["Points"].ToString().Length; n < 6; n++)
+                {
+                    Console.Write(" ");
+                }
+
+                Console.WriteLine();
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Press enter to return");
+            Console.ReadLine();
         }
     }
 }
