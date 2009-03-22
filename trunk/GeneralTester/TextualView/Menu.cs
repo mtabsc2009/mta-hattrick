@@ -107,6 +107,10 @@ namespace HatTrick.TextualView
             for (int nCurrPlayer = 1; nCurrPlayer <= tMyTeam.Players.Count; ++nCurrPlayer)
             {
                 Player plrCurr = (Player)tMyTeam.Players.Where(T => T.Position == nCurrPlayer).First();
+                if (nCurrPlayer == 12)
+                {
+                    Console.WriteLine("----------------------------------------------------------------------------------------------------");
+                }
 
                 int nLength = plrCurr.Name.Length;
                 Console.Write("{0} {1} \t{2}({3})\t", 
@@ -449,7 +453,7 @@ namespace HatTrick.TextualView
         {
             Console.Clear();
             Console.WriteLine("Game Summary");
-            Console.WriteLine("---------------------------------");
+            Console.WriteLine("=================================");
             System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-us");
             Console.WriteLine(string.Format("{0} hosted the game against {1} at {2}",
                 gsGameStory.HomeTeam.Team.Name, gsGameStory.AwayTeam.Team.Name, gsGameStory.GameDate.ToLongDateString()));
@@ -462,7 +466,7 @@ namespace HatTrick.TextualView
             Console.WriteLine(string.Format("visitors {0} chose the {1} formation using the {2}",
                 gsGameStory.AwayTeam.Team.Name, gsGameStory.AwayTeam.Formation,
                 (gsGameStory.AwayTeam.IsTeamMiddleMethod == true ? "Middle Field" : "Wings")));
-
+            Console.WriteLine();
             if (gsGameStory.Winner == null)
             {
                 string strDesc = "a";
@@ -479,22 +483,35 @@ namespace HatTrick.TextualView
 
                 Console.WriteLine("{0} won the game with {1} score of {2}-{3}", gsGameStory.Winner, strDesc, gsGameStory.HomeScore, gsGameStory.AwayScore);
             }
+            Console.WriteLine();
 
             Console.WriteLine("Game Events:");
-            Console.WriteLine("-----------------------------------:");
-            foreach (GameEvent evtCurr in gsGameStory.GameEvents)
+            Console.WriteLine("===================================:");
+            Console.WriteLine();
+            Console.WriteLine("First Half:");
+            Console.WriteLine("-----------");
+            bool bIsFirstHalf = true;
+            foreach (KeyValuePair<int, GameEvent> evtCurr in gsGameStory.GameEvents)
             {
-                if (evtCurr is ScoreEvent)
+                if (bIsFirstHalf && evtCurr.Value.Minute > 45)
                 {
-                    if ((evtCurr as ScoreEvent).bShowInSummary)
+                    Console.WriteLine();
+                    Console.WriteLine("Second Half:");
+                    Console.WriteLine("-----------");
+                    bIsFirstHalf = false;
+                }
+                if (evtCurr.Value is ScoreEvent)
+                {
+                    if ((evtCurr.Value as ScoreEvent).bShowInSummary)
                     {
-                        Console.WriteLine(evtCurr.ToString());
+                        Console.WriteLine("(Min {0}) {1}",evtCurr.Value.Minute.ToString(), evtCurr.Value.ToString());
                     }
                 }
                 else
                 {
-                    Console.WriteLine(evtCurr.ToString());
+                    Console.WriteLine("(Min {0}) {1}", evtCurr.Value.Minute.ToString(), evtCurr.Value.ToString());
                 }
+                Console.WriteLine();
             }
 
             Console.WriteLine();
