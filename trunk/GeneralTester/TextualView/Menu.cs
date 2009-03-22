@@ -591,6 +591,7 @@ namespace HatTrick.TextualView
 
         public static void ShowLeagueTable(DataView dvLeagueTable)
         {
+            Console.Clear();
             int nTeamIndex = 1;
             Console.WriteLine("#  Team Name Matches Wins Draws Losts GoalsDiff Points");
             Console.WriteLine("-- --------- ------- ---- ----- ----- --------- ------");

@@ -307,7 +307,7 @@ namespace HatTrick
                         gsStory == null ? string.Empty : gsStory.AwayScore.ToString()
                         );
                 }
-                Console.WriteLine("------------------------------------------------------(C{0})-----", nCycleNo - 1);
+                Console.WriteLine("------------------------------------------------------(C{0})-----", nCycleNo);
                 Console.WriteLine();
 
                 Console.WriteLine("Please choose a game id to view, or press 0 to return");
