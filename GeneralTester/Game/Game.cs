@@ -25,6 +25,7 @@ namespace HatTrick
             get { return Game.tMyTeam; }
             set { Game.tMyTeam = value; }
         }
+        private static bool[] m_barrTakenMinutes = new bool[90];
 
 
         private static IGameView m_ConsoleGameView = new ConsoleGameView();
@@ -270,11 +271,12 @@ namespace HatTrick
 
                 string strGameID;
 
-                Console.WriteLine("Game#\tHome Team\tAway Team");
+                Console.WriteLine("Game#\tHome Team\tAway Team\tScore");
                 Console.WriteLine("===============================================================");
                 Console.WriteLine();
 
                 int nCycleNo = 1;
+                GameStory gsStory = null;
                 foreach (DataRowView drvCurr in dvAllCycles)
                 {
                     if ((int.Parse((string)drvCurr["CycleNum"]) != nCycleNo))
@@ -285,12 +287,25 @@ namespace HatTrick
                     if (drvCurr["GameId"].ToString().Trim() == "")
                     {
                         strGameID = "N\\A";
+                        gsStory = null;
                     }
                     else
                     {
                         strGameID = drvCurr["GameId"].ToString();
+                        try
+                        {
+                            gsStory = DAL.DBAccess.LoadGameStory(int.Parse(strGameID));
+                        }
+                        catch
+                        {
+                            gsStory = null;
+                        }
+
                     }
-                    Console.WriteLine("{2}\t{0}\t\t{1}", drvCurr["HomeTeam"], drvCurr["AwayTeam"],strGameID);
+                    Console.WriteLine("{2}\t{0}\t\t{1}\t\t {3}-{4}", drvCurr["HomeTeam"], drvCurr["AwayTeam"],strGameID,
+                        gsStory == null ? " " : gsStory.HomeScore.ToString(),
+                        gsStory == null ? string.Empty : gsStory.AwayScore.ToString()
+                        );
                 }
                 Console.WriteLine("------------------------------------------------------(C{0})-----", nCycleNo - 1);
                 Console.WriteLine();
@@ -858,7 +873,7 @@ namespace HatTrick
 
         private static void GameStoryDetermineScore(GameStory gsGameStory)
         {
-            foreach (GameEvent evtCurr in gsGameStory.GameEvents)
+            foreach (GameEvent evtCurr in gsGameStory.GameEvents.Values)
             {
                 if (evtCurr is ScoreEvent)
                 {
@@ -882,8 +897,17 @@ namespace HatTrick
             GameStoryClacPowers(gsGameStory.HomeTeam);
             GameStoryClacPowers(gsGameStory.AwayTeam);
 
+            GameStoryResetMinutes();
             GameStoryCreateEventsForTeam(gsGameStory, gsGameStory.HomeTeam, gsGameStory.AwayTeam, gsGameStory.HomeTeamEvents);
             GameStoryCreateEventsForTeam(gsGameStory, gsGameStory.AwayTeam, gsGameStory.HomeTeam, gsGameStory.AwayTeamEvents);
+        }
+
+        private static void GameStoryResetMinutes()
+        {
+            for (int i = 0; i < m_barrTakenMinutes.GetUpperBound(0); i++)
+            {
+                m_barrTakenMinutes[i] = false;
+            }
         }
 
         private static void GameStoryClacPowers(TeamGameData teamGameData)
@@ -925,12 +949,37 @@ namespace HatTrick
         {
             for (int i = 1; i <= nNumOfEvents; i++)
             {
-                GameEvent evtMain = GameStoryCreateMainEvent(gsGameStory, datAttackingTeam, datDefendingTeam);
+                int nMinute = GameStoryGetEventMinute(gsGameStory, i, nNumOfEvents, datAttackingTeam);
+                GameEvent evtMain = GameStoryCreateMainEvent(gsGameStory, datAttackingTeam, datDefendingTeam, nMinute);
                 gsGameStory.AddEvent(evtMain);
             }
         }
 
-        private static GameEvent GameStoryCreateMainEvent(GameStory gsGameStory, TeamGameData datAttackingTeam, TeamGameData datDefendingTeam)
+        private static int GameStoryGetEventMinute(GameStory gsGameStory, int i, int nNumOfEvents, TeamGameData datAttackingTeam)
+        {
+            int nEventSpan = (90 / nNumOfEvents);
+            int nMinute = Consts.GameRandom.Next((i - 1) * nEventSpan + 1, i * nEventSpan);
+            bool bIsMinuteTaken = GameStoryIsMinuteTaken(nMinute, datAttackingTeam.Team.Name == gsGameStory.HomeTeam.Team.Name);
+            while (bIsMinuteTaken)
+            {
+                nMinute = Consts.GameRandom.Next((i - 1) * nEventSpan + 1, i * nEventSpan);
+                bIsMinuteTaken = GameStoryIsMinuteTaken(nMinute, datAttackingTeam.Team.Name == gsGameStory.HomeTeam.Team.Name);
+            }
+            MarkMinuteAsTaken(nMinute, datAttackingTeam.Team.Name == gsGameStory.HomeTeam.Team.Name);
+            return nMinute;
+        }
+
+        private static void MarkMinuteAsTaken(int nMinute, bool bIsHomeTeam)
+        {
+            m_barrTakenMinutes[nMinute] = true;
+        }
+
+        private static bool GameStoryIsMinuteTaken(int nMinute, bool bIsHomeTeam)
+        {
+            return m_barrTakenMinutes[nMinute];
+        }
+
+        private static GameEvent GameStoryCreateMainEvent(GameStory gsGameStory, TeamGameData datAttackingTeam, TeamGameData datDefendingTeam, int nMinute)
         {
             int nAttackGrade = datAttackingTeam.OffenceGrade * 1;
             int nDefenceGrade = datDefendingTeam.DefenceGrade * 3;
@@ -952,16 +1001,18 @@ namespace HatTrick
                     int nMissedRnd = Consts.GameRandom.Next(1, 100);
                     if (nMissedRnd <= 40)
                     {
-                        evtNewEvent = GameStoryCreateFailedEvent(gsGameStory, datAttackingTeam, datDefendingTeam, (int)fRatio);
+                        evtNewEvent = GameStoryCreateFailedEvent(gsGameStory, datAttackingTeam, datDefendingTeam, (int)fRatio, nMinute);
                     }
                     else
                     {
-                        evtNewEvent = GameStoryCreateFouledEvent(gsGameStory, datAttackingTeam, datDefendingTeam);
+                        evtNewEvent = GameStoryCreateFouledEvent(gsGameStory, datAttackingTeam, datDefendingTeam, nMinute);
                     }
                 }
                 else
                 {
-                    evtNewEvent = new ScoreEvent(datAttackingTeam.Team, true);
+                    int nScorerPos = Consts.GameRandom.Next(11 - datAttackingTeam.Formation.Offence + 1, 11);
+                    Player pActor = ((Player)(datAttackingTeam.Team.Players.Where(T => T.Position == nScorerPos)).First());
+                    evtNewEvent = new ScoreEvent(datAttackingTeam.Team, nMinute, true, pActor);
                 }
             }
             else
@@ -969,34 +1020,51 @@ namespace HatTrick
                 // attack < 50 = ratio
                 if (nEventRnd <= fRatio)
                 {
-                    evtNewEvent = new ScoreEvent(datAttackingTeam.Team, true);
+                    int nScorerPos = Consts.GameRandom.Next(11 - datAttackingTeam.Formation.Offence + 1, 11);
+                    Player pActor = ((Player)(datAttackingTeam.Team.Players.Where(T => T.Position == nScorerPos)).First());
+                    evtNewEvent = new ScoreEvent(datAttackingTeam.Team, nMinute, true, pActor);
                 }
                 else
                 {
                     int nMissedRnd = Consts.GameRandom.Next(1, 100);
                     if (nMissedRnd <= 40)
                     {
-                        evtNewEvent = GameStoryCreateFouledEvent(gsGameStory, datAttackingTeam, datDefendingTeam);
+                        evtNewEvent = GameStoryCreateFouledEvent(gsGameStory, datAttackingTeam, datDefendingTeam, nMinute);
                     }
                     else
                     {
-                        evtNewEvent = GameStoryCreateFailedEvent(gsGameStory, datAttackingTeam, datDefendingTeam, (int)(100 - fRatio));
+                        evtNewEvent = GameStoryCreateFailedEvent(gsGameStory, datAttackingTeam, datDefendingTeam, (int)(100 - fRatio), nMinute);
                     }
                 }                
             }
             return evtNewEvent;
         }
 
-        private static GameEvent GameStoryCreateFouledEvent(GameStory gsGameStory, TeamGameData datAttackingTeam, TeamGameData datDefendingTeam)
+        private static GameEvent GameStoryCreateFouledEvent(GameStory gsGameStory, TeamGameData datAttackingTeam, TeamGameData datDefendingTeam, int nMinute)
         {
             FouledEvent evtFoul;
             int nMissedRnd = Consts.GameRandom.Next(1, 100);
+
+            // Create a panelty event
+            // Create the player names
+            // Create the attacker name
+            int nAttacker = Consts.GameRandom.Next(11 - datAttackingTeam.Formation.Offence + 1, 11);
+            Player pAttacker = ((Player)(datAttackingTeam.Team.Players.Where(T => T.Position == nAttacker)).First());
+            // create the foulist name
+            int nFoulist = Consts.GameRandom.Next(1, datDefendingTeam.Formation.Defence + 1);
+            Player pFouslist = ((Player)(datDefendingTeam.Team.Players.Where(T => T.Position == nFoulist)).First());
+
+            // Panelty shoot is due
             if (nMissedRnd <= 10)
             {
-                evtFoul = new PaneltyEvent(datAttackingTeam.Team);
+                Player pShooter = ((Player)(datAttackingTeam.Team.Players.Where(T => T.WholeSetPiecesVal == (int)(datAttackingTeam.SetPiecesGrade))).First());
+                evtFoul = new PaneltyEvent(datAttackingTeam.Team, nMinute, pAttacker, pFouslist, pShooter);
+
+                // Check if a card was shown
                 int nCardRnd = Consts.GameRandom.Next(1, 100);
                 evtFoul.ptCard = nCardRnd <= 10 ? PaneltyCard.ptRed : PaneltyCard.ptYellow;
 
+                // Check if the panelty shot was scored
                 int nTotalChance = 9*datAttackingTeam.SetPiecesGrade + datDefendingTeam.KeepingGrade;
                 bool bAttackIsBetter = 9*datAttackingTeam.SetPiecesGrade > datDefendingTeam.KeepingGrade;
                 float fRatio = bAttackIsBetter ? (float)(9 * datAttackingTeam.SetPiecesGrade) / nTotalChance : (float)datDefendingTeam.KeepingGrade / nTotalChance;
@@ -1005,45 +1073,57 @@ namespace HatTrick
                 if (bAttackIsBetter) evtFoul.bScored = nScoreRnd > datDefendingTeam.KeepingGrade ? datAttackingTeam.Team : null;
                 else evtFoul.bScored = nScoreRnd > 9*datDefendingTeam.SetPiecesGrade ? datAttackingTeam.Team : null;
 
-                if (evtFoul.bScored != null) gsGameStory.AddEvent(new ScoreEvent(datAttackingTeam.Team, false));
+                // if it was a goal, also add the score event
+                if (evtFoul.bScored != null) gsGameStory.AddEvent(new ScoreEvent(datAttackingTeam.Team, nMinute, false, pAttacker));
             }
+            // Not panelty - free kick from after the 16 meters
             else if (nMissedRnd <= 75)
             {
-                evtFoul = new FreeKickEvent(datAttackingTeam.Team);
+                int OffenceGrade = datAttackingTeam.SetPiecesGrade;
+                
+                // set the player to the free kicker
+                Player pShooter = ((Player)(datAttackingTeam.Team.Players.Where(T => T.WholeSetPiecesVal == OffenceGrade)).First());
+                evtFoul = new FreeKickEvent(datAttackingTeam.Team, nMinute, pAttacker, pFouslist, pShooter);
+
+                // check if a card was shown
                 int nCardRnd = Consts.GameRandom.Next(1, 100);
                 if (nCardRnd <= 5) evtFoul.ptCard = PaneltyCard.ptRed;
                 else evtFoul.ptCard = nCardRnd <= 30 ? PaneltyCard.ptYellow : PaneltyCard.ptNone;
 
+                // calculate score
                 int DefendingGrade = (datDefendingTeam.KeepingGrade + datDefendingTeam.DefenceGrade) / 2;
-                int OffenceGrade = datAttackingTeam.SetPiecesGrade;
-
                 int nTotalChance = 4 * datAttackingTeam.SetPiecesGrade + 6*DefendingGrade;
                 bool bAttackIsBetter = 4 * OffenceGrade > 6*DefendingGrade;
                 float fRatio = bAttackIsBetter ? (float)(4 * OffenceGrade) / nTotalChance : (float)(6*DefendingGrade)/ nTotalChance;
-                int nScoreRnd = Consts.GameRandom.Next(1, nTotalChance);
+                int nScoreRnd = nTotalChance - Consts.GameRandom.Next(1, nTotalChance) + 1;
 
                 if (bAttackIsBetter) evtFoul.bScored = nScoreRnd > 6*DefendingGrade ? datAttackingTeam.Team : null;
-                else evtFoul.bScored = nScoreRnd > 4 * OffenceGrade ? datAttackingTeam.Team : null;
+                else evtFoul.bScored = nScoreRnd < 4 * OffenceGrade ? datAttackingTeam.Team : null;
 
-                if (evtFoul.bScored != null) gsGameStory.AddEvent(new ScoreEvent(datAttackingTeam.Team, false));
+                if (evtFoul.bScored != null) gsGameStory.AddEvent(new ScoreEvent(datAttackingTeam.Team, nMinute, false, pShooter));
             }
             else
             {
-                evtFoul = new MissedFouledEvent(datAttackingTeam.Team);
+                evtFoul = new MissedFouledEvent(datAttackingTeam.Team, nMinute, pAttacker, pFouslist);
             }
             return evtFoul;
         }
 
-        private static GameEvent GameStoryCreateFailedEvent(GameStory gsGameStory, TeamGameData datAttackingTeam, TeamGameData datDefendingTeam, int nDefenceRatio)
+        private static GameEvent GameStoryCreateFailedEvent(GameStory gsGameStory, TeamGameData datAttackingTeam, TeamGameData datDefendingTeam, int nDefenceRatio, int nMinute)
         {
             int nFailedRnd = Consts.GameRandom.Next(1, 100);
+            
+            // Create the attacker name
+            int nAttacker = Consts.GameRandom.Next(11 - datAttackingTeam.Formation.Offence + 1, 11);
+            Player pAttacker = ((Player)(datAttackingTeam.Team.Players.Where(T => T.Position == nAttacker)).First());
+
             if (nFailedRnd <= nDefenceRatio)
             {
-                return new StoppedEvent(datAttackingTeam.Team);
+                return new StoppedEvent(datAttackingTeam.Team, nMinute, pAttacker);
             }
             else
             {
-                return new MissedEvent(datAttackingTeam.Team);
+                return new MissedEvent(datAttackingTeam.Team, nMinute, pAttacker);
             }
         }
 

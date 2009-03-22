@@ -83,6 +83,10 @@ namespace HatTrick.CommonModel
             get { return paSetPiecesVal; }
             set { paSetPiecesVal = value; }
         }
+        public int WholeSetPiecesVal 
+        {
+            get { return (int)SetPiecesVal; }
+        }
 
         private int nPosition;
         public int Position

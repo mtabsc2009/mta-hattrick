@@ -28,7 +28,7 @@ namespace HatTrick.CommonModel
         private TeamGameData m_datAwayTeam;
         private int m_nTotalEvents;
         private int m_nHomeTeamEvents;
-        private ArrayList m_lstGameEvents = new ArrayList();
+        private SortedList<int, GameEvent> m_lstGameEvents = new SortedList<int,GameEvent>();
         private int m_nHomeScore = 0;
         private int m_nAwayScore = 0;
 
@@ -54,7 +54,7 @@ namespace HatTrick.CommonModel
             set { m_nHomeScore = value; }
         }
 
-        public ArrayList GameEvents
+        public SortedList<int, GameEvent> GameEvents
         {
             get { return m_lstGameEvents; }
         }
@@ -142,7 +142,7 @@ namespace HatTrick.CommonModel
 
         public void AddEvent(GameEvent evtMain)
         {
-            m_lstGameEvents.Add(evtMain);
+            m_lstGameEvents.Add(evtMain.Minute, evtMain);
         }
     }
 
