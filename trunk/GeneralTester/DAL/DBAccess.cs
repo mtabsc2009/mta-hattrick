@@ -766,9 +766,22 @@ namespace DAL
 
         private static void changePlayerTeams(OleDbCommand cmdCommand, Player playerToBuy, Team tMyTeam)
         {
-            cmdCommand.CommandText = string.Format("UPDATE players  SET PlayerTeam = \"{1}\" , IsForSale = \"0\" where PlayerName = \"{0}\"",
-                                                   playerToBuy.Name, tMyTeam.Name);
+            int maxPos = GetMaxPos(tMyTeam);
+
+            cmdCommand.CommandText = string.Format("UPDATE players SET PlayerTeam = \"{1}\" , IsForSale = \"0\", PlayerPos = \"{2}\" where PlayerName = \"{0}\"",
+                                                   playerToBuy.Name, tMyTeam.Name, maxPos + 1);
             cmdCommand.ExecuteNonQuery();
+        }
+
+        private static int GetMaxPos(Team tMyTeam)
+        {
+            int max = -1;
+            foreach (Player player in tMyTeam.Players)
+            {
+                if (player.Position > max)
+                    max = player.Position;
+            }
+            return max;
         }
 
         private static void decreaseCashForTeamThatBoughtThePlayer(OleDbCommand cmdCommand, Player playerToBuy, Team tMyTeam)
@@ -779,25 +792,37 @@ namespace DAL
         }
 
         private static void payTeamThatSold(OleDbCommand cmdCommand, Player playerToBuy)
-        {
+        {           
             cmdCommand.CommandText = string.Format(
                 "SELECT * FROM Teams WHERE TeamName = \"{0}\"", playerToBuy.TeamName);
             OleDbDataReader drTeam;
             drTeam = cmdCommand.ExecuteReader();
             drTeam.Read();
-            string owner = drTeam["Owner"].ToString();
-            string strFormation = drTeam["TeamPos"].ToString();
             int teamCash = Convert.ToInt32(drTeam["TeamCash"]);
-            Team teamThatSoldThePlayer = new Team(drTeam["TeamName"].ToString(), (DateTime)drTeam["AU_CreationDate"], LoadPlayers(drTeam["TeamName"].ToString()), owner, strFormation, teamCash);
+            string teamName = drTeam["TeamName"].ToString();
 
             drTeam.Close();
 
             Connect();
 
             cmdCommand.CommandText = string.Format("UPDATE teams  SET TeamCash = \"{0}\" where TeamName = \"{1}\"",
-                                                   (teamThatSoldThePlayer.TeamCash + playerToBuy.PlayerCost), teamThatSoldThePlayer.Name);
-
+                                                   (teamCash + playerToBuy.PlayerCost), teamName);
             cmdCommand.ExecuteNonQuery();
+
+            // fix positions
+            if (playerToBuy.Position <= 11)
+            {
+                Team team = DAL.DBAccess.LoadTeam(teamName);
+                int maxPos = GetMaxPos(team);
+                Player maxPlayer = team.Players.Find(T => T.Position == maxPos);
+
+                Connect();
+
+                cmdCommand.CommandText = string.Format("UPDATE players SET PlayerPos = \"{0}\" where PlayerName = \"{1}\"",
+                                       playerToBuy.Position, maxPlayer.Name);
+
+                cmdCommand.ExecuteNonQuery();
+            }
         }
 
 
