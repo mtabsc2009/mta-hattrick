@@ -517,28 +517,7 @@ namespace HatTrick
                         ShowSellPlayers(tMyTeam);
                         break;
                     case "2":
-                        List<Player> playersForSale = DAL.DBAccess.GetPlayersForSale(tMyTeam);
-                        if (playersForSale.Count > 0)
-                        {
-                            m_ConsoleGameView.PrintLine("You Have " + tMyTeam.TeamCash + " Cash to buy players. you them wizely! :)");
-                            PrintPlayers(playersForSale);
-                            Player playerToBuy = GetPlayerByID(playersForSale);
-                            if (BuyPlayer(playerToBuy))
-                            {
-                                m_ConsoleGameView.PrintLine("Player " + playerToBuy.Name + " was trasfered to you team!.");                                                            
-                            }
-                            else
-                            {
-                                m_ConsoleGameView.PrintLine("Cannot buy player..");                            
-                            }
-                        }
-                        else
-                        {
-                            m_ConsoleGameView.PrintLine("No players for sale at this time.");                            
-                        }
-
-                        m_ConsoleGameView.PrintLine("Press enter to return");
-                        m_ConsoleGameView.ReadLine();
+                        showBuyPlayer();
                         break;
                 }
                 Console.Clear();
@@ -547,7 +526,34 @@ namespace HatTrick
             }
         }
 
-        private static bool BuyPlayer(Player playerToBuy)
+        private static void showBuyPlayer()
+        {
+            List<Player> playersForSale = DAL.DBAccess.GetPlayersForSale(tMyTeam);
+            if (playersForSale.Count > 0)
+            {
+                m_ConsoleGameView.PrintLine("You Have " + tMyTeam.TeamCash + " Cash to buy players.");
+                PrintPlayers(playersForSale);
+                Player playerToBuy = GetPlayerByID(playersForSale);
+                if (buyPlayer(playerToBuy))
+                {
+                    m_ConsoleGameView.PrintLine("Player " + playerToBuy.Name + " was trasfered to you team!.");
+                    tMyTeam = DAL.DBAccess.LoadTeam(tMyTeam.Name);
+                }
+                else
+                {
+                    m_ConsoleGameView.PrintLine("Cannot buy player..");                            
+                }
+            }
+            else
+            {
+                m_ConsoleGameView.PrintLine("No players for sale at this time.");                            
+            }
+
+            m_ConsoleGameView.PrintLine("Press enter to return");
+            m_ConsoleGameView.ReadLine();
+        }
+
+        private static bool buyPlayer(Player playerToBuy)
         {
             try
             {
@@ -557,7 +563,7 @@ namespace HatTrick
                     tMyTeam.Players.Add(playerToBuy);
                     return true;
                 }
-
+                
                 return false;
             }
             catch (Exception)
