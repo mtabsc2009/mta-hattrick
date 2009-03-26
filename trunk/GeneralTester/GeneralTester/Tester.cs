@@ -182,16 +182,16 @@ namespace HatTrick
         [Test]
         public void BuyPlayer()
         {
-            User usr = new User("q", "q");
+            User usr = new User("eyal", "eyal");
             Team tMyTeam = DAL.DBAccess.LoadTeam(usr);
 
             int eyalTeamBeforeSelling = tMyTeam.TeamCash;
 
-            string playerName = "Shmulik Shazar";
+            string playerName = "Shoko Haun";
 
             DAL.DBAccess.UpdateSellPlayer(playerName, 500);
 
-            User usr2 = new User("eyal", "eyal");
+            User usr2 = new User("q", "q");
             Team tMyTeam2 = DAL.DBAccess.LoadTeam(usr2);
 
             int qTeamBeforeSelling = tMyTeam2.TeamCash;
@@ -210,7 +210,13 @@ namespace HatTrick
 
             //reverse
             DAL.DBAccess.UpdateSellPlayer(playerName, 500);
-            DAL.DBAccess.BuyPlayer(tMyTeam, playerToBuy);        
+
+            tMyTeam = DAL.DBAccess.LoadTeam(usr2);
+            playerToBuy = tMyTeam.Players.Where(T => T.Name.Equals(playerName)).First();
+
+            Team eaylMyTeam = DAL.DBAccess.LoadTeam(usr);
+
+            DAL.DBAccess.BuyPlayer(eaylMyTeam, playerToBuy);        
         }
 
         [Test]
