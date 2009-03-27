@@ -15,7 +15,6 @@ namespace HatTrick
         public static void Main(string[] args)
         {
             GeneralTester gtNew = new GeneralTester();
-
             gtNew.PlayACycle();
         }
             
@@ -166,7 +165,7 @@ namespace HatTrick
 
             int elad = DAL.DBAccess.GetTeamCount();
 
-            Assert.AreEqual(DAL.DBAccess.GetNumOfCycles(), elad * (elad - 1));
+            Assert.AreEqual(elad * (elad - 1),DAL.DBAccess.GetNumOfCycles());
         }
 
         [Test]

@@ -352,92 +352,96 @@ namespace HatTrick
             if (DAL.DBAccess.CheckShouldCreateNewLeague())
             {
                 DataView alTeams;
-                ArrayList alCycles = new ArrayList();
+                ArrayList alFixedTeams = new ArrayList();
                 alTeams = DAL.DBAccess.GetAllTeams();
+                ArrayList alAllCycles = new ArrayList();
 
-                for (int nHomeTeam = 0; nHomeTeam < alTeams.Count; nHomeTeam++)
+                for (int nCurrTeam = 0; nCurrTeam < alTeams.Count / 2; nCurrTeam++)
                 {
-                    for (int nAwayTeam = 0; nAwayTeam < alTeams.Count; nAwayTeam++)
-                    {
-                        if (nHomeTeam != nAwayTeam)
-                        {
-                            CycleGame cgNew = new CycleGame();
-                            cgNew.HomeTeam = (string)alTeams[nHomeTeam]["TeamName"];
-                            cgNew.AwayTeam = (string)alTeams[nAwayTeam]["TeamName"];
-                            alCycles.Add(cgNew);
-                        }
-                    }
+                    alFixedTeams.Add(alTeams[nCurrTeam]["TeamName"]);
                 }
 
-                ArrayList alCurrCycle = new ArrayList();
-                alCurrCycle.Add(alCycles[0]);
-                ((CycleGame)alCycles[0]).CycleNum = 1;
-                alCycles.RemoveAt(0);
-
-                bool bWasGameFound;
-                bool bAreTeamsExists;
-                int nTeamCount = DAL.DBAccess.GetTeamCount();
-                int nLastAddition = 0;
-                int nCycleNum = 1;
-
-                while (alCycles.Count > 0)
+                for (int nCurrTeam = alTeams.Count / 2; nCurrTeam < alTeams.Count ; nCurrTeam++)
                 {
+                    alFixedTeams.Add(alTeams[(alTeams.Count-1) - (nCurrTeam - alTeams.Count / 2)]["TeamName"]);
+                }
 
-                    while (alCurrCycle.Count < nTeamCount / 2)
+                for (int nCycles = 1; nCycles <= alTeams.Count - 1; ++nCycles)
+                {
+                    ArrayList arCurrCycle = new ArrayList();
+                    arCurrCycle = SetGamesForCycle(alFixedTeams, nCycles);
+                    alAllCycles.Add(arCurrCycle);
+                    DAL.DBAccess.SaveCycleToDB(arCurrCycle);
+                    RotateTeams(alFixedTeams, 1);
+                }
+
+                foreach (ArrayList alCycle in alAllCycles)
+                {
+                    foreach (CycleGame cgGame in alCycle)
                     {
-                        bWasGameFound = false;
-                        for (int nAllGames = nLastAddition; nAllGames < alCycles.Count && !bWasGameFound; nAllGames++)
-                        {
-
-                            bAreTeamsExists = false;
-                            for (int nCurrCycleGame = 0; nCurrCycleGame < alCurrCycle.Count; nCurrCycleGame++)
-                            {
-                                if ((((CycleGame)alCycles[nAllGames]).HomeTeam == ((CycleGame)alCurrCycle[nCurrCycleGame]).HomeTeam) ||
-                                    (((CycleGame)alCycles[nAllGames]).HomeTeam == ((CycleGame)alCurrCycle[nCurrCycleGame]).AwayTeam) ||
-                                    (((CycleGame)alCycles[nAllGames]).AwayTeam == ((CycleGame)alCurrCycle[nCurrCycleGame]).HomeTeam) ||
-                                    (((CycleGame)alCycles[nAllGames]).AwayTeam == ((CycleGame)alCurrCycle[nCurrCycleGame]).AwayTeam))
-                                {
-                                    bAreTeamsExists = true;
-                                    break;
-                                }
-                            }
-
-                            if (!bAreTeamsExists)
-                            {
-                                bWasGameFound = true;
-                                ((CycleGame)alCycles[nAllGames]).CycleNum = nCycleNum;
-                                //Debug.Print(((CycleGame)alCycles[nAllGames]).HomeTeam + " - " + ((CycleGame)alCycles[nAllGames]).AwayTeam);
-                                alCurrCycle.Add(alCycles[nAllGames]);
-
-                                alCycles.RemoveAt(nAllGames);
-                                nLastAddition = nAllGames;
-                            }
-                        }
-
-                        if (!bWasGameFound)
-                        {
-                            nLastAddition = 0;
-                        }
+                        string strTempName = cgGame.AwayTeam;
+                        cgGame.AwayTeam = cgGame.HomeTeam;
+                        cgGame.HomeTeam = strTempName;
+                        cgGame.CycleNum += alTeams.Count - 1;
                     }
 
-                    // Save to DB
-                    DAL.DBAccess.SaveCycleToDB(alCurrCycle);
-                    alCurrCycle.Clear();
-                    nCycleNum++;
-
-                    if (alCycles.Count > 0)
-                    {
-                        if (nLastAddition == alCycles.Count)
-                        {
-                            nLastAddition = 0;
-                        }
-
-                        ((CycleGame)alCycles[nLastAddition]).CycleNum = nCycleNum;
-                        alCurrCycle.Add(alCycles[nLastAddition]);
-                        alCycles.RemoveAt(nLastAddition);
-                    }
+                    DAL.DBAccess.SaveCycleToDB(alCycle);
                 }
             }
+        }
+
+        private static void RotateTeams(ArrayList alFixedTeams, int nFixedTeam)
+        {
+            int nMid = (alFixedTeams.Count / 2);
+            string nTemp = alFixedTeams[1].ToString();
+            
+            string nOldTemp;
+
+            for (int i = 1; i < alFixedTeams.Count - 1; i++)
+            {
+                int nIndex = alFixedTeams.Count - (i - nMid) - 1;
+                int nNextIndex = nIndex - 1;
+
+                if (i + 1 < nMid)
+                {
+                    nIndex = i;
+                    nNextIndex = i + 1;
+                }
+
+                nOldTemp = nTemp;
+                nTemp = alFixedTeams[nNextIndex].ToString();
+                alFixedTeams[nNextIndex] = nOldTemp;
+
+            }
+            
+            alFixedTeams[1] = nTemp;
+            
+        }
+
+        private static ArrayList SetGamesForCycle(ArrayList alRotatedTeams, int nCycleNum)
+        {
+            ArrayList alNewCycleGames = new ArrayList();
+
+            for (int nCurrGame = 0; nCurrGame < alRotatedTeams.Count / 2; nCurrGame++)
+            {
+                CycleGame cgNew = new CycleGame();
+
+                if ((CommonModel.Consts.GameRandom.Next(0, 10) % 2) == 0)
+                {
+                    cgNew.HomeTeam = alRotatedTeams[nCurrGame].ToString();
+                    cgNew.AwayTeam = (alRotatedTeams[nCurrGame + alRotatedTeams.Count / 2]).ToString();
+                }
+                else
+                {
+                    cgNew.AwayTeam = alRotatedTeams[nCurrGame].ToString();
+                    cgNew.HomeTeam = (alRotatedTeams[nCurrGame + alRotatedTeams.Count / 2]).ToString();
+                }
+                
+                cgNew.CycleNum = nCycleNum;
+                alNewCycleGames.Add(cgNew);
+            }
+
+            return (alNewCycleGames);
         }
 
         private static void StartMatch()

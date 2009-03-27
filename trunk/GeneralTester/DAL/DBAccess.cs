@@ -250,7 +250,7 @@ namespace DAL
             OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
             DateTime dtCurrDate = DateTime.Now;
             cmdCommand.CommandText = string.Format(
-            "INSERT INTO Teams(TeamName, Owner, AU_CreationDate, TeamPos, TeamCash) Values(\"{0}\", \"{1}\", \"{2}\", \"{3}\", \"{4}\")", strTeamName, usrCurrentUser.Username, dtCurrDate.ToString(), "4-4-2", 1000000);
+            "INSERT INTO Teams(TeamName, Owner, AU_CreationDate, TeamPos, TeamCash, TeamTrainingType) Values(\"{0}\", \"{1}\", \"{2}\", \"{3}\", \"{4}\", \"{5}\")", strTeamName, usrCurrentUser.Username, dtCurrDate.ToString(), "4-4-2", 1000000,1);
 
             Connect();
             trTrans = m_cnConnection.BeginTransaction();
