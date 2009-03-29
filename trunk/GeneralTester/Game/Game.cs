@@ -634,14 +634,11 @@ namespace HatTrick
             String strPlayerName = String.Empty;
             String strPlayerCost = String.Empty;
             int intCost = -1;
-        
             DataView dtNew = DAL.DBAccess.GetNotForSellTeamPlayers(tMyTeam.Name);
             Console.Clear();
             Console.WriteLine("Chose What Player you want to sell:");
-            foreach (DataRowView drvCurr in dtNew)
-            {
-                Console.WriteLine(" {0}", drvCurr["PlayerName"]);
-            }
+            TextualView.Menu.ShowPlayers(dtNew);
+            
             while (dtNew.Count > 0)
             {    
                 Console.Write("Sell Player:");
