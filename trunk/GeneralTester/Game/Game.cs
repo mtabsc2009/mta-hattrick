@@ -533,10 +533,11 @@ namespace HatTrick
         private static void showBuyPlayer()
         {
             List<Player> playersForSale = DAL.DBAccess.GetPlayersForSale(tMyTeam);
+            DataView dwPlayersToBuy = DAL.DBAccess.GetPlayersForSale(tMyTeam.Name);
             if (playersForSale.Count > 0)
             {
                 m_ConsoleGameView.PrintLine("You Have " + tMyTeam.TeamCash + " Cash to buy players.");
-                PrintPlayers(playersForSale);
+                TextualView.Menu.ShowPlayers(dwPlayersToBuy);
                 Player playerToBuy = GetPlayerByID(playersForSale);
                 if (buyPlayer(playerToBuy))
                 {
