@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace HatTrick.TextualView
 {
-    public static class Menu
+    internal static class Menu
     {
         public static string ShowMain()
         {
@@ -132,7 +132,55 @@ namespace HatTrick.TextualView
                 Console.WriteLine();
             }
 
+            Console.WriteLine("Press any key to return");
+            Console.ReadLine();
+
+
         }
+
+        public static void ShowChangePlayerPos(Team tMyTeam, out int n, out Player plrToChange, out Player plrChangedPos)
+        {
+            string strPlayerID;
+            Console.WriteLine("Please choose player id");
+            strPlayerID = Console.ReadLine();
+            plrToChange = null;
+
+
+            bool bDoesExists = false;
+            n = 0;
+            while (!bDoesExists)
+            {
+                if (int.TryParse(strPlayerID, out n))
+                {
+                    try
+                    {
+                        plrToChange = (Player)tMyTeam.Players.Where(T => T.ID == int.Parse(strPlayerID)).First();
+                    }
+                    catch
+                    {
+                        plrToChange = null;
+                    }
+
+                    if (plrToChange != null)
+                    {
+                        bDoesExists = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please choose player id");
+                        strPlayerID = Console.ReadLine();
+                    }
+                }
+            }
+
+            Console.WriteLine("Please choose a position for player {0}", plrToChange.Name);
+            string strPos = Console.ReadLine();
+
+            plrChangedPos = (Player)tMyTeam.Players.Where(T => T.Position == int.Parse(strPos)).First();
+            plrChangedPos.Position = plrToChange.Position;
+            plrToChange.Position = int.Parse(strPos);
+        }
+
 
         private static int PrintSingleSkill(Team tMyTeam, int nCurrPlayer, int nCurrSkillVal, int nCompletion)
         {
@@ -262,6 +310,7 @@ namespace HatTrick.TextualView
 
         public static void ShowCreateNewTeam(out string strTeamName)
         {
+            Console.Clear();
             Console.WriteLine("Please choose your team name");
             strTeamName = Console.ReadLine();
         }
@@ -432,6 +481,7 @@ namespace HatTrick.TextualView
 
         public static void ShowStartMatch(out string strAwayTeam)
         {
+            Console.Clear();
             Console.WriteLine("Chose the you'r opponent team:");
             Console.WriteLine("-------------------------");
 
@@ -524,8 +574,27 @@ namespace HatTrick.TextualView
             Console.WriteLine("There has been an error starting the match.");
         }
 
+        public static void PrintPlayers(List<Player> players)
+        {
+            Console.WriteLine("Players:");
+            Console.WriteLine();
+            foreach (Player player in players)
+            {
+                Console.WriteLine(player);
+            }
+        }
+
+        public static void ShowFormationChanged()
+        {
+            Console.WriteLine("Formation changed");
+            Console.ReadLine();
+        }
+
+
+
         public static string ShowTransafersMenu()
         {
+            Console.Clear();
             Console.WriteLine("Transfer Players:");
             Console.WriteLine("-----------------");
             Console.WriteLine("Select your choice:");

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using HatTrick;
+using HatTrick.TextualView;
 
 namespace MainProgram
 {
@@ -9,7 +9,7 @@ namespace MainProgram
     {
         public static void Main(string[] args)
         {
-            Game.Start();
+            HatTrick.TextualView.ConsoleFlow.Start();
         }
     }
 }

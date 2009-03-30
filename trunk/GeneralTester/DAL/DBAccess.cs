@@ -9,7 +9,7 @@ using System.Collections;
 using System.Runtime.Serialization.Formatters;
 using System.IO;
 
-namespace DAL
+namespace HatTrick.DAL
 {
     static public class DBAccess
     {
@@ -812,7 +812,7 @@ namespace DAL
             // fix positions
             if (playerToBuy.Position <= 11)
             {
-                Team team = DAL.DBAccess.LoadTeam(teamName);
+                Team team = HatTrick.DAL.DBAccess.LoadTeam(teamName);
                 int maxPos = GetMaxPos(team);
                 Player maxPlayer = team.Players.Find(T => T.Position == maxPos);
 
@@ -884,7 +884,7 @@ namespace DAL
                 int nMaxLeagueID = GetMaxLeagueID() + 1;
                 foreach (DataRowView drCurrTeam in dvTeams)
                 {
-                    Team tCurrTeam = DAL.DBAccess.LoadTeam(drCurrTeam["TeamName"].ToString());
+                    Team tCurrTeam = HatTrick.DAL.DBAccess.LoadTeam(drCurrTeam["TeamName"].ToString());
 
                     Connect();
 

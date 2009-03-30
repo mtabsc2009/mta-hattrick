@@ -62,9 +62,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Game\Game.csproj">
-      <Project>{78DF7BB6-75F8-4204-B3B1-FE80D1209C7E}</Project>
-      <Name>Game</Name>
+    <ProjectReference Include="..\TextualView\TextualView.csproj">
+      <Project>{8748B692-ECA8-44FB-A76E-3C72F550ECD6}</Project>
+      <Name>TextualView</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

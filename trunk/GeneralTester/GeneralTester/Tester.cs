@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
 using HatTrick.CommonModel;
-using DAL;
+using HatTrick.DAL;
 using System.Collections;
 
 namespace HatTrick
@@ -68,7 +68,7 @@ namespace HatTrick
         public void CheckPlayerPosition()
         {
             User usr = new User("DebugUser", "DebugUser");
-            Team tMyTeam = DAL.DBAccess.LoadTeam(usr);
+            Team tMyTeam = HatTrick.DAL.DBAccess.LoadTeam(usr);
             Player plrNew = tMyTeam.Players[0];
 
             plrNew.Position = 1;
@@ -81,7 +81,7 @@ namespace HatTrick
         {
             User usr = new User("DebugUser", "DebugUser");
             
-            Team tMyTeam = DAL.DBAccess.LoadTeam(usr);
+            Team tMyTeam = HatTrick.DAL.DBAccess.LoadTeam(usr);
             Player plrNew = tMyTeam.Players[0];
 
             int nSavePos = plrNew.Position;
@@ -89,17 +89,17 @@ namespace HatTrick
             plrNew.Position = 4;
             Assert.AreEqual(4, plrNew.Position);
 
-            DAL.DBAccess.UpdatePlayerPosition(plrNew);
+            HatTrick.DAL.DBAccess.UpdatePlayerPosition(plrNew);
 
-            tMyTeam = DAL.DBAccess.LoadTeam(usr);
+            tMyTeam = HatTrick.DAL.DBAccess.LoadTeam(usr);
             plrNew = tMyTeam.Players[0];
             Assert.AreEqual(4, plrNew.Position);
 
             plrNew.Position = nSavePos;
 
-            DAL.DBAccess.UpdatePlayerPosition(plrNew);
+            HatTrick.DAL.DBAccess.UpdatePlayerPosition(plrNew);
 
-            tMyTeam = DAL.DBAccess.LoadTeam(usr);
+            tMyTeam = HatTrick.DAL.DBAccess.LoadTeam(usr);
             plrNew = tMyTeam.Players[0];
             Assert.AreEqual(nSavePos, plrNew.Position);
         }
@@ -109,18 +109,18 @@ namespace HatTrick
         {
             User usr = new User("DebugUser", "DebugUser");
 
-            Team tMyTeam = DAL.DBAccess.LoadTeam(usr);
+            Team tMyTeam = HatTrick.DAL.DBAccess.LoadTeam(usr);
 
-            DAL.DBAccess.ChangeTeamFormation(tMyTeam, "4-4-2");
-            tMyTeam = DAL.DBAccess.LoadTeam(usr);
+            HatTrick.DAL.DBAccess.ChangeTeamFormation(tMyTeam, "4-4-2");
+            tMyTeam = HatTrick.DAL.DBAccess.LoadTeam(usr);
             Assert.AreEqual(tMyTeam.Formation, "4-4-2");
 
-            DAL.DBAccess.ChangeTeamFormation(tMyTeam, "4-3-3");
-            tMyTeam = DAL.DBAccess.LoadTeam(usr);
+            HatTrick.DAL.DBAccess.ChangeTeamFormation(tMyTeam, "4-3-3");
+            tMyTeam = HatTrick.DAL.DBAccess.LoadTeam(usr);
             Assert.AreEqual(tMyTeam.Formation, "4-3-3");
 
             usr = new User("DebugUser", "DebugUser");
-            tMyTeam = DAL.DBAccess.LoadTeam(usr);
+            tMyTeam = HatTrick.DAL.DBAccess.LoadTeam(usr);
             Assert.AreEqual(tMyTeam.Formation, "4-3-3");
 
         }
@@ -145,7 +145,7 @@ namespace HatTrick
             
             int nNewGame = Game.SaveStoryToDB(gsNewGame);
 
-            GameStory gsNewGame2 = Game.LoadGameStory(nNewGame);
+            GameStory gsNewGame2 = Game.GetGameStory(nNewGame);
             
             Assert.AreEqual(gsNewGame.AwayScore, gsNewGame2.AwayScore);
             Assert.AreEqual(gsNewGame.HomeScore, gsNewGame2.HomeScore);
@@ -159,63 +159,63 @@ namespace HatTrick
         {
 
             // CLEARS ALL CYCLES!!!
-            DAL.DBAccess.ClearAllCycles();
+            HatTrick.DAL.DBAccess.ClearAllCycles();
 
             Game.CreateNewLeagueCycles();
 
-            int elad = DAL.DBAccess.GetTeamCount();
+            int elad = HatTrick.DAL.DBAccess.GetTeamCount();
 
-            Assert.AreEqual(elad * (elad - 1),DAL.DBAccess.GetNumOfCycles());
+            Assert.AreEqual(elad * (elad - 1),HatTrick.DAL.DBAccess.GetNumOfCycles());
         }
 
         [Test]
         public void PlayACycle()
         {
-            DAL.DBAccess.ClearAllCycles();
+            HatTrick.DAL.DBAccess.ClearAllCycles();
             Game.CreateNewLeagueCycles();
             Game.PlayNextCycle();
 
-            Assert.AreEqual(Game.CyclesToList(DAL.DBAccess.GetAllCycles()).Where(T => T.GameID != -1).Count(),DAL.DBAccess.GetTeamCount() / 2) ;
+            Assert.AreEqual(Game.CyclesToList(HatTrick.DAL.DBAccess.GetAllCycles()).Where(T => T.GameID != -1).Count(),HatTrick.DAL.DBAccess.GetTeamCount() / 2) ;
         }
 
         [Test]
         public void BuyPlayer()
         {
             User usr = new User("eyal", "eyal");
-            Team tMyTeam = DAL.DBAccess.LoadTeam(usr);
+            Team tMyTeam = HatTrick.DAL.DBAccess.LoadTeam(usr);
 
             int eyalTeamBeforeSelling = tMyTeam.TeamCash;
 
             string playerName = "Shoko Haun";
 
-            DAL.DBAccess.UpdateSellPlayer(playerName, 500);
+            HatTrick.DAL.DBAccess.UpdateSellPlayer(playerName, 500);
 
             User usr2 = new User("q", "q");
-            Team tMyTeam2 = DAL.DBAccess.LoadTeam(usr2);
+            Team tMyTeam2 = HatTrick.DAL.DBAccess.LoadTeam(usr2);
 
             int qTeamBeforeSelling = tMyTeam2.TeamCash;
 
             Player playerToBuy = tMyTeam.Players.Where(T => T.Name.Equals(playerName)).First();
-            DAL.DBAccess.BuyPlayer(tMyTeam2, playerToBuy);
+            HatTrick.DAL.DBAccess.BuyPlayer(tMyTeam2, playerToBuy);
 
-            tMyTeam = DAL.DBAccess.LoadTeam(usr);
+            tMyTeam = HatTrick.DAL.DBAccess.LoadTeam(usr);
             int eyalTeamAfterSelling = tMyTeam.TeamCash;
 
-            tMyTeam2 = DAL.DBAccess.LoadTeam(usr2);
+            tMyTeam2 = HatTrick.DAL.DBAccess.LoadTeam(usr2);
             int qTeamAfterSelling = tMyTeam2.TeamCash;
 
             Assert.AreEqual(eyalTeamBeforeSelling + playerToBuy.PlayerCost, eyalTeamAfterSelling);
             Assert.AreEqual(qTeamBeforeSelling - playerToBuy.PlayerCost, qTeamAfterSelling);
 
             //reverse
-            DAL.DBAccess.UpdateSellPlayer(playerName, 500);
+            HatTrick.DAL.DBAccess.UpdateSellPlayer(playerName, 500);
 
-            tMyTeam = DAL.DBAccess.LoadTeam(usr2);
+            tMyTeam = HatTrick.DAL.DBAccess.LoadTeam(usr2);
             playerToBuy = tMyTeam.Players.Where(T => T.Name.Equals(playerName)).First();
 
-            Team eaylMyTeam = DAL.DBAccess.LoadTeam(usr);
+            Team eaylMyTeam = HatTrick.DAL.DBAccess.LoadTeam(usr);
 
-            DAL.DBAccess.BuyPlayer(eaylMyTeam, playerToBuy);        
+            HatTrick.DAL.DBAccess.BuyPlayer(eaylMyTeam, playerToBuy);        
         }
 
         [Test]
@@ -223,13 +223,13 @@ namespace HatTrick
         {
             User usr = new User("DebugUser", "DebugUser");
 
-            Team tMyTeam = DAL.DBAccess.LoadTeam(usr);
+            Team tMyTeam = HatTrick.DAL.DBAccess.LoadTeam(usr);
             Game.MyTeam = tMyTeam;
 
             Game.ChangeTeamTrainngType(Consts.TrainingType.ATTACK);
             Assert.AreEqual(tMyTeam.TeamTrainingType, Consts.TrainingType.ATTACK);
 
-            tMyTeam = DAL.DBAccess.LoadTeam(usr);
+            tMyTeam = HatTrick.DAL.DBAccess.LoadTeam(usr);
             Game.MyTeam = tMyTeam;
 
             Game.ChangeTeamTrainngType(Consts.TrainingType.PLAYMAKING);
@@ -241,7 +241,7 @@ namespace HatTrick
         {
             User usr = new User("DebugUser", "DebugUser");
 
-            Team tMyTeam = DAL.DBAccess.LoadTeam(usr);
+            Team tMyTeam = HatTrick.DAL.DBAccess.LoadTeam(usr);
             Game.MyTeam = tMyTeam;
 
             Game.ChangeTeamTrainngType(Consts.TrainingType.ATTACK);
@@ -256,7 +256,7 @@ namespace HatTrick
         {
             User usr = new User("DebugUser", "DebugUser");
 
-            Team tMyTeam = DAL.DBAccess.LoadTeam(usr);
+            Team tMyTeam = HatTrick.DAL.DBAccess.LoadTeam(usr);
             Game.MyTeam = tMyTeam;
 
             for (int i = 1; i < 200; i++)
@@ -272,14 +272,14 @@ namespace HatTrick
                 tMyTeam.TeamTrainingType = (Consts.TrainingType.WING);
                 Game.TrainTeam(tMyTeam);
             }
-            DAL.DBAccess.SaveTeamSkills(tMyTeam);
+            HatTrick.DAL.DBAccess.SaveTeamSkills(tMyTeam);
         }
 
         public void TrainTeamAttackAlot()
         {
             User usr = new User("DebugUser", "DebugUser");
 
-            Team tMyTeam = DAL.DBAccess.LoadTeam(usr);
+            Team tMyTeam = HatTrick.DAL.DBAccess.LoadTeam(usr);
             Game.MyTeam = tMyTeam;
 
             tMyTeam.TeamTrainingType = (Consts.TrainingType.ATTACK);
@@ -287,14 +287,14 @@ namespace HatTrick
             {
                 Game.TrainTeam(tMyTeam);
             }
-            DAL.DBAccess.SaveTeamSkills(tMyTeam);
+            HatTrick.DAL.DBAccess.SaveTeamSkills(tMyTeam);
         }
 
         public void ResetDebugTeamAbilities()
         {
             User usr = new User("DebugUser", "DebugUser");
 
-            Team tMyTeam = DAL.DBAccess.LoadTeam(usr);
+            Team tMyTeam = HatTrick.DAL.DBAccess.LoadTeam(usr);
             Game.MyTeam = tMyTeam;
 
             foreach (Player plrCurr in tMyTeam.Players)
@@ -307,7 +307,7 @@ namespace HatTrick
                 plrCurr.PlaymakingVal = 1;
                 plrCurr.KeeperVal = 1;
             }
-            DAL.DBAccess.SaveTeamSkills(tMyTeam);
+            HatTrick.DAL.DBAccess.SaveTeamSkills(tMyTeam);
         }
 
         [Test]
