@@ -354,6 +354,26 @@ namespace HatTrick.DAL
             }
         }
 
+        public static bool DoesUserExist(string strUserName)
+        {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+            try
+            {
+                Connect();
+                cmdCommand.CommandText = string.Format("SELECT count(*) from Users where UserName = \"{0}\"", strUserName);
+                int nCount = int.Parse(cmdCommand.ExecuteScalar().ToString());
+
+                return (nCount == 1);
+            }
+            finally
+            {
+                Close();
+            }
+        }
+
+
+
         public static DataRowCollection GetFormations()
         {
             OleDbCommand cmdCommand = m_cnConnection.CreateCommand();

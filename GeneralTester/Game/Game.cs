@@ -52,9 +52,10 @@ namespace HatTrick
             return lstCycleGames;
         }
 
-        public static void CreateTeam(string strTeamName)
+        public static Team CreateTeam(string strTeamName)
         {
             tMyTeam = DAL.DBAccess.CreateTeam(User, strTeamName);
+            return tMyTeam;
         }
 
 
@@ -976,6 +977,11 @@ namespace HatTrick
         public static GameStory GetGameStory(int nGameToShow)
         {
             return DAL.DBAccess.LoadGameStory(nGameToShow);
+        }
+
+        public static bool UserExists(string strUsername)
+        {
+            return DAL.DBAccess.DoesUserExist(strUsername);
         }
     }
 }

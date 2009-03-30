@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ConsoleMainProgram</RootNamespace>
-    <AssemblyName>ConsoleMainProgram</AssemblyName>
+    <AssemblyName>ConsoleHattrick</AssemblyName>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
