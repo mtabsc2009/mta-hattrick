@@ -7,8 +7,8 @@
     <ProjectGuid>{1C9055B2-8500-49E3-9332-EFC867578468}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MainProgram</RootNamespace>
-    <AssemblyName>MainProgram</AssemblyName>
+    <RootNamespace>ConsoleMainProgram</RootNamespace>
+    <AssemblyName>ConsoleMainProgram</AssemblyName>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -58,7 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainProgram.cs" />
+    <Compile Include="ConsoleMainProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
