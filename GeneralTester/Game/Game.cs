@@ -3,11 +3,10 @@ using System.Linq;
 using System.Data;
 using System.Collections.Generic;
 using System.Text;
-using HatTrick.CommonModel;
-using HatTrick.TextualView;
 using System.Collections;
 using System.Diagnostics;
-using TextualView;
+using HatTrick.CommonModel;
+
 
 namespace HatTrick
 {
@@ -27,209 +26,7 @@ namespace HatTrick
         }
         private static bool[] m_barrTakenMinutes = new bool[90];
 
-
-        private static IGameView m_ConsoleGameView = new ConsoleGameView();
-
-        #region Game Presentation Flow
-
-        public static bool Start()
-        {
-            Console.Clear();
-            string strChoice = Menu.ShowMain();
-
-            while (strChoice != "3")
-            {
-                Console.Clear();
-                switch (strChoice)
-                {
-                    case "1":
-                        ShowLogin();
-                        break;
-                    case "2":
-                        ShowCreateUser();
-                        break;
-                }
-                Console.Clear();
-                strChoice = Menu.ShowMain();
-            }
-
-            return true;
-        }
-
-        private static void ShowCreateUser()
-        {
-            string strUsername, strPassword;
-            Console.Clear();
-            Menu.ShowCreateAcouunt(out strUsername, out strPassword);
-            if (!CreateUser(strUsername, strPassword))
-            {
-                Menu.ShowErrorNewUser();
-            }
-            else
-            {
-                ShowLoginAttempt(strUsername, strPassword);
-            }
-        }
-
-        private static void ShowLogin()
-        {
-            string strUsername, strPassword;
-            Menu.ShowLogin(out strUsername, out strPassword);
-            ShowLoginAttempt(strUsername, strPassword);
-        }
-
-        private static void ShowLoginAttempt(string strUsername, string strPassword)
-        {
-            if (Login(strUsername, strPassword) != null)
-            {
-                HandleWelcome();
-            }
-            else
-            {
-                Menu.ShowErrorLogin();
-            }
-        }
-
-        private static void HandleWelcome()
-        {
-            Console.Clear();
-            string strChoice = Menu.ShowWelcome(m_usrCurrent);
-
-            while (strChoice != "4")
-            {
-                switch (strChoice)
-                {
-                    case "1":
-                        ManageTeam();
-                        break;
-
-                    case "2": // check games
-                        Console.WriteLine("These functions arent available yet..");
-                        Console.WriteLine("Press enter to return");
-                        Console.ReadLine();
-                        break;
-
-                    case "3": // league
-                        HandleLeague();
-                        break;
-                }
-                Console.Clear();
-                strChoice = Menu.ShowWelcome(m_usrCurrent);
-            }
-        }
-
-        private static void HandleLeague()
-        {
-            Console.Clear();
-            string strChoice = Menu.ShowLeague(m_usrCurrent);
-            while (strChoice != "6")
-            {
-                switch (strChoice)
-                {
-                    case "1":
-                        StartMatch();
-                        break;
-                    case "2":
-                        ShowCycles();
-                        break;
-                    case "3":
-                        PlayNextCycle();
-                        break;
-                    case "4":
-                        ShowTrainAllTeams();
-                        break;
-                    case "5":
-                        ShowLeagueTable();
-                        break;
-                }
-                Console.Clear();
-                strChoice = Menu.ShowLeague(m_usrCurrent);
-            }
-        }
-
-        private static void ShowLeagueTable()
-        {
-            int nCurrLeague = DAL.DBAccess.GetMaxLeagueID();
-            Menu.ShowLeagueTable(DAL.DBAccess.LoadLeagueTable(nCurrLeague));
-        }
-
-        private static void HandleManageTeam()
-        {
-            Console.Clear();
-            string strChoice = Menu.ShowManageTeam(m_usrCurrent);
-
-            while (strChoice != "7")
-            {
-                switch (strChoice)
-                {
-                    case "1":
-                        ShowMyTeam(tMyTeam);
-                        break;
-
-                    case "2":
-                        ChangePlayerPosition();
-                        break;
-
-                    case "3":
-                        ChangeTeamFomation();
-                        break;
-                    case "4":
-                        Menu.ShowMyFormation(tMyTeam);
-                        break;
-                    case "5":
-                        HandleTransaferPlayers();
-                        break;
-                    case "6":
-                        ShowTrainingTypes(tMyTeam);
-                        break;
-                }
-
-                Console.Clear();
-                strChoice = Menu.ShowManageTeam(m_usrCurrent);
-            }
-        }
-
-        public static Team ManageTeam()
-        {
-            tMyTeam = DAL.DBAccess.LoadTeam(m_usrCurrent);
-            if (tMyTeam == null)
-            {
-                string strTeamName;
-                Console.Clear();
-                Menu.ShowCreateNewTeam(out strTeamName);
-
-                while (DAL.DBAccess.DoesTeamExist(strTeamName))
-                {
-                    Console.WriteLine("Team already exists");
-                    Menu.ShowCreateNewTeam(out strTeamName);
-                }
-
-                tMyTeam = DAL.DBAccess.CreateTeam(m_usrCurrent, strTeamName);
-            }
-
-            HandleManageTeam();
-
-            return tMyTeam;
-        }
-
-        public static void PlayNextCycle()
-        {
-            DataView dvAllCycles = DAL.DBAccess.GetAllCycles();
-
-            List<CycleGame> lstCycleGames = CyclesToList(dvAllCycles);
-
-            int nMin = (lstCycleGames.Where(T => T.GameID == -1)).Min(T => T.CycleNum);
-
-            foreach (CycleGame gmCurr in (lstCycleGames.Where(T=>T.CycleNum == nMin)))
-            {
-                // Run Game
-                GameStory gsNewGame = Game.MatchTeams(gmCurr.HomeTeam, gmCurr.AwayTeam);
-                gmCurr.GameID = DAL.DBAccess.SaveStoryToDB(gsNewGame);
-                gmCurr.CycleDate = DateTime.Now;
-                DAL.DBAccess.UpdateCycleData(gmCurr);
-                DAL.DBAccess.UpdateGameLeagueStatus(gsNewGame);
-            }
-        }
+        #region Game Enging
 
         public static List<CycleGame> CyclesToList(DataView dvAllCycles)
         {
@@ -255,105 +52,24 @@ namespace HatTrick
             return lstCycleGames;
         }
 
-        public static void ShowCycles()
+        public static void CreateTeam(string strTeamName)
         {
-            if (DAL.DBAccess.CheckShouldCreateNewLeague())
-            {
-                Console.WriteLine("Creating new league cycles, press any key to contiue");
-                CreateLeagueTable();                
-                CreateNewLeagueCycles();
-                Console.ReadLine();
-            }
-            else
-            {
-                Console.Clear();
-                DataView dvAllCycles = DAL.DBAccess.GetAllCycles();
-
-                string strGameID;
-
-                Console.WriteLine("Game#\tHome Team\tAway Team\tScore");
-                Console.WriteLine("===============================================================");
-                Console.WriteLine();
-
-                int nCycleNo = 1;
-                GameStory gsStory = null;
-                foreach (DataRowView drvCurr in dvAllCycles)
-                {
-                    if ((int.Parse((string)drvCurr["CycleNum"]) != nCycleNo))
-                    {
-                        nCycleNo = (int.Parse((string)drvCurr["CycleNum"]));
-                        Console.WriteLine("------------------------------------------------------(C{0})-----", nCycleNo-1);
-                    }
-                    if (drvCurr["GameId"].ToString().Trim() == "")
-                    {
-                        strGameID = "N\\A";
-                        gsStory = null;
-                    }
-                    else
-                    {
-                        strGameID = drvCurr["GameId"].ToString();
-                        try
-                        {
-                            gsStory = DAL.DBAccess.LoadGameStory(int.Parse(strGameID));
-                        }
-                        catch
-                        {
-                            gsStory = null;
-                        }
-
-                    }
-                    Console.WriteLine("{2}\t{0}\t\t{1}\t\t {3}-{4}", drvCurr["HomeTeam"], drvCurr["AwayTeam"],strGameID,
-                        gsStory == null ? " " : gsStory.HomeScore.ToString(),
-                        gsStory == null ? string.Empty : gsStory.AwayScore.ToString()
-                        );
-                }
-                Console.WriteLine("------------------------------------------------------(C{0})-----", nCycleNo);
-                Console.WriteLine();
-
-                Console.WriteLine("Please choose a game id to view, or press 0 to return");
-                int nGameToShow = 0;
-
-                try
-                {
-                    // It's ok to error here..
-                    string str = Console.ReadLine();
-                    if (str != "")
-                    {
-                        nGameToShow = int.Parse(str);
-                    }
-                }
-                catch
-                {
-
-                }
-
-                if (nGameToShow != 0)
-                {
-                    try
-                    {
-                        GameStory gsToShow = LoadGameStory(nGameToShow);
-                        Menu.ShowGameStory(gsToShow);
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Game doesn't exists...");
-                    }
-                }
-            }
+            tMyTeam = DAL.DBAccess.CreateTeam(User, strTeamName);
         }
+
 
         private static void CreateLeagueTable()
         {
-            DAL.DBAccess.CreateLeagueEmptyTable();
+            HatTrick.DAL.DBAccess.CreateLeagueEmptyTable();
         }
 
         public static void CreateNewLeagueCycles()
         {
-            if (DAL.DBAccess.CheckShouldCreateNewLeague())
+            if (HatTrick.DAL.DBAccess.CheckShouldCreateNewLeague())
             {
                 DataView alTeams;
                 ArrayList alFixedTeams = new ArrayList();
-                alTeams = DAL.DBAccess.GetAllTeams();
+                alTeams = HatTrick.DAL.DBAccess.GetAllTeams();
                 ArrayList alAllCycles = new ArrayList();
 
                 for (int nCurrTeam = 0; nCurrTeam < alTeams.Count / 2; nCurrTeam++)
@@ -361,9 +77,9 @@ namespace HatTrick
                     alFixedTeams.Add(alTeams[nCurrTeam]["TeamName"]);
                 }
 
-                for (int nCurrTeam = alTeams.Count / 2; nCurrTeam < alTeams.Count ; nCurrTeam++)
+                for (int nCurrTeam = alTeams.Count / 2; nCurrTeam < alTeams.Count; nCurrTeam++)
                 {
-                    alFixedTeams.Add(alTeams[(alTeams.Count-1) - (nCurrTeam - alTeams.Count / 2)]["TeamName"]);
+                    alFixedTeams.Add(alTeams[(alTeams.Count - 1) - (nCurrTeam - alTeams.Count / 2)]["TeamName"]);
                 }
 
                 for (int nCycles = 1; nCycles <= alTeams.Count - 1; ++nCycles)
@@ -371,7 +87,7 @@ namespace HatTrick
                     ArrayList arCurrCycle = new ArrayList();
                     arCurrCycle = SetGamesForCycle(alFixedTeams, nCycles);
                     alAllCycles.Add(arCurrCycle);
-                    DAL.DBAccess.SaveCycleToDB(arCurrCycle);
+                    HatTrick.DAL.DBAccess.SaveCycleToDB(arCurrCycle);
                     RotateTeams(alFixedTeams, 1);
                 }
 
@@ -385,7 +101,7 @@ namespace HatTrick
                         cgGame.CycleNum += alTeams.Count - 1;
                     }
 
-                    DAL.DBAccess.SaveCycleToDB(alCycle);
+                    HatTrick.DAL.DBAccess.SaveCycleToDB(alCycle);
                 }
             }
         }
@@ -394,7 +110,7 @@ namespace HatTrick
         {
             int nMid = (alFixedTeams.Count / 2);
             string nTemp = alFixedTeams[1].ToString();
-            
+
             string nOldTemp;
 
             for (int i = 1; i < alFixedTeams.Count - 1; i++)
@@ -413,9 +129,9 @@ namespace HatTrick
                 alFixedTeams[nNextIndex] = nOldTemp;
 
             }
-            
+
             alFixedTeams[1] = nTemp;
-            
+
         }
 
         private static ArrayList SetGamesForCycle(ArrayList alRotatedTeams, int nCycleNum)
@@ -436,7 +152,7 @@ namespace HatTrick
                     cgNew.AwayTeam = alRotatedTeams[nCurrGame].ToString();
                     cgNew.HomeTeam = (alRotatedTeams[nCurrGame + alRotatedTeams.Count / 2]).ToString();
                 }
-                
+
                 cgNew.CycleNum = nCycleNum;
                 alNewCycleGames.Add(cgNew);
             }
@@ -444,53 +160,35 @@ namespace HatTrick
             return (alNewCycleGames);
         }
 
-        private static void StartMatch()
+        public static DataView GetLeague()
         {
-            string strHomeTeam, strAwayTeam;
-            Console.Clear();
-            Menu.ShowStartMatch(out strAwayTeam);
-
-            if (tMyTeam == null)
-            {
-                tMyTeam = DAL.DBAccess.LoadTeam(m_usrCurrent);
-            }
-
-            strHomeTeam = Game.tMyTeam.Name;
-
-            GameStory gsGameStory = Game.MatchTeams(strHomeTeam, strAwayTeam);
-            if (gsGameStory != null)
-            {
-                Menu.ShowGameStory(gsGameStory);
-            }
-            else
-            {
-                Menu.ShowMatchError();
-            }
+            int nCurrLeague = DAL.DBAccess.GetMaxLeagueID();
+            DataView dtvLeague = DAL.DBAccess.LoadLeagueTable(nCurrLeague);
+            return dtvLeague;
         }
 
-        private static void ShowTrainAllTeams()
+        public static void PlayNextCycle()
         {
-            int nNumOfTrains = Menu.ShowGetNumOfTrains();
-            TrainAllTeams(nNumOfTrains);
+            DataView dvAllCycles = HatTrick.DAL.DBAccess.GetAllCycles();
+
+            List<CycleGame> lstCycleGames = CyclesToList(dvAllCycles);
+
+            int nMin = (lstCycleGames.Where(T => T.GameID == -1)).Min(T => T.CycleNum);
+
+            foreach (CycleGame gmCurr in (lstCycleGames.Where(T => T.CycleNum == nMin)))
+            {
+                // Run Game
+                GameStory gsNewGame = Game.MatchTeams(gmCurr.HomeTeam, gmCurr.AwayTeam);
+                gmCurr.GameID = HatTrick.DAL.DBAccess.SaveStoryToDB(gsNewGame);
+                gmCurr.CycleDate = DateTime.Now;
+                HatTrick.DAL.DBAccess.UpdateCycleData(gmCurr);
+                HatTrick.DAL.DBAccess.UpdateGameLeagueStatus(gsNewGame);
+            }
         }
-
-        private static void ShowTrainingTypes(Team tMyTeam)
-        {
-            string strChoice = Menu.ShowTrainingTypes(tMyTeam);
-            Game.tMyTeam = tMyTeam;
-            ChangeTeamTrainngType((Consts.TrainingType)(int.Parse(strChoice)));
-            DAL.DBAccess.ChangeTeamTrainingType(tMyTeam);
-            Console.WriteLine("Training type changed");
-            Console.ReadLine();
-        }
-
-        #endregion
-
-        #region Game Enging
 
         public static void Reset()
         {
-            DAL.DBAccess.ResetDebugUser();
+            HatTrick.DAL.DBAccess.ResetDebugUser();
             Game.m_usrCurrent = null;
         }
 
@@ -498,73 +196,36 @@ namespace HatTrick
         {
             User usrUser = new User(strName, strPass);
 
-            return DAL.DBAccess.InsertUser(usrUser);
+            return HatTrick.DAL.DBAccess.InsertUser(usrUser);
         }
 
         public static User Login(string strUsername, string strPassword)
         {
-            m_usrCurrent = DAL.DBAccess.GetUser(strUsername, strPassword);
+            m_usrCurrent = HatTrick.DAL.DBAccess.GetUser(strUsername, strPassword);
+            MyTeam = HatTrick.DAL.DBAccess.LoadTeam(User);
             return m_usrCurrent;
         }
 
-        private static void HandleTransaferPlayers()
-        {
 
-            Console.Clear();
-            string strChoice = Menu.ShowTransafersMenu();
+        //private static void HandleBuyPlayer()
+        //{
+        //    List<Player> playersForSale = DAL.DBAccess.GetPlayersForSale(tMyTeam);
+        //    List<Player> dwPlayersToBuy = DAL.DBAccess.GetPlayersForSale(tMyTeam);
+        //    Player playerToBuy = ChoosePlayerByID(playersForSale);
+        //    tMyTeam = DAL.DBAccess.LoadTeam(tMyTeam.Name);
 
-            while (strChoice != "3")
-            {
-                switch (strChoice)
-                {
-                    case "1":
-                        ShowSellPlayers(tMyTeam);
-                        break;
-                    case "2":
-                        showBuyPlayer();
-                        break;
-                }
-                Console.Clear();
+        //    Menu.HandleBuyPlayer(tMyTeam, playersForSale, playerToBuy);
+        //}
 
-                strChoice = Menu.ShowTransafersMenu();
-            }
-        }
 
-        private static void showBuyPlayer()
-        {
-            List<Player> playersForSale = DAL.DBAccess.GetPlayersForSale(tMyTeam);
-            DataView dwPlayersToBuy = DAL.DBAccess.GetPlayersForSale(tMyTeam.Name);
-            if (playersForSale.Count > 0)
-            {
-                m_ConsoleGameView.PrintLine("You Have " + tMyTeam.TeamCash + " Cash to buy players.");
-                TextualView.Menu.ShowPlayers(dwPlayersToBuy);
-                Player playerToBuy = GetPlayerByID(playersForSale);
-                if (buyPlayer(playerToBuy))
-                {
-                    m_ConsoleGameView.PrintLine("Player " + playerToBuy.Name + " was trasfered to you team!.");
-                    tMyTeam = DAL.DBAccess.LoadTeam(tMyTeam.Name);
-                }
-                else
-                {
-                    m_ConsoleGameView.PrintLine("Cannot buy player..");                            
-                }
-            }
-            else
-            {
-                m_ConsoleGameView.PrintLine("No players for sale at this time.");                            
-            }
 
-            m_ConsoleGameView.PrintLine("Press enter to return");
-            m_ConsoleGameView.ReadLine();
-        }
-
-        private static bool buyPlayer(Player playerToBuy)
+        public static bool buyPlayer(Player playerToBuy)
         {
             try
             {
                 if(TeamHasEnoughMoneyToBuyPlayer(playerToBuy))
                 {
-                    DAL.DBAccess.BuyPlayer(tMyTeam, playerToBuy);
+                    HatTrick.DAL.DBAccess.BuyPlayer(tMyTeam, playerToBuy);
                     tMyTeam.Players.Add(playerToBuy);
                     return true;
                 }
@@ -582,96 +243,50 @@ namespace HatTrick
             return tMyTeam.TeamCash >= playerToBuy.PlayerCost;
         }
 
-        private static Player GetPlayerByID(List<Player> i_Players)
-        {
-            int n;
 
-            m_ConsoleGameView.PrintLine("Please choose player id");
-            string strPlayerID;
-            Player player = null;
+        //private static void SellPlayers(Team tMyTeam)
+        //{
+        //    String strPlayerName = String.Empty;
+        //    String strPlayerCost = String.Empty;
+        //    int intCost = -1;
+        //    DataView dtNew = DAL.DBAccess.GetNotForSellTeamPlayers(tMyTeam.Name);
 
-            strPlayerID = Console.ReadLine();
-
-            bool bDoesExists = false;
-
-            while (!bDoesExists)
-            {
-                if (int.TryParse(strPlayerID, out n))
-                {
-                    IEnumerable<Player> enumerable = i_Players.Where(T => T.ID == int.Parse(strPlayerID));
-                    if (enumerable.Count() == 1)
-                    {
-                        player = enumerable.First();
-                        bDoesExists = true;
-                    }
-                    else
-                    {
-                        m_ConsoleGameView.PrintLine("Please choose player id");
-                        strPlayerID = m_ConsoleGameView.ReadLine();
-                    }
-                }
-                else
-                {
-                    m_ConsoleGameView.PrintLine("Please choose player id");
-                    strPlayerID = m_ConsoleGameView.ReadLine();
-                }
-            }
-
-            return player;
-        }
-
-        private static void PrintPlayers(List<Player> players)
-        {
-            m_ConsoleGameView.PrintLine("Players:");
-            m_ConsoleGameView.PrintLine(string.Empty);
-            foreach (Player player in players)
-            {
-                Console.WriteLine(player);
-            }
-        }
-
-        private static void ShowSellPlayers(Team tMyTeam)
-        {
-            String strPlayerName = String.Empty;
-            String strPlayerCost = String.Empty;
-            int intCost = -1;
-            DataView dtNew = DAL.DBAccess.GetNotForSellTeamPlayers(tMyTeam.Name);
-            Console.Clear();
-            Console.WriteLine("Chose What Player you want to sell:");
-            TextualView.Menu.ShowPlayers(dtNew);
+        //    Console.Clear();
+        //    Console.WriteLine("Chose What Player you want to sell:");
+        //    TextualView.Menu.ShowPlayers(dtNew);
             
-            while (dtNew.Count > 0)
-            {    
-                Console.Write("Sell Player:");
-                strPlayerName = Console.ReadLine();
-                if (DAL.DBAccess.CanISellPlayer(strPlayerName, tMyTeam))
-                {
-                    while (true)
-                    {
-                        Console.WriteLine("Enter {0} cost:", strPlayerName);
-                        strPlayerCost = Console.ReadLine();
-                        if (int.TryParse(strPlayerCost, out intCost) && intCost > 0)
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            Console.WriteLine("YOU MAST ENTER A NUMBER!!!");
-                        }
-                    }
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine("you can not sell this player!!!");    
-                }
+        //    while (dtNew.Count > 0)
+        //    {    
+        //        Console.Write("Sell Player:");
+        //        strPlayerName = Console.ReadLine();
+        //        if (DAL.DBAccess.CanISellPlayer(strPlayerName, tMyTeam))
+        //        {
+        //            while (true)
+        //            {
+        //                Console.WriteLine("Enter {0} cost:", strPlayerName);
+        //                strPlayerCost = Console.ReadLine();
+        //                if (int.TryParse(strPlayerCost, out intCost) && intCost > 0)
+        //                {
+        //                    break;
+        //                }
+        //                else
+        //                {
+        //                    Console.WriteLine("YOU MAST ENTER A NUMBER!!!");
+        //                }
+        //            }
+        //            break;
+        //        }
+        //        else
+        //        {
+        //            Console.WriteLine("you can not sell this player!!!");    
+        //        }
 
-            }
-            if (strPlayerName.Length > 0)
-            {
-                DAL.DBAccess.UpdateSellPlayer(strPlayerName, intCost);
-            }
-        }
+        //    }
+        //    if (strPlayerName.Length > 0)
+        //    {
+        //        DAL.DBAccess.UpdateSellPlayer(strPlayerName, intCost);
+        //    }
+        //}
 
         
         //private static void ShowMyFormation(Team tMyTeam)
@@ -776,82 +391,28 @@ namespace HatTrick
         //    }
         //}
 
-        private static void ChangeTeamFomation()
-        {
-            DataRowCollection drColFormations = DAL.DBAccess.GetFormations();
-            string strChoice = Menu.ShowTeamFormation(m_usrCurrent, drColFormations);
-            tMyTeam.Formation = strChoice;
-            DAL.DBAccess.ChangeTeamFormation(tMyTeam, strChoice);
 
-            Console.WriteLine("Formation changed");
-            Console.ReadLine();
+
+        public static void ChangeTeamFormation(Team tMyTeam, string strFormation)
+        {
+            HatTrick.DAL.DBAccess.ChangeTeamFormation(tMyTeam, strFormation);
         }
 
-        private static void ShowMyTeam(Team tMyTeam)
+
+        public static void ChangePlayerPosition(Player plrToChange, Player plrChangedPos)
         {
-            Menu.ShowPrintPlayers(tMyTeam);
-            Console.WriteLine("Press any key to return");
-            Console.ReadLine();
+            HatTrick.DAL.DBAccess.UpdatePlayerPosition(plrChangedPos);
+            HatTrick.DAL.DBAccess.UpdatePlayerPosition(plrToChange);
         }
 
-        private static void ChangePlayerPosition()
-        {
-            Menu.ShowPrintPlayers(tMyTeam);
-
-            int n; 
-
-            Console.WriteLine("Please choose player id");
-            string strPlayerID;
-            Player plrToChange = null;
-
-            strPlayerID = Console.ReadLine();
-
-            bool bDoesExists = false;
-
-            while (!bDoesExists)
-            {
-                if (int.TryParse(strPlayerID, out n))
-                {
-                    try
-                    {
-                        plrToChange = (Player)tMyTeam.Players.Where(T => T.ID == int.Parse(strPlayerID)).First();
-                    }
-                    catch
-                    {
-                        plrToChange = null;
-                    }
-
-                    if (plrToChange != null)
-                    {
-                        bDoesExists = true;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Please choose player id");
-                        strPlayerID = Console.ReadLine();
-                    }
-                }
-            }
-
-            Console.WriteLine("Please choose a position for player {0}", plrToChange.Name);
-            string strPos = Console.ReadLine();
-            
-            Player plrChangedPos = (Player)tMyTeam.Players.Where(T => T.Position == int.Parse(strPos)).First();
-            plrChangedPos.Position = plrToChange.Position;
-            plrToChange.Position = int.Parse(strPos);
-            DAL.DBAccess.UpdatePlayerPosition(plrChangedPos);
-            DAL.DBAccess.UpdatePlayerPosition(plrToChange);
-            Console.WriteLine("The new player position is {0}", plrToChange.Position.ToString());
-            Console.ReadLine();
-        }
 
         public static GameStory MatchTeams(string strHomeTeam, string strAwayTeam)
         {
             GameStory gsGameStory = null;
             Team tmHomeTeam, tmAwayTeam;
 
-            tmAwayTeam = DAL.DBAccess.LoadTeam(strAwayTeam);
-            tmHomeTeam = DAL.DBAccess.LoadTeam(strHomeTeam);
+            tmAwayTeam = HatTrick.DAL.DBAccess.LoadTeam(strAwayTeam);
+            tmHomeTeam = HatTrick.DAL.DBAccess.LoadTeam(strHomeTeam);
 
             // Teams are OK
             if ((tmHomeTeam != null) && (tmAwayTeam != null))
@@ -1223,20 +784,15 @@ namespace HatTrick
             gsGameStory.Watchers = nWatchers;
         }
 
-        public static GameStory LoadGameStory(int nStoryID)
-        {
-            return DAL.DBAccess.LoadGameStory(nStoryID);
-        }
-
-
         public static int SaveStoryToDB(GameStory gsNewGame)
         {
-            return DAL.DBAccess.SaveStoryToDB(gsNewGame);
+            return HatTrick.DAL.DBAccess.SaveStoryToDB(gsNewGame);
         }
 
         public static void ChangeTeamTrainngType(Consts.TrainingType ttTeamTrainingType)
         {
             tMyTeam.TeamTrainingType = ttTeamTrainingType;
+            DAL.DBAccess.ChangeTeamTrainingType(tMyTeam);
         }
 
         public static void TrainTeam(Team tmTeamToTrain)
@@ -1308,15 +864,15 @@ namespace HatTrick
         public static void TrainAllTeams(int nNumOfTrainings)
         {
             DataView allTeams;
-            allTeams = DAL.DBAccess.GetAllTeams();
+            allTeams = HatTrick.DAL.DBAccess.GetAllTeams();
             foreach (DataRowView drTeam in allTeams)
             {
-                Team tCurrTeam = DAL.DBAccess.LoadTeam(drTeam["TeamName"].ToString());
+                Team tCurrTeam = HatTrick.DAL.DBAccess.LoadTeam(drTeam["TeamName"].ToString());
                 for (int nCurrTrain = 0; nCurrTrain < nNumOfTrainings; ++nCurrTrain)
                 {
                     TrainTeam(tCurrTeam);
                 }
-                DAL.DBAccess.SaveTeamSkills(tCurrTeam);
+                HatTrick.DAL.DBAccess.SaveTeamSkills(tCurrTeam);
             }
         }
 
@@ -1384,5 +940,42 @@ namespace HatTrick
             return fCurrentSkill;
         }
         #endregion
+
+        private static DataRowCollection arrdrFormations = null;
+
+        public static DataRowCollection GetFormations()
+        {
+            if (arrdrFormations == null)
+            {
+                arrdrFormations = DAL.DBAccess.GetFormations();
+            }
+            return arrdrFormations;
+        }
+
+        public static bool TeamExists(string strTeamName)
+        {
+            return DAL.DBAccess.DoesTeamExist(strTeamName);
+        }
+
+        public static DataView GetAllCycles()
+        {
+            if (DAL.DBAccess.CheckShouldCreateNewLeague())
+            {
+                CreateLeagueTable();
+                CreateNewLeagueCycles();
+            }
+
+            return DAL.DBAccess.GetAllCycles();
+        }
+
+        public static GameStory GetGameStory(string strGameID)
+        {
+            return GetGameStory(int.Parse(strGameID));
+        }
+
+        public static GameStory GetGameStory(int nGameToShow)
+        {
+            return DAL.DBAccess.LoadGameStory(nGameToShow);
+        }
     }
 }

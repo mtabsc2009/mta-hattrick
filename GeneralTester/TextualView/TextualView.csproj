@@ -7,7 +7,7 @@
     <ProjectGuid>{8748B692-ECA8-44FB-A76E-3C72F550ECD6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TextualView</RootNamespace>
+    <RootNamespace>HatTrick.TextualView</RootNamespace>
     <AssemblyName>TextualView</AssemblyName>
     <StartupObject>
     </StartupObject>
@@ -60,8 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleGameView.cs" />
-    <Compile Include="IGameView.cs" />
+    <Compile Include="ConsoleFlow.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -69,6 +68,10 @@
     <ProjectReference Include="..\CommonModel\CommonModel.csproj">
       <Project>{AC139903-5638-44D4-8A17-0C94A11D33AF}</Project>
       <Name>CommonModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Game\Game.csproj">
+      <Project>{78DF7BB6-75F8-4204-B3B1-FE80D1209C7E}</Project>
+      <Name>Game</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

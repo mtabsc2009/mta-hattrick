@@ -7,7 +7,7 @@
     <ProjectGuid>{B4A3CBCF-1C62-448A-A071-D2AF9F25387B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DAL</RootNamespace>
+    <RootNamespace>HatTrick.DAL</RootNamespace>
     <AssemblyName>DAL</AssemblyName>
     <FileUpgradeFlags>
     </FileUpgradeFlags>

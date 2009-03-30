@@ -70,10 +70,6 @@
       <Project>{B4A3CBCF-1C62-448A-A071-D2AF9F25387B}</Project>
       <Name>DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TextualView\TextualView.csproj">
-      <Project>{8748B692-ECA8-44FB-A76E-3C72F550ECD6}</Project>
-      <Name>TextualView</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
