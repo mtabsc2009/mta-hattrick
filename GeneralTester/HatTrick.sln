@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextualView", "TextualView\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{B4A3CBCF-1C62-448A-A071-D2AF9F25387B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainProgram", "MainProgram\MainProgram.csproj", "{1C9055B2-8500-49E3-9332-EFC867578468}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleMainProgram", "MainProgram\ConsoleMainProgram.csproj", "{1C9055B2-8500-49E3-9332-EFC867578468}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{56F4562D-E18D-42EB-B550-A9010557D25A}"
 EndProject

@@ -5,7 +5,7 @@ using HatTrick.TextualView;
 
 namespace MainProgram
 {
-    class MainProgram
+    class ConsoleMainProgram
     {
         public static void Main(string[] args)
         {
