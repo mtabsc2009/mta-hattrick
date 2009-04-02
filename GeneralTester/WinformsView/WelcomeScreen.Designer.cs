@@ -31,20 +31,21 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.teamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.leagueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.friendlyGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.againstToolStripMenuItem = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.leagueTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.teamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.againstToolStripMenuItem = new System.Windows.Forms.ToolStripTextBox();
-            this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.Color.AliceBlue;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.teamToolStripMenuItem,
@@ -68,9 +69,15 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // teamToolStripMenuItem
+            // 
+            this.teamToolStripMenuItem.Name = "teamToolStripMenuItem";
+            this.teamToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+            this.teamToolStripMenuItem.Text = "Team";
             // 
             // leagueToolStripMenuItem
             // 
@@ -89,39 +96,20 @@
             this.toolStripMenuItem2,
             this.playToolStripMenuItem});
             this.friendlyGameToolStripMenuItem.Name = "friendlyGameToolStripMenuItem";
-            this.friendlyGameToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.friendlyGameToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.friendlyGameToolStripMenuItem.Text = "Friendly game";
             this.friendlyGameToolStripMenuItem.Click += new System.EventHandler(this.friendlyGameToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
-            // 
-            // leagueTableToolStripMenuItem
-            // 
-            this.leagueTableToolStripMenuItem.Name = "leagueTableToolStripMenuItem";
-            this.leagueTableToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.leagueTableToolStripMenuItem.Text = "League Table";
-            this.leagueTableToolStripMenuItem.Click += new System.EventHandler(this.leagueTableToolStripMenuItem_Click);
-            // 
-            // teamToolStripMenuItem
-            // 
-            this.teamToolStripMenuItem.Name = "teamToolStripMenuItem";
-            this.teamToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
-            this.teamToolStripMenuItem.Text = "Team";
-            // 
-            // windowsToolStripMenuItem
-            // 
-            this.windowsToolStripMenuItem.Name = "windowsToolStripMenuItem";
-            this.windowsToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
-            this.windowsToolStripMenuItem.Text = "Windows";
             // 
             // againstToolStripMenuItem
             // 
             this.againstToolStripMenuItem.Name = "againstToolStripMenuItem";
             this.againstToolStripMenuItem.Size = new System.Drawing.Size(152, 21);
             this.againstToolStripMenuItem.Text = "moshe";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(209, 6);
             // 
             // playToolStripMenuItem
             // 
@@ -130,10 +118,23 @@
             this.playToolStripMenuItem.Text = "Play";
             this.playToolStripMenuItem.Click += new System.EventHandler(this.playToolStripMenuItem_Click);
             // 
-            // toolStripMenuItem2
+            // toolStripMenuItem1
             // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(209, 6);
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(138, 6);
+            // 
+            // leagueTableToolStripMenuItem
+            // 
+            this.leagueTableToolStripMenuItem.Name = "leagueTableToolStripMenuItem";
+            this.leagueTableToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.leagueTableToolStripMenuItem.Text = "League Table";
+            this.leagueTableToolStripMenuItem.Click += new System.EventHandler(this.leagueTableToolStripMenuItem_Click);
+            // 
+            // windowsToolStripMenuItem
+            // 
+            this.windowsToolStripMenuItem.Name = "windowsToolStripMenuItem";
+            this.windowsToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.windowsToolStripMenuItem.Text = "Windows";
             // 
             // WelcomeScreen
             // 

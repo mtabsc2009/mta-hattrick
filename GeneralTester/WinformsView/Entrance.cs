@@ -10,7 +10,7 @@ using HatTrick;
 
 namespace HatTrick.Views.WinformsView
 {
-    public partial class Entrance : Form
+    public partial class Entrance : DefaultForm
     {
         public Entrance()
         {

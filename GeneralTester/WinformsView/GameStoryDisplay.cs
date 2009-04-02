@@ -10,7 +10,7 @@ using HatTrick.CommonModel;
 
 namespace HatTrick.Views.WinformsView
 {
-    public partial class GameStoryDisplay : Form
+    public partial class GameStoryDisplay : DefaultForm
     {
         public GameStory GameStory { get; set; }
         private StringBuilder strBuilder = new StringBuilder();

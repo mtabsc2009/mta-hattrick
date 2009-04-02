@@ -10,7 +10,7 @@ using HatTrick.CommonModel;
 
 namespace HatTrick.Views.WinformsView
 {
-    public partial class WelcomeScreen : Form
+    public partial class WelcomeScreen : DefaultForm
     {
         public WelcomeScreen()
         {
