@@ -9,8 +9,9 @@ using System.Windows.Forms;
 
 namespace HatTrick.Views.WinformsView
 {
-    public partial class LeagueTableDisplay : Form
+    public partial class LeagueTableDisplay : DefaultForm
     {
+        private int m_bPositionsSet = 1;
         public DataView LeagueTable { get; set; }
         public LeagueTableDisplay()
         {
@@ -30,8 +31,13 @@ namespace HatTrick.Views.WinformsView
 
         private void dataGridView1_DataSourceChanged(object sender, EventArgs e)
         {
+        }
+
+        private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
             try
             {
+                dataGridView1.SuspendLayout();
                 if (dataGridView1.DataSource is DataView)
                 {
                     DataView dtvSource = dataGridView1.DataSource as DataView;
@@ -46,6 +52,7 @@ namespace HatTrick.Views.WinformsView
                             else
                             {
                                 currcol.DataPropertyName = currcol.Name;
+                                currcol.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                             }
                         }
                         else if (currcol.Name != "position")
@@ -54,16 +61,34 @@ namespace HatTrick.Views.WinformsView
                         }
                     }
 
+                    dataGridView1.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dataGridView1.DefaultCellStyle.SelectionBackColor = this.BackColor;
                     foreach (DataGridViewRow currrow in dataGridView1.Rows)
                     {
-                        currrow.Cells["position"].Value = currrow.Index;
+                        currrow.Cells["position"].Value = currrow.Index + 1;
+                        if ((currrow.DataBoundItem as DataRowView)["teamname"].ToString() == Game.MyTeam.Name)
+                        {
+                            try
+                            {
+                                foreach (DataGridViewCell cell in currrow.Cells)
+                                {
+                                    cell.Style.Font = new Font(dataGridView1.DefaultCellStyle.Font, FontStyle.Bold);
+                                }
+                            }
+                            catch
+                            {
+                            }
+                        }
                     }
+                    this.Height = dataGridView1.RowTemplate.Height * dataGridView1.DisplayedRowCount(false) + dataGridView1.ColumnHeadersHeight + 40;
+                    dataGridView1.ResumeLayout();
 
                 }
             }
             catch
             {
             }
+
         }
     }
 }

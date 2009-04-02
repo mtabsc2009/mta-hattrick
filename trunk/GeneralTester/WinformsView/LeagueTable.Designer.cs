@@ -57,16 +57,14 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToResizeRows = false;
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Maroon;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.ColumnHeadersHeight = 32;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.position,
             this.teamname,
@@ -87,6 +85,7 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(759, 524);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridView1_DataBindingComplete);
             this.dataGridView1.DataSourceChanged += new System.EventHandler(this.dataGridView1_DataSourceChanged);
             // 
             // position
@@ -95,7 +94,7 @@
             this.position.HeaderText = " ";
             this.position.Name = "position";
             this.position.ReadOnly = true;
-            this.position.Width = 35;
+            this.position.Width = 37;
             // 
             // teamname
             // 
@@ -114,7 +113,7 @@
             this.MatchesPlayed.HeaderText = "Matches";
             this.MatchesPlayed.Name = "MatchesPlayed";
             this.MatchesPlayed.ReadOnly = true;
-            this.MatchesPlayed.Width = 73;
+            this.MatchesPlayed.Width = 88;
             // 
             // wins
             // 
@@ -124,7 +123,7 @@
             this.wins.HeaderText = "w";
             this.wins.Name = "wins";
             this.wins.ReadOnly = true;
-            this.wins.Width = 40;
+            this.wins.Width = 44;
             // 
             // draws
             // 
@@ -134,7 +133,7 @@
             this.draws.HeaderText = "d";
             this.draws.Name = "draws";
             this.draws.ReadOnly = true;
-            this.draws.Width = 38;
+            this.draws.Width = 41;
             // 
             // loses
             // 
@@ -144,7 +143,7 @@
             this.loses.HeaderText = "l";
             this.loses.Name = "loses";
             this.loses.ReadOnly = true;
-            this.loses.Width = 34;
+            this.loses.Width = 36;
             // 
             // goalsfor
             // 
@@ -154,7 +153,7 @@
             this.goalsfor.HeaderText = "gf";
             this.goalsfor.Name = "goalsfor";
             this.goalsfor.ReadOnly = true;
-            this.goalsfor.Width = 41;
+            this.goalsfor.Width = 46;
             // 
             // goalsagains
             // 
@@ -164,7 +163,7 @@
             this.goalsagains.HeaderText = "ga";
             this.goalsagains.Name = "goalsagains";
             this.goalsagains.ReadOnly = true;
-            this.goalsagains.Width = 44;
+            this.goalsagains.Width = 49;
             // 
             // Diff
             // 
@@ -174,7 +173,7 @@
             this.Diff.HeaderText = "+-";
             this.Diff.Name = "Diff";
             this.Diff.ReadOnly = true;
-            this.Diff.Width = 41;
+            this.Diff.Width = 50;
             // 
             // points
             // 
@@ -184,7 +183,7 @@
             this.points.HeaderText = "pts";
             this.points.Name = "points";
             this.points.ReadOnly = true;
-            this.points.Width = 46;
+            this.points.Width = 54;
             // 
             // LeagueTableDisplay
             // 
