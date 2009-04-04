@@ -160,7 +160,7 @@ namespace HatTrick.DAL
             }
         }
 
-        private static List<Player> LoadPlayers(string strTeamName)
+        public static List<Player> LoadPlayers(string strTeamName)
         {
             OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
             List<Player> pPlayers = new List<Player>();

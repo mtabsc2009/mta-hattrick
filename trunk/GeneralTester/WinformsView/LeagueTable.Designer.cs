@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -49,7 +50,16 @@
             this.goalsagains = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Diff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.points = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmTeamMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.showTeamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showMatchesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnTeam = new System.Windows.Forms.Button();
+            this.btnMatches = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.cmTeamMenu.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -82,9 +92,11 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.RowTemplate.ContextMenuStrip = this.cmTeamMenu;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(759, 524);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             this.dataGridView1.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridView1_DataBindingComplete);
             this.dataGridView1.DataSourceChanged += new System.EventHandler(this.dataGridView1_DataSourceChanged);
             // 
@@ -185,17 +197,89 @@
             this.points.ReadOnly = true;
             this.points.Width = 54;
             // 
+            // cmTeamMenu
+            // 
+            this.cmTeamMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showTeamToolStripMenuItem,
+            this.showMatchesToolStripMenuItem});
+            this.cmTeamMenu.Name = "cmTeamMenu";
+            this.cmTeamMenu.Size = new System.Drawing.Size(144, 48);
+            // 
+            // showTeamToolStripMenuItem
+            // 
+            this.showTeamToolStripMenuItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.showTeamToolStripMenuItem.Name = "showTeamToolStripMenuItem";
+            this.showTeamToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.showTeamToolStripMenuItem.Text = "Show Team";
+            this.showTeamToolStripMenuItem.Click += new System.EventHandler(this.btnTeam_Click);
+            // 
+            // showMatchesToolStripMenuItem
+            // 
+            this.showMatchesToolStripMenuItem.Name = "showMatchesToolStripMenuItem";
+            this.showMatchesToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.showMatchesToolStripMenuItem.Text = "Show Matches";
+            this.showMatchesToolStripMenuItem.Click += new System.EventHandler(this.btnMatches_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btnTeam);
+            this.panel1.Controls.Add(this.btnMatches);
+            this.panel1.Controls.Add(this.btnClose);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(0, 494);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(759, 30);
+            this.panel1.TabIndex = 1;
+            // 
+            // btnTeam
+            // 
+            this.btnTeam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnTeam.Location = new System.Drawing.Point(105, 4);
+            this.btnTeam.Name = "btnTeam";
+            this.btnTeam.Size = new System.Drawing.Size(96, 23);
+            this.btnTeam.TabIndex = 2;
+            this.btnTeam.Text = "Show Team";
+            this.btnTeam.UseVisualStyleBackColor = true;
+            this.btnTeam.Click += new System.EventHandler(this.btnTeam_Click);
+            // 
+            // btnMatches
+            // 
+            this.btnMatches.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnMatches.Location = new System.Drawing.Point(3, 4);
+            this.btnMatches.Name = "btnMatches";
+            this.btnMatches.Size = new System.Drawing.Size(96, 23);
+            this.btnMatches.TabIndex = 2;
+            this.btnMatches.Text = "Show Matches";
+            this.btnMatches.UseVisualStyleBackColor = true;
+            this.btnMatches.Click += new System.EventHandler(this.btnMatches_Click);
+            // 
+            // btnClose
+            // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnClose.Location = new System.Drawing.Point(681, 4);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(75, 23);
+            this.btnClose.TabIndex = 0;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
             // LeagueTableDisplay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(759, 524);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridView1);
             this.Name = "LeagueTableDisplay";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "League Table";
             this.Load += new System.EventHandler(this.LeagueTable_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.cmTeamMenu.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -213,5 +297,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn goalsagains;
         private System.Windows.Forms.DataGridViewTextBoxColumn Diff;
         private System.Windows.Forms.DataGridViewTextBoxColumn points;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Button btnMatches;
+        private System.Windows.Forms.Button btnTeam;
+        private System.Windows.Forms.ContextMenuStrip cmTeamMenu;
+        private System.Windows.Forms.ToolStripMenuItem showTeamToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showMatchesToolStripMenuItem;
     }
 }
