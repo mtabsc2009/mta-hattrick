@@ -14,17 +14,44 @@ namespace HatTrick
     {
         private static User m_usrCurrent = null;
 
-        public static User User
-        {
-            get { return Game.m_usrCurrent; }
-        }
         private static Team tMyTeam = null;
+        private static bool[] m_barrTakenMinutes = new bool[90];
+        private static Dictionary<string, Team> m_dicTeams = null;
+
         public static Team MyTeam
         {
             get { return Game.tMyTeam; }
             set { Game.tMyTeam = value; }
         }
-        private static bool[] m_barrTakenMinutes = new bool[90];
+        public static User User
+        {
+            get { return Game.m_usrCurrent; }
+        }
+        public static Dictionary<string, Team> Teams
+        {
+            get
+            {
+                if (m_dicTeams == null)
+                {
+                    DataView dtvTeams = DAL.DBAccess.GetAllTeams();
+                    m_dicTeams = new Dictionary<string, Team>(dtvTeams.Count);
+                    foreach (DataRowView row in dtvTeams)
+                    {
+                        Team tmNewTeam = new Team();
+                        tmNewTeam.Name = (string)row["TeamName"];
+                        tmNewTeam.Owner = (string)row["Owner"];
+                        tmNewTeam.CreationDate = (DateTime)row["AU_CreationDate"];
+                        tmNewTeam.TeamTrainingType = (Consts.TrainingType)((int)row["TeamTrainingType"]);
+                        tmNewTeam.TeamCash = (int)row["TeamCash"];
+                        tmNewTeam.Formation = row["TeamPos"].ToString();
+                        tmNewTeam.Players = DAL.DBAccess.LoadPlayers(tmNewTeam.Name);
+                        m_dicTeams.Add(tmNewTeam.Name, tmNewTeam);
+                    }
+                }
+
+                return m_dicTeams;
+            }
+        }
 
         #region Game Enging
 

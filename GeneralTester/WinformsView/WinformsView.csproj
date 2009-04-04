@@ -74,6 +74,12 @@
     <Compile Include="LeagueTable.Designer.cs">
       <DependentUpon>LeagueTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="MatchesScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MatchesScreen.Designer.cs">
+      <DependentUpon>MatchesScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DefaultForm.resx">
       <DependentUpon>DefaultForm.cs</DependentUpon>
@@ -96,6 +102,10 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="TeamScreen.resx">
+      <DependentUpon>TeamScreen.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="WelcomeScreen.resx">
       <DependentUpon>WelcomeScreen.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -114,6 +124,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="TeamScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TeamScreen.Designer.cs">
+      <DependentUpon>TeamScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="WelcomeScreen.cs">
       <SubType>Form</SubType>

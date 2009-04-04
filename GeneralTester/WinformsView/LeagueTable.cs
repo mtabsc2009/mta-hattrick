@@ -6,12 +6,12 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using HatTrick.CommonModel;
 
 namespace HatTrick.Views.WinformsView
 {
     public partial class LeagueTableDisplay : DefaultForm
     {
-        private int m_bPositionsSet = 1;
         public DataView LeagueTable { get; set; }
         public LeagueTableDisplay()
         {
@@ -80,7 +80,7 @@ namespace HatTrick.Views.WinformsView
                             }
                         }
                     }
-                    this.Height = dataGridView1.RowTemplate.Height * dataGridView1.DisplayedRowCount(false) + dataGridView1.ColumnHeadersHeight + 40;
+                    this.Height = dataGridView1.RowTemplate.Height * dataGridView1.DisplayedRowCount(false) + this.panel1.Height + dataGridView1.ColumnHeadersHeight + 40;
                     dataGridView1.ResumeLayout();
 
                 }
@@ -89,6 +89,46 @@ namespace HatTrick.Views.WinformsView
             {
             }
 
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnMatches_Click(object sender, EventArgs e)
+        {
+            MatchesScreen frmMatches = new MatchesScreen(SelectedTeam);
+            frmMatches.MdiParent = this.MdiParent;
+            frmMatches.Show();
+        }
+
+        private Team SelectedTeam
+        {
+            get
+            {
+                Team tmSelected = null;
+
+                if (dataGridView1.SelectedRows.Count == 1)
+                {
+                    string strTeamName = (dataGridView1.SelectedRows[0].DataBoundItem as DataRowView)["teamname"].ToString();
+                    tmSelected = Game.Teams[strTeamName];
+                }
+
+                return tmSelected;
+            }
+        }
+
+        private void btnTeam_Click(object sender, EventArgs e)
+        {
+            TeamScreen frmTeam = new TeamScreen(SelectedTeam);
+            frmTeam.MdiParent = this.MdiParent;
+            frmTeam.Show();
+        }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            btnTeam_Click(sender, e as EventArgs);
         }
     }
 }

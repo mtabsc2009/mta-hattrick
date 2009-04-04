@@ -36,6 +36,8 @@ namespace HatTrick.CommonModel
             }
         }
 
+        public int Position { get; set; }
+
         private Consts.TrainingType ttTeamTrainingType;
         public Consts.TrainingType TeamTrainingType
         {
