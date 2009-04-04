@@ -15,9 +15,7 @@ D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\GeneralTester.pd
 D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\CommonModel.dll
 D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\DAL.dll
 D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\Game.dll
-D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\TextualView.dll
 D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\CommonModel.pdb
-D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\TextualView.pdb
 D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\DAL.pdb
 D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\Game.pdb
 D:\Elad\Projects\hattrick\GeneralTester\GeneralTester\bin\Debug\nunit.framework.xml
