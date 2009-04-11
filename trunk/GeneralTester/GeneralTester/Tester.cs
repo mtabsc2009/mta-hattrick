@@ -186,16 +186,16 @@ namespace HatTrick
 
             int eyalTeamBeforeSelling = tMyTeam.TeamCash;
 
-            string playerName = "Shoko Haun";
+            int playerId = 350;
 
-            HatTrick.DAL.DBAccess.UpdateSellPlayer(playerName, 500);
+            HatTrick.DAL.DBAccess.UpdateSellPlayer(playerId.ToString(), 500);
 
             User usr2 = new User("q", "q");
             Team tMyTeam2 = HatTrick.DAL.DBAccess.LoadTeam(usr2);
 
             int qTeamBeforeSelling = tMyTeam2.TeamCash;
 
-            Player playerToBuy = tMyTeam.Players.Where(T => T.Name.Equals(playerName)).First();
+            Player playerToBuy = tMyTeam.Players.Where(T => T.ID == playerId).First();
             HatTrick.DAL.DBAccess.BuyPlayer(tMyTeam2, playerToBuy);
 
             tMyTeam = HatTrick.DAL.DBAccess.LoadTeam(usr);
@@ -208,10 +208,10 @@ namespace HatTrick
             Assert.AreEqual(qTeamBeforeSelling - playerToBuy.PlayerCost, qTeamAfterSelling);
 
             //reverse
-            HatTrick.DAL.DBAccess.UpdateSellPlayer(playerName, 500);
+            HatTrick.DAL.DBAccess.UpdateSellPlayer(playerId.ToString(), 500);
 
             tMyTeam = HatTrick.DAL.DBAccess.LoadTeam(usr2);
-            playerToBuy = tMyTeam.Players.Where(T => T.Name.Equals(playerName)).First();
+            playerToBuy = tMyTeam.Players.Where(T => T.ID == playerId).First();
 
             Team eaylMyTeam = HatTrick.DAL.DBAccess.LoadTeam(usr);
 
