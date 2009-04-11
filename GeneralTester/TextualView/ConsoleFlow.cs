@@ -394,19 +394,95 @@ namespace HatTrick.TextualView
 
             while (strChoice != "3")
             {
-                //switch (strChoice)
-                //{
-                //    case "1":
-                //        ShowSellPlayers(tMyTeam);
-                //        break;
-                //    case "2":
-                //        showBuyPlayer();
-                //        break;
-                //}
-                //Console.Clear();
+                switch (strChoice)
+                {
+                    case "1":
+                        ShowSellPlayers(Game.MyTeam);
+                        break;
+                    case "2":
+                        showBuyPlayer();
+                        break;
+                }
+                Console.Clear();
 
                 strChoice = Menu.ShowTransafersMenu();
             }
+        }
+
+        private static void showBuyPlayer()
+        {
+            ShowPlayersShowForBuy(Game.MyTeam);
+            Player player = ChoosePlayerByID(Game.GetPlayerForSell(Game.MyTeam));
+            Game.buyPlayer(player);
+            Console.Read();
+        }
+
+        private static bool ShowPlayersShowForBuy(Team tMyTeam)
+        {
+            List<Player> pList = Game.GetPlayerForSell(tMyTeam);
+            bool retVal = false;
+            if (pList.Count > 0)
+            {
+                HatTrick.TextualView.Menu.ShowPlayers(pList);
+                retVal = true;
+            }
+            return retVal;
+        }
+
+        private static void ShowSellPlayers(Team tMyTeam)
+        {
+            int intCost;
+            String id; 
+            if (ShowMyPlayers(tMyTeam))
+            {
+                while (true)
+                {    
+                    Console.Write("Sell Player:");
+                    id = Console.ReadLine();
+                    if ( Game.CanISellPlayer(id) )
+                    {
+                        while (true)
+                        {
+                            String strCost;
+                            Console.WriteLine("Enter cost:");
+                            strCost = Console.ReadLine();
+                            if (int.TryParse(strCost, out intCost) && intCost > 0)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("YOU MAST ENTER A NUMBER!!!");
+                            }
+                        }
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("you can not sell this player!!!");    
+                    }
+
+                }
+                Game.UpdateSellPlayer(id, intCost);
+            }
+            else 
+            {
+                Console.WriteLine("You do not have pleyers for sell !!!(Enter for continue)");
+                Console.Read();
+            }
+            
+        }
+
+        private static bool ShowMyPlayers(Team tMyTeam)
+        {
+            List<Player> pList = Game.GetPlayerNotForSell(tMyTeam);
+            bool retVal = false;
+            if (pList.Count > 0)
+            {
+                HatTrick.TextualView.Menu.ShowPlayers(pList);
+                retVal = true;
+            }
+            return retVal;
         }
 
     }
