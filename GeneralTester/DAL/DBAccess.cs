@@ -644,15 +644,15 @@ namespace HatTrick.DAL
             }
        }
 
-       public static void UpdateSellPlayer(String playerName, int cost)
+       public static void UpdateSellPlayer(String playerId, int cost)
        {
             OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
 
             try
             {
                 Connect();
-                cmdCommand.CommandText = string.Format("UPDATE players  SET PlayerCost = {1} , IsForSale = \"1\" where PlayerName = \"{0}\"",
-                                                       playerName, cost);
+                cmdCommand.CommandText = string.Format("UPDATE players  SET PlayerCost = {1} , IsForSale = \"1\" where PlayerID like \"{0}\"",
+                                                       playerId, cost);
                 cmdCommand.ExecuteNonQuery();
             }
             finally
@@ -685,7 +685,7 @@ namespace HatTrick.DAL
            try
            {
                Connect();
-               cmdCommand.CommandText = string.Format("SELECT PlayerName From players  where PlayerTeam like \'{0}\' and IsForSale = 0", TeamName);
+               cmdCommand.CommandText = string.Format("SELECT * From players  where PlayerTeam like \'{0}\' and IsForSale = 0", TeamName);
                DataTable dtNew = new DataTable();
                OleDbDataAdapter oldba = new OleDbDataAdapter(cmdCommand);
                oldba.Fill(dtNew);
@@ -699,14 +699,14 @@ namespace HatTrick.DAL
        }
 
 
-       public static bool CanISellPlayer(string strPlayerName, Team tMyTeam)
+       public static bool CanISellPlayer(string strPlayerId, Team tMyTeam)
        {
            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
            try
            {
                Connect();
-               cmdCommand.CommandText = string.Format("SELECT PlayerName From players  where PlayerTeam like \'{0}\' and PlayerName like \'{1}\'",
-                                                      tMyTeam.Name, strPlayerName);
+               cmdCommand.CommandText = string.Format("SELECT PlayerName From players  where PlayerTeam like \'{0}\' and PlayerID like \'{1}\'",
+                                                      tMyTeam.Name, strPlayerId);
                DataTable dtNew = new DataTable();
                OleDbDataAdapter oldba = new OleDbDataAdapter(cmdCommand);
                oldba.Fill(dtNew);
@@ -718,7 +718,20 @@ namespace HatTrick.DAL
            }
        }
 
+       public static List<Player> GetNotForSellTeamPlayers(Team i_Team)
+       {
+           String sqlCommandText = string.Format("SELECT * From players  where PlayerTeam like \'{0}\' and IsForSale = 0",
+                                                i_Team.Name);
+           return GetPlayersList(sqlCommandText); 
+       }
+
        public static List<Player> GetPlayersForSale(Team i_Team)
+       {
+           String sqlCommandText = "SELECT * FROM Players WHERE IsForSale = 1 and PlayerTeam <> '" + i_Team.Name + "'";
+           return GetPlayersList(sqlCommandText);
+       }
+
+       public static List<Player> GetPlayersList(String sqlCommandText)
        {
            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
            List<Player> pPlayers = new List<Player>();
@@ -727,9 +740,8 @@ namespace HatTrick.DAL
            {
                Connect();
 
-               cmdCommand.CommandText = "SELECT * FROM Players WHERE IsForSale = 1 and PlayerTeam <> '" + i_Team.Name + "'";
+               cmdCommand.CommandText = sqlCommandText;
                OleDbDataReader drPlayers;
-
                drPlayers = cmdCommand.ExecuteReader();
 
                while (drPlayers.Read())
@@ -753,7 +765,27 @@ namespace HatTrick.DAL
            }
            catch
            {
-               return null;
+               return pPlayers;
+           }
+           finally
+           {
+               Close();
+           }
+       }
+
+       public static DataView GetPlayersForSale(String TeamName)
+       {
+           OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+           try
+           {
+               Connect();
+               cmdCommand.CommandText = "SELECT * FROM Players WHERE IsForSale = 1 and PlayerTeam <> '" + TeamName + "'";
+               DataTable dtNew = new DataTable();
+               OleDbDataAdapter oldba = new OleDbDataAdapter(cmdCommand);
+               oldba.Fill(dtNew);
+
+               return dtNew.DefaultView;
            }
            finally
            {
