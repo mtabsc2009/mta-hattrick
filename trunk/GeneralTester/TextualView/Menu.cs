@@ -723,36 +723,32 @@ namespace HatTrick.TextualView
             Console.ReadLine();
         }
 
-        public static void ShowPlayers(DataView dvLeagueTable)
+        public static void ShowPlayers(List<Player> players)
         {
             Console.Clear();
             Console.WriteLine("ID  Pos\tName(Age)\tKeeping   Defending  PlayMaking Winger     Passing   Scoring    SetPieces ");
             Console.WriteLine("====================================================================================================");
             Console.WriteLine();
             int nCurrPlayer = 1;
-            foreach (DataRowView drvCurr in dvLeagueTable)
+            foreach ( Player player in players)
             {
-                DateTime dtBDate = DateTime.Parse(drvCurr["Birth_date"].ToString());
-                DateTime comparisonDate = new DateTime(dtBDate.Year, DateTime.Now.Month, DateTime.Now.Day);
-                int age = (comparisonDate.Date < dtBDate.Date) ?          
-                    DateTime.Now.Year - dtBDate.Year - 1 : DateTime.Now.Year - dtBDate.Year;
-
-                int nLength = drvCurr["PlayerName"].ToString().Length;
+                int age = player.Age;
+                int nLength = player.Name.Length;
                 Console.Write("{0} {1} \t{2}({3})\t",
-                    drvCurr["PlayerID"],
-                    drvCurr["PlayerPos"].ToString(),
-                    drvCurr["PlayerName"].ToString().Substring(0, nLength < 11 ? nLength : 11),
+                    player.ID,
+                    player.Position.ToString(),
+                    player.Name.Substring(0, nLength < 11 ? nLength : 11),
                     age);
                 Team tMyTeam = new Team();
                 //(, int nCurrPlayer, int nCurrSkillVal, int nCompletion)
 
-                PrintSingleSkill(tMyTeam, nCurrPlayer, (int)double.Parse(drvCurr["KeeperSkill"].ToString()), 10);
-                PrintSingleSkill(tMyTeam, nCurrPlayer, (int)double.Parse(drvCurr["DefendingSkill"].ToString()), 11);
-                PrintSingleSkill(tMyTeam, nCurrPlayer, (int)double.Parse(drvCurr["PlaymakingSkill"].ToString()), 11);
-                PrintSingleSkill(tMyTeam, nCurrPlayer, (int)double.Parse(drvCurr["WingerSkill"].ToString()), 11);
-                PrintSingleSkill(tMyTeam, nCurrPlayer, (int)double.Parse(drvCurr["PassingSkill"].ToString()), 10);
-                PrintSingleSkill(tMyTeam, nCurrPlayer, (int)double.Parse(drvCurr["ScoringSkill"].ToString()), 11);
-                PrintSingleSkill(tMyTeam, nCurrPlayer, (int)double.Parse(drvCurr["SetPiecesSkill"].ToString()), 11);
+                PrintSingleSkill(tMyTeam, nCurrPlayer, (int)double.Parse(player.KeeperVal.ToString()), 10);
+                PrintSingleSkill(tMyTeam, nCurrPlayer, (int)double.Parse(player.DefendingVal.ToString()), 11);
+                PrintSingleSkill(tMyTeam, nCurrPlayer, (int)double.Parse(player.PlaymakingVal.ToString()), 11);
+                PrintSingleSkill(tMyTeam, nCurrPlayer, (int)double.Parse(player.WingerVal.ToString()), 11);
+                PrintSingleSkill(tMyTeam, nCurrPlayer, (int)double.Parse(player.PassingVal.ToString()), 10);
+                PrintSingleSkill(tMyTeam, nCurrPlayer, (int)double.Parse(player.ScoringVal.ToString()), 11);
+                PrintSingleSkill(tMyTeam, nCurrPlayer, (int)double.Parse(player.PassingVal.ToString()), 11);
                 Console.WriteLine();
                 nCurrPlayer++;
             }
