@@ -270,53 +270,7 @@ namespace HatTrick
         {
             return tMyTeam.TeamCash >= playerToBuy.PlayerCost;
         }
-
-
-        //private static void SellPlayers(Team tMyTeam)
-        //{
-        //    String strPlayerName = String.Empty;
-        //    String strPlayerCost = String.Empty;
-        //    int intCost = -1;
-        //    DataView dtNew = DAL.DBAccess.GetNotForSellTeamPlayers(tMyTeam.Name);
-
-        //    Console.Clear();
-        //    Console.WriteLine("Chose What Player you want to sell:");
-        //    TextualView.Menu.ShowPlayers(dtNew);
-            
-        //    while (dtNew.Count > 0)
-        //    {    
-        //        Console.Write("Sell Player:");
-        //        strPlayerName = Console.ReadLine();
-        //        if (DAL.DBAccess.CanISellPlayer(strPlayerName, tMyTeam))
-        //        {
-        //            while (true)
-        //            {
-        //                Console.WriteLine("Enter {0} cost:", strPlayerName);
-        //                strPlayerCost = Console.ReadLine();
-        //                if (int.TryParse(strPlayerCost, out intCost) && intCost > 0)
-        //                {
-        //                    break;
-        //                }
-        //                else
-        //                {
-        //                    Console.WriteLine("YOU MAST ENTER A NUMBER!!!");
-        //                }
-        //            }
-        //            break;
-        //        }
-        //        else
-        //        {
-        //            Console.WriteLine("you can not sell this player!!!");    
-        //        }
-
-        //    }
-        //    if (strPlayerName.Length > 0)
-        //    {
-        //        DAL.DBAccess.UpdateSellPlayer(strPlayerName, intCost);
-        //    }
-        //}
-
-        
+  
         //private static void ShowMyFormation(Team tMyTeam)
         //{
         //    int nDefence = int.Parse(tMyTeam.Formation.Split('-')[0]);
@@ -493,7 +447,7 @@ namespace HatTrick
 
             GameStoryClacPowers(gsGameStory.HomeTeam);
             GameStoryClacPowers(gsGameStory.AwayTeam);
-
+            
             GameStoryResetMinutes();
             GameStoryCreateEventsForTeam(gsGameStory, gsGameStory.HomeTeam, gsGameStory.AwayTeam, gsGameStory.HomeTeamEvents);
             GameStoryCreateEventsForTeam(gsGameStory, gsGameStory.AwayTeam, gsGameStory.HomeTeam, gsGameStory.AwayTeamEvents);
@@ -1009,6 +963,25 @@ namespace HatTrick
         public static bool UserExists(string strUsername)
         {
             return DAL.DBAccess.DoesUserExist(strUsername);
+        }
+
+        public static List<Player> GetPlayerNotForSell(Team tMyTeam)
+        {
+            return DAL.DBAccess.GetNotForSellTeamPlayers(tMyTeam);           
+        }
+
+        public static List<Player> GetPlayerForSell(Team tMyTeam)
+        {
+            return DAL.DBAccess.GetPlayersForSale(tMyTeam);
+        }
+
+        public static bool CanISellPlayer(String iD)
+        {
+            return DAL.DBAccess.CanISellPlayer(iD, Game.MyTeam);
+        }
+        public static void UpdateSellPlayer(String strPlayerId, int intCost)
+        {
+            DAL.DBAccess.UpdateSellPlayer(strPlayerId, intCost);
         }
     }
 }
