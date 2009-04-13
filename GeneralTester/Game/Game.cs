@@ -192,12 +192,13 @@ namespace HatTrick
         {
             int nCurrLeague = DAL.DBAccess.GetMaxLeagueID();
             DataView dtvLeague = DAL.DBAccess.LoadLeagueTable(nCurrLeague);
+            dtvLeague.Sort = "points desc, diff desc";
             return dtvLeague;
         }
 
         public static void PlayNextCycle()
         {
-            DataView dvAllCycles = HatTrick.DAL.DBAccess.GetAllCycles();
+            DataView dvAllCycles = GetAllCycles();
 
             List<CycleGame> lstCycleGames = CyclesToList(dvAllCycles);
 

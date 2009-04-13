@@ -63,6 +63,13 @@ namespace HatTrick.Views.WinformsView
 
                     dataGridView1.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                     dataGridView1.DefaultCellStyle.SelectionBackColor = this.BackColor;
+                    dataGridView1.Rows[0].DefaultCellStyle.ForeColor = Color.Green;
+                    dataGridView1.Rows[0].DefaultCellStyle.Font = new Font(dataGridView1.DefaultCellStyle.Font, FontStyle.Bold);
+                    dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.ForeColor = Color.Red;
+                    dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new Font(dataGridView1.DefaultCellStyle.Font, FontStyle.Bold);
+                    dataGridView1.Rows[dataGridView1.Rows.Count - 2].DefaultCellStyle.ForeColor = Color.Red;
+                    dataGridView1.Rows[dataGridView1.Rows.Count - 2].DefaultCellStyle.Font = new Font(dataGridView1.DefaultCellStyle.Font, FontStyle.Bold);
+
                     foreach (DataGridViewRow currrow in dataGridView1.Rows)
                     {
                         currrow.Cells["position"].Value = currrow.Index + 1;
@@ -72,7 +79,7 @@ namespace HatTrick.Views.WinformsView
                             {
                                 foreach (DataGridViewCell cell in currrow.Cells)
                                 {
-                                    cell.Style.Font = new Font(dataGridView1.DefaultCellStyle.Font, FontStyle.Bold);
+                                    cell.Style.Font = new Font(dataGridView1.DefaultCellStyle.Font, FontStyle.Bold | FontStyle.Italic);
                                 }
                             }
                             catch
