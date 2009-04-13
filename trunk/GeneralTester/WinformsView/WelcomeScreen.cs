@@ -36,7 +36,62 @@ namespace HatTrick.Views.WinformsView
 
         private void LoadWelcome()
         {
-            ShowLeagueWindow();
+            DataRowCollection drcAllFormations = Game.GetFormations();
+            changeFormationToolStripMenuItem.DropDownItems.Clear();
+            foreach (DataRow drCurrForamtion in drcAllFormations)
+            {
+                ToolStripMenuItem tsiFormation = new ToolStripMenuItem(drCurrForamtion[0].ToString(),null,new EventHandler(changeFormationToolStripMenuItem_Click));
+                if (drCurrForamtion[0].ToString() == Game.MyTeam.Formation)
+                {
+                    tsiFormation.Checked = true;
+                }
+                changeFormationToolStripMenuItem.DropDownItems.Add(tsiFormation);
+            }
+
+            switch (Game.MyTeam.TeamTrainingType)
+            {
+                case (Consts.TrainingType.ATTACK):
+                {
+                    attackToolStripMenuItem.Checked = true;
+                    break;
+                }
+                case (Consts.TrainingType.DEFENCE):
+                    {
+                        defenceToolStripMenuItem.Checked = true;
+                        break;
+                    }
+                case (Consts.TrainingType.WING):
+                    {
+                        wingsToolStripMenuItem.Checked = true;
+                        break;
+                    }
+                case (Consts.TrainingType.PLAYMAKING):
+                    {
+                        playMakingToolStripMenuItem.Checked = true;
+                        break;
+                    }
+                case (Consts.TrainingType.SETPIECES):
+                    {
+                        setPiecesToolStripMenuItem.Checked = true;
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
+        }
+
+        void changeFormationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Game.ChangeTeamFormation(Game.MyTeam, ((ToolStripMenuItem)sender).Text);
+
+            foreach (ToolStripMenuItem tsi in ((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem).DropDownItems)
+            {
+                tsi.Checked = false;
+            }  
+
+            ((ToolStripMenuItem)sender).Checked = true;
         }
 
         private void ShowLeagueWindow()
@@ -83,6 +138,89 @@ namespace HatTrick.Views.WinformsView
                     frmGameStory.Show();
                 }
             }
+        }
+
+        private void logOffToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Hide();
+            Entrance frmEntrance = new Entrance();
+            DialogResult res = frmEntrance.ShowDialog();
+            if (res == DialogResult.Cancel)
+            {
+                Close();
+            }
+            else
+            {
+                Show();
+                LoadWelcome();
+            }
+        }
+
+        private void attackToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Game.ChangeTeamTrainngType((Consts.TrainingType)(int.Parse(attackToolStripMenuItem.Tag.ToString())));
+            foreach (ToolStripMenuItem tsi in ((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem).DropDownItems)
+            {
+                tsi.Checked = false;
+            }
+            attackToolStripMenuItem.Checked = true;
+        }
+
+        private void defenceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Game.ChangeTeamTrainngType((Consts.TrainingType)(int.Parse(defenceToolStripMenuItem.Tag.ToString())));
+            foreach (ToolStripMenuItem tsi in ((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem).DropDownItems)
+            {
+                tsi.Checked = false;
+            }
+            defenceToolStripMenuItem.Checked = true;
+        }
+
+        private void wingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Game.ChangeTeamTrainngType((Consts.TrainingType)(int.Parse(wingsToolStripMenuItem.Tag.ToString())));
+            foreach (ToolStripMenuItem tsi in ((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem).DropDownItems)
+            {
+                tsi.Checked = false;
+            }
+            wingsToolStripMenuItem.Checked = true;
+        }
+
+        private void playMakingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Game.ChangeTeamTrainngType((Consts.TrainingType)(int.Parse(playMakingToolStripMenuItem.Tag.ToString())));
+            foreach (ToolStripMenuItem tsi in ((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem).DropDownItems)
+            {
+                tsi.Checked = false;
+            }
+            playMakingToolStripMenuItem.Checked = true;
+        }
+
+        private void setPiecesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Game.ChangeTeamTrainngType((Consts.TrainingType)(int.Parse(setPiecesToolStripMenuItem.Tag.ToString())));
+            foreach (ToolStripMenuItem tsi in ((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem).DropDownItems)
+            {
+                tsi.Checked = false;
+            }
+            setPiecesToolStripMenuItem.Checked = true;
+        }
+
+        private void trainTeamToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TrainingNums frmNumOfTraining = new TrainingNums();
+            frmNumOfTraining.ShowDialog();
+        }
+
+        private void trainMyTeamToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Game.TrainTeam(Game.MyTeam);
+            MessageBox.Show("Your team was trained", "Your team was trained", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void playCycleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Game.PlayNextCycle();
         }
     }
 }

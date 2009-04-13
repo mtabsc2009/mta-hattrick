@@ -1030,11 +1030,11 @@ namespace HatTrick.DAL
             try
             {
                 Connect();
-                cmdCommand.CommandText = string.Format("select teamname, MatchesPlayed, wins,draws,loses,goalsfor, goalsagainst, goalsfor - goalsagainst as Diff, points from league where leagueid = {0} order by points desc", nCurrLeague);
+                cmdCommand.CommandText = string.Format("select teamname, MatchesPlayed, wins,draws,loses,goalsfor, goalsagainst, goalsfor - goalsagainst as Diff, points from league where leagueid = {0}", nCurrLeague);
                 DataTable dtNew = new DataTable();
                 OleDbDataAdapter oldba = new OleDbDataAdapter(cmdCommand);
                 oldba.Fill(dtNew);
-
+ 
                 return dtNew.DefaultView;
             }
             finally

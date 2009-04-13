@@ -87,8 +87,10 @@
             this.Diff,
             this.points});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridView1.GridColor = System.Drawing.Color.WhiteSmoke;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
@@ -203,20 +205,20 @@
             this.showTeamToolStripMenuItem,
             this.showMatchesToolStripMenuItem});
             this.cmTeamMenu.Name = "cmTeamMenu";
-            this.cmTeamMenu.Size = new System.Drawing.Size(144, 48);
+            this.cmTeamMenu.Size = new System.Drawing.Size(152, 48);
             // 
             // showTeamToolStripMenuItem
             // 
             this.showTeamToolStripMenuItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.showTeamToolStripMenuItem.Name = "showTeamToolStripMenuItem";
-            this.showTeamToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.showTeamToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.showTeamToolStripMenuItem.Text = "Show Team";
             this.showTeamToolStripMenuItem.Click += new System.EventHandler(this.btnTeam_Click);
             // 
             // showMatchesToolStripMenuItem
             // 
             this.showMatchesToolStripMenuItem.Name = "showMatchesToolStripMenuItem";
-            this.showMatchesToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.showMatchesToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.showMatchesToolStripMenuItem.Text = "Show Matches";
             this.showMatchesToolStripMenuItem.Click += new System.EventHandler(this.btnMatches_Click);
             // 
