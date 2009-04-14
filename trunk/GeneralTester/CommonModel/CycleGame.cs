@@ -68,4 +68,41 @@ namespace HatTrick.CommonModel
 
 
     }
+
+    public class CycleGameFinished : CycleGame
+    {
+        private int nHomeScore;
+
+        public int HomeScore
+        {
+            get { return nHomeScore; }
+            set { nHomeScore = value; }
+        }
+
+        private int nAwayScore;
+
+        public int AwayScore
+        {
+            get { return nAwayScore; }
+            set { nAwayScore = value; }
+        }
+
+        public CycleGameFinished(int nCNum, string strHome, string strAway, int nGmId, DateTime dtCycle)
+        {
+            CycleNum = nCNum;
+            HomeTeam = strHome;
+            AwayTeam = strAway;
+            GameID = nGmId;
+            CycleDate = dtCycle;
+
+        }
+
+        public CycleGameFinished(int nCNum, string strHome, string strAway)
+        {
+            CycleNum = nCNum;
+            HomeTeam = strHome;
+            AwayTeam = strAway;
+            GameID = -1;
+        }
+    }
 }
