@@ -79,6 +79,30 @@ namespace HatTrick
             return lstCycleGames;
         }
 
+        public static List<CycleGameFinished> CyclesToListFinished(DataView dvAllCycles)
+        {
+            List<CycleGameFinished> lstCycleGames = new List<CycleGameFinished>();
+
+            foreach (DataRowView item in dvAllCycles)
+            {
+                if (item["GameId"].ToString() != "")
+                {
+                    lstCycleGames.Add(new CycleGameFinished(int.Parse(item["CycleNum"].ToString()),
+                                                item["HomeTeam"].ToString(),
+                                                item["AwayTeam"].ToString(),
+                                                int.Parse(item["GameId"].ToString()),
+                                                DateTime.Parse(item["CycleDate"].ToString())));
+                }
+                else
+                {
+                    lstCycleGames.Add(new CycleGameFinished(int.Parse(item["CycleNum"].ToString()),
+                                                item["HomeTeam"].ToString(),
+                                                item["AwayTeam"].ToString()));
+                }
+            }
+            return lstCycleGames;
+        }
+
         public static Team CreateTeam(string strTeamName)
         {
             tMyTeam = DAL.DBAccess.CreateTeam(User, strTeamName);
@@ -951,6 +975,10 @@ namespace HatTrick
             return DAL.DBAccess.GetAllCycles();
         }
 
+        public static int GetNumOfCycles()
+        {
+            return DAL.DBAccess.GetNumOfCycles();
+        }
         public static GameStory GetGameStory(string strGameID)
         {
             return GetGameStory(int.Parse(strGameID));

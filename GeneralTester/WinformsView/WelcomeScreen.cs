@@ -222,5 +222,12 @@ namespace HatTrick.Views.WinformsView
         {
             Game.PlayNextCycle();
         }
+
+        private void leagueCyclesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LeagueCyclesScreen frmGameStory = new LeagueCyclesScreen();
+            frmGameStory.MdiParent = this;
+            frmGameStory.Show();
+        }
     }
 }

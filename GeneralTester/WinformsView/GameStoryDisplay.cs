@@ -28,6 +28,20 @@ namespace HatTrick.Views.WinformsView
         private void GameStoryDisplay_Load(object sender, EventArgs e)
         {
             PrintGameStory();
+
+            lblHomeName.Text = GameStory.HomeTeam.Team.Name;
+            lblHomeScore.Text = GameStory.HomeScore.ToString();
+            lblHomeFormation.Text = GameStory.HomeTeam.Team.Formation;
+            lblHomeStrat.Text = GameStory.HomeTeam.IsTeamMiddleMethod == true ? "Middle Field" : "Wings";
+
+            lblAwayName.Text = GameStory.AwayTeam.Team.Name;
+            lblAwayScore.Text = GameStory.AwayScore.ToString();
+            lblAwayFormation.Text = GameStory.AwayTeam.Team.Formation;
+            lblAwayStrat.Text = GameStory.AwayTeam.IsTeamMiddleMethod == true ? "Middle Field" : "Wings";
+
+            lblGameDate.Text = GameStory.GameDate.ToShortDateString();
+            lblFans.Text = GameStory.Watchers.ToString();
+            lblWeather.Text = GameStory.Weather;
         }
 
         private void AddLine(string strFormat, params object[] args)
@@ -40,16 +54,19 @@ namespace HatTrick.Views.WinformsView
         }
         private void AddLine(string strLine)
         {
-            strBuilder.AppendLine(strLine);
+            TextBox1.AppendText(strLine + Environment.NewLine);
         }
 
         private void PrintGameStory()
         {
             GameStory gsGameStory = GameStory;
-            strBuilder = new StringBuilder();
 
+            int nStartChange = TextBox1.Text.Length;
             AddLine("Game Summary");
             AddLine("=================================");
+            int nEndChange = TextBox1.Text.Length;
+            TextBox1.Select(nStartChange, nEndChange);
+            TextBox1.SelectionColor = Color.Green;
             System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-us");
             AddLine(string.Format("{0} hosted the game against {1} at {2}",
                 gsGameStory.HomeTeam.Team.Name, gsGameStory.AwayTeam.Team.Name, gsGameStory.GameDate.ToLongDateString()));
@@ -63,6 +80,9 @@ namespace HatTrick.Views.WinformsView
                 gsGameStory.AwayTeam.Team.Name, gsGameStory.AwayTeam.Formation,
                 (gsGameStory.AwayTeam.IsTeamMiddleMethod == true ? "Middle Field" : "Wings")));
             AddLine();
+
+            nStartChange = TextBox1.Text.Length;
+
             if (gsGameStory.Winner == null)
             {
                 string strDesc = "a";
@@ -79,28 +99,57 @@ namespace HatTrick.Views.WinformsView
 
                 AddLine("{0} won the game with {1} score of {2}-{3}", gsGameStory.Winner, strDesc, gsGameStory.HomeScore, gsGameStory.AwayScore);
             }
+            nEndChange = TextBox1.Text.Length;
+            TextBox1.Select(nStartChange, nEndChange);
+            TextBox1.SelectionColor = Color.Blue;
+
             AddLine();
+            nStartChange = TextBox1.Text.Length;
 
             AddLine("Game Events:");
             AddLine("===================================:");
             AddLine();
             AddLine("First Half:");
             AddLine("-----------");
+            nEndChange = TextBox1.Text.Length;
+            TextBox1.Select(nStartChange, nEndChange);
+            TextBox1.SelectionColor = Color.Green;
+
             bool bIsFirstHalf = true;
             foreach (KeyValuePair<int, GameEvent> evtCurr in gsGameStory.GameEvents)
             {
                 if (bIsFirstHalf && evtCurr.Value.Minute > 45)
                 {
+                    nStartChange = TextBox1.Text.Length;
+
                     AddLine();
                     AddLine("Second Half:");
                     AddLine("-----------");
                     bIsFirstHalf = false;
+                    nEndChange = TextBox1.Text.Length;
+                    TextBox1.Select(nStartChange, nEndChange);
+                    TextBox1.SelectionColor = Color.Green;
                 }
-                if (evtCurr.Value is ScoreEvent)
+                if ((evtCurr.Value is ScoreEvent))
                 {
                     if ((evtCurr.Value as ScoreEvent).bShowInSummary)
                     {
+                        nStartChange = TextBox1.Text.Length;
                         AddLine("(Min {0}) {1}", evtCurr.Value.Minute.ToString(), evtCurr.Value.ToString());
+                        nEndChange = TextBox1.Text.Length;
+                        TextBox1.Select(nStartChange, nEndChange);
+                        TextBox1.SelectionColor = Color.Blue;
+                    }
+                }
+                else if (evtCurr.Value is FouledEvent)
+                {
+                    if ((evtCurr.Value as FouledEvent).bScored != null)
+                    {
+                        nStartChange = TextBox1.Text.Length;
+                        AddLine("(Min {0}) {1}", evtCurr.Value.Minute.ToString(), evtCurr.Value.ToString());
+                        nEndChange = TextBox1.Text.Length;
+                        TextBox1.Select(nStartChange, nEndChange);
+                        TextBox1.SelectionColor = Color.Blue;
                     }
                 }
                 else
@@ -111,14 +160,6 @@ namespace HatTrick.Views.WinformsView
             }
 
             AddLine();
-            textBox1.Text = strBuilder.ToString();
-            //dataGridView1.DataSource = GameStory.GameEvents.Values;
-            //dataGridView1.Columns[0].DataPropertyName = "Minute";
-            //dataGridView1.Columns[1].DataPropertyName = "Actor";
-            //dataGridView1.Columns[2].DataPropertyName = "ToString";
-            //gameEventBindingSource.DataSource = GameStory.GameEvents.Values;
-            //dataGridView2.DataSource = this.gameEventBindingSource;
         }
-
     }
 }
