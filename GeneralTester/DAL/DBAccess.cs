@@ -1042,5 +1042,38 @@ namespace HatTrick.DAL
                 Close();
             }
         }
+
+        public static Player getPlayerByID(int nPlayerID)
+        {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+            try
+            {
+                Connect();
+                cmdCommand.CommandText = string.Format("SELECT * From players  where PlayerID like \'{0}\'",
+                                                       nPlayerID.ToString());
+                DataTable dtNew = new DataTable();
+                OleDbDataAdapter oldba = new OleDbDataAdapter(cmdCommand);
+                oldba.Fill(dtNew);
+
+                return (new Player(int.Parse(dtNew.Rows[0]["PlayerID"].ToString()),
+                                  dtNew.Rows[0]["PlayerName"].ToString(),
+                                  DateTime.Parse(dtNew.Rows[0]["Birth_date"].ToString()),
+                                  dtNew.Rows[0]["PlayerTeam"].ToString(),
+                                  float.Parse(dtNew.Rows[0]["KeeperSkill"].ToString()),
+                                  float.Parse(dtNew.Rows[0]["DefendingSkill"].ToString()),
+                                  float.Parse(dtNew.Rows[0]["PlaymakingSkill"].ToString()),
+                                  float.Parse(dtNew.Rows[0]["WingerSkill"].ToString()),
+                                  float.Parse(dtNew.Rows[0]["PassingSkill"].ToString()),
+                                  float.Parse(dtNew.Rows[0]["ScoringSkill"].ToString()),
+                                  float.Parse(dtNew.Rows[0]["SetPiecesSkill"].ToString()),
+                                  int.Parse(dtNew.Rows[0]["PlayerPos"].ToString()),
+                                  int.Parse(dtNew.Rows[0]["PlayerCost"].ToString()),
+                                  true));
+            }
+            finally
+            {
+                Close();
+            }
+        }
     }
 }

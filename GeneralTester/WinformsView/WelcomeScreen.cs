@@ -103,6 +103,13 @@ namespace HatTrick.Views.WinformsView
             frmLeagueTable.Show();
         }
 
+        private void ShowBuyPlayersWindow()
+        {
+            BuyPlayer frmBuyPlayer = new BuyPlayer();
+            frmBuyPlayer.MdiParent = this;
+            frmBuyPlayer.Show();
+        }
+
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -228,6 +235,11 @@ namespace HatTrick.Views.WinformsView
             LeagueCyclesScreen frmGameStory = new LeagueCyclesScreen();
             frmGameStory.MdiParent = this;
             frmGameStory.Show();
+        }
+
+        private void buyPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowBuyPlayersWindow();
         }
     }
 }
