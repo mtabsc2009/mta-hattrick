@@ -16,7 +16,7 @@ namespace HatTrick.Views.WinformsView
         {
             InitializeComponent();
         }
-        
+
         private void WelcomeScreen_Load(object sender, EventArgs e)
         {
             Hide();
@@ -40,7 +40,7 @@ namespace HatTrick.Views.WinformsView
             changeFormationToolStripMenuItem.DropDownItems.Clear();
             foreach (DataRow drCurrForamtion in drcAllFormations)
             {
-                ToolStripMenuItem tsiFormation = new ToolStripMenuItem(drCurrForamtion[0].ToString(),null,new EventHandler(changeFormationToolStripMenuItem_Click));
+                ToolStripMenuItem tsiFormation = new ToolStripMenuItem(drCurrForamtion[0].ToString(), null, new EventHandler(changeFormationToolStripMenuItem_Click));
                 if (drCurrForamtion[0].ToString() == Game.MyTeam.Formation)
                 {
                     tsiFormation.Checked = true;
@@ -51,10 +51,10 @@ namespace HatTrick.Views.WinformsView
             switch (Game.MyTeam.TeamTrainingType)
             {
                 case (Consts.TrainingType.ATTACK):
-                {
-                    attackToolStripMenuItem.Checked = true;
-                    break;
-                }
+                    {
+                        attackToolStripMenuItem.Checked = true;
+                        break;
+                    }
                 case (Consts.TrainingType.DEFENCE):
                     {
                         defenceToolStripMenuItem.Checked = true;
@@ -89,7 +89,7 @@ namespace HatTrick.Views.WinformsView
             foreach (ToolStripMenuItem tsi in ((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem).DropDownItems)
             {
                 tsi.Checked = false;
-            }  
+            }
 
             ((ToolStripMenuItem)sender).Checked = true;
         }
@@ -240,6 +240,13 @@ namespace HatTrick.Views.WinformsView
         private void buyPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowBuyPlayersWindow();
+        }
+
+        private void teamFormationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TeamScreen frmTeam = new TeamScreen();
+            frmTeam.MdiParent = this;
+            frmTeam.Show();
         }
     }
 }
