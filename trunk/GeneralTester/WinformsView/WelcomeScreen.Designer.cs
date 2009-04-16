@@ -33,11 +33,6 @@
             this.logOffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.teamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.playersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showPlayersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
-            this.buyPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sellPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.teamFormationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeFormationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trainingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,6 +54,7 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buyPlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -83,80 +79,47 @@
             this.logOffToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.fileToolStripMenuItem.Text = "User";
             // 
             // logOffToolStripMenuItem
             // 
             this.logOffToolStripMenuItem.Name = "logOffToolStripMenuItem";
-            this.logOffToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.logOffToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.logOffToolStripMenuItem.Text = "Log off";
             this.logOffToolStripMenuItem.Click += new System.EventHandler(this.logOffToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // teamToolStripMenuItem
             // 
             this.teamToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.playersToolStripMenuItem,
             this.teamFormationToolStripMenuItem,
+            this.buyPlayerToolStripMenuItem1,
             this.changeFormationToolStripMenuItem,
             this.trainingToolStripMenuItem});
             this.teamToolStripMenuItem.Name = "teamToolStripMenuItem";
-            this.teamToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
+            this.teamToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
             this.teamToolStripMenuItem.Text = "Team";
-            // 
-            // playersToolStripMenuItem
-            // 
-            this.playersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showPlayersToolStripMenuItem,
-            this.toolStripMenuItem3,
-            this.buyPlayerToolStripMenuItem,
-            this.sellPlayerToolStripMenuItem});
-            this.playersToolStripMenuItem.Name = "playersToolStripMenuItem";
-            this.playersToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
-            this.playersToolStripMenuItem.Text = "Players";
-            // 
-            // showPlayersToolStripMenuItem
-            // 
-            this.showPlayersToolStripMenuItem.Name = "showPlayersToolStripMenuItem";
-            this.showPlayersToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.showPlayersToolStripMenuItem.Text = "Show players";
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(149, 6);
-            // 
-            // buyPlayerToolStripMenuItem
-            // 
-            this.buyPlayerToolStripMenuItem.Name = "buyPlayerToolStripMenuItem";
-            this.buyPlayerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.buyPlayerToolStripMenuItem.Text = "Buy player";
-            this.buyPlayerToolStripMenuItem.Click += new System.EventHandler(this.buyPlayerToolStripMenuItem_Click);
-            // 
-            // sellPlayerToolStripMenuItem
-            // 
-            this.sellPlayerToolStripMenuItem.Name = "sellPlayerToolStripMenuItem";
-            this.sellPlayerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.sellPlayerToolStripMenuItem.Text = "Sell player";
             // 
             // teamFormationToolStripMenuItem
             // 
             this.teamFormationToolStripMenuItem.Name = "teamFormationToolStripMenuItem";
-            this.teamFormationToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
-            this.teamFormationToolStripMenuItem.Text = "Team formation";
+            this.teamFormationToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.teamFormationToolStripMenuItem.Text = "Manage Team";
+            this.teamFormationToolStripMenuItem.Click += new System.EventHandler(this.teamFormationToolStripMenuItem_Click);
             // 
             // changeFormationToolStripMenuItem
             // 
             this.changeFormationToolStripMenuItem.Name = "changeFormationToolStripMenuItem";
-            this.changeFormationToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
-            this.changeFormationToolStripMenuItem.Text = "Change formation";
+            this.changeFormationToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.changeFormationToolStripMenuItem.Text = "Change Formation";
+            this.changeFormationToolStripMenuItem.Visible = false;
             // 
             // trainingToolStripMenuItem
             // 
@@ -165,20 +128,20 @@
             this.trainTeamToolStripMenuItem,
             this.trainingTypeToolStripMenuItem});
             this.trainingToolStripMenuItem.Name = "trainingToolStripMenuItem";
-            this.trainingToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.trainingToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.trainingToolStripMenuItem.Text = "Training";
             // 
             // trainMyTeamToolStripMenuItem
             // 
             this.trainMyTeamToolStripMenuItem.Name = "trainMyTeamToolStripMenuItem";
-            this.trainMyTeamToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.trainMyTeamToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.trainMyTeamToolStripMenuItem.Text = "Train my team";
             this.trainMyTeamToolStripMenuItem.Click += new System.EventHandler(this.trainMyTeamToolStripMenuItem_Click);
             // 
             // trainTeamToolStripMenuItem
             // 
             this.trainTeamToolStripMenuItem.Name = "trainTeamToolStripMenuItem";
-            this.trainTeamToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.trainTeamToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.trainTeamToolStripMenuItem.Text = "Train all teams";
             this.trainTeamToolStripMenuItem.Click += new System.EventHandler(this.trainTeamToolStripMenuItem_Click);
             // 
@@ -191,13 +154,14 @@
             this.playMakingToolStripMenuItem,
             this.setPiecesToolStripMenuItem});
             this.trainingTypeToolStripMenuItem.Name = "trainingTypeToolStripMenuItem";
-            this.trainingTypeToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.trainingTypeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.trainingTypeToolStripMenuItem.Text = "Training type";
+            this.trainingTypeToolStripMenuItem.Visible = false;
             // 
             // attackToolStripMenuItem
             // 
             this.attackToolStripMenuItem.Name = "attackToolStripMenuItem";
-            this.attackToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.attackToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.attackToolStripMenuItem.Tag = "1";
             this.attackToolStripMenuItem.Text = "Attack";
             this.attackToolStripMenuItem.Click += new System.EventHandler(this.attackToolStripMenuItem_Click);
@@ -205,7 +169,7 @@
             // defenceToolStripMenuItem
             // 
             this.defenceToolStripMenuItem.Name = "defenceToolStripMenuItem";
-            this.defenceToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.defenceToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.defenceToolStripMenuItem.Tag = "2";
             this.defenceToolStripMenuItem.Text = "Defence";
             this.defenceToolStripMenuItem.Click += new System.EventHandler(this.defenceToolStripMenuItem_Click);
@@ -213,7 +177,7 @@
             // wingsToolStripMenuItem
             // 
             this.wingsToolStripMenuItem.Name = "wingsToolStripMenuItem";
-            this.wingsToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.wingsToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.wingsToolStripMenuItem.Tag = "3";
             this.wingsToolStripMenuItem.Text = "Wings";
             this.wingsToolStripMenuItem.Click += new System.EventHandler(this.wingsToolStripMenuItem_Click);
@@ -221,7 +185,7 @@
             // playMakingToolStripMenuItem
             // 
             this.playMakingToolStripMenuItem.Name = "playMakingToolStripMenuItem";
-            this.playMakingToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.playMakingToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.playMakingToolStripMenuItem.Tag = "4";
             this.playMakingToolStripMenuItem.Text = "PlayMaking";
             this.playMakingToolStripMenuItem.Click += new System.EventHandler(this.playMakingToolStripMenuItem_Click);
@@ -229,7 +193,7 @@
             // setPiecesToolStripMenuItem
             // 
             this.setPiecesToolStripMenuItem.Name = "setPiecesToolStripMenuItem";
-            this.setPiecesToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.setPiecesToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.setPiecesToolStripMenuItem.Tag = "5";
             this.setPiecesToolStripMenuItem.Text = "SetPieces";
             this.setPiecesToolStripMenuItem.Click += new System.EventHandler(this.setPiecesToolStripMenuItem_Click);
@@ -243,34 +207,34 @@
             this.toolStripMenuItem1,
             this.friendlyGameToolStripMenuItem});
             this.leagueToolStripMenuItem.Name = "leagueToolStripMenuItem";
-            this.leagueToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.leagueToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
             this.leagueToolStripMenuItem.Text = "League";
             // 
             // playCycleToolStripMenuItem
             // 
             this.playCycleToolStripMenuItem.Name = "playCycleToolStripMenuItem";
             this.playCycleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.playCycleToolStripMenuItem.Text = "Play cycle";
+            this.playCycleToolStripMenuItem.Text = "Play Cycle";
             this.playCycleToolStripMenuItem.Click += new System.EventHandler(this.playCycleToolStripMenuItem_Click);
             // 
             // leagueTableToolStripMenuItem
             // 
             this.leagueTableToolStripMenuItem.Name = "leagueTableToolStripMenuItem";
             this.leagueTableToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.leagueTableToolStripMenuItem.Text = "League table";
+            this.leagueTableToolStripMenuItem.Text = "League Table";
             this.leagueTableToolStripMenuItem.Click += new System.EventHandler(this.leagueTableToolStripMenuItem_Click);
             // 
             // leagueCyclesToolStripMenuItem
             // 
             this.leagueCyclesToolStripMenuItem.Name = "leagueCyclesToolStripMenuItem";
             this.leagueCyclesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.leagueCyclesToolStripMenuItem.Text = "League cycles";
+            this.leagueCyclesToolStripMenuItem.Text = "League Cycles";
             this.leagueCyclesToolStripMenuItem.Click += new System.EventHandler(this.leagueCyclesToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(138, 6);
             // 
             // friendlyGameToolStripMenuItem
             // 
@@ -280,13 +244,13 @@
             this.playToolStripMenuItem});
             this.friendlyGameToolStripMenuItem.Name = "friendlyGameToolStripMenuItem";
             this.friendlyGameToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.friendlyGameToolStripMenuItem.Text = "Friendly game";
+            this.friendlyGameToolStripMenuItem.Text = "Friendly Game";
             this.friendlyGameToolStripMenuItem.Click += new System.EventHandler(this.friendlyGameToolStripMenuItem_Click);
             // 
             // againstToolStripMenuItem
             // 
             this.againstToolStripMenuItem.Name = "againstToolStripMenuItem";
-            this.againstToolStripMenuItem.Size = new System.Drawing.Size(152, 23);
+            this.againstToolStripMenuItem.Size = new System.Drawing.Size(152, 21);
             this.againstToolStripMenuItem.Text = "moshe";
             // 
             // toolStripMenuItem2
@@ -304,8 +268,15 @@
             // windowsToolStripMenuItem
             // 
             this.windowsToolStripMenuItem.Name = "windowsToolStripMenuItem";
-            this.windowsToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
+            this.windowsToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
             this.windowsToolStripMenuItem.Text = "Windows";
+            // 
+            // buyPlayerToolStripMenuItem1
+            // 
+            this.buyPlayerToolStripMenuItem1.Name = "buyPlayerToolStripMenuItem1";
+            this.buyPlayerToolStripMenuItem1.Size = new System.Drawing.Size(162, 22);
+            this.buyPlayerToolStripMenuItem1.Text = "Buy Player";
+            this.buyPlayerToolStripMenuItem1.Click += new System.EventHandler(this.buyPlayerToolStripMenuItem_Click);
             // 
             // WelcomeScreen
             // 
@@ -342,15 +313,10 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem playToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem logOffToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem playersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem teamFormationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem changeFormationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem trainingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem trainTeamToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem showPlayersToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem buyPlayerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sellPlayerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem trainingTypeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem playCycleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem leagueCyclesToolStripMenuItem;
@@ -360,5 +326,6 @@
         private System.Windows.Forms.ToolStripMenuItem playMakingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setPiecesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem trainMyTeamToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem buyPlayerToolStripMenuItem1;
     }
 }

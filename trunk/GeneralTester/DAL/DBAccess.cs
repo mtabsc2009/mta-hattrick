@@ -651,8 +651,17 @@ namespace HatTrick.DAL
             try
             {
                 Connect();
-                cmdCommand.CommandText = string.Format("UPDATE players  SET PlayerCost = {1} , IsForSale = \"1\" where PlayerID like \"{0}\"",
-                                                       playerId, cost);
+
+                if (cost > 0)
+                {
+                    cmdCommand.CommandText = string.Format("UPDATE players  SET PlayerCost = {1} , IsForSale = \"1\" where PlayerID like \"{0}\"",
+                                                           playerId, cost);
+                }
+                else
+                {
+                    cmdCommand.CommandText = string.Format("UPDATE players  SET IsForSale = \"0\" where PlayerID like \"{0}\"",
+                                                           playerId);
+                }
                 cmdCommand.ExecuteNonQuery();
             }
             finally

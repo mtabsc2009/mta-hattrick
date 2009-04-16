@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ascend, Version=1.0.0.6, Culture=neutral, PublicKeyToken=25c7a393ba3f37cd" />
+    <Reference Include="Ascend.Resources, Version=1.0.0.6, Culture=neutral, PublicKeyToken=9c9aecb37b1e03b6" />
+    <Reference Include="Ascend.Windows.Forms, Version=1.0.0.6, Culture=neutral, PublicKeyToken=ecd86ece2d3eb46d" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -74,6 +77,12 @@
     <Compile Include="LeagueCyclesScreen.Designer.cs">
       <DependentUpon>LeagueCyclesScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="PlayerSkills.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PlayerSkills.Designer.cs">
+      <DependentUpon>PlayerSkills.cs</DependentUpon>
+    </Compile>
     <Compile Include="TrainingNums.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +122,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LeagueCyclesScreen.resx">
       <DependentUpon>LeagueCyclesScreen.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PlayerSkills.resx">
+      <DependentUpon>PlayerSkills.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TrainingNums.resx">
