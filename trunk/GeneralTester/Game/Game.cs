@@ -271,6 +271,10 @@ namespace HatTrick
         //}
 
 
+        public static Player GetPlayerByID(int nPlayerID)
+        {
+            return DAL.DBAccess.getPlayerByID(nPlayerID);
+        }
 
         public static bool buyPlayer(Player playerToBuy)
         {
@@ -280,6 +284,7 @@ namespace HatTrick
                 {
                     HatTrick.DAL.DBAccess.BuyPlayer(tMyTeam, playerToBuy);
                     tMyTeam.Players.Add(playerToBuy);
+                    tMyTeam.TeamCash -= playerToBuy.PlayerCost.Value;
                     return true;
                 }
                 
@@ -1002,6 +1007,11 @@ namespace HatTrick
         public static List<Player> GetPlayerForSell(Team tMyTeam)
         {
             return DAL.DBAccess.GetPlayersForSale(tMyTeam);
+        }
+
+        public static DataView GetPlayerForSell(String strMyTeam)
+        {
+            return DAL.DBAccess.GetPlayersForSale(strMyTeam);
         }
 
         public static bool CanISellPlayer(String iD)
