@@ -263,6 +263,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(266, 222);
             this.Controls.Add(this.txtPrice);
             this.Controls.Add(this.chkIsForSale);
@@ -288,7 +289,7 @@
             this.Controls.Add(this.pbKeeper);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "PlayerSkills";
-            this.Opacity = 0.95;
+            this.Opacity = 0.88;
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.ShowInTaskbar = false;
             this.Text = "PlayerSkills";
