@@ -79,6 +79,32 @@ namespace HatTrick
             return lstCycleGames;
         }
 
+        public static List<CycleGameFinished> GetTeamMatches(Team _Team)
+        {
+            List<CycleGameFinished> lstCycleGames = new List<CycleGameFinished>();
+            DataView dvAllCycles = DAL.DBAccess.GetTeamMatches(_Team);
+
+            foreach (DataRowView item in dvAllCycles)
+            {
+                if (item["GameId"].ToString() != "")
+                {
+                    lstCycleGames.Add(new CycleGameFinished(int.Parse(item["CycleNum"].ToString()),
+                                                item["HomeTeam"].ToString(),
+                                                item["AwayTeam"].ToString(),
+                                                int.Parse(item["GameId"].ToString()),
+                                                DateTime.Parse(item["CycleDate"].ToString())));
+                }
+                else
+                {
+                    lstCycleGames.Add(new CycleGameFinished(int.Parse(item["CycleNum"].ToString()),
+                                                item["HomeTeam"].ToString(),
+                                                item["AwayTeam"].ToString()));
+                }
+            }
+            return lstCycleGames;
+
+        }
+
         public static List<CycleGameFinished> CyclesToListFinished(DataView dvAllCycles)
         {
             List<CycleGameFinished> lstCycleGames = new List<CycleGameFinished>();

@@ -101,12 +101,6 @@
     <Compile Include="LeagueTable.Designer.cs">
       <DependentUpon>LeagueTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="MatchesScreen.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MatchesScreen.Designer.cs">
-      <DependentUpon>MatchesScreen.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="BuyPlayer.resx">
       <DependentUpon>BuyPlayer.cs</DependentUpon>

@@ -105,7 +105,7 @@ namespace HatTrick.Views.WinformsView
 
         private void btnMatches_Click(object sender, EventArgs e)
         {
-            MatchesScreen frmMatches = new MatchesScreen(SelectedTeam);
+            LeagueCyclesScreen frmMatches = new LeagueCyclesScreen(SelectedTeam);
             frmMatches.MdiParent = this.MdiParent;
             frmMatches.Show();
         }
