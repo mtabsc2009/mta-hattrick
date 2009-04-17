@@ -1084,5 +1084,27 @@ namespace HatTrick.DAL
                 Close();
             }
         }
+
+        public static DataView GetTeamMatches(Team _Team)
+        {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+            try
+            {
+                Connect();
+                cmdCommand.CommandText = 
+                    string.Format("SELECT * from cycles where HomeTeam = '{0}' OR AwayTeam = '{0}'", _Team.Name);
+                DataTable dtNew = new DataTable();
+                OleDbDataAdapter oldba = new OleDbDataAdapter(cmdCommand);
+                oldba.Fill(dtNew);
+
+                return dtNew.DefaultView;
+            }
+            finally
+            {
+                Close();
+            }
+           
+        }
     }
 }

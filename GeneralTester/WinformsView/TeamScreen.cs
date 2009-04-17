@@ -40,7 +40,7 @@ namespace HatTrick.Views.WinformsView
 
         private void TeamScreen_Load(object sender, EventArgs e)
         {
-            this.Text = Team.Name;
+            this.Text = string.Format("{0}'s Team Management", Team.Name);
             this.SetPlayersName();
 
             // Setting formation types

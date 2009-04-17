@@ -56,12 +56,17 @@
             this.lblHomeName = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblAwayTeam = new System.Windows.Forms.Label();
+            this.lblScore = new System.Windows.Forms.Label();
+            this.lblHomeTeam = new System.Windows.Forms.Label();
             this.TextBox1 = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.gameEventBindingSource)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // gameEventBindingSource
@@ -331,13 +336,60 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Name:";
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lblAwayTeam);
+            this.panel1.Controls.Add(this.lblScore);
+            this.panel1.Controls.Add(this.lblHomeTeam);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(575, 37);
+            this.panel1.TabIndex = 3;
+            // 
+            // lblAwayTeam
+            // 
+            this.lblAwayTeam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblAwayTeam.AutoSize = true;
+            this.lblAwayTeam.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.lblAwayTeam.Location = new System.Drawing.Point(510, 7);
+            this.lblAwayTeam.Name = "lblAwayTeam";
+            this.lblAwayTeam.Size = new System.Drawing.Size(66, 24);
+            this.lblAwayTeam.TabIndex = 0;
+            this.lblAwayTeam.Text = "label8";
+            this.lblAwayTeam.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblScore
+            // 
+            this.lblScore.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblScore.AutoSize = true;
+            this.lblScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.lblScore.Location = new System.Drawing.Point(243, 7);
+            this.lblScore.Name = "lblScore";
+            this.lblScore.Size = new System.Drawing.Size(66, 24);
+            this.lblScore.TabIndex = 0;
+            this.lblScore.Text = "label8";
+            this.lblScore.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblHomeTeam
+            // 
+            this.lblHomeTeam.AutoSize = true;
+            this.lblHomeTeam.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.lblHomeTeam.Location = new System.Drawing.Point(3, 7);
+            this.lblHomeTeam.Name = "lblHomeTeam";
+            this.lblHomeTeam.Size = new System.Drawing.Size(66, 24);
+            this.lblHomeTeam.TabIndex = 0;
+            this.lblHomeTeam.Text = "label8";
+            this.lblHomeTeam.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // TextBox1
             // 
-            this.TextBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.TextBox1.Location = new System.Drawing.Point(0, 0);
+            this.TextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TextBox1.Location = new System.Drawing.Point(0, 37);
             this.TextBox1.Name = "TextBox1";
-            this.TextBox1.Size = new System.Drawing.Size(575, 298);
-            this.TextBox1.TabIndex = 2;
+            this.TextBox1.Size = new System.Drawing.Size(575, 267);
+            this.TextBox1.TabIndex = 4;
             this.TextBox1.Text = "";
             // 
             // GameStoryDisplay
@@ -346,6 +398,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(575, 467);
             this.Controls.Add(this.TextBox1);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox1);
             this.Name = "GameStoryDisplay";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -359,6 +412,8 @@
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -392,6 +447,10 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label lblHomeScore;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblAwayTeam;
+        private System.Windows.Forms.Label lblScore;
+        private System.Windows.Forms.Label lblHomeTeam;
         private System.Windows.Forms.RichTextBox TextBox1;
     }
 }

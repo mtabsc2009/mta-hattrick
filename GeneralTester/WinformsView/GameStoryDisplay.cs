@@ -42,6 +42,31 @@ namespace HatTrick.Views.WinformsView
             lblGameDate.Text = GameStory.GameDate.ToShortDateString();
             lblFans.Text = GameStory.Watchers.ToString();
             lblWeather.Text = GameStory.Weather;
+
+            lblHomeTeam.Text = GameStory.HomeTeam.Team.Name;
+            lblAwayTeam.Text = GameStory.AwayTeam.Team.Name;
+            lblScore.Text = string.Format("{0}-{1}", GameStory.HomeScore, GameStory.AwayScore);
+            lblScore.Left = (this.Width - lblScore.Width) / 2;
+            if (GameStory.Winner == null)
+            {
+                lblAwayTeam.ForeColor = Color.Blue;
+                lblHomeTeam.ForeColor = Color.Blue;
+            }
+            else if (GameStory.Winner.Name == GameStory.HomeTeam.Team.Name)
+            {
+                lblHomeTeam.ForeColor = Color.Green;
+                lblAwayTeam.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblHomeTeam.ForeColor = Color.Red;
+                lblAwayTeam.ForeColor = Color.Green;
+            }
+            lblHomeTeam.Left = 5;
+            lblAwayTeam.Left = panel1.Width - lblAwayTeam.Width - 5;
+
+            this.Text = 
+                string.Format("Game Story: {0} - ({1}) - {2}", lblHomeTeam.Text, lblScore.Text, lblAwayTeam.Text);
         }
 
         private void AddLine(string strFormat, params object[] args)

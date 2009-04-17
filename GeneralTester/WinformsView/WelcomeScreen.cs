@@ -30,8 +30,8 @@ namespace HatTrick.Views.WinformsView
             {
                 Show();
                 LoadWelcome();
+                leagueTableToolStripMenuItem_Click(sender, e);
             }
-
         }
 
         private void LoadWelcome()
@@ -247,6 +247,31 @@ namespace HatTrick.Views.WinformsView
             TeamScreen frmTeam = new TeamScreen();
             frmTeam.MdiParent = this;
             frmTeam.Show();
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            LeagueCyclesScreen frmMatches = new LeagueCyclesScreen(Game.MyTeam);
+            frmMatches.MdiParent = this;
+            frmMatches.Show();
+        }
+
+        private void cascaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(MdiLayout.Cascade);
+        }
+
+        private void tileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(MdiLayout.TileHorizontal);
+        }
+
+        private void closeAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (Form frm in this.MdiChildren)
+            {
+                frm.Close();
+            }
         }
     }
 }
