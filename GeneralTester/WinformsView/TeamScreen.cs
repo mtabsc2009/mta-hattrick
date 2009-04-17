@@ -246,7 +246,8 @@ namespace HatTrick.Views.WinformsView
             Button bPlayer = sender as Button;
             frmPlayerSkills.Player = Team.Players.Where(T => T.Name == bPlayer.Text).First();
             Point p = this.PointToScreen(bPlayer.Location);
-            frmPlayerSkills.Location = new Point(p.X + bPlayer.Width + offest, p.Y + bPlayer.Height + offest);
+            frmPlayerSkills.Location = new Point(MousePosition.X + offest*3, p.Y + bPlayer.Height + offest);
+            //frmPlayerSkills.Location = new Point(p.X + bPlayer.Width + offest, p.Y + bPlayer.Height + offest);
             frmPlayerSkills.Show();
         }
 
