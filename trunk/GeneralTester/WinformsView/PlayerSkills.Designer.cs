@@ -50,11 +50,13 @@
             this.chkIsForSale = new System.Windows.Forms.CheckBox();
             this.txtPrice = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pbKeeper
             // 
-            this.pbKeeper.Location = new System.Drawing.Point(12, 52);
+            this.pbKeeper.Location = new System.Drawing.Point(12, 54);
             this.pbKeeper.Maximum = 20;
             this.pbKeeper.Name = "pbKeeper";
             this.pbKeeper.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -65,7 +67,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(224, 53);
+            this.label1.Location = new System.Drawing.Point(224, 55);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(34, 13);
             this.label1.TabIndex = 1;
@@ -74,7 +76,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(226, 72);
+            this.label2.Location = new System.Drawing.Point(226, 74);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(32, 13);
             this.label2.TabIndex = 3;
@@ -82,7 +84,7 @@
             // 
             // pbDefending
             // 
-            this.pbDefending.Location = new System.Drawing.Point(12, 72);
+            this.pbDefending.Location = new System.Drawing.Point(12, 74);
             this.pbDefending.Maximum = 20;
             this.pbDefending.Name = "pbDefending";
             this.pbDefending.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -93,7 +95,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(219, 93);
+            this.label3.Location = new System.Drawing.Point(219, 95);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(39, 13);
             this.label3.TabIndex = 5;
@@ -101,7 +103,7 @@
             // 
             // pbPlayMaking
             // 
-            this.pbPlayMaking.Location = new System.Drawing.Point(12, 92);
+            this.pbPlayMaking.Location = new System.Drawing.Point(12, 94);
             this.pbPlayMaking.Maximum = 20;
             this.pbPlayMaking.Name = "pbPlayMaking";
             this.pbPlayMaking.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -112,7 +114,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(232, 113);
+            this.label4.Location = new System.Drawing.Point(232, 115);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(26, 13);
             this.label4.TabIndex = 7;
@@ -120,7 +122,7 @@
             // 
             // pbWinger
             // 
-            this.pbWinger.Location = new System.Drawing.Point(12, 112);
+            this.pbWinger.Location = new System.Drawing.Point(12, 114);
             this.pbWinger.Maximum = 20;
             this.pbWinger.Name = "pbWinger";
             this.pbWinger.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -131,7 +133,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(219, 132);
+            this.label5.Location = new System.Drawing.Point(219, 134);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(39, 13);
             this.label5.TabIndex = 9;
@@ -139,7 +141,7 @@
             // 
             // pbPassing
             // 
-            this.pbPassing.Location = new System.Drawing.Point(12, 132);
+            this.pbPassing.Location = new System.Drawing.Point(12, 134);
             this.pbPassing.Maximum = 20;
             this.pbPassing.Name = "pbPassing";
             this.pbPassing.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -150,7 +152,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(216, 153);
+            this.label6.Location = new System.Drawing.Point(216, 155);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(42, 13);
             this.label6.TabIndex = 11;
@@ -158,7 +160,7 @@
             // 
             // pbScoring
             // 
-            this.pbScoring.Location = new System.Drawing.Point(12, 152);
+            this.pbScoring.Location = new System.Drawing.Point(12, 154);
             this.pbScoring.Maximum = 20;
             this.pbScoring.Name = "pbScoring";
             this.pbScoring.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -169,7 +171,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(176, 173);
+            this.label7.Location = new System.Drawing.Point(176, 175);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(82, 13);
             this.label7.TabIndex = 13;
@@ -177,7 +179,7 @@
             // 
             // pbSetPices
             // 
-            this.pbSetPices.Location = new System.Drawing.Point(12, 172);
+            this.pbSetPices.Location = new System.Drawing.Point(12, 174);
             this.pbSetPices.Maximum = 20;
             this.pbSetPices.Name = "pbSetPices";
             this.pbSetPices.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -188,7 +190,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(235, 9);
+            this.label8.Location = new System.Drawing.Point(235, 11);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(23, 13);
             this.label8.TabIndex = 14;
@@ -197,7 +199,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(233, 28);
+            this.label9.Location = new System.Drawing.Point(233, 30);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(25, 13);
             this.label9.TabIndex = 15;
@@ -206,7 +208,7 @@
             // lblName
             // 
             this.lblName.AutoSize = true;
-            this.lblName.Location = new System.Drawing.Point(12, 9);
+            this.lblName.Location = new System.Drawing.Point(12, 11);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(41, 13);
             this.lblName.TabIndex = 16;
@@ -215,7 +217,7 @@
             // lblAge
             // 
             this.lblAge.AutoSize = true;
-            this.lblAge.Location = new System.Drawing.Point(142, 28);
+            this.lblAge.Location = new System.Drawing.Point(142, 30);
             this.lblAge.Name = "lblAge";
             this.lblAge.Size = new System.Drawing.Size(19, 13);
             this.lblAge.TabIndex = 17;
@@ -224,7 +226,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(177, 200);
+            this.label10.Location = new System.Drawing.Point(177, 202);
             this.label10.Name = "label10";
             this.label10.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label10.Size = new System.Drawing.Size(81, 13);
@@ -234,7 +236,7 @@
             // chkIsForSale
             // 
             this.chkIsForSale.AutoSize = true;
-            this.chkIsForSale.Location = new System.Drawing.Point(146, 199);
+            this.chkIsForSale.Location = new System.Drawing.Point(146, 201);
             this.chkIsForSale.Name = "chkIsForSale";
             this.chkIsForSale.Size = new System.Drawing.Size(15, 14);
             this.chkIsForSale.TabIndex = 18;
@@ -244,7 +246,7 @@
             // txtPrice
             // 
             this.txtPrice.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtPrice.Location = new System.Drawing.Point(29, 195);
+            this.txtPrice.Location = new System.Drawing.Point(29, 197);
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.Size = new System.Drawing.Size(111, 20);
             this.txtPrice.TabIndex = 19;
@@ -253,11 +255,42 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label11.Location = new System.Drawing.Point(10, 195);
+            this.label11.Location = new System.Drawing.Point(10, 197);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(21, 20);
             this.label11.TabIndex = 14;
             this.label11.Text = "₪";
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.lblName);
+            this.panel1.Controls.Add(this.txtPrice);
+            this.panel1.Controls.Add(this.pbKeeper);
+            this.panel1.Controls.Add(this.chkIsForSale);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.lblAge);
+            this.panel1.Controls.Add(this.pbDefending);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.label9);
+            this.panel1.Controls.Add(this.pbPlayMaking);
+            this.panel1.Controls.Add(this.label11);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Controls.Add(this.pbWinger);
+            this.panel1.Controls.Add(this.label10);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.pbPassing);
+            this.panel1.Controls.Add(this.pbSetPices);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.pbScoring);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(266, 222);
+            this.panel1.TabIndex = 20;
             // 
             // PlayerSkills
             // 
@@ -265,28 +298,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(266, 222);
-            this.Controls.Add(this.txtPrice);
-            this.Controls.Add(this.chkIsForSale);
-            this.Controls.Add(this.lblAge);
-            this.Controls.Add(this.lblName);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.label11);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.pbSetPices);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.pbScoring);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.pbPassing);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.pbWinger);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.pbPlayMaking);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.pbDefending);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.pbKeeper);
+            this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "PlayerSkills";
             this.Opacity = 0.88;
@@ -296,8 +308,9 @@
             this.Load += new System.EventHandler(this.PlayerSkills_Load);
             this.VisibleChanged += new System.EventHandler(this.PlayerSkills_VisibleChanged);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PlayerSkills_FormClosed);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -325,5 +338,6 @@
         private System.Windows.Forms.CheckBox chkIsForSale;
         private System.Windows.Forms.TextBox txtPrice;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Panel panel1;
     }
 }
