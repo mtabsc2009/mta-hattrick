@@ -47,6 +47,7 @@ namespace HatTrick.Views.WinformsView
             lblAwayTeam.Text = GameStory.AwayTeam.Team.Name;
             lblScore.Text = string.Format("{0}-{1}", GameStory.HomeScore, GameStory.AwayScore);
             lblScore.Left = (this.Width - lblScore.Width) / 2;
+            lblScore.Anchor = AnchorStyles.Left & AnchorStyles.Right;
             if (GameStory.Winner == null)
             {
                 lblAwayTeam.ForeColor = Color.Blue;
@@ -67,6 +68,86 @@ namespace HatTrick.Views.WinformsView
 
             this.Text = 
                 string.Format("Game Story: {0} - ({1}) - {2}", lblHomeTeam.Text, lblScore.Text, lblAwayTeam.Text);
+
+            SetDataGrid();
+        }
+
+        private void SetDataGrid()
+        {
+            DataTable tblEvents = new DataTable();
+            tblEvents.Columns.Add(new DataColumn("Min", typeof(int)));
+            tblEvents.Columns.Add(new DataColumn("Event"));
+            tblEvents.Columns.Add(new DataColumn("Team"));
+            tblEvents.Columns.Add(new DataColumn("Player"));
+            tblEvents.Columns.Add(new DataColumn("More"));
+
+            foreach (GameEvent evt in GameStory.GameEvents.Values.Where(T => T.Minute >= 0))
+            {
+                DataRow r = tblEvents.NewRow();
+
+                r["Min"] = evt.Minute;
+                string strEvent = evt.GetType().Name;
+                r["Event"] = strEvent.Substring(0, strEvent.IndexOf("Event"));
+                r["Team"] = evt.teamAttacking;
+                r["Player"] = string.Format("{0} ({1})", evt.Actor.Name, evt.Actor.Position);
+
+                if (evt is PaneltyEvent)
+                {
+                    r["More"] = string.Format("{0} ({1})",
+                        (evt as PaneltyEvent).Shooter.Name, (evt as PaneltyEvent).Shooter.Position);
+                }
+                else if (evt is FreeKickEvent)
+                {
+                    string strAddition = string.Empty;
+                    if ((evt as FreeKickEvent).bScored != null)
+                    {
+                        strAddition = "Scored!";
+                    }
+                    r["More"] = string.Format("{0} ({1}) {2}",
+                        (evt as FreeKickEvent).Shooter.Name, (evt as FreeKickEvent).Shooter.Position, strAddition);
+                }
+                else if (evt is PaneltyEvent)
+                {
+                    string strAddition = string.Empty;
+                    if ((evt as PaneltyEvent).bScored != null)
+                    {
+                        strAddition = "Scored!";
+                    }
+                    r["More"] = string.Format("{0} ({1}) {2}",
+                        (evt as PaneltyEvent).Shooter.Name, (evt as PaneltyEvent).Shooter.Position, strAddition);
+                }
+                else if (evt is FouledEvent)
+                {
+                    FouledEvent f = evt as FouledEvent;
+                    string strCard = f.ptCard.ToString().Substring(2);
+                    if (f.ptCard == PaneltyCard.ptNone)
+                    {
+                        strCard = "No";
+                    }
+                    string strPlayer = string.Format("{0} ({1})", f.Foulist.Name, f.Foulist.Position);
+                    r["More"] = string.Format("{0} card to {1}", strCard, strPlayer);
+                }
+
+                tblEvents.Rows.Add(r);
+            }
+
+            tblEvents.DefaultView.Sort = "Min";
+            dataGridView1.DataSource = tblEvents.DefaultView;
+            foreach (DataGridViewColumn col in dataGridView1.Columns)
+            {
+                col.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+                col.Resizable = DataGridViewTriState.True;
+                if (col.Name == "More")
+                {
+                    col.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                }
+                else if (col.Name == "Min")
+                {
+                    col.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                }
+            }
+            dataGridView1.AllowUserToResizeColumns = true;
+            dataGridView1.RowHeadersVisible = false;
         }
 
         private void AddLine(string strFormat, params object[] args)
@@ -185,6 +266,61 @@ namespace HatTrick.Views.WinformsView
             }
 
             AddLine();
+        }           
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            TextBox1.Visible = !checkBox1.Checked;
+            dataGridView1.Visible = checkBox1.Checked;
+        }
+
+        private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (row.Cells["Event"].Value != null)
+                {
+                    if (row.Cells["Event"].Value.ToString() == "Score")
+                    {
+                        row.DefaultCellStyle.Font = new Font(dataGridView1.DefaultCellStyle.Font, FontStyle.Bold);
+                        row.DefaultCellStyle.ForeColor = Color.Blue;
+                    }
+                    else if (row.Cells["Event"].Value.ToString() == "Panelty")
+                    {
+                        row.DefaultCellStyle.Font = new Font(dataGridView1.DefaultCellStyle.Font, FontStyle.Bold);
+                        row.DefaultCellStyle.ForeColor = Color.Red;
+                    }
+                    else
+                    {
+                        int nMinute = (int)((row.DataBoundItem as DataRowView)["Min"]);
+                        if (GameStory.GameEvents.ContainsKey(-nMinute))
+                        {
+                            row.DefaultCellStyle.Font = new Font(dataGridView1.DefaultCellStyle.Font, FontStyle.Bold);
+                            row.DefaultCellStyle.ForeColor = Color.Blue;
+                        }
+                    }
+                }
+            }
         }
     }
+    [Serializable]
+    class a
+    {
+        public int Minute
+        {
+            get
+            {
+                return min;
+            }
+
+        }
+
+        private int min;
+
+        public a(int _m)
+        {
+            min = _m;
+        }
+    }
+
 }

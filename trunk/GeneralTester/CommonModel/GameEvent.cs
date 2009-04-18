@@ -15,9 +15,10 @@ namespace HatTrick.CommonModel
     [SerializableAttribute]
     public abstract class GameEvent
     {
-        public int Minute;
-        public Team teamAttacking = null;
-        public Player Actor;
+        public int Minute { get; set; }
+        public Team teamAttacking { get; set; }
+        public Player Actor { get; set; }
+
         public GameEvent(Team teamSubject, int nMinute, Player plrActor)
         {
             teamAttacking = teamSubject;
@@ -54,21 +55,27 @@ namespace HatTrick.CommonModel
     [SerializableAttribute]
     public abstract class FouledEvent : GameEvent
     {
-        public Player Foulist;
+        public Player Foulist { get; set; }
+
         public FouledEvent(Team teamSubject, int nMinute, Player plrAttacker,Player plrFoulist)
             : base(teamSubject, nMinute, plrAttacker)
         {
             Foulist = plrFoulist;
+            ptCard = PaneltyCard.ptNone;
+            bScored = null;
         }
-        public PaneltyCard ptCard = PaneltyCard.ptNone;
-        public Team bScored = null;
+
+        public PaneltyCard ptCard { get; set; }
+        public Team bScored { get; set; }
     }
 
     [SerializableAttribute]
     public class FreeKickEvent : FouledEvent
     {
-        public Player Shooter;
-        public FreeKickEvent(Team teamAttacker, int nMinute, Player plrAttacker, Player plrFoulist, Player plrShooter)
+        public Player Shooter { get; set; }
+
+        public FreeKickEvent
+            (Team teamAttacker, int nMinute, Player plrAttacker, Player plrFoulist, Player plrShooter)
             : base(teamAttacker, nMinute, plrAttacker, plrFoulist)
         {
             Shooter = plrShooter;
@@ -93,8 +100,11 @@ namespace HatTrick.CommonModel
     [SerializableAttribute]
     public class PaneltyEvent : FouledEvent
     {
-        public Player Shooter;
-        public PaneltyEvent(Team teamSubject, int nMinute, Player plrActor, Player plrFoulist, Player plrShooter) : base(teamSubject, nMinute, plrActor, plrFoulist)
+        public Player Shooter { get; set; }
+
+        public PaneltyEvent
+            (Team teamSubject, int nMinute, Player plrActor, Player plrFoulist, Player plrShooter) : 
+            base(teamSubject, nMinute, plrActor, plrFoulist)
         {
             Shooter = plrShooter;
         }
