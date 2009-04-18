@@ -18,7 +18,8 @@ namespace HatTrick.DAL
         static DBAccess()
         {
             m_cnConnection = new OleDbConnection();
-            m_cnConnection.ConnectionString = Properties.Settings.Default.HtTrickConnectionString;
+            //m_cnConnection.ConnectionString = Properties.Settings.Default.HtTrickConnectionString;
+            m_cnConnection.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=|dataDirectory|\\HtTrick.mdb";
         }
 
         static private void Connect()

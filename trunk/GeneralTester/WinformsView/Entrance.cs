@@ -103,7 +103,10 @@ namespace HatTrick.Views.WinformsView
         private void Entrance_Load(object sender, EventArgs e)
         {
             txtUsername.Focus();
-            btnLogin_Click(sender, e);
+            // Uncomment for "auto login"
+            //txtUsername.Text = "oron";
+            //txtPassword.Text = "oron";
+            //btnLogin_Click(sender, e);
 
         }
     }
