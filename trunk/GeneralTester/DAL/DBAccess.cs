@@ -545,8 +545,15 @@ namespace HatTrick.DAL
                 Connect();
 
                 cmdCommand.CommandText = "SELECT max(leagueid) FROM league";
-
-                return (int)cmdCommand.ExecuteScalar();
+                object obj = cmdCommand.ExecuteScalar();
+                if (obj == DBNull.Value)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return (int)obj;
+                }
             }
             catch 
             {
@@ -1106,6 +1113,37 @@ namespace HatTrick.DAL
                 Close();
             }
            
+        }
+
+        public static void DeleteLeague()
+        {
+            try
+            {
+                OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+                Connect();
+                OleDbTransaction t = m_cnConnection.BeginTransaction();
+                cmdCommand.Transaction = t;
+                try
+                {
+
+                    cmdCommand.CommandText = string.Format("DELETE * FROM Cycles");
+                    cmdCommand.ExecuteNonQuery();
+                    cmdCommand.CommandText = string.Format("DELETE * FROM League");
+                    cmdCommand.ExecuteNonQuery();
+                    cmdCommand.CommandText = string.Format("DELETE * FROM Games");
+                    cmdCommand.ExecuteNonQuery();
+
+                    t.Commit();
+                }
+                catch
+                {
+                    t.Rollback();
+                }
+            }
+            finally
+            {
+                Close();
+            }
         }
     }
 }

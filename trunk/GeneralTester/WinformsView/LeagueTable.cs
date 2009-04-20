@@ -24,7 +24,18 @@ namespace HatTrick.Views.WinformsView
             InitializeComponent();
         }
 
+        public void UpdateLeagueTable(DataView leagueTable)
+        {
+            LeagueTable = leagueTable;
+            UpdateTableGrid();
+        }
+
         private void LeagueTable_Load(object sender, EventArgs e)
+        {
+            UpdateTableGrid();
+        }
+
+        private void UpdateTableGrid()
         {
             dataGridView1.DataSource = LeagueTable;
         }

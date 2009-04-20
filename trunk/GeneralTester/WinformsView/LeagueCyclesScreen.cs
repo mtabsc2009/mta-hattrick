@@ -32,6 +32,11 @@ namespace HatTrick.Views.WinformsView
 
         private void LeagueCyclesScreen_Load(object sender, EventArgs e)
         {
+            RefreshCyclesGrid();
+        }
+
+        public void RefreshCyclesGrid()
+        {
             if (Team != null)
             {
                 groupBox1.Hide();
@@ -48,7 +53,7 @@ namespace HatTrick.Views.WinformsView
 
                 dgCycleGames.AutoGenerateColumns = false;
                 int nLastCycle = 0;
-
+                lstCycles.Items.Clear();
                 foreach (CycleGame cgCurr in lstGames)
                 {
                     if (nLastCycle != cgCurr.CycleNum)

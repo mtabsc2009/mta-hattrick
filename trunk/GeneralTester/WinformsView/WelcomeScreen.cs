@@ -30,7 +30,16 @@ namespace HatTrick.Views.WinformsView
             {
                 Show();
                 LoadWelcome();
+                LoadTeams();
                 leagueTableToolStripMenuItem_Click(sender, e);
+            }
+        }
+
+        private void LoadTeams()
+        {
+            foreach (Team team in Game.Teams.Values.Where(T => T.Name != Game.MyTeam.Name))
+            {
+                toolStripComboBox1.Items.Add(team);
             }
         }
 
@@ -127,13 +136,13 @@ namespace HatTrick.Views.WinformsView
 
         private void playToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (againstToolStripMenuItem.TextBox.Text == string.Empty)
+            if (toolStripComboBox1.Text == string.Empty)
             {
-                MessageBox.Show("Enter team name");
+                MessageBox.Show("Choose Team");
             }
             else
             {
-                GameStory gsStory = Game.MatchTeams(Game.MyTeam.Name, againstToolStripMenuItem.TextBox.Text);
+                GameStory gsStory = Game.MatchTeams(Game.MyTeam.Name, toolStripComboBox1.Text);
                 if (gsStory == null)
                 {
                     MessageBox.Show("No such team");
@@ -227,10 +236,60 @@ namespace HatTrick.Views.WinformsView
 
         private void playCycleToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (!Game.LeagueExists)
+            {
+                if (DialogResult.Yes == MessageBox.Show("Cannot run a cycle" + Environment.NewLine + "There is no league" + Environment.NewLine + "Do you want to create a new league?", "Run cycle", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+                {
+                    Game.CreateNewLeague();
+                    PlayCycle();
+                }
+            }
+            else
+            {
+                PlayCycle();
+            }
+        }
+
+        private void PlayCycle()
+        {
             Game.PlayNextCycle();
+            MessageBox.Show("A new cycle has been played", "Run Cycle", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            UpdateForms();
+        }
+
+        private void UpdateForms()
+        {
+            foreach (Form frm in this.MdiChildren)
+            {
+                if (frm is LeagueTableDisplay)
+                {
+                    LeagueTableDisplay frml = frm as LeagueTableDisplay;
+                    frml.UpdateLeagueTable(Game.GetLeague());
+                }
+                else if (frm is LeagueCyclesScreen)
+                {
+                    (frm as LeagueCyclesScreen).RefreshCyclesGrid();
+                }
+            }
         }
 
         private void leagueCyclesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Game.LeagueExists)
+            {
+                OpenLeagueCyclesScreen();
+            }
+            else
+            {
+                if (DialogResult.Yes == MessageBox.Show("There is no league" + Environment.NewLine + "Do you want to create a new league?", "Run cycle", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+                {
+                    Game.CreateNewLeague();
+                    OpenLeagueCyclesScreen();
+                }
+            }
+        }
+
+        private void OpenLeagueCyclesScreen()
         {
             LeagueCyclesScreen frmGameStory = new LeagueCyclesScreen();
             frmGameStory.MdiParent = this;
@@ -271,6 +330,42 @@ namespace HatTrick.Views.WinformsView
             foreach (Form frm in this.MdiChildren)
             {
                 frm.Close();
+            }
+        }
+
+        private void resetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(
+                "Are you sure you want to delete the current league and start a new one?",
+                "Create new league",
+                 MessageBoxButtons.YesNo,
+                  MessageBoxIcon.Warning,
+                   MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            {
+                if (Game.Teams.Count % 2 != 0)
+                {
+                    MessageBox.Show("Cannot create new league" + Environment.NewLine + "There is an odd number of teams", "Create new league", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    Game.CreateNewLeague();
+                    UpdateForms();
+                    MessageBox.Show("New league has been created", "Create new league", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(
+                "Are you sure you want to delete the current league?",
+                "Delete league",
+                 MessageBoxButtons.YesNo,
+                  MessageBoxIcon.Warning,
+                   MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            {
+                Game.DeleteLeague();
+                MessageBox.Show("The league has been deleted", "Delete league", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }
