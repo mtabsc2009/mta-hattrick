@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TeamScreen));
             this.button1 = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -69,7 +69,6 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -77,25 +76,17 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(781, 6);
+            this.button1.Location = new System.Drawing.Point(6, 393);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(92, 27);
+            this.button1.Size = new System.Drawing.Size(121, 27);
             this.button1.TabIndex = 0;
             this.button1.Text = "Close";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.button1);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 386);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(876, 37);
-            this.panel2.TabIndex = 4;
-            // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.button1);
             this.panel3.Controls.Add(this.label3);
             this.panel3.Controls.Add(this.label2);
             this.panel3.Controls.Add(this.cmbTraining);
@@ -105,7 +96,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel3.Location = new System.Drawing.Point(746, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(130, 386);
+            this.panel3.Size = new System.Drawing.Size(130, 423);
             this.panel3.TabIndex = 7;
             // 
             // label3
@@ -138,7 +129,7 @@
             "Set Pieces"});
             this.cmbTraining.Location = new System.Drawing.Point(6, 67);
             this.cmbTraining.Name = "cmbTraining";
-            this.cmbTraining.Size = new System.Drawing.Size(112, 21);
+            this.cmbTraining.Size = new System.Drawing.Size(121, 21);
             this.cmbTraining.TabIndex = 5;
             this.cmbTraining.SelectionChangeCommitted += new System.EventHandler(this.cmbTraining_SelectionChangeCommitted);
             // 
@@ -157,7 +148,7 @@
             this.cmbFormation.FormattingEnabled = true;
             this.cmbFormation.Location = new System.Drawing.Point(6, 22);
             this.cmbFormation.Name = "cmbFormation";
-            this.cmbFormation.Size = new System.Drawing.Size(112, 21);
+            this.cmbFormation.Size = new System.Drawing.Size(121, 21);
             this.cmbFormation.TabIndex = 2;
             this.cmbFormation.SelectionChangeCommitted += new System.EventHandler(this.cmbFormation_SelectionChangeCommitted);
             // 
@@ -166,9 +157,9 @@
             this.lstPlayers.AllowDrop = true;
             this.lstPlayers.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lstPlayers.FormattingEnabled = true;
-            this.lstPlayers.Location = new System.Drawing.Point(6, 109);
+            this.lstPlayers.Location = new System.Drawing.Point(6, 111);
             this.lstPlayers.Name = "lstPlayers";
-            this.lstPlayers.Size = new System.Drawing.Size(111, 277);
+            this.lstPlayers.Size = new System.Drawing.Size(121, 277);
             this.lstPlayers.TabIndex = 3;
             this.lstPlayers.SelectedIndexChanged += new System.EventHandler(this.lstPlayers_SelectedIndexChanged);
             this.lstPlayers.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstPlayers_MouseDown);
@@ -212,7 +203,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(746, 386);
+            this.panel1.Size = new System.Drawing.Size(746, 423);
             this.panel1.TabIndex = 8;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             this.panel1.MouseEnter += new System.EventHandler(this.btnPlayer_MouseLeave);
@@ -617,13 +608,12 @@
             this.ClientSize = new System.Drawing.Size(876, 423);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel3);
-            this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "TeamScreen";
             this.Text = "Team";
             this.Load += new System.EventHandler(this.TeamScreen_Load);
-            this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -635,7 +625,6 @@
         #endregion
 
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.ComboBox cmbFormation;
         private System.Windows.Forms.ListBox lstPlayers;

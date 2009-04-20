@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WelcomeScreen));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logOffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -97,6 +98,7 @@
             // 
             // logOffToolStripMenuItem
             // 
+            this.logOffToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("logOffToolStripMenuItem.Image")));
             this.logOffToolStripMenuItem.Name = "logOffToolStripMenuItem";
             this.logOffToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.logOffToolStripMenuItem.Text = "Log off";
@@ -109,6 +111,7 @@
             // 
             // exitToolStripMenuItem
             // 
+            this.exitToolStripMenuItem.Image = global::HatTrick.Views.WinformsView.Properties.Resources.Shutdown_32;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.exitToolStripMenuItem.Text = "Exit";
@@ -129,6 +132,7 @@
             // 
             // teamFormationToolStripMenuItem
             // 
+            this.teamFormationToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("teamFormationToolStripMenuItem.Image")));
             this.teamFormationToolStripMenuItem.Name = "teamFormationToolStripMenuItem";
             this.teamFormationToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.teamFormationToolStripMenuItem.Text = "Manage Team";
@@ -136,6 +140,7 @@
             // 
             // buyPlayerToolStripMenuItem1
             // 
+            this.buyPlayerToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("buyPlayerToolStripMenuItem1.Image")));
             this.buyPlayerToolStripMenuItem1.Name = "buyPlayerToolStripMenuItem1";
             this.buyPlayerToolStripMenuItem1.Size = new System.Drawing.Size(162, 22);
             this.buyPlayerToolStripMenuItem1.Text = "Buy Player";
@@ -253,6 +258,7 @@
             // 
             // playCycleToolStripMenuItem
             // 
+            this.playCycleToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("playCycleToolStripMenuItem.Image")));
             this.playCycleToolStripMenuItem.Name = "playCycleToolStripMenuItem";
             this.playCycleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.playCycleToolStripMenuItem.Text = "Play Cycle";
@@ -260,6 +266,7 @@
             // 
             // leagueTableToolStripMenuItem
             // 
+            this.leagueTableToolStripMenuItem.Image = global::HatTrick.Views.WinformsView.Properties.Resources.תמונה1;
             this.leagueTableToolStripMenuItem.Name = "leagueTableToolStripMenuItem";
             this.leagueTableToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.leagueTableToolStripMenuItem.Text = "League Table";
@@ -267,6 +274,7 @@
             // 
             // leagueCyclesToolStripMenuItem
             // 
+            this.leagueCyclesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("leagueCyclesToolStripMenuItem.Image")));
             this.leagueCyclesToolStripMenuItem.Name = "leagueCyclesToolStripMenuItem";
             this.leagueCyclesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.leagueCyclesToolStripMenuItem.Text = "League Cycles";
@@ -382,7 +390,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::HatTrick.Views.WinformsView.Properties.Resources.תמונה1;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(908, 628);
             this.Controls.Add(this.menuStrip1);
             this.DoubleBuffered = true;
