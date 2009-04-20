@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LeagueCyclesScreen));
             this.lstCycles = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -144,6 +145,7 @@
             this.ClientSize = new System.Drawing.Size(718, 212);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LeagueCyclesScreen";
             this.Text = "League Cycles";
             this.Load += new System.EventHandler(this.LeagueCyclesScreen_Load);
