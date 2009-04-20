@@ -16,7 +16,7 @@
     <ManifestCertificateThumbprint>CCF7F6257483F95A2494AD0AC37FF9D574CD8A56</ManifestCertificateThumbprint>
     <ManifestKeyFile>WinformsMainProgram_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <PublishUrl>http://localhost/Hattrick/</PublishUrl>
     <Install>true</Install>

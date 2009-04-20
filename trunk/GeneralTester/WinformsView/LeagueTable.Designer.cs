@@ -40,16 +40,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.position = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.teamname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MatchesPlayed = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.wins = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.draws = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.loses = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.goalsfor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.goalsagains = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Diff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.points = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmTeamMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.showTeamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showMatchesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,6 +47,16 @@
             this.btnTeam = new System.Windows.Forms.Button();
             this.btnMatches = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
+            this.position = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.teamname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MatchesPlayed = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.wins = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.draws = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.loses = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.goalsfor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.goalsagainst = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Diff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.points = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.cmTeamMenu.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -83,7 +83,7 @@
             this.draws,
             this.loses,
             this.goalsfor,
-            this.goalsagains,
+            this.goalsagainst,
             this.Diff,
             this.points});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -101,103 +101,6 @@
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             this.dataGridView1.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridView1_DataBindingComplete);
             this.dataGridView1.DataSourceChanged += new System.EventHandler(this.dataGridView1_DataSourceChanged);
-            // 
-            // position
-            // 
-            this.position.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.position.HeaderText = " ";
-            this.position.Name = "position";
-            this.position.ReadOnly = true;
-            this.position.Width = 37;
-            // 
-            // teamname
-            // 
-            this.teamname.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.teamname.DefaultCellStyle = dataGridViewCellStyle2;
-            this.teamname.HeaderText = "Team Name";
-            this.teamname.Name = "teamname";
-            this.teamname.ReadOnly = true;
-            // 
-            // MatchesPlayed
-            // 
-            this.MatchesPlayed.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.MatchesPlayed.DefaultCellStyle = dataGridViewCellStyle3;
-            this.MatchesPlayed.HeaderText = "Matches";
-            this.MatchesPlayed.Name = "MatchesPlayed";
-            this.MatchesPlayed.ReadOnly = true;
-            this.MatchesPlayed.Width = 88;
-            // 
-            // wins
-            // 
-            this.wins.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.wins.DefaultCellStyle = dataGridViewCellStyle4;
-            this.wins.HeaderText = "w";
-            this.wins.Name = "wins";
-            this.wins.ReadOnly = true;
-            this.wins.Width = 44;
-            // 
-            // draws
-            // 
-            this.draws.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.draws.DefaultCellStyle = dataGridViewCellStyle5;
-            this.draws.HeaderText = "d";
-            this.draws.Name = "draws";
-            this.draws.ReadOnly = true;
-            this.draws.Width = 41;
-            // 
-            // loses
-            // 
-            this.loses.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.loses.DefaultCellStyle = dataGridViewCellStyle6;
-            this.loses.HeaderText = "l";
-            this.loses.Name = "loses";
-            this.loses.ReadOnly = true;
-            this.loses.Width = 36;
-            // 
-            // goalsfor
-            // 
-            this.goalsfor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.goalsfor.DefaultCellStyle = dataGridViewCellStyle7;
-            this.goalsfor.HeaderText = "gf";
-            this.goalsfor.Name = "goalsfor";
-            this.goalsfor.ReadOnly = true;
-            this.goalsfor.Width = 46;
-            // 
-            // goalsagains
-            // 
-            this.goalsagains.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.goalsagains.DefaultCellStyle = dataGridViewCellStyle8;
-            this.goalsagains.HeaderText = "ga";
-            this.goalsagains.Name = "goalsagains";
-            this.goalsagains.ReadOnly = true;
-            this.goalsagains.Width = 49;
-            // 
-            // Diff
-            // 
-            this.Diff.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Diff.DefaultCellStyle = dataGridViewCellStyle9;
-            this.Diff.HeaderText = "+-";
-            this.Diff.Name = "Diff";
-            this.Diff.ReadOnly = true;
-            this.Diff.Width = 50;
-            // 
-            // points
-            // 
-            this.points.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.points.DefaultCellStyle = dataGridViewCellStyle10;
-            this.points.HeaderText = "pts";
-            this.points.Name = "points";
-            this.points.ReadOnly = true;
-            this.points.Width = 54;
             // 
             // cmTeamMenu
             // 
@@ -267,6 +170,103 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // position
+            // 
+            this.position.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.position.HeaderText = " ";
+            this.position.Name = "position";
+            this.position.ReadOnly = true;
+            this.position.Width = 37;
+            // 
+            // teamname
+            // 
+            this.teamname.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.teamname.DefaultCellStyle = dataGridViewCellStyle2;
+            this.teamname.HeaderText = "Team Name";
+            this.teamname.Name = "teamname";
+            this.teamname.ReadOnly = true;
+            // 
+            // MatchesPlayed
+            // 
+            this.MatchesPlayed.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.MatchesPlayed.DefaultCellStyle = dataGridViewCellStyle3;
+            this.MatchesPlayed.HeaderText = "Matches";
+            this.MatchesPlayed.Name = "MatchesPlayed";
+            this.MatchesPlayed.ReadOnly = true;
+            this.MatchesPlayed.Width = 88;
+            // 
+            // wins
+            // 
+            this.wins.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.wins.DefaultCellStyle = dataGridViewCellStyle4;
+            this.wins.HeaderText = "w";
+            this.wins.Name = "wins";
+            this.wins.ReadOnly = true;
+            this.wins.Width = 44;
+            // 
+            // draws
+            // 
+            this.draws.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.draws.DefaultCellStyle = dataGridViewCellStyle5;
+            this.draws.HeaderText = "d";
+            this.draws.Name = "draws";
+            this.draws.ReadOnly = true;
+            this.draws.Width = 41;
+            // 
+            // loses
+            // 
+            this.loses.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.loses.DefaultCellStyle = dataGridViewCellStyle6;
+            this.loses.HeaderText = "l";
+            this.loses.Name = "loses";
+            this.loses.ReadOnly = true;
+            this.loses.Width = 36;
+            // 
+            // goalsfor
+            // 
+            this.goalsfor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.goalsfor.DefaultCellStyle = dataGridViewCellStyle7;
+            this.goalsfor.HeaderText = "gf";
+            this.goalsfor.Name = "goalsfor";
+            this.goalsfor.ReadOnly = true;
+            this.goalsfor.Width = 46;
+            // 
+            // goalsagainst
+            // 
+            this.goalsagainst.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.goalsagainst.DefaultCellStyle = dataGridViewCellStyle8;
+            this.goalsagainst.HeaderText = "ga";
+            this.goalsagainst.Name = "goalsagainst";
+            this.goalsagainst.ReadOnly = true;
+            this.goalsagainst.Width = 49;
+            // 
+            // Diff
+            // 
+            this.Diff.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Diff.DefaultCellStyle = dataGridViewCellStyle9;
+            this.Diff.HeaderText = "+-";
+            this.Diff.Name = "Diff";
+            this.Diff.ReadOnly = true;
+            this.Diff.Width = 50;
+            // 
+            // points
+            // 
+            this.points.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.points.DefaultCellStyle = dataGridViewCellStyle10;
+            this.points.HeaderText = "pts";
+            this.points.Name = "points";
+            this.points.ReadOnly = true;
+            this.points.Width = 54;
+            // 
             // LeagueTableDisplay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -289,16 +289,6 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn position;
-        private System.Windows.Forms.DataGridViewTextBoxColumn teamname;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MatchesPlayed;
-        private System.Windows.Forms.DataGridViewTextBoxColumn wins;
-        private System.Windows.Forms.DataGridViewTextBoxColumn draws;
-        private System.Windows.Forms.DataGridViewTextBoxColumn loses;
-        private System.Windows.Forms.DataGridViewTextBoxColumn goalsfor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn goalsagains;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Diff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn points;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnMatches;
@@ -306,5 +296,15 @@
         private System.Windows.Forms.ContextMenuStrip cmTeamMenu;
         private System.Windows.Forms.ToolStripMenuItem showTeamToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showMatchesToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn position;
+        private System.Windows.Forms.DataGridViewTextBoxColumn teamname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MatchesPlayed;
+        private System.Windows.Forms.DataGridViewTextBoxColumn wins;
+        private System.Windows.Forms.DataGridViewTextBoxColumn draws;
+        private System.Windows.Forms.DataGridViewTextBoxColumn loses;
+        private System.Windows.Forms.DataGridViewTextBoxColumn goalsfor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn goalsagainst;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Diff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn points;
     }
 }
