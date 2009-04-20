@@ -330,5 +330,9 @@ namespace HatTrick.Views.WinformsView
         {
             radioButton1.Checked = true;
         }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+        }
     }
 }

@@ -59,5 +59,12 @@ namespace HatTrick.Views.WinformsView.Properties {
                 resourceCulture = value;
             }
         }
+        
+        internal static System.Drawing.Bitmap תמונה1 {
+            get {
+                object obj = ResourceManager.GetObject("תמונה1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

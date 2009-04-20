@@ -4,13 +4,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{029C426D-0621-4AF8-B5D6-93A8BD793B41}</ProjectGuid>
+    <ProjectGuid>{8596AC61-34CD-4671-905A-834AE1EC2A1B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <StartupObject>
     </StartupObject>
     <NoStandardLibraries>false</NoStandardLibraries>
-    <AssemblyName>Project1</AssemblyName>
-    <RootNamespace>HatTrick</RootNamespace>
+    <AssemblyName>MtaAddIn</AssemblyName>
+    <RootNamespace>MtaAddIn</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -94,10 +94,10 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="C:\Documents and Settings\Home\My Documents\Visual Studio 2008\Addins\HatTrick - For Testing.AddIn">
-      <Link>HatTrick - For Testing.AddIn</Link>
+    <Content Include="C:\Users\EtayAdmin\Documents\Visual Studio 2008\Addins\MtaAddIn - For Testing.AddIn">
+      <Link>MtaAddIn - For Testing.AddIn</Link>
     </Content>
-    <Content Include="HatTrick.AddIn" />
+    <Content Include="MtaAddIn.AddIn" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WinformsView\WinformsView.csproj">
