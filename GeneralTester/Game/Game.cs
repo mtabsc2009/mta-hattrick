@@ -280,6 +280,7 @@ namespace HatTrick
 
         public static User Login(string strUsername, string strPassword)
         {
+            m_dicTeams = null;
             m_usrCurrent = HatTrick.DAL.DBAccess.GetUser(strUsername, strPassword);
             MyTeam = HatTrick.DAL.DBAccess.LoadTeam(User);
             return m_usrCurrent;
@@ -995,9 +996,17 @@ namespace HatTrick
             return DAL.DBAccess.DoesTeamExist(strTeamName);
         }
 
+        public static bool LeagueExists
+        {
+            get
+            {
+                return !(DAL.DBAccess.CheckShouldCreateNewLeague());
+            }
+        }
+
         public static DataView GetAllCycles()
         {
-            if (DAL.DBAccess.CheckShouldCreateNewLeague())
+            if (DAL.DBAccess.CheckShouldCreateNewLeague() && Teams.Count%2 == 0)
             {
                 CreateLeagueTable();
                 CreateNewLeagueCycles();
@@ -1047,6 +1056,17 @@ namespace HatTrick
         public static void UpdateSellPlayer(String strPlayerId, int intCost)
         {
             DAL.DBAccess.UpdateSellPlayer(strPlayerId, intCost);
+        }
+
+        public static void CreateNewLeague()
+        {
+            DeleteLeague();
+            GetAllCycles();
+        }
+
+        public static void DeleteLeague()
+        {
+            DAL.DBAccess.DeleteLeague();
         }
     }
 }
