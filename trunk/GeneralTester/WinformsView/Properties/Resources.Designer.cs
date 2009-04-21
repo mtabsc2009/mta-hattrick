@@ -60,6 +60,13 @@ namespace HatTrick.Views.WinformsView.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap field3 {
+            get {
+                object obj = ResourceManager.GetObject("field3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Shutdown_32 {
             get {
                 object obj = ResourceManager.GetObject("Shutdown-32", resourceCulture);

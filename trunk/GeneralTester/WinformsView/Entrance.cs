@@ -104,9 +104,9 @@ namespace HatTrick.Views.WinformsView
         {
             txtUsername.Focus();
             // Uncomment for "auto login"
-            txtUsername.Text = "oron";
-            txtPassword.Text = "oron";
-            btnLogin_Click(sender, e);
+            //txtUsername.Text = "oron";
+            //txtPassword.Text = "oron";
+            //btnLogin_Click(sender, e);
 
         }
     }

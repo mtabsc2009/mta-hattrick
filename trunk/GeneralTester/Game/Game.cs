@@ -131,10 +131,14 @@ namespace HatTrick
 
         public static Team CreateTeam(string strTeamName)
         {
-            tMyTeam = DAL.DBAccess.CreateTeam(User, strTeamName);
-            return tMyTeam;
+            return CreateTeam(User, strTeamName);
         }
 
+        public static Team CreateTeam(User usrUser, string strTeamName)
+        {
+            tMyTeam = DAL.DBAccess.CreateTeam(usrUser, strTeamName);
+            return tMyTeam;
+        }
 
         private static void CreateLeagueTable()
         {
@@ -1067,6 +1071,39 @@ namespace HatTrick
         public static void DeleteLeague()
         {
             DAL.DBAccess.DeleteLeague();
+        }
+
+        public static void CreateComputerTeam()
+        {
+            User usrNewUser = null;
+            try
+            {
+                string strUsername = string.Format("{1}{0}", Consts.GameRandom.Next(1, 100), COMPUTER_USER_PREFIX);
+                
+                if (Game.CreateUser(strUsername, strUsername))
+                {
+                    usrNewUser = new User(strUsername, strUsername);
+                    Game.CreateTeam(usrNewUser, string.Format("{1}{0}", Consts.GameRandom.Next(1, 100), COMPUTER_TEAM_PREFIX));
+                    m_dicTeams = null;
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        public static string COMPUTER_USER_PREFIX = "Hattricker-";
+        public static string COMPUTER_TEAM_PREFIX = "HatTeam-";
+
+        public static bool DoesComputerTeamExist()
+        {
+            return DAL.DBAccess.DoesTeamExistLike(COMPUTER_TEAM_PREFIX);
+        }
+
+        public static void DeleteComputerTeam()
+        {
+            DAL.DBAccess.DeleteComputerTeam(COMPUTER_TEAM_PREFIX, COMPUTER_USER_PREFIX);
+            m_dicTeams = null;
         }
     }
 }

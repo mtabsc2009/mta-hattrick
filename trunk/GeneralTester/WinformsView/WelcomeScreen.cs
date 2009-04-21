@@ -344,15 +344,47 @@ namespace HatTrick.Views.WinformsView
             {
                 if (Game.Teams.Count % 2 != 0)
                 {
-                    MessageBox.Show("Cannot create new league" + Environment.NewLine + "There is an odd number of teams", "Create new league", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    string strBaseMessage = "Cannot create new league" + Environment.NewLine + "There is an odd number of teams";
+                    string strAddition;
+                    string strMessage;
+
+                    bool bComputerTeamExists = Game.DoesComputerTeamExist();
+                    if (bComputerTeamExists)
+                    {
+                        strAddition = "There is a computer-dummy team, would you like to delete it and create the new league?";
+                    }
+                    else
+                    {
+                        strAddition = "Would you like to create a new computer-dummy team and create the new league?";
+                    }
+                    strMessage = strBaseMessage + Environment.NewLine + strAddition;
+                    DialogResult dr = MessageBox.Show(strMessage, "Create new league", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (dr == DialogResult.Yes)
+                    {
+                        if (bComputerTeamExists)
+                        {
+                            Game.DeleteComputerTeam();
+                        }
+                        else
+                        {
+                            Game.CreateComputerTeam();
+                        }
+
+                        CreateEmptyLeague();
+                    }
                 }
                 else
                 {
-                    Game.CreateNewLeague();
-                    UpdateForms();
-                    MessageBox.Show("New league has been created", "Create new league", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    CreateEmptyLeague();
                 }
             }
+        }
+
+        private void CreateEmptyLeague()
+        {
+            Game.CreateNewLeague();
+            UpdateForms();
+            MessageBox.Show("New league has been created", "Create new league", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)

@@ -355,6 +355,26 @@ namespace HatTrick.DAL
             }
         }
 
+        public static bool DoesTeamExistLike(string strLikeTeamName)
+        {
+            OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+
+            try
+            {
+                Connect();
+                cmdCommand.CommandText = string.Format("SELECT count(*) from teams where teamname like \"{0}%\"", strLikeTeamName);
+                int nCount = int.Parse(cmdCommand.ExecuteScalar().ToString());
+
+                return (nCount > 0);
+            }
+            finally
+            {
+                Close();
+            }
+        }
+
+
+
         public static bool DoesUserExist(string strUserName)
         {
             OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
@@ -1144,6 +1164,37 @@ namespace HatTrick.DAL
             {
                 Close();
             }
+        }
+
+        public static void DeleteComputerTeam(string COMPUTER_TEAM_PREFIX, string COMPUTER_USER_PREFIX)
+        {
+            try
+            {
+                OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
+                Connect();
+                OleDbTransaction t = m_cnConnection.BeginTransaction();
+                cmdCommand.Transaction = t;
+                try
+                {
+
+                    cmdCommand.CommandText = string.Format("DELETE * FROM Players WHERE PlayerTeam like \"{0}%\"", COMPUTER_TEAM_PREFIX);
+                    cmdCommand.ExecuteNonQuery();
+                    cmdCommand.CommandText = string.Format("DELETE * FROM Teams WHERE TeamName like \"{0}%\"", COMPUTER_TEAM_PREFIX);
+                    cmdCommand.ExecuteNonQuery();
+                    cmdCommand.CommandText = string.Format("DELETE * FROM Users WHERE UserName like \"{0}%\"", COMPUTER_USER_PREFIX);
+                    cmdCommand.ExecuteNonQuery();
+
+                    t.Commit();
+                }
+                catch
+                {
+                    t.Rollback();
+                }
+            }
+            finally
+            {
+                Close();
+            }            
         }
     }
 }
