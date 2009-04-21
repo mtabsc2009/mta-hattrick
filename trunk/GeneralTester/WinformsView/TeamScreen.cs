@@ -14,6 +14,9 @@ namespace HatTrick.Views.WinformsView
     {
         PlayerSkills frmPlayerSkills;
         public Team Team { get; set; }
+
+        private Control[] m_arrPlayers;
+
         private bool bIsMyTeam
         {
             get
@@ -25,11 +28,31 @@ namespace HatTrick.Views.WinformsView
         public TeamScreen()
         {
             InitializeComponent();
+
+            InitPlayersArray();
+
+
             this.Team = Game.MyTeam;
             frmPlayerSkills = new PlayerSkills();
             frmPlayerSkills.MdiParent = this.MdiParent;
             frmPlayerSkills.IsMyTeam = bIsMyTeam;
             
+        }
+
+        private void InitPlayersArray()
+        {
+            m_arrPlayers = new Control[11];
+            m_arrPlayers[0] = btnPlayer1;
+            m_arrPlayers[1] = btnPlayer2;
+            m_arrPlayers[2] = btnPlayer3;
+            m_arrPlayers[3] = btnPlayer4;
+            m_arrPlayers[4] = btnPlayer5;
+            m_arrPlayers[5] = btnPlayer6;
+            m_arrPlayers[6] = btnPlayer7;
+            m_arrPlayers[7] = btnPlayer8;
+            m_arrPlayers[8] = btnPlayer9;
+            m_arrPlayers[9] = btnPlayer10;
+            m_arrPlayers[10] = btnPlayer11;
         }
 
         public TeamScreen(Team tmTeam) : this()
@@ -66,7 +89,7 @@ namespace HatTrick.Views.WinformsView
                 cmbFormation.Enabled = false;
                 cmbTraining.Enabled = false;
                 lstPlayers.AllowDrop = false;
-                foreach (Control ctlCurr in panel1.Controls)
+                foreach (Control ctlCurr in pnlField.Controls)
                 {
                     if (ctlCurr is Button)
                     {
@@ -86,7 +109,7 @@ namespace HatTrick.Views.WinformsView
 
         private void SetPlayersName()
         {
-            foreach (Control ctlCurr in panel1.Controls)
+            foreach (Control ctlCurr in pnlField.Controls)
             {
                 if (ctlCurr is Button)
                 {
@@ -137,107 +160,191 @@ namespace HatTrick.Views.WinformsView
 
         private void SetFormationView()
         {
-            switch (cmbFormation.SelectedItem.ToString())
+            const int PLAYER_TOP_MARGIN = 5;
+            const int PLAYER_LEFT_MARGIN = 0;
+            const int PLAYER_RIGHT_MARGIN = 2;
+            const int FORMATION_ROWS = 4;
+
+            foreach (Control ctl in m_arrPlayers)
             {
-                case "4-4-2":
-                    {
-                        btnPlayer2.Location = new Point(41, 70);
-                        btnPlayer3.Location = new Point(217, 70);
-                        btnPlayer4.Location = new Point(401, 70);
-                        btnPlayer5.Location = new Point(586, 70);
-                        btnPlayer6.Location = new Point(41, 185);
-                        btnPlayer7.Location = new Point(217, 185);
-                        btnPlayer8.Location = new Point(401, 185);
-                        btnPlayer9.Location = new Point(586, 185);
-                        btnPlayer10.Location = new Point(138, 306);
-                        btnPlayer11.Location = new Point(469, 306);
-                        break;
-                    }
-                case "5-3-2":
-                    {
-                        btnPlayer2.Location = new Point(3, 70);
-                        btnPlayer3.Location = new Point(160, 70);
-                        btnPlayer4.Location = new Point(321, 70);
-                        btnPlayer5.Location = new Point(479, 70);
-                        btnPlayer6.Location = new Point(632, 70);
-                        btnPlayer7.Location = new Point(138, 191);
-                        btnPlayer8.Location = new Point(321, 191);
-                        btnPlayer9.Location = new Point(499, 191);
-                        btnPlayer10.Location = new Point(231, 300);
-                        btnPlayer11.Location = new Point(409, 300);
-                        break;
-                    }
-                case "5-4-1":
-                    {
-                        btnPlayer2.Location = new Point(3, 70);
-                        btnPlayer3.Location = new Point(160, 70);
-                        btnPlayer4.Location = new Point(321, 70);
-                        btnPlayer5.Location = new Point(479, 70);
-                        btnPlayer6.Location = new Point(632, 70);
-                        btnPlayer7.Location = new Point(41, 191);
-                        btnPlayer8.Location = new Point(217, 191);
-                        btnPlayer9.Location = new Point(401, 191);
-                        btnPlayer10.Location = new Point(586, 191);
-                        btnPlayer11.Location = new Point(321, 300);
-                        break;
-                    }
-                case "4-3-3":
-                    {
-                        btnPlayer2.Location = new Point(41, 70);
-                        btnPlayer3.Location = new Point(217, 70);
-                        btnPlayer4.Location = new Point(401, 70);
-                        btnPlayer5.Location = new Point(586, 70);
-                        btnPlayer6.Location = new Point(136, 191);
-                        btnPlayer7.Location = new Point(312, 191);
-                        btnPlayer8.Location = new Point(499, 191);
-                        btnPlayer9.Location = new Point(138, 300);
-                        btnPlayer10.Location = new Point(316, 300);
-                        btnPlayer11.Location = new Point(499, 300);
-                        break;
-                    }
-                case "4-5-1":
-                    {
-                        btnPlayer2.Location = new Point(41, 70);
-                        btnPlayer3.Location = new Point(217, 70);
-                        btnPlayer4.Location = new Point(401, 70);
-                        btnPlayer5.Location = new Point(586, 70);
-                        btnPlayer6.Location = new Point(3, 191);
-                        btnPlayer7.Location = new Point(160, 191);
-                        btnPlayer8.Location = new Point(321, 191);
-                        btnPlayer9.Location = new Point(479, 191);
-                        btnPlayer10.Location = new Point(632, 191);
-                        btnPlayer11.Location = new Point(321, 300);
-                        break;
-                    }
-                case "3-5-2":
-                    {
-                        btnPlayer2.Location = new Point(138, 70);
-                        btnPlayer3.Location = new Point(321, 70);
-                        btnPlayer4.Location = new Point(499, 70);
-                        btnPlayer5.Location = new Point(3, 191);
-                        btnPlayer6.Location = new Point(160, 191);
-                        btnPlayer7.Location = new Point(321, 191);
-                        btnPlayer8.Location = new Point(479, 191);
-                        btnPlayer9.Location = new Point(632, 191);
-                        btnPlayer10.Location = new Point(231, 300);
-                        btnPlayer11.Location = new Point(409, 300);
-                        break;
-                    }
-                case "3-4-3":
-                    {
-                        btnPlayer2.Location = new Point(138, 70);
-                        btnPlayer3.Location = new Point(321, 70);
-                        btnPlayer4.Location = new Point(499, 70);
-                        btnPlayer5.Location = new Point(41, 191);
-                        btnPlayer6.Location = new Point(217, 191);
-                        btnPlayer7.Location = new Point(401, 191);
-                        btnPlayer8.Location = new Point(586, 191);
-                        btnPlayer9.Location = new Point(138, 300);
-                        btnPlayer10.Location = new Point(316, 300);
-                        btnPlayer11.Location = new Point(499, 300);
-                        break;
-                    }
+                ctl.SuspendLayout();
             }
+
+            pnlField.SuspendLayout();
+            this.SuspendLayout();
+
+            int nPlayerWidth = btnPlayer1.Width;
+            int nPlayerHeight = btnPlayer1.Height;
+
+            TeamFormation formation = new TeamFormation(cmbFormation.SelectedItem.ToString());
+
+            btnPlayer1.Top = PLAYER_TOP_MARGIN;
+            btnPlayer1.Left = (pnlField.Width - btnPlayer1.Width) / 2;
+
+            int nHeightOffset = (pnlField.Height - (nPlayerHeight + PLAYER_TOP_MARGIN) * FORMATION_ROWS) /
+(FORMATION_ROWS - 1) + nPlayerHeight;
+                //(pnlField.Height - nPlayerHeight) / FORMATION_ROWS;
+
+
+            int nHeightMargin = 
+                (pnlField.Height - (nPlayerHeight + PLAYER_TOP_MARGIN) * FORMATION_ROWS) / (FORMATION_ROWS + 1);
+            nHeightMargin = 0;
+            nHeightOffset += nHeightMargin;
+
+            int nDefenceOffset = 
+                (pnlField.Width - (nPlayerWidth + PLAYER_LEFT_MARGIN) * formation.Defence) / 
+                (formation.Defence-1) + nPlayerWidth;
+            int nIndexOffset = 1;
+            for (int nCurrDefencePlayer = 0; nCurrDefencePlayer < formation.Defence; nCurrDefencePlayer++)
+            {
+                m_arrPlayers[nCurrDefencePlayer + nIndexOffset].Left = nDefenceOffset * nCurrDefencePlayer;
+                m_arrPlayers[nCurrDefencePlayer + nIndexOffset].Top = nHeightOffset * 1;
+
+            }
+
+            int nMiddleFieldMargin = 
+                (pnlField.Width - (nPlayerWidth + PLAYER_LEFT_MARGIN) * (formation.MiddleField)) / 
+                (formation.MiddleField+1);
+            nIndexOffset = 1 + formation.Defence;
+            for (int nCurrMiddleFieldPlayer = 0; 
+                nCurrMiddleFieldPlayer < formation.MiddleField; 
+                nCurrMiddleFieldPlayer++)
+            {
+                m_arrPlayers[nCurrMiddleFieldPlayer + nIndexOffset].Left = nMiddleFieldMargin * (nCurrMiddleFieldPlayer + 1) + nCurrMiddleFieldPlayer * nPlayerWidth ;
+                m_arrPlayers[nCurrMiddleFieldPlayer + nIndexOffset].Top = nHeightOffset * 2;
+
+            }
+
+            int nOffenceMargin =
+                (pnlField.Width - (nPlayerWidth + PLAYER_LEFT_MARGIN) * (formation.Offence)) /
+                (formation.Offence + 1);            //nOffenceMargin = 0;
+            nIndexOffset = 1 + formation.Defence + formation.MiddleField;
+            for (int nCurrOffencePlayer = 0; 
+                nCurrOffencePlayer < formation.Offence; 
+                nCurrOffencePlayer++)
+            {
+                m_arrPlayers[nCurrOffencePlayer + nIndexOffset].Left = nOffenceMargin * (nCurrOffencePlayer + 1) + nCurrOffencePlayer * nPlayerWidth;
+                m_arrPlayers[nCurrOffencePlayer + nIndexOffset].Top = nHeightOffset * 3;
+
+            }
+
+            foreach (Control ctl in m_arrPlayers)
+            {
+                ctl.ForeColor = Color.White;
+                (ctl as Button).FlatStyle = FlatStyle.Popup;
+                ctl.Font = new Font(ctl.Font, FontStyle.Bold);
+                ctl.ResumeLayout();
+            }
+
+            
+            pnlField.ResumeLayout();
+            this.ResumeLayout();
+
+        }
+
+        private void OldFormationView()
+        {
+            //switch (cmbFormation.SelectedItem.ToString())
+            //{
+            //    case "4-4-2":
+            //        {
+            //            btnPlayer2.Location = new Point(41, 70);
+            //            btnPlayer3.Location = new Point(217, 70);
+            //            btnPlayer4.Location = new Point(401, 70);
+            //            btnPlayer5.Location = new Point(586, 70);
+            //            btnPlayer6.Location = new Point(41, 185);
+            //            btnPlayer7.Location = new Point(217, 185);
+            //            btnPlayer8.Location = new Point(401, 185);
+            //            btnPlayer9.Location = new Point(586, 185);
+            //            btnPlayer10.Location = new Point(138, 306);
+            //            btnPlayer11.Location = new Point(469, 306);
+            //            break;
+            //        }
+            //    case "5-3-2":
+            //        {
+            //            btnPlayer2.Location = new Point(3, 70);
+            //            btnPlayer3.Location = new Point(160, 70);
+            //            btnPlayer4.Location = new Point(321, 70);
+            //            btnPlayer5.Location = new Point(479, 70);
+            //            btnPlayer6.Location = new Point(632, 70);
+            //            btnPlayer7.Location = new Point(138, 191);
+            //            btnPlayer8.Location = new Point(321, 191);
+            //            btnPlayer9.Location = new Point(499, 191);
+            //            btnPlayer10.Location = new Point(231, 300);
+            //            btnPlayer11.Location = new Point(409, 300);
+            //            break;
+            //        }
+            //    case "5-4-1":
+            //        {
+            //            btnPlayer2.Location = new Point(3, 70);
+            //            btnPlayer3.Location = new Point(160, 70);
+            //            btnPlayer4.Location = new Point(321, 70);
+            //            btnPlayer5.Location = new Point(479, 70);
+            //            btnPlayer6.Location = new Point(632, 70);
+            //            btnPlayer7.Location = new Point(41, 191);
+            //            btnPlayer8.Location = new Point(217, 191);
+            //            btnPlayer9.Location = new Point(401, 191);
+            //            btnPlayer10.Location = new Point(586, 191);
+            //            btnPlayer11.Location = new Point(321, 300);
+            //            break;
+            //        }
+            //    case "4-3-3":
+            //        {
+            //            btnPlayer2.Location = new Point(41, 70);
+            //            btnPlayer3.Location = new Point(217, 70);
+            //            btnPlayer4.Location = new Point(401, 70);
+            //            btnPlayer5.Location = new Point(586, 70);
+            //            btnPlayer6.Location = new Point(136, 191);
+            //            btnPlayer7.Location = new Point(312, 191);
+            //            btnPlayer8.Location = new Point(499, 191);
+            //            btnPlayer9.Location = new Point(138, 300);
+            //            btnPlayer10.Location = new Point(316, 300);
+            //            btnPlayer11.Location = new Point(499, 300);
+            //            break;
+            //        }
+            //    case "4-5-1":
+            //        {
+            //            btnPlayer2.Location = new Point(41, 70);
+            //            btnPlayer3.Location = new Point(217, 70);
+            //            btnPlayer4.Location = new Point(401, 70);
+            //            btnPlayer5.Location = new Point(586, 70);
+            //            btnPlayer6.Location = new Point(3, 191);
+            //            btnPlayer7.Location = new Point(160, 191);
+            //            btnPlayer8.Location = new Point(321, 191);
+            //            btnPlayer9.Location = new Point(479, 191);
+            //            btnPlayer10.Location = new Point(632, 191);
+            //            btnPlayer11.Location = new Point(321, 300);
+            //            break;
+            //        }
+            //    case "3-5-2":
+            //        {
+            //            btnPlayer2.Location = new Point(138, 70);
+            //            btnPlayer3.Location = new Point(321, 70);
+            //            btnPlayer4.Location = new Point(499, 70);
+            //            btnPlayer5.Location = new Point(3, 191);
+            //            btnPlayer6.Location = new Point(160, 191);
+            //            btnPlayer7.Location = new Point(321, 191);
+            //            btnPlayer8.Location = new Point(479, 191);
+            //            btnPlayer9.Location = new Point(632, 191);
+            //            btnPlayer10.Location = new Point(231, 300);
+            //            btnPlayer11.Location = new Point(409, 300);
+            //            break;
+            //        }
+            //    case "3-4-3":
+            //        {
+            //            btnPlayer2.Location = new Point(138, 70);
+            //            btnPlayer3.Location = new Point(321, 70);
+            //            btnPlayer4.Location = new Point(499, 70);
+            //            btnPlayer5.Location = new Point(41, 191);
+            //            btnPlayer6.Location = new Point(217, 191);
+            //            btnPlayer7.Location = new Point(401, 191);
+            //            btnPlayer8.Location = new Point(586, 191);
+            //            btnPlayer9.Location = new Point(138, 300);
+            //            btnPlayer10.Location = new Point(316, 300);
+            //            btnPlayer11.Location = new Point(499, 300);
+            //            break;
+            //        }
+            //}
         }
 
         private void btnPlayer_MouseHover(object sender, EventArgs e)
@@ -326,13 +433,9 @@ namespace HatTrick.Views.WinformsView
             Game.ChangeTeamTrainngType(((Consts.TrainingType)(nTrainingType)));
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        private void TeamScreen_ResizeEnd(object sender, EventArgs e)
         {
-            radioButton1.Checked = true;
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
+            SetFormationView();
         }
     }
 }

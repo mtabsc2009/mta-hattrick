@@ -67,6 +67,27 @@ namespace HatTrick.Views.WinformsView.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap soccer_5_32 {
+            get {
+                object obj = ResourceManager.GetObject("soccer_5_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap soccer_5_48 {
+            get {
+                object obj = ResourceManager.GetObject("soccer_5_48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap soccer_5_64 {
+            get {
+                object obj = ResourceManager.GetObject("soccer_5_64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap תמונה1 {
             get {
                 object obj = ResourceManager.GetObject("תמונה1", resourceCulture);
