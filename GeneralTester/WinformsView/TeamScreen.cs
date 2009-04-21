@@ -168,11 +168,6 @@ namespace HatTrick.Views.WinformsView
 
             Image imgBack = this.pnlField.BackgroundImage;
             this.pnlField.BackgroundImage = null;
-            foreach (Control ctl in m_arrPlayers)
-            {
-                ctl.SuspendLayout();
-            }
-
             pnlField.SuspendLayout();
             this.SuspendLayout();
 
@@ -231,20 +226,7 @@ namespace HatTrick.Views.WinformsView
 
             }
 
-            foreach (Control ctl in m_arrPlayers)
-            {
-                ctl.ForeColor = Color.White;
-                ctl.Font = new Font(ctl.Font, FontStyle.Bold);
-
-                (ctl as Button).FlatStyle = FlatStyle.Flat;
-                (ctl as Button).FlatAppearance.MouseOverBackColor = Color.Transparent;
-
-
-                ctl.ResumeLayout();
-            }
-
             this.pnlField.BackgroundImage = imgBack;
-            
             pnlField.ResumeLayout();
             this.ResumeLayout();
 
@@ -359,10 +341,14 @@ namespace HatTrick.Views.WinformsView
         {
             int offest = -4;
             Button bPlayer = sender as Button;
-            bPlayer.FlatAppearance.BorderSize = 1;
             frmPlayerSkills.Player = Team.Players.Where(T => T.Name == bPlayer.Text).First();
             Point p = this.PointToScreen(bPlayer.Location);
             frmPlayerSkills.Location = new Point(MousePosition.X + offest*3, p.Y + bPlayer.Height + offest);
+            if (m_btnLastFocused != null)
+            {
+                m_btnLastFocused.FlatAppearance.BorderSize = 0;
+            }
+            bPlayer.FlatAppearance.BorderSize = 1;
             m_btnLastFocused = bPlayer;
             frmPlayerSkills.Show();
         }

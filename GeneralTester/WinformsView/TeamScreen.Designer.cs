@@ -155,7 +155,7 @@
             // pnlField
             // 
             this.pnlField.BackColor = System.Drawing.Color.Transparent;
-            this.pnlField.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlField.BackgroundImage")));
+            this.pnlField.BackgroundImage = global::HatTrick.Views.WinformsView.Properties.Resources.field3;
             this.pnlField.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pnlField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlField.Controls.Add(this.btnPlayer10);
@@ -181,7 +181,10 @@
             this.btnPlayer10.AllowDrop = true;
             this.btnPlayer10.BackColor = System.Drawing.Color.Transparent;
             this.btnPlayer10.FlatAppearance.BorderSize = 0;
+            this.btnPlayer10.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnPlayer10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPlayer10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnPlayer10.ForeColor = System.Drawing.Color.White;
             this.btnPlayer10.Image = ((System.Drawing.Image)(resources.GetObject("btnPlayer10.Image")));
             this.btnPlayer10.Location = new System.Drawing.Point(160, 255);
             this.btnPlayer10.Name = "btnPlayer10";
@@ -202,7 +205,10 @@
             this.btnPlayer9.AllowDrop = true;
             this.btnPlayer9.BackColor = System.Drawing.Color.Transparent;
             this.btnPlayer9.FlatAppearance.BorderSize = 0;
+            this.btnPlayer9.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnPlayer9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPlayer9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnPlayer9.ForeColor = System.Drawing.Color.White;
             this.btnPlayer9.Image = ((System.Drawing.Image)(resources.GetObject("btnPlayer9.Image")));
             this.btnPlayer9.Location = new System.Drawing.Point(499, 191);
             this.btnPlayer9.Name = "btnPlayer9";
@@ -223,7 +229,10 @@
             this.btnPlayer11.AllowDrop = true;
             this.btnPlayer11.BackColor = System.Drawing.Color.Transparent;
             this.btnPlayer11.FlatAppearance.BorderSize = 0;
+            this.btnPlayer11.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnPlayer11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPlayer11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnPlayer11.ForeColor = System.Drawing.Color.White;
             this.btnPlayer11.Image = ((System.Drawing.Image)(resources.GetObject("btnPlayer11.Image")));
             this.btnPlayer11.Location = new System.Drawing.Point(321, 268);
             this.btnPlayer11.Name = "btnPlayer11";
@@ -244,7 +253,10 @@
             this.btnPlayer7.AllowDrop = true;
             this.btnPlayer7.BackColor = System.Drawing.Color.Transparent;
             this.btnPlayer7.FlatAppearance.BorderSize = 0;
+            this.btnPlayer7.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnPlayer7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPlayer7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnPlayer7.ForeColor = System.Drawing.Color.White;
             this.btnPlayer7.Image = ((System.Drawing.Image)(resources.GetObject("btnPlayer7.Image")));
             this.btnPlayer7.Location = new System.Drawing.Point(138, 191);
             this.btnPlayer7.Name = "btnPlayer7";
@@ -265,7 +277,10 @@
             this.btnPlayer8.AllowDrop = true;
             this.btnPlayer8.BackColor = System.Drawing.Color.Transparent;
             this.btnPlayer8.FlatAppearance.BorderSize = 0;
+            this.btnPlayer8.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnPlayer8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPlayer8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnPlayer8.ForeColor = System.Drawing.Color.White;
             this.btnPlayer8.Image = ((System.Drawing.Image)(resources.GetObject("btnPlayer8.Image")));
             this.btnPlayer8.Location = new System.Drawing.Point(516, 279);
             this.btnPlayer8.Name = "btnPlayer8";
@@ -286,7 +301,10 @@
             this.btnPlayer5.AllowDrop = true;
             this.btnPlayer5.BackColor = System.Drawing.Color.Transparent;
             this.btnPlayer5.FlatAppearance.BorderSize = 0;
+            this.btnPlayer5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnPlayer5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPlayer5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnPlayer5.ForeColor = System.Drawing.Color.White;
             this.btnPlayer5.Image = ((System.Drawing.Image)(resources.GetObject("btnPlayer5.Image")));
             this.btnPlayer5.Location = new System.Drawing.Point(479, 70);
             this.btnPlayer5.Name = "btnPlayer5";
@@ -307,7 +325,10 @@
             this.btnPlayer4.AllowDrop = true;
             this.btnPlayer4.BackColor = System.Drawing.Color.Transparent;
             this.btnPlayer4.FlatAppearance.BorderSize = 0;
-            this.btnPlayer4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnPlayer4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btnPlayer4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPlayer4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnPlayer4.ForeColor = System.Drawing.Color.White;
             this.btnPlayer4.Image = ((System.Drawing.Image)(resources.GetObject("btnPlayer4.Image")));
             this.btnPlayer4.Location = new System.Drawing.Point(321, 70);
             this.btnPlayer4.Name = "btnPlayer4";
@@ -328,7 +349,10 @@
             this.btnPlayer6.AllowDrop = true;
             this.btnPlayer6.BackColor = System.Drawing.Color.Transparent;
             this.btnPlayer6.FlatAppearance.BorderSize = 0;
+            this.btnPlayer6.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnPlayer6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPlayer6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnPlayer6.ForeColor = System.Drawing.Color.White;
             this.btnPlayer6.Image = ((System.Drawing.Image)(resources.GetObject("btnPlayer6.Image")));
             this.btnPlayer6.Location = new System.Drawing.Point(632, 70);
             this.btnPlayer6.Name = "btnPlayer6";
@@ -349,7 +373,10 @@
             this.btnPlayer3.AllowDrop = true;
             this.btnPlayer3.BackColor = System.Drawing.Color.Transparent;
             this.btnPlayer3.FlatAppearance.BorderSize = 0;
+            this.btnPlayer3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnPlayer3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPlayer3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnPlayer3.ForeColor = System.Drawing.Color.White;
             this.btnPlayer3.Image = ((System.Drawing.Image)(resources.GetObject("btnPlayer3.Image")));
             this.btnPlayer3.Location = new System.Drawing.Point(160, 70);
             this.btnPlayer3.Name = "btnPlayer3";
@@ -370,7 +397,10 @@
             this.btnPlayer2.AllowDrop = true;
             this.btnPlayer2.BackColor = System.Drawing.Color.Transparent;
             this.btnPlayer2.FlatAppearance.BorderSize = 0;
+            this.btnPlayer2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnPlayer2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPlayer2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnPlayer2.ForeColor = System.Drawing.Color.White;
             this.btnPlayer2.Image = global::HatTrick.Views.WinformsView.Properties.Resources.soccer_5_48;
             this.btnPlayer2.Location = new System.Drawing.Point(3, 70);
             this.btnPlayer2.Name = "btnPlayer2";
@@ -391,7 +421,10 @@
             this.btnPlayer1.AllowDrop = true;
             this.btnPlayer1.BackColor = System.Drawing.Color.Transparent;
             this.btnPlayer1.FlatAppearance.BorderSize = 0;
-            this.btnPlayer1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnPlayer1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btnPlayer1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPlayer1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnPlayer1.ForeColor = System.Drawing.Color.White;
             this.btnPlayer1.Image = ((System.Drawing.Image)(resources.GetObject("btnPlayer1.Image")));
             this.btnPlayer1.Location = new System.Drawing.Point(320, 13);
             this.btnPlayer1.Name = "btnPlayer1";
