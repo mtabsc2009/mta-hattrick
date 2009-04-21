@@ -93,6 +93,8 @@ namespace HatTrick.Views.WinformsView
 
         private void btnNewAccount_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            GettingStartedForm gs = new GettingStartedForm();
+            gs.Show();
             btnNewAccount.Hide();
             lblTeamName.Show();
             txtTeamName.Show();
