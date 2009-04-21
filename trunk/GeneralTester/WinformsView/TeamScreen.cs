@@ -15,6 +15,7 @@ namespace HatTrick.Views.WinformsView
         PlayerSkills frmPlayerSkills;
         public Team Team { get; set; }
 
+        private Button m_btnLastFocused = null;
         private Control[] m_arrPlayers;
 
         private bool bIsMyTeam
@@ -165,6 +166,8 @@ namespace HatTrick.Views.WinformsView
             const int PLAYER_RIGHT_MARGIN = 2;
             const int FORMATION_ROWS = 4;
 
+            Image imgBack = this.pnlField.BackgroundImage;
+            this.pnlField.BackgroundImage = null;
             foreach (Control ctl in m_arrPlayers)
             {
                 ctl.SuspendLayout();
@@ -231,11 +234,16 @@ namespace HatTrick.Views.WinformsView
             foreach (Control ctl in m_arrPlayers)
             {
                 ctl.ForeColor = Color.White;
-                (ctl as Button).FlatStyle = FlatStyle.Popup;
                 ctl.Font = new Font(ctl.Font, FontStyle.Bold);
+
+                (ctl as Button).FlatStyle = FlatStyle.Flat;
+                (ctl as Button).FlatAppearance.MouseOverBackColor = Color.Transparent;
+
+
                 ctl.ResumeLayout();
             }
 
+            this.pnlField.BackgroundImage = imgBack;
             
             pnlField.ResumeLayout();
             this.ResumeLayout();
@@ -351,15 +359,22 @@ namespace HatTrick.Views.WinformsView
         {
             int offest = -4;
             Button bPlayer = sender as Button;
+            bPlayer.FlatAppearance.BorderSize = 1;
             frmPlayerSkills.Player = Team.Players.Where(T => T.Name == bPlayer.Text).First();
             Point p = this.PointToScreen(bPlayer.Location);
             frmPlayerSkills.Location = new Point(MousePosition.X + offest*3, p.Y + bPlayer.Height + offest);
-            //frmPlayerSkills.Location = new Point(p.X + bPlayer.Width + offest, p.Y + bPlayer.Height + offest);
+            m_btnLastFocused = bPlayer;
             frmPlayerSkills.Show();
         }
 
         private void btnPlayer_MouseLeave(object sender, EventArgs e)
         {
+            Button bPlayer = sender as Button;
+            if (m_btnLastFocused != null)
+            {
+                m_btnLastFocused.FlatAppearance.BorderSize = 0;
+            }
+
             frmPlayerSkills.Hide();
         }
 
