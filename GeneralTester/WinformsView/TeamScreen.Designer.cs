@@ -155,7 +155,7 @@
             // pnlField
             // 
             this.pnlField.BackColor = System.Drawing.Color.Transparent;
-            this.pnlField.BackgroundImage = global::HatTrick.Views.WinformsView.Properties.Resources.field3;
+            this.pnlField.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlField.BackgroundImage")));
             this.pnlField.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pnlField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlField.Controls.Add(this.btnPlayer10);
