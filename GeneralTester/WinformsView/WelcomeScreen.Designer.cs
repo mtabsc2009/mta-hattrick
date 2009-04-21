@@ -68,6 +68,8 @@
             this.tileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
             this.closeAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gettingStartedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,7 +80,8 @@
             this.fileToolStripMenuItem,
             this.teamToolStripMenuItem,
             this.leagueToolStripMenuItem,
-            this.windowsToolStripMenuItem});
+            this.windowsToolStripMenuItem,
+            this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.MdiWindowListItem = this.windowsToolStripMenuItem;
             this.menuStrip1.Name = "menuStrip1";
@@ -260,7 +263,7 @@
             // 
             this.playCycleToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("playCycleToolStripMenuItem.Image")));
             this.playCycleToolStripMenuItem.Name = "playCycleToolStripMenuItem";
-            this.playCycleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.playCycleToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.playCycleToolStripMenuItem.Text = "Play Cycle";
             this.playCycleToolStripMenuItem.Click += new System.EventHandler(this.playCycleToolStripMenuItem_Click);
             // 
@@ -268,7 +271,7 @@
             // 
             this.leagueTableToolStripMenuItem.Image = global::HatTrick.Views.WinformsView.Properties.Resources.תמונה1;
             this.leagueTableToolStripMenuItem.Name = "leagueTableToolStripMenuItem";
-            this.leagueTableToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.leagueTableToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.leagueTableToolStripMenuItem.Text = "League Table";
             this.leagueTableToolStripMenuItem.Click += new System.EventHandler(this.leagueTableToolStripMenuItem_Click);
             // 
@@ -276,14 +279,14 @@
             // 
             this.leagueCyclesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("leagueCyclesToolStripMenuItem.Image")));
             this.leagueCyclesToolStripMenuItem.Name = "leagueCyclesToolStripMenuItem";
-            this.leagueCyclesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.leagueCyclesToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.leagueCyclesToolStripMenuItem.Text = "League Cycles";
             this.leagueCyclesToolStripMenuItem.Click += new System.EventHandler(this.leagueCyclesToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(140, 6);
             // 
             // friendlyGameToolStripMenuItem
             // 
@@ -292,7 +295,7 @@
             this.toolStripMenuItem2,
             this.playToolStripMenuItem});
             this.friendlyGameToolStripMenuItem.Name = "friendlyGameToolStripMenuItem";
-            this.friendlyGameToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.friendlyGameToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.friendlyGameToolStripMenuItem.Text = "Friendly Game";
             this.friendlyGameToolStripMenuItem.Click += new System.EventHandler(this.friendlyGameToolStripMenuItem_Click);
             // 
@@ -317,7 +320,7 @@
             // toolStripMenuItem7
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(140, 6);
             // 
             // infraToolStripMenuItem
             // 
@@ -326,7 +329,7 @@
             this.toolStripMenuItem8,
             this.deleteToolStripMenuItem});
             this.infraToolStripMenuItem.Name = "infraToolStripMenuItem";
-            this.infraToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.infraToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.infraToolStripMenuItem.Text = "Infra";
             // 
             // resetToolStripMenuItem
@@ -384,6 +387,21 @@
             this.closeAllToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.closeAllToolStripMenuItem.Text = "Close All";
             this.closeAllToolStripMenuItem.Click += new System.EventHandler(this.closeAllToolStripMenuItem_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gettingStartedToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // gettingStartedToolStripMenuItem
+            // 
+            this.gettingStartedToolStripMenuItem.Name = "gettingStartedToolStripMenuItem";
+            this.gettingStartedToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.gettingStartedToolStripMenuItem.Text = "Getting Started";
+            this.gettingStartedToolStripMenuItem.Click += new System.EventHandler(this.gettingStartedToolStripMenuItem_Click);
             // 
             // WelcomeScreen
             // 
@@ -449,5 +467,7 @@
         private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem8;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gettingStartedToolStripMenuItem;
     }
 }

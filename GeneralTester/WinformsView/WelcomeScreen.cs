@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using HatTrick.CommonModel;
+using System.Diagnostics;
 
 namespace HatTrick.Views.WinformsView
 {
@@ -19,17 +20,8 @@ namespace HatTrick.Views.WinformsView
 
         private void WelcomeScreen_Load(object sender, EventArgs e)
         {
-            Hide();
-            Entrance frmEntrance = new Entrance();
-            DialogResult res = frmEntrance.ShowDialog();
-            if (res == DialogResult.Cancel)
+            if (GoLogin())
             {
-                Close();
-            }
-            else
-            {
-                Show();
-                LoadWelcome();
                 LoadTeams();
                 leagueTableToolStripMenuItem_Click(sender, e);
             }
@@ -55,6 +47,20 @@ namespace HatTrick.Views.WinformsView
                     tsiFormation.Checked = true;
                 }
                 changeFormationToolStripMenuItem.DropDownItems.Add(tsiFormation);
+            }
+
+            if (!Game.IsUserInLeague)
+            {
+                DialogResult dr = MessageBox.Show(
+                    "You'r team is not part of the current league" + Environment.NewLine +
+                    "Would you like to create a new league?",
+                    "Welcome",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+
+                if (dr == DialogResult.Yes)
+                {
+                    resetToolStripMenuItem_Click(this, new EventArgs());
+                }
             }
 
             switch (Game.MyTeam.TeamTrainingType)
@@ -158,17 +164,24 @@ namespace HatTrick.Views.WinformsView
 
         private void logOffToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            GoLogin();
+        }
+
+        private bool GoLogin()
+        {
             Hide();
             Entrance frmEntrance = new Entrance();
             DialogResult res = frmEntrance.ShowDialog();
             if (res == DialogResult.Cancel)
             {
                 Close();
+                return false;
             }
             else
             {
                 Show();
                 LoadWelcome();
+                return true;
             }
         }
 
@@ -398,6 +411,19 @@ namespace HatTrick.Views.WinformsView
             {
                 Game.DeleteLeague();
                 MessageBox.Show("The league has been deleted", "Delete league", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void gettingStartedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                GettingStartedForm gs = new GettingStartedForm();
+                gs.Show();
+            }
+            catch
+            {
+                MessageBox.Show("Cannot find Getting Started file", "Getting Started", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

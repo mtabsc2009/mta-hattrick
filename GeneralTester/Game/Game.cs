@@ -1105,5 +1105,27 @@ namespace HatTrick
             DAL.DBAccess.DeleteComputerTeam(COMPUTER_TEAM_PREFIX, COMPUTER_USER_PREFIX);
             m_dicTeams = null;
         }
+
+        public static bool IsUserInLeague
+        {
+            get
+            {
+                bool bIsLeague = false;
+
+                try
+                {
+                    int nCurrLeague = DAL.DBAccess.GetMaxLeagueID();
+                    DataView dtvLeague = DAL.DBAccess.LoadLeagueTable(nCurrLeague);
+
+                    dtvLeague.RowFilter = string.Format("teamname = '{0}'", Game.MyTeam.Name);
+                    bIsLeague = (dtvLeague.Count > 0);
+                }
+                catch
+                {
+                }
+
+                return bIsLeague;
+            }
+        }
     }
 }

@@ -211,7 +211,9 @@
     <None Include="Resources\soccer_5_48.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Getting Started With Hattrick.mht" />
+    <Content Include="Getting Started With Hattrick.mht">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\field\field3.PNG" />
     <None Include="Resources\Getting Started With Hattrick.mht" />
   </ItemGroup>
