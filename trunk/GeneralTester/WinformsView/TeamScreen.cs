@@ -161,7 +161,23 @@ namespace HatTrick.Views.WinformsView
 
         private void SetFormationView()
         {
-            const int PLAYER_TOP_MARGIN = 5;
+            const double INIT_PNL_FIELD_WIDTH = 746D;
+            const int INIT_DEF_FIELD_WIDTH = 500;
+            const int INIT_MID_FIELD_WIDTH = 430;
+            const int INIT_OFF_FIELD_WIDTH = 350;
+            const int INIT_DEF_FIELD_PADDING = 130;
+            const int INIT_MID_FIELD_PADDING = 158;
+            const int INIT_OFF_FIELD_PADDING = 198;
+            double dWidthRatio = pnlField.Width / INIT_PNL_FIELD_WIDTH;
+
+            const double INIT_PNL_FIELD_HEIGHT = 465D;
+            const int INIT_KEEPER_FIELD_TOP = 315;
+            const int INIT_DEF_FIELD_TOP = 225;
+            const int INIT_MID_FIELD_TOP = 127;
+            const int INIT_OFF_FIELD_TOP = 30;
+            double dHeightRatio = pnlField.Height / INIT_PNL_FIELD_HEIGHT;
+
+            const int PLAYER_TOP_MARGIN = 80;
             const int PLAYER_LEFT_MARGIN = 0;
             const int PLAYER_RIGHT_MARGIN = 2;
             const int FORMATION_ROWS = 4;
@@ -176,53 +192,75 @@ namespace HatTrick.Views.WinformsView
 
             TeamFormation formation = new TeamFormation(cmbFormation.SelectedItem.ToString());
 
-            btnPlayer1.Top = PLAYER_TOP_MARGIN;
-            btnPlayer1.Left = (pnlField.Width - btnPlayer1.Width) / 2;
-
             int nHeightOffset = (pnlField.Height - (nPlayerHeight + PLAYER_TOP_MARGIN) * FORMATION_ROWS) /
 (FORMATION_ROWS - 1) + nPlayerHeight;
-                //(pnlField.Height - nPlayerHeight) / FORMATION_ROWS;
 
+            btnPlayer1.Top = pnlField.Height - nPlayerHeight - PLAYER_TOP_MARGIN;
+            btnPlayer1.Top = (int)(INIT_KEEPER_FIELD_TOP * dHeightRatio);
+            btnPlayer1.Left = (pnlField.Width - btnPlayer1.Width) / 2;
 
             int nHeightMargin = 
                 (pnlField.Height - (nPlayerHeight + PLAYER_TOP_MARGIN) * FORMATION_ROWS) / (FORMATION_ROWS + 1);
             nHeightMargin = 0;
             nHeightOffset += nHeightMargin;
 
-            int nDefenceOffset = 
-                (pnlField.Width - (nPlayerWidth + PLAYER_LEFT_MARGIN) * formation.Defence) / 
-                (formation.Defence-1) + nPlayerWidth;
+            int DEFENCE_PADDING = (int)(INIT_DEF_FIELD_PADDING * dWidthRatio);
+            int nDefenceWidth = pnlField.Width;
+            nDefenceWidth = (int)(INIT_DEF_FIELD_WIDTH * dWidthRatio);
+            int nDefencePlayerWidth = btnPlayer1.Width;
+            int nDefencePlayerHeight = btnPlayer1.Height;
+
+            int nDefenceOffset =
+                (nDefenceWidth - (nDefencePlayerWidth + PLAYER_LEFT_MARGIN) * formation.Defence) /
+                (formation.Defence - 1) + nDefencePlayerWidth;
             int nIndexOffset = 1;
             for (int nCurrDefencePlayer = 0; nCurrDefencePlayer < formation.Defence; nCurrDefencePlayer++)
             {
-                m_arrPlayers[nCurrDefencePlayer + nIndexOffset].Left = nDefenceOffset * nCurrDefencePlayer;
-                m_arrPlayers[nCurrDefencePlayer + nIndexOffset].Top = nHeightOffset * 1;
+                m_arrPlayers[nCurrDefencePlayer + nIndexOffset].Left = DEFENCE_PADDING + nDefenceOffset * nCurrDefencePlayer;
+                m_arrPlayers[nCurrDefencePlayer + nIndexOffset].Top = (int)(INIT_DEF_FIELD_TOP * dHeightRatio);
+                //m_arrPlayers[nCurrDefencePlayer + nIndexOffset].Top = (nHeightOffset * 1);
 
             }
 
-            int nMiddleFieldMargin = 
-                (pnlField.Width - (nPlayerWidth + PLAYER_LEFT_MARGIN) * (formation.MiddleField)) / 
+            int MID_FIELD_PADDING = (int)(INIT_MID_FIELD_PADDING * dWidthRatio);
+            int nMidFieldWidth = pnlField.Width;
+            nMidFieldWidth = (int)(INIT_MID_FIELD_WIDTH * dWidthRatio); ;
+            int nMidPlayerWidth = btnPlayer1.Width;
+            int nMidPlayerHeight = btnPlayer1.Height;
+
+            int nMiddleFieldMargin =
+                (nMidFieldWidth - (nMidPlayerWidth + PLAYER_LEFT_MARGIN) * (formation.MiddleField)) / 
                 (formation.MiddleField+1);
             nIndexOffset = 1 + formation.Defence;
             for (int nCurrMiddleFieldPlayer = 0; 
                 nCurrMiddleFieldPlayer < formation.MiddleField; 
                 nCurrMiddleFieldPlayer++)
             {
-                m_arrPlayers[nCurrMiddleFieldPlayer + nIndexOffset].Left = nMiddleFieldMargin * (nCurrMiddleFieldPlayer + 1) + nCurrMiddleFieldPlayer * nPlayerWidth ;
-                m_arrPlayers[nCurrMiddleFieldPlayer + nIndexOffset].Top = nHeightOffset * 2;
+                m_arrPlayers[nCurrMiddleFieldPlayer + nIndexOffset].Left = MID_FIELD_PADDING + nMiddleFieldMargin * (nCurrMiddleFieldPlayer + 1) + nCurrMiddleFieldPlayer * nMidPlayerWidth;
+                m_arrPlayers[nCurrMiddleFieldPlayer + nIndexOffset].Top = (int)(INIT_MID_FIELD_TOP * dHeightRatio);
+                //m_arrPlayers[nCurrMiddleFieldPlayer + nIndexOffset].Top = (nHeightOffset * 2);
 
             }
 
+            
+            int OFFENCE_PADDING = (int)(INIT_OFF_FIELD_PADDING * dWidthRatio); ;
+            int nOffenceWidth = pnlField.Width;
+            nOffenceWidth = (int)(INIT_OFF_FIELD_WIDTH * dWidthRatio); ;
+            int nOffencePlayerWidth = btnPlayer1.Width;
+            int nOffencePlayerHeight = btnPlayer1.Height;
+
             int nOffenceMargin =
-                (pnlField.Width - (nPlayerWidth + PLAYER_LEFT_MARGIN) * (formation.Offence)) /
+                (nOffenceWidth - (nOffencePlayerWidth + PLAYER_LEFT_MARGIN) * (formation.Offence)) /
                 (formation.Offence + 1);            //nOffenceMargin = 0;
             nIndexOffset = 1 + formation.Defence + formation.MiddleField;
+
             for (int nCurrOffencePlayer = 0; 
                 nCurrOffencePlayer < formation.Offence; 
                 nCurrOffencePlayer++)
             {
-                m_arrPlayers[nCurrOffencePlayer + nIndexOffset].Left = nOffenceMargin * (nCurrOffencePlayer + 1) + nCurrOffencePlayer * nPlayerWidth;
-                m_arrPlayers[nCurrOffencePlayer + nIndexOffset].Top = nHeightOffset * 3;
+                m_arrPlayers[nCurrOffencePlayer + nIndexOffset].Left = OFFENCE_PADDING + nOffenceMargin * (nCurrOffencePlayer + 1) + nCurrOffencePlayer * nOffencePlayerWidth;
+                //m_arrPlayers[nCurrOffencePlayer + nIndexOffset].Top = (nHeightOffset * 3);
+                m_arrPlayers[nCurrOffencePlayer + nIndexOffset].Top = (int)(INIT_OFF_FIELD_TOP * dHeightRatio);
 
             }
 
@@ -350,6 +388,7 @@ namespace HatTrick.Views.WinformsView
             }
             bPlayer.FlatAppearance.BorderSize = 1;
             m_btnLastFocused = bPlayer;
+            bPlayer.Focus();
             frmPlayerSkills.Show();
         }
 

@@ -24,6 +24,7 @@ namespace HatTrick.Views.WinformsView
             {
                 LoadTeams();
                 leagueTableToolStripMenuItem_Click(sender, e);
+                teamFormationToolStripMenuItem_Click(sender, e);
             }
         }
 

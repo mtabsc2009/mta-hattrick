@@ -57,7 +57,7 @@
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(6, 435);
+            this.button1.Location = new System.Drawing.Point(6, 491);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(121, 27);
             this.button1.TabIndex = 0;
@@ -75,9 +75,9 @@
             this.panel3.Controls.Add(this.cmbFormation);
             this.panel3.Controls.Add(this.lstPlayers);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel3.Location = new System.Drawing.Point(746, 0);
+            this.panel3.Location = new System.Drawing.Point(835, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(130, 465);
+            this.panel3.Size = new System.Drawing.Size(130, 521);
             this.panel3.TabIndex = 7;
             // 
             // label3
@@ -146,7 +146,7 @@
             this.lstPlayers.FormattingEnabled = true;
             this.lstPlayers.Location = new System.Drawing.Point(6, 113);
             this.lstPlayers.Name = "lstPlayers";
-            this.lstPlayers.Size = new System.Drawing.Size(121, 316);
+            this.lstPlayers.Size = new System.Drawing.Size(121, 368);
             this.lstPlayers.TabIndex = 3;
             this.lstPlayers.SelectedIndexChanged += new System.EventHandler(this.lstPlayers_SelectedIndexChanged);
             this.lstPlayers.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstPlayers_MouseDown);
@@ -172,7 +172,7 @@
             this.pnlField.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlField.Location = new System.Drawing.Point(0, 0);
             this.pnlField.Name = "pnlField";
-            this.pnlField.Size = new System.Drawing.Size(746, 465);
+            this.pnlField.Size = new System.Drawing.Size(835, 521);
             this.pnlField.TabIndex = 8;
             this.pnlField.MouseEnter += new System.EventHandler(this.btnPlayer_MouseLeave);
             // 
@@ -186,7 +186,7 @@
             this.btnPlayer10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.btnPlayer10.ForeColor = System.Drawing.Color.White;
             this.btnPlayer10.Image = ((System.Drawing.Image)(resources.GetObject("btnPlayer10.Image")));
-            this.btnPlayer10.Location = new System.Drawing.Point(160, 255);
+            this.btnPlayer10.Location = new System.Drawing.Point(312, 225);
             this.btnPlayer10.Name = "btnPlayer10";
             this.btnPlayer10.Size = new System.Drawing.Size(110, 75);
             this.btnPlayer10.TabIndex = 28;
@@ -234,7 +234,7 @@
             this.btnPlayer11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.btnPlayer11.ForeColor = System.Drawing.Color.White;
             this.btnPlayer11.Image = ((System.Drawing.Image)(resources.GetObject("btnPlayer11.Image")));
-            this.btnPlayer11.Location = new System.Drawing.Point(321, 268);
+            this.btnPlayer11.Location = new System.Drawing.Point(312, 305);
             this.btnPlayer11.Name = "btnPlayer11";
             this.btnPlayer11.Size = new System.Drawing.Size(110, 75);
             this.btnPlayer11.TabIndex = 29;
@@ -330,7 +330,7 @@
             this.btnPlayer4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.btnPlayer4.ForeColor = System.Drawing.Color.White;
             this.btnPlayer4.Image = ((System.Drawing.Image)(resources.GetObject("btnPlayer4.Image")));
-            this.btnPlayer4.Location = new System.Drawing.Point(321, 70);
+            this.btnPlayer4.Location = new System.Drawing.Point(445, 32);
             this.btnPlayer4.Name = "btnPlayer4";
             this.btnPlayer4.Size = new System.Drawing.Size(110, 75);
             this.btnPlayer4.TabIndex = 22;
@@ -354,7 +354,7 @@
             this.btnPlayer6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.btnPlayer6.ForeColor = System.Drawing.Color.White;
             this.btnPlayer6.Image = ((System.Drawing.Image)(resources.GetObject("btnPlayer6.Image")));
-            this.btnPlayer6.Location = new System.Drawing.Point(632, 70);
+            this.btnPlayer6.Location = new System.Drawing.Point(479, 135);
             this.btnPlayer6.Name = "btnPlayer6";
             this.btnPlayer6.Size = new System.Drawing.Size(110, 75);
             this.btnPlayer6.TabIndex = 24;
@@ -402,7 +402,7 @@
             this.btnPlayer2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.btnPlayer2.ForeColor = System.Drawing.Color.White;
             this.btnPlayer2.Image = global::HatTrick.Views.WinformsView.Properties.Resources.soccer_5_48;
-            this.btnPlayer2.Location = new System.Drawing.Point(3, 70);
+            this.btnPlayer2.Location = new System.Drawing.Point(148, 135);
             this.btnPlayer2.Name = "btnPlayer2";
             this.btnPlayer2.Size = new System.Drawing.Size(110, 75);
             this.btnPlayer2.TabIndex = 20;
@@ -426,7 +426,7 @@
             this.btnPlayer1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.btnPlayer1.ForeColor = System.Drawing.Color.White;
             this.btnPlayer1.Image = ((System.Drawing.Image)(resources.GetObject("btnPlayer1.Image")));
-            this.btnPlayer1.Location = new System.Drawing.Point(320, 13);
+            this.btnPlayer1.Location = new System.Drawing.Point(193, 32);
             this.btnPlayer1.Name = "btnPlayer1";
             this.btnPlayer1.Size = new System.Drawing.Size(110, 75);
             this.btnPlayer1.TabIndex = 19;
@@ -444,7 +444,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(876, 465);
+            this.ClientSize = new System.Drawing.Size(965, 521);
             this.Controls.Add(this.pnlField);
             this.Controls.Add(this.panel3);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
