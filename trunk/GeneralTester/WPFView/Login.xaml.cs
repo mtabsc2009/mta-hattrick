@@ -21,6 +21,7 @@ namespace WPFView
     /// </summary>
     public partial class Window1 : Window
     {
+        private Game Game = new Game();
         public Window1()
         {
             InitializeComponent();

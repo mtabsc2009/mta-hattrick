@@ -12,6 +12,8 @@ namespace HatTrick
     [TestFixture]
     public class GeneralTester
     {
+        private Game Game = new Game();
+
         public static void Main(string[] args)
         {
             GeneralTester gtNew = new GeneralTester();

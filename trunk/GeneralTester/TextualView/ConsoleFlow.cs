@@ -9,6 +9,7 @@ namespace HatTrick.TextualView
 {
     public class ConsoleFlow
     {
+        private static Game Game = new Game();
         public static bool Start()
         {
             Console.Clear();
