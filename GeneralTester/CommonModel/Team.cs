@@ -85,6 +85,11 @@ namespace HatTrick.CommonModel
         public int MiddleField;
         public int Offence;
 
+        public TeamFormation() : this("4-4-2")
+        {
+
+        }
+
         public TeamFormation(string strFormation)
         {
             try

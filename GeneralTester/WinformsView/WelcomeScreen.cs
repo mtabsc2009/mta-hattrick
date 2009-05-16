@@ -8,15 +8,27 @@ using System.Text;
 using System.Windows.Forms;
 using HatTrick.CommonModel;
 using System.Diagnostics;
+using HatTrick.Views.WinformsView.localhost;
 
 namespace HatTrick.Views.WinformsView
 {
     public partial class WelcomeScreen : DefaultForm
     {
         private static Game m_Game;
+        private static localhost.Team m_Team;
         static WelcomeScreen()
         {
+            System.Net.CookieContainer cookies = new System.Net.CookieContainer();
+
             m_Game = new Game();
+            m_Game.CookieContainer = cookies;
+        }
+        public static localhost.Team Team 
+        {
+            get
+            {
+                return m_Team;
+            }
         }
         public WelcomeScreen()
         {
@@ -35,6 +47,7 @@ namespace HatTrick.Views.WinformsView
         {
             if (GoLogin())
             {
+                m_Team = m_Game.getTeam();
                 LoadTeams();
                 leagueTableToolStripMenuItem_Click(sender, e);
                 teamFormationToolStripMenuItem_Click(sender, e);
@@ -43,7 +56,7 @@ namespace HatTrick.Views.WinformsView
 
         private void LoadTeams()
         {
-            foreach (Team team in Game.Teams.Values.Where(T => T.Name != Game.MyTeam.Name))
+            foreach (HatTrick.Views.WinformsView.localhost.Team team in Game.getTeams().Where(T => T.Name != Game.getTeam().Name))
             {
                 toolStripComboBox1.Items.Add(team);
             }
@@ -51,19 +64,21 @@ namespace HatTrick.Views.WinformsView
 
         private void LoadWelcome()
         {
-            DataRowCollection drcAllFormations = Game.GetFormations();
+            DataTable drcAllFormations = Game.GetFormations();
             changeFormationToolStripMenuItem.DropDownItems.Clear();
-            foreach (DataRow drCurrForamtion in drcAllFormations)
+            foreach (DataRow drCurrForamtion in drcAllFormations.Rows)
             {
                 ToolStripMenuItem tsiFormation = new ToolStripMenuItem(drCurrForamtion[0].ToString(), null, new EventHandler(changeFormationToolStripMenuItem_Click));
-                if (drCurrForamtion[0].ToString() == Game.MyTeam.Formation)
+                localhost.Team team = Game.getTeam();
+                if (drCurrForamtion[0].ToString() == team.Formation)
                 {
                     tsiFormation.Checked = true;
                 }
                 changeFormationToolStripMenuItem.DropDownItems.Add(tsiFormation);
             }
 
-            if (!Game.IsUserInLeague)
+            localhost.Team t = Game.getTeam();
+            if (!Game.getIsUserInLeague())
             {
                 DialogResult dr = MessageBox.Show(
                     "You'r team is not part of the current league" + Environment.NewLine +
@@ -77,29 +92,29 @@ namespace HatTrick.Views.WinformsView
                 }
             }
 
-            switch (Game.MyTeam.TeamTrainingType)
+            switch (((localhost.TrainingType)(Game.getTeam().TeamTrainingType)))
             {
-                case (Consts.TrainingType.ATTACK):
+                case (localhost.TrainingType.ATTACK):
                     {
                         attackToolStripMenuItem.Checked = true;
                         break;
                     }
-                case (Consts.TrainingType.DEFENCE):
+                case (localhost.TrainingType.DEFENCE):
                     {
                         defenceToolStripMenuItem.Checked = true;
                         break;
                     }
-                case (Consts.TrainingType.WING):
+                case (localhost.TrainingType.WING):
                     {
                         wingsToolStripMenuItem.Checked = true;
                         break;
                     }
-                case (Consts.TrainingType.PLAYMAKING):
+                case (localhost.TrainingType.PLAYMAKING):
                     {
                         playMakingToolStripMenuItem.Checked = true;
                         break;
                     }
-                case (Consts.TrainingType.SETPIECES):
+                case (localhost.TrainingType.SETPIECES):
                     {
                         setPiecesToolStripMenuItem.Checked = true;
                         break;
@@ -113,7 +128,7 @@ namespace HatTrick.Views.WinformsView
 
         void changeFormationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Game.ChangeTeamFormation(Game.MyTeam, ((ToolStripMenuItem)sender).Text);
+            Game.ChangeTeamFormation(Game.getTeam(), ((ToolStripMenuItem)sender).Text);
 
             foreach (ToolStripMenuItem tsi in ((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem).DropDownItems)
             {
@@ -125,7 +140,7 @@ namespace HatTrick.Views.WinformsView
 
         private void ShowLeagueWindow()
         {
-            DataView dtvGameLeague = Game.GetLeague();
+            DataView dtvGameLeague = Game.GetLeague().DefaultView;
 
             LeagueTableDisplay frmLeagueTable = new LeagueTableDisplay(dtvGameLeague);
             frmLeagueTable.MdiParent = this;
@@ -162,7 +177,7 @@ namespace HatTrick.Views.WinformsView
             }
             else
             {
-                GameStory gsStory = Game.MatchTeams(Game.MyTeam.Name, toolStripComboBox1.Text);
+                HatTrick.Views.WinformsView.localhost.GameStory gsStory = Game.MatchTeams(Game.getTeam().Name, toolStripComboBox1.Text);
                 if (gsStory == null)
                 {
                     MessageBox.Show("No such team");
@@ -201,7 +216,7 @@ namespace HatTrick.Views.WinformsView
 
         private void attackToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Game.ChangeTeamTrainngType((Consts.TrainingType)(int.Parse(attackToolStripMenuItem.Tag.ToString())));
+            Game.ChangeTeamTrainngType((localhost.TrainingType)(int.Parse(attackToolStripMenuItem.Tag.ToString())));
             foreach (ToolStripMenuItem tsi in ((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem).DropDownItems)
             {
                 tsi.Checked = false;
@@ -211,7 +226,7 @@ namespace HatTrick.Views.WinformsView
 
         private void defenceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Game.ChangeTeamTrainngType((Consts.TrainingType)(int.Parse(defenceToolStripMenuItem.Tag.ToString())));
+            Game.ChangeTeamTrainngType((localhost.TrainingType)(int.Parse(defenceToolStripMenuItem.Tag.ToString())));
             foreach (ToolStripMenuItem tsi in ((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem).DropDownItems)
             {
                 tsi.Checked = false;
@@ -221,7 +236,7 @@ namespace HatTrick.Views.WinformsView
 
         private void wingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Game.ChangeTeamTrainngType((Consts.TrainingType)(int.Parse(wingsToolStripMenuItem.Tag.ToString())));
+            Game.ChangeTeamTrainngType((localhost.TrainingType)(int.Parse(wingsToolStripMenuItem.Tag.ToString())));
             foreach (ToolStripMenuItem tsi in ((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem).DropDownItems)
             {
                 tsi.Checked = false;
@@ -231,7 +246,7 @@ namespace HatTrick.Views.WinformsView
 
         private void playMakingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Game.ChangeTeamTrainngType((Consts.TrainingType)(int.Parse(playMakingToolStripMenuItem.Tag.ToString())));
+            Game.ChangeTeamTrainngType((localhost.TrainingType)(int.Parse(playMakingToolStripMenuItem.Tag.ToString())));
             foreach (ToolStripMenuItem tsi in ((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem).DropDownItems)
             {
                 tsi.Checked = false;
@@ -241,7 +256,7 @@ namespace HatTrick.Views.WinformsView
 
         private void setPiecesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Game.ChangeTeamTrainngType((Consts.TrainingType)(int.Parse(setPiecesToolStripMenuItem.Tag.ToString())));
+            Game.ChangeTeamTrainngType((localhost.TrainingType)(int.Parse(setPiecesToolStripMenuItem.Tag.ToString())));
             foreach (ToolStripMenuItem tsi in ((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem).DropDownItems)
             {
                 tsi.Checked = false;
@@ -257,13 +272,13 @@ namespace HatTrick.Views.WinformsView
 
         private void trainMyTeamToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Game.TrainTeam(Game.MyTeam);
+            Game.TrainTeam(Game.getTeam());
             MessageBox.Show("Your team was trained", "Your team was trained", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void playCycleToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!Game.LeagueExists)
+            if (!Game.getLeagueExists())
             {
                 if (DialogResult.Yes == MessageBox.Show("Cannot run a cycle" + Environment.NewLine + "There is no league" + Environment.NewLine + "Do you want to create a new league?", "Run cycle", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
                 {
@@ -291,7 +306,7 @@ namespace HatTrick.Views.WinformsView
                 if (frm is LeagueTableDisplay)
                 {
                     LeagueTableDisplay frml = frm as LeagueTableDisplay;
-                    frml.UpdateLeagueTable(Game.GetLeague());
+                    frml.UpdateLeagueTable(Game.GetLeague().DefaultView);
                 }
                 else if (frm is LeagueCyclesScreen)
                 {
@@ -302,7 +317,7 @@ namespace HatTrick.Views.WinformsView
 
         private void leagueCyclesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Game.LeagueExists)
+            if (Game.getLeagueExists())
             {
                 OpenLeagueCyclesScreen();
             }
@@ -337,7 +352,7 @@ namespace HatTrick.Views.WinformsView
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            LeagueCyclesScreen frmMatches = new LeagueCyclesScreen(Game.MyTeam);
+            LeagueCyclesScreen frmMatches = new LeagueCyclesScreen(Game.getTeam());
             frmMatches.MdiParent = this;
             frmMatches.Show();
         }
@@ -369,7 +384,7 @@ namespace HatTrick.Views.WinformsView
                   MessageBoxIcon.Warning,
                    MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
-                if (Game.Teams.Count % 2 != 0)
+                if (Game.getTeams().Length % 2 != 0)
                 {
                     string strBaseMessage = "Cannot create new league" + Environment.NewLine + "There is an odd number of teams";
                     string strAddition;

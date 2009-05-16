@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using HatTrick;
 using HatTrick.CommonModel;
+using WPFView.localhost;
 
 namespace WPFView
 {

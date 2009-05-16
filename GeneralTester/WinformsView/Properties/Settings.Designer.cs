@@ -22,5 +22,15 @@ namespace HatTrick.Views.WinformsView.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:4299/Game.asmx")]
+        public string WinformsView_localhost_Game {
+            get {
+                return ((string)(this["WinformsView_localhost_Game"]));
+            }
+        }
     }
 }

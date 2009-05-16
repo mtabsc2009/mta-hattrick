@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HatTrick.CommonModel
 {
-    public static class Consts
+    public class Consts
     {
         private static Random rndGameRandom = new Random();
 

@@ -84,7 +84,7 @@ namespace HatTrick.Views.WinformsView
                     foreach (DataGridViewRow currrow in dataGridView1.Rows)
                     {
                         currrow.Cells["position"].Value = currrow.Index + 1;
-                        if ((currrow.DataBoundItem as DataRowView)["teamname"].ToString() == Game.MyTeam.Name)
+                        if ((currrow.DataBoundItem as DataRowView)["teamname"].ToString() == Game.getTeam().Name)
                         {
                             try
                             {
@@ -121,16 +121,16 @@ namespace HatTrick.Views.WinformsView
             frmMatches.Show();
         }
 
-        private Team SelectedTeam
+        private localhost.Team SelectedTeam
         {
             get
             {
-                Team tmSelected = null;
+                localhost.Team tmSelected = null;
 
                 if (dataGridView1.SelectedRows.Count == 1)
                 {
                     string strTeamName = (dataGridView1.SelectedRows[0].DataBoundItem as DataRowView)["teamname"].ToString();
-                    tmSelected = Game.Teams[strTeamName];
+                    tmSelected = Game.getTeams().Where(T => T.Name == strTeamName).First();
                 }
 
                 return tmSelected;

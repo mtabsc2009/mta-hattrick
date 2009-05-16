@@ -15,8 +15,8 @@ namespace HatTrick.Views.WinformsView
     {
         const int SHOW_GAME_COLUMN = 4;
 
-        List<CycleGameFinished> lstGames;
-        Team Team { get; set; }
+        localhost.CycleGameFinished[] lstGames;
+        localhost.Team Team { get; set; }
 
         public LeagueCyclesScreen()
         {
@@ -24,7 +24,7 @@ namespace HatTrick.Views.WinformsView
             Team = null;
         }
 
-        public LeagueCyclesScreen(Team _Team) : this()
+        public LeagueCyclesScreen(localhost.Team _Team) : this()
         {
             Team = _Team;
         }
@@ -34,6 +34,7 @@ namespace HatTrick.Views.WinformsView
         {
             RefreshCyclesGrid();
         }
+
 
         public void RefreshCyclesGrid()
         {
@@ -48,13 +49,13 @@ namespace HatTrick.Views.WinformsView
             }
             else
             {
-                DataView dvCycles = Game.GetAllCycles();
-                lstGames = Game.CyclesToListFinished(dvCycles);
+                DataView dvCycles = Game.GetAllCycles().DefaultView;
+                lstGames = Game.CyclesToListFinished(dvCycles.Table);
 
                 dgCycleGames.AutoGenerateColumns = false;
                 int nLastCycle = 0;
                 lstCycles.Items.Clear();
-                foreach (CycleGame cgCurr in lstGames)
+                foreach (localhost.CycleGame cgCurr in lstGames)
                 {
                     if (nLastCycle != cgCurr.CycleNum)
                     {
@@ -95,11 +96,11 @@ namespace HatTrick.Views.WinformsView
             d.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dgCycleGames.Columns.Insert(0, d);
 
-            foreach (CycleGameFinished cgCurr in lstGames)
+            foreach (localhost.CycleGameFinished cgCurr in lstGames)
             {
                 if (cgCurr.CycleDate.Year != 1)
                 {
-                    GameStory gsNew = Game.GetGameStory(cgCurr.GameID);
+                    localhost.GameStory gsNew = Game.GetGameStory(cgCurr.GameID);
                     cgCurr.AwayScore = gsNew.AwayScore;
                     cgCurr.HomeScore = gsNew.HomeScore;
                 }
@@ -114,11 +115,11 @@ namespace HatTrick.Views.WinformsView
             dgCycleGames.Columns[3].Visible = true;
             dgCycleGames.Columns[2].Visible = true;
 
-            foreach (CycleGameFinished cgCurr in lstGames.Where(t => t.CycleNum == lstCycles.SelectedIndex + 1))
+            foreach (localhost.CycleGameFinished cgCurr in lstGames.Where(t => t.CycleNum == lstCycles.SelectedIndex + 1))
 	        {
                 if (cgCurr.CycleDate.Year != 1)
                 {
-                    GameStory gsNew = Game.GetGameStory(cgCurr.GameID);
+                    localhost.GameStory gsNew = Game.GetGameStory(cgCurr.GameID);
                     cgCurr.AwayScore = gsNew.AwayScore;
                     cgCurr.HomeScore = gsNew.HomeScore;
                 }
@@ -138,10 +139,11 @@ namespace HatTrick.Views.WinformsView
         {
             if (e.ColumnIndex == dgCycleGames.Columns["ShowGame"].Index)
             {
-                CycleGame cgCurr = ((CycleGame)dgCycleGames.Rows[e.RowIndex].DataBoundItem);
+                localhost.CycleGameFinished cgCurr = ((localhost.CycleGameFinished)dgCycleGames.Rows[e.RowIndex].DataBoundItem);
+                //CycleGame cgCurr = ((CycleGame)dgCycleGames.Rows[e.RowIndex].DataBoundItem);
                 if (cgCurr.CycleDate.Year != 1)
                 {
-                    GameStory gsStory = Game.GetGameStory(cgCurr.GameID);
+                    localhost.GameStory gsStory = Game.GetGameStory(cgCurr.GameID);
 
                     GameStoryDisplay frmGameStory = new GameStoryDisplay(gsStory);
                     frmGameStory.MdiParent = this.MdiParent;
