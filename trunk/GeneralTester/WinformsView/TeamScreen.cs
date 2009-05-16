@@ -13,7 +13,7 @@ namespace HatTrick.Views.WinformsView
     public partial class TeamScreen : DefaultForm
     {
         PlayerSkills frmPlayerSkills;
-        public Team Team { get; set; }
+        public localhost.Team Team { get; set; }
 
         private Button m_btnLastFocused = null;
         private Control[] m_arrPlayers;
@@ -22,7 +22,7 @@ namespace HatTrick.Views.WinformsView
         {
             get
             {
-                return (Team.Name == Game.MyTeam.Name);
+                return (Team.Name == Game.getTeam().Name);
             }
         }
 
@@ -33,7 +33,8 @@ namespace HatTrick.Views.WinformsView
             InitPlayersArray();
 
 
-            this.Team = Game.MyTeam;
+            this.Team = WelcomeScreen.Team;
+            //this.Team = Game.getTeam();
             frmPlayerSkills = new PlayerSkills();
             frmPlayerSkills.MdiParent = this.MdiParent;
             frmPlayerSkills.IsMyTeam = bIsMyTeam;
@@ -56,7 +57,7 @@ namespace HatTrick.Views.WinformsView
             m_arrPlayers[10] = btnPlayer11;
         }
 
-        public TeamScreen(Team tmTeam) : this()
+        public TeamScreen(localhost.Team tmTeam) : this()
         {
             Team = tmTeam;
             frmPlayerSkills.IsMyTeam = bIsMyTeam;
@@ -68,11 +69,11 @@ namespace HatTrick.Views.WinformsView
             this.SetPlayersName();
 
             // Setting formation types
-            DataRowCollection drcAllFormations = Game.GetFormations();
+            DataTable drcAllFormations = Game.GetFormations();
             List<string> lFormations = new List<string>();
 
 
-            foreach (DataRow drCurrForamtion in drcAllFormations)
+            foreach (DataRow drCurrForamtion in drcAllFormations.Rows)
             {
                 lFormations.Add(drCurrForamtion[0].ToString());
             }
@@ -103,7 +104,7 @@ namespace HatTrick.Views.WinformsView
 
         private void RefreshSubs()
         {
-            BindingList<Player> l = new BindingList<Player>(Team.Players.Where(T => T.Position > 11).ToList<Player>());
+            BindingList<localhost.Player> l = new BindingList<localhost.Player>(Team.Players.Where(T => T.Position > 11).ToList<localhost.Player>());
             lstPlayers.DataSource = l;
             lstPlayers.DisplayMember = "Name";
         }
@@ -117,7 +118,7 @@ namespace HatTrick.Views.WinformsView
                     Button btnCurr = ctlCurr as Button;
 
                     int nPos = Convert.ToInt32(btnCurr.Tag);
-                    Player plrCurr = Team.Players.Where(T => T.Position == nPos).First();
+                    localhost.Player plrCurr = Team.Players.Where(T => T.Position == nPos).First();
                     btnCurr.Tag = plrCurr;
                     btnCurr.Text = plrCurr.Name;
                 }
@@ -157,6 +158,7 @@ namespace HatTrick.Views.WinformsView
         {
             SetFormationView();
             Game.ChangeTeamFormation(Team, cmbFormation.SelectedItem.ToString());
+            Team.Formation = cmbFormation.SelectedItem.ToString();
         }
 
         private void SetFormationView()
@@ -406,7 +408,7 @@ namespace HatTrick.Views.WinformsView
         private void lstPlayers_SelectedIndexChanged(object sender, EventArgs e)
         {
             int offest = -4;
-            Player bPlayer = lstPlayers.SelectedItem as Player;
+            localhost.Player bPlayer = lstPlayers.SelectedItem as localhost.Player;
             frmPlayerSkills.Player = Team.Players.Where(T => T.Name == bPlayer.Name).First();
             Point p = panel3.PointToScreen(lstPlayers.Location);
             frmPlayerSkills.Location = new Point(p.X - frmPlayerSkills.Width + offest, p.Y + offest);
@@ -419,8 +421,8 @@ namespace HatTrick.Views.WinformsView
             Button btnTo = sender as Button;
             Button btnFrom = e.Data.GetData(typeof(Button)) as Button;
             string strTo = btnTo.Text;
-            Player plrTo = btnTo.Tag as Player;
-            Player plrFrom = btnFrom.Tag as Player;
+            localhost.Player plrTo = btnTo.Tag as localhost.Player;
+            localhost.Player plrFrom = btnFrom.Tag as localhost.Player;
             int nPosTo = plrTo.Position;
             bool bFromSubs = (plrFrom.Position > 11);
 
@@ -470,7 +472,7 @@ namespace HatTrick.Views.WinformsView
         private void cmbTraining_SelectionChangeCommitted(object sender, EventArgs e)
         {
             int nTrainingType = cmbTraining.SelectedIndex + 1;
-            Game.ChangeTeamTrainngType(((Consts.TrainingType)(nTrainingType)));
+            Game.ChangeTeamTrainngType(((localhost.TrainingType)(nTrainingType)));
         }
 
         private void TeamScreen_ResizeEnd(object sender, EventArgs e)

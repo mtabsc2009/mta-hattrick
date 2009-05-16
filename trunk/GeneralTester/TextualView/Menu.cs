@@ -41,7 +41,7 @@ namespace HatTrick.TextualView
             strPassword = Console.ReadLine();
         }
 
-        public static string ShowWelcome(User m_usrCurrent)
+        public static string ShowWelcome(TextualView.localhost.User m_usrCurrent)
         {
             Console.WriteLine(string.Format("Welcome {0}!", m_usrCurrent.Username));
             Console.WriteLine("----------------------");
@@ -63,7 +63,7 @@ namespace HatTrick.TextualView
 
         }
 
-        public static string ShowManageTeam(User m_usrCurrent)
+        public static string ShowManageTeam(TextualView.localhost.User m_usrCurrent)
         {
             int iChoise = 0;
             Console.WriteLine(string.Format("Hi {0}", m_usrCurrent.Username));
@@ -89,11 +89,11 @@ namespace HatTrick.TextualView
             return strChoice;
         }
 
-        public static void ShowPrintPlayers(Team tMyTeam)
+        public static void ShowPrintPlayers(TextualView.localhost.Team tMyTeam)
         {
             Console.Clear();
             Console.WriteLine("Welcome " + tMyTeam.Owner);
-            Console.WriteLine("Team name: " + tMyTeam.Name);
+            Console.WriteLine("TextualView.localhost.Team name: " + tMyTeam.Name);
             Console.WriteLine("Created: " + tMyTeam.CreationDate.ToShortDateString());
             Console.WriteLine("Current formation: " + tMyTeam.Formation);
             Console.WriteLine();
@@ -104,9 +104,9 @@ namespace HatTrick.TextualView
             Console.WriteLine();
 
 
-            for (int nCurrPlayer = 1; nCurrPlayer <= tMyTeam.Players.Count; ++nCurrPlayer)
+            for (int nCurrPlayer = 1; nCurrPlayer <= tMyTeam.Players.Length; ++nCurrPlayer)
             {
-                Player plrCurr = (Player)tMyTeam.Players.Where(T => T.Position == nCurrPlayer).First();
+                TextualView.localhost.Player plrCurr = (TextualView.localhost.Player)tMyTeam.Players.Where(T => T.Position == nCurrPlayer).First();
                 if (nCurrPlayer == 12)
                 {
                     Console.WriteLine("----------------------------------------------------------------------------------------------------");
@@ -138,7 +138,7 @@ namespace HatTrick.TextualView
 
         }
 
-        public static void ShowChangePlayerPos(Team tMyTeam, out int n, out Player plrToChange, out Player plrChangedPos)
+        public static void ShowChangePlayerPos(TextualView.localhost.Team tMyTeam, out int n, out TextualView.localhost.Player plrToChange, out TextualView.localhost.Player plrChangedPos)
         {
             string strPlayerID;
             Console.WriteLine("Please choose player id");
@@ -154,7 +154,7 @@ namespace HatTrick.TextualView
                 {
                     try
                     {
-                        plrToChange = (Player)tMyTeam.Players.Where(T => T.ID == int.Parse(strPlayerID)).First();
+                        plrToChange = (TextualView.localhost.Player)tMyTeam.Players.Where(T => T.ID == int.Parse(strPlayerID)).First();
                     }
                     catch
                     {
@@ -176,13 +176,13 @@ namespace HatTrick.TextualView
             Console.WriteLine("Please choose a position for player {0}", plrToChange.Name);
             string strPos = Console.ReadLine();
 
-            plrChangedPos = (Player)tMyTeam.Players.Where(T => T.Position == int.Parse(strPos)).First();
+            plrChangedPos = (TextualView.localhost.Player)tMyTeam.Players.Where(T => T.Position == int.Parse(strPos)).First();
             plrChangedPos.Position = plrToChange.Position;
             plrToChange.Position = int.Parse(strPos);
         }
 
 
-        private static int PrintSingleSkill(Team tMyTeam, int nCurrPlayer, int nCurrSkillVal, int nCompletion)
+        private static int PrintSingleSkill(TextualView.localhost.Team tMyTeam, int nCurrPlayer, int nCurrSkillVal, int nCompletion)
         {
             int nSkillPrint = nCurrSkillVal;
             if (nCurrSkillVal > 10)
@@ -216,17 +216,17 @@ namespace HatTrick.TextualView
             }
         }
 
-        public static void ShowPrintPlayersOld(Team tMyTeam)
+        public static void ShowPrintPlayersOld(TextualView.localhost.Team tMyTeam)
         {
             Console.Clear();
             Console.WriteLine("Welcome " + tMyTeam.Owner);
-            Console.WriteLine("Team name: " + tMyTeam.Name);
+            Console.WriteLine("TextualView.localhost.Team name: " + tMyTeam.Name);
             Console.WriteLine("Created: " + tMyTeam.CreationDate.ToShortDateString());
             Console.WriteLine("Current formation: " + tMyTeam.Formation);
             Console.WriteLine();
             Console.WriteLine("Players: ");
             Console.WriteLine();
-            for (int nCurrPlayer = 0; nCurrPlayer < tMyTeam.Players.Count; ++nCurrPlayer)
+            for (int nCurrPlayer = 0; nCurrPlayer < tMyTeam.Players.Length; ++nCurrPlayer)
             {
                 Console.WriteLine("ID:   " + tMyTeam.Players[nCurrPlayer].ID.ToString());
                 Console.WriteLine("Name: " + tMyTeam.Players[nCurrPlayer].Name);
@@ -281,7 +281,7 @@ namespace HatTrick.TextualView
 
         }
 
-        public static string ShowTeamFormation(User m_usrCurrent, DataRowCollection drFormations)
+        public static string ShowTeamFormation(TextualView.localhost.User m_usrCurrent, DataTable drFormations)
         {
             Console.Clear();
             Console.WriteLine(string.Format("Hi {0}", m_usrCurrent.Username));
@@ -290,7 +290,7 @@ namespace HatTrick.TextualView
 
             int nCurrIndex = 1;
 
-            foreach (DataRow dr in drFormations)
+            foreach (DataRow dr in drFormations.Rows)
             {
                 Console.WriteLine("{0}. {1} ", nCurrIndex, dr[0].ToString());
                 nCurrIndex++;
@@ -305,7 +305,7 @@ namespace HatTrick.TextualView
                 strChoice = Console.ReadLine();
             }
 
-            return drFormations[int.Parse(strChoice)-1][0].ToString();
+            return drFormations.Rows[int.Parse(strChoice)-1][0].ToString();
         }
 
         public static void ShowCreateNewTeam(out string strTeamName)
@@ -348,12 +348,12 @@ namespace HatTrick.TextualView
 
         public static void ShowErrorLogin()
         {
-            Console.WriteLine("Error loging in. User doest not exist or password incorrect.");
+            Console.WriteLine("Error loging in. TextualView.localhost.User doest not exist or password incorrect.");
             Console.WriteLine("Press enter to return");
             Console.ReadLine();
         }
 
-        public static void ShowMyFormation(Team tMyTeam)
+        public static void ShowMyFormation(TextualView.localhost.Team tMyTeam)
         {
             int nDefence = int.Parse(tMyTeam.Formation.Split('-')[0]);
             int nMidField = int.Parse(tMyTeam.Formation.Split('-')[1]);
@@ -363,7 +363,7 @@ namespace HatTrick.TextualView
             Console.WriteLine("Hello coach!");
             Console.WriteLine("Your formation is {0}", tMyTeam.Formation);
 
-            Player pCurrPlayer = ((Player)(tMyTeam.Players.Where(T => T.Position == 1)).First());
+            TextualView.localhost.Player pCurrPlayer = ((TextualView.localhost.Player)(tMyTeam.Players.Where(T => T.Position == 1)).First());
 
             PrintBuffer(1);
 
@@ -372,7 +372,7 @@ namespace HatTrick.TextualView
 
             for (int i = 2; i <= nDefence + 1; i++)
             {
-                pCurrPlayer = ((Player)(tMyTeam.Players.Where(T => T.Position == i)).First());
+                pCurrPlayer = ((TextualView.localhost.Player)(tMyTeam.Players.Where(T => T.Position == i)).First());
                 CompleteToTen(pCurrPlayer.Position.ToString() + "." + pCurrPlayer.Name);
             }
 
@@ -380,7 +380,7 @@ namespace HatTrick.TextualView
 
             for (int i = nDefence + 2; i <= nMidField + nDefence + 1; i++)
             {
-                pCurrPlayer = ((Player)(tMyTeam.Players.Where(T => T.Position == i)).First());
+                pCurrPlayer = ((TextualView.localhost.Player)(tMyTeam.Players.Where(T => T.Position == i)).First());
                 CompleteToTen(pCurrPlayer.Position.ToString() + "." + pCurrPlayer.Name);
             }
 
@@ -388,16 +388,16 @@ namespace HatTrick.TextualView
 
             for (int i = nMidField + nDefence + 2; i <= 11; i++)
             {
-                pCurrPlayer = ((Player)(tMyTeam.Players.Where(T => T.Position == i)).First());
+                pCurrPlayer = ((TextualView.localhost.Player)(tMyTeam.Players.Where(T => T.Position == i)).First());
                 CompleteToTen(pCurrPlayer.Position.ToString() + "." + pCurrPlayer.Name);
             }
 
             PrintBuffer(1);
 
             Console.WriteLine("Sitting on the bench: ");
-            for (int i = 12; i < tMyTeam.Players.Count + 1; i++)
+            for (int i = 12; i < tMyTeam.Players.Length + 1; i++)
             {
-                pCurrPlayer = ((Player)(tMyTeam.Players.Where(T => T.Position == i)).First());
+                pCurrPlayer = ((TextualView.localhost.Player)(tMyTeam.Players.Where(T => T.Position == i)).First());
                 CompleteToTen(pCurrPlayer.Position.ToString() + "." + pCurrPlayer.Name);
                 Console.WriteLine();
             }
@@ -455,7 +455,7 @@ namespace HatTrick.TextualView
             }
         }
 
-        public static string ShowLeague(User m_usrCurrent)
+        public static string ShowLeague(TextualView.localhost.User m_usrCurrent)
         {
             Console.WriteLine("Welcome to your league:");
             Console.WriteLine("-------------------------");
@@ -499,7 +499,7 @@ namespace HatTrick.TextualView
             return strReturn;
         }
 
-        public static void ShowGameStory(GameStory gsGameStory)
+        public static void ShowGameStory(TextualView.localhost.GameStory gsGameStory)
         {
             Console.Clear();
             Console.WriteLine("Game Summary");
@@ -541,25 +541,25 @@ namespace HatTrick.TextualView
             Console.WriteLine("First Half:");
             Console.WriteLine("-----------");
             bool bIsFirstHalf = true;
-            foreach (KeyValuePair<int, GameEvent> evtCurr in gsGameStory.GameEvents)
+            foreach (TextualView.localhost.GameEvent evtCurr in gsGameStory.GameEvents)
             {
-                if (bIsFirstHalf && evtCurr.Value.Minute > 45)
+                if (bIsFirstHalf && evtCurr.Minute > 45)
                 {
                     Console.WriteLine();
                     Console.WriteLine("Second Half:");
                     Console.WriteLine("-----------");
                     bIsFirstHalf = false;
                 }
-                if (evtCurr.Value is ScoreEvent)
+                if (evtCurr is TextualView.localhost.ScoreEvent)
                 {
-                    if ((evtCurr.Value as ScoreEvent).bShowInSummary)
+                    if ((evtCurr as TextualView.localhost.ScoreEvent).bShowInSummary)
                     {
-                        Console.WriteLine("(Min {0}) {1}",evtCurr.Value.Minute.ToString(), evtCurr.Value.ToString());
+                        Console.WriteLine("(Min {0}) {1}",evtCurr.Minute.ToString(), evtCurr.ToString());
                     }
                 }
                 else
                 {
-                    Console.WriteLine("(Min {0}) {1}", evtCurr.Value.Minute.ToString(), evtCurr.Value.ToString());
+                    Console.WriteLine("(Min {0}) {1}", evtCurr.Minute.ToString(), evtCurr.ToString());
                 }
                 Console.WriteLine();
             }
@@ -574,11 +574,11 @@ namespace HatTrick.TextualView
             Console.WriteLine("There has been an error starting the match.");
         }
 
-        public static void PrintPlayers(List<Player> players)
+        public static void PrintPlayers(List<TextualView.localhost.Player> players)
         {
             Console.WriteLine("Players:");
             Console.WriteLine();
-            foreach (Player player in players)
+            foreach (TextualView.localhost.Player player in players)
             {
                 Console.WriteLine(player);
             }
@@ -613,7 +613,7 @@ namespace HatTrick.TextualView
             return strChoice;
         }
 
-        public static string ShowTrainingTypes(Team tMyTeam)
+        public static string ShowTrainingTypes(TextualView.localhost.Team tMyTeam)
         {
             Console.Clear();
             Console.WriteLine("Your current training type is: " + tMyTeam.TeamTrainingType.ToString());
@@ -662,7 +662,7 @@ namespace HatTrick.TextualView
         {
             Console.Clear();
             int nTeamIndex = 1;
-            Console.WriteLine("#  Team Name Matches Wins Draws Losts GoalsDiff Points");
+            Console.WriteLine("#  TextualView.localhost.Team Name Matches Wins Draws Losts GoalsDiff Points");
             Console.WriteLine("-- --------- ------- ---- ----- ----- --------- ------");
 
             foreach (DataRowView drvCurrTeam in dvLeagueTable)
@@ -723,14 +723,14 @@ namespace HatTrick.TextualView
             Console.ReadLine();
         }
 
-        public static void ShowPlayers(List<Player> players)
+        public static void ShowPlayers(TextualView.localhost.Player[] players)
         {
             Console.Clear();
             Console.WriteLine("ID  Pos\tName(Age)\tKeeping   Defending  PlayMaking Winger     Passing   Scoring    SetPieces ");
             Console.WriteLine("====================================================================================================");
             Console.WriteLine();
             int nCurrPlayer = 1;
-            foreach ( Player player in players)
+            foreach ( TextualView.localhost.Player player in players)
             {
                 int age = player.Age;
                 int nLength = player.Name.Length;
@@ -739,7 +739,7 @@ namespace HatTrick.TextualView
                     player.Position.ToString(),
                     player.Name.Substring(0, nLength < 11 ? nLength : 11),
                     age);
-                Team tMyTeam = new Team();
+                TextualView.localhost.Team tMyTeam = new HatTrick.TextualView.localhost.Team();
                 //(, int nCurrPlayer, int nCurrSkillVal, int nCompletion)
 
                 PrintSingleSkill(tMyTeam, nCurrPlayer, (int)double.Parse(player.KeeperVal.ToString()), 10);

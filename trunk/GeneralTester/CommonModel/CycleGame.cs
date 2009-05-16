@@ -87,6 +87,11 @@ namespace HatTrick.CommonModel
             set { nAwayScore = value; }
         }
 
+        public CycleGameFinished()
+        {
+
+        }
+
         public CycleGameFinished(int nCNum, string strHome, string strAway, int nGmId, DateTime dtCycle)
         {
             CycleNum = nCNum;

@@ -395,7 +395,7 @@ namespace HatTrick.DAL
 
 
 
-        public static DataRowCollection GetFormations()
+        public static DataTable GetFormations()
         {
             OleDbCommand cmdCommand = m_cnConnection.CreateCommand();
 
@@ -403,11 +403,11 @@ namespace HatTrick.DAL
             {
                 Connect();
                 cmdCommand.CommandText = string.Format("SELECT PosDisplay from positions");
-                DataTable dtNew = new DataTable();
+                DataTable dtNew = new DataTable("Formations");
                 OleDbDataAdapter oldba = new OleDbDataAdapter(cmdCommand);
                 oldba.Fill(dtNew);
 
-                return dtNew.Rows;
+                return dtNew;
             }
             finally
             {
@@ -475,7 +475,7 @@ namespace HatTrick.DAL
 
                 GameStory gsToReturn = new GameStory();
 
-                DataTable dtNew = new DataTable();
+                DataTable dtNew = new DataTable("GameStory");
                 OleDbDataAdapter oldba = new OleDbDataAdapter(cmdCommand);
                 oldba.Fill(dtNew);
 
@@ -521,7 +521,7 @@ namespace HatTrick.DAL
             {
                 Connect();
                 cmdCommand.CommandText = string.Format("SELECT * from teams");
-                DataTable dtNew = new DataTable();
+                DataTable dtNew = new DataTable("Teams");
                 OleDbDataAdapter oldba = new OleDbDataAdapter(cmdCommand);
                 oldba.Fill(dtNew);
 
@@ -641,7 +641,7 @@ namespace HatTrick.DAL
             {
                 Connect();
                 cmdCommand.CommandText = string.Format("SELECT * from cycles");
-                DataTable dtNew = new DataTable();
+                DataTable dtNew = new DataTable("Cycles");
                 OleDbDataAdapter oldba = new OleDbDataAdapter(cmdCommand);
                 oldba.Fill(dtNew);
 
@@ -723,7 +723,7 @@ namespace HatTrick.DAL
            {
                Connect();
                cmdCommand.CommandText = string.Format("SELECT * From players  where PlayerTeam like \'{0}\' and IsForSale = 0", TeamName);
-               DataTable dtNew = new DataTable();
+               DataTable dtNew = new DataTable("NotForSell");
                OleDbDataAdapter oldba = new OleDbDataAdapter(cmdCommand);
                oldba.Fill(dtNew);
 
@@ -744,7 +744,7 @@ namespace HatTrick.DAL
                Connect();
                cmdCommand.CommandText = string.Format("SELECT PlayerName From players  where PlayerTeam like \'{0}\' and PlayerID like \'{1}\'",
                                                       tMyTeam.Name, strPlayerId);
-               DataTable dtNew = new DataTable();
+               DataTable dtNew = new DataTable("CanISell");
                OleDbDataAdapter oldba = new OleDbDataAdapter(cmdCommand);
                oldba.Fill(dtNew);
                return dtNew.Rows.Count == 1;
@@ -818,7 +818,7 @@ namespace HatTrick.DAL
            {
                Connect();
                cmdCommand.CommandText = "SELECT * FROM Players WHERE IsForSale = 1 and PlayerTeam <> '" + TeamName + "'";
-               DataTable dtNew = new DataTable();
+               DataTable dtNew = new DataTable("ForSale");
                OleDbDataAdapter oldba = new OleDbDataAdapter(cmdCommand);
                oldba.Fill(dtNew);
 
@@ -1067,8 +1067,9 @@ namespace HatTrick.DAL
             try
             {
                 Connect();
-                cmdCommand.CommandText = string.Format("select teamname, MatchesPlayed, wins,draws,loses,goalsfor, goalsagainst, goalsfor - goalsagainst as Diff, points from league where leagueid = {0}", nCurrLeague);
-                DataTable dtNew = new DataTable();
+                cmdCommand.CommandText = string.Format("select teamname, MatchesPlayed, wins,draws,loses,goalsfor, goalsagainst, goalsfor - goalsagainst as Diff, points from league where leagueid = {0} ORDER BY points desc , goalsfor - goalsagainst desc", nCurrLeague);
+                //cmdCommand.CommandText = string.Format("select teamname, MatchesPlayed, wins,draws,loses,goalsfor, goalsagainst, goalsfor - goalsagainst as Diff, points from league where leagueid = {0}", nCurrLeague);
+                DataTable dtNew = new DataTable("League");
                 OleDbDataAdapter oldba = new OleDbDataAdapter(cmdCommand);
                 oldba.Fill(dtNew);
  
@@ -1088,7 +1089,7 @@ namespace HatTrick.DAL
                 Connect();
                 cmdCommand.CommandText = string.Format("SELECT * From players  where PlayerID like \'{0}\'",
                                                        nPlayerID.ToString());
-                DataTable dtNew = new DataTable();
+                DataTable dtNew = new DataTable("PLayers");
                 OleDbDataAdapter oldba = new OleDbDataAdapter(cmdCommand);
                 oldba.Fill(dtNew);
 
@@ -1122,7 +1123,7 @@ namespace HatTrick.DAL
                 Connect();
                 cmdCommand.CommandText = 
                     string.Format("SELECT * from cycles where HomeTeam = '{0}' OR AwayTeam = '{0}'", _Team.Name);
-                DataTable dtNew = new DataTable();
+                DataTable dtNew = new DataTable("Matches");
                 OleDbDataAdapter oldba = new OleDbDataAdapter(cmdCommand);
                 oldba.Fill(dtNew);
 

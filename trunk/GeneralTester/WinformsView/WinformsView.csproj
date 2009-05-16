@@ -39,6 +39,8 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -179,6 +181,11 @@
     <Compile Include="TeamScreen.Designer.cs">
       <DependentUpon>TeamScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Web References\localhost\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
     <Compile Include="WelcomeScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -190,10 +197,6 @@
     <ProjectReference Include="..\CommonModel\CommonModel.csproj">
       <Project>{AC139903-5638-44D4-8A17-0C94A11D33AF}</Project>
       <Name>CommonModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Game\Game.csproj">
-      <Project>{78DF7BB6-75F8-4204-B3B1-FE80D1209C7E}</Project>
-      <Name>Game</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -215,8 +218,61 @@
     <Content Include="Getting Started With Hattrick.mht">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Web References\localhost\CycleGameFinished.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\localhost\FouledEvent.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\localhost\FreeKickEvent.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\localhost\Game.disco" />
+    <None Include="app.config" />
     <None Include="Resources\field\field3.PNG" />
     <None Include="Resources\Getting Started With Hattrick.mht" />
+    <None Include="Web References\localhost\Game.wsdl" />
+    <None Include="Web References\localhost\GameStory.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\localhost\PaneltyEvent.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\localhost\Player.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\localhost\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\localhost\ScoreEvent.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\localhost\Team.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\localhost\User.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://localhost:4299/Game.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\localhost\</RelPath>
+      <UpdateFromURL>http://localhost:4299/Game.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>WinformsView_localhost_Game</CachedSettingsPropName>
+    </WebReferenceUrl>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

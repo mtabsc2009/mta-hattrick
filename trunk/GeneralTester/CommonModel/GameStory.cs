@@ -40,6 +40,9 @@ namespace HatTrick.CommonModel
                 else if (AwayScore < HomeScore) return HomeTeam.Team;
                 else return null;
             }
+            set
+            {
+            }
         }
 
         public int AwayScore
@@ -54,9 +57,9 @@ namespace HatTrick.CommonModel
             set { m_nHomeScore = value; }
         }
 
-        public SortedList<int, GameEvent> GameEvents
+        public List<GameEvent> GameEvents
         {
-            get { return m_lstGameEvents; }
+            get { return m_lstGameEvents.Values.ToList<GameEvent>(); }
         }
 
         public int TotalEvents
@@ -98,6 +101,9 @@ namespace HatTrick.CommonModel
         public DateTime GameDate
         {
             get { return m_dtGameDate; }
+            set
+            {
+            }
         }
         public int Watchers
         {

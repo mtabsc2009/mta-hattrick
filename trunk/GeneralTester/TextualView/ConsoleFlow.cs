@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using HatTrick.CommonModel;
 using System.Data;
+using HatTrick.TextualView.localhost;
 
 namespace HatTrick.TextualView
 {
@@ -39,9 +40,9 @@ namespace HatTrick.TextualView
             string strHomeTeam, strAwayTeam;
             Menu.ShowStartMatch(out strAwayTeam);
 
-            strHomeTeam = Game.MyTeam.Name;
+            strHomeTeam = Game.getTeam().Name;
 
-            GameStory gsGameStory = Game.MatchTeams(strHomeTeam, strAwayTeam);
+            HatTrick.TextualView.localhost.GameStory gsGameStory = Game.MatchTeams(strHomeTeam, strAwayTeam);
             if (gsGameStory != null)
             {
                 Menu.ShowGameStory(gsGameStory);
@@ -90,7 +91,7 @@ namespace HatTrick.TextualView
         private static void HandleWelcome()
         {
             Console.Clear();
-            string strChoice = Menu.ShowWelcome(Game.User);
+            string strChoice = Menu.ShowWelcome(Game.getUser());
 
             while (strChoice != "4")
             {
@@ -111,14 +112,14 @@ namespace HatTrick.TextualView
                         break;
                 }
                 Console.Clear();
-                strChoice = Menu.ShowWelcome(Game.User);
+                strChoice = Menu.ShowWelcome(Game.getUser());
             }
         }
 
         private static void HandleLeague()
         {
             Console.Clear();
-            string strChoice = Menu.ShowLeague(Game.User);
+            string strChoice = Menu.ShowLeague(Game.getUser());
             while (strChoice != "6")
             {
                 switch (strChoice)
@@ -140,26 +141,26 @@ namespace HatTrick.TextualView
                         break;
                 }
                 Console.Clear();
-                strChoice = Menu.ShowLeague(Game.User);
+                strChoice = Menu.ShowLeague(Game.getUser());
             }
         }
 
         private static void ShowLeagueTable()
         {
-            Menu.ShowLeagueTable(Game.GetLeague());
+            Menu.ShowLeagueTable(Game.GetLeague().DefaultView);
         }
 
         private static void HandleManageTeam()
         {
             Console.Clear();
-            string strChoice = Menu.ShowManageTeam(Game.User);
+            string strChoice = Menu.ShowManageTeam(Game.getUser());
 
             while (strChoice != "7")
             {
                 switch (strChoice)
                 {
                     case "1":
-                        ShowMyTeam(Game.MyTeam);
+                        ShowMyTeam(Game.getTeam());
                         break;
 
                     case "2":
@@ -170,22 +171,22 @@ namespace HatTrick.TextualView
                         ChangeTeamFomation();
                         break;
                     case "4":
-                        Menu.ShowMyFormation(Game.MyTeam);
+                        Menu.ShowMyFormation(Game.getTeam());
                         break;
                     case "5":
                         HandleTransaferPlayers();
                         break;
                     case "6":
-                        ShowTrainingTypes(Game.MyTeam);
+                        ShowTrainingTypes(Game.getTeam());
                         break;
                 }
 
                 Console.Clear();
-                strChoice = Menu.ShowManageTeam(Game.User);
+                strChoice = Menu.ShowManageTeam(Game.getUser());
             }
         }
 
-        public static void ShowMyTeam(Team tMyTeam)
+        public static void ShowMyTeam(HatTrick.TextualView.localhost.Team tMyTeam)
         {
             Menu.ShowPrintPlayers(tMyTeam);
         }
@@ -193,13 +194,13 @@ namespace HatTrick.TextualView
 
         public static void ChangePlayerPosition()
         {
-            Menu.ShowPrintPlayers(Game.MyTeam);
+            Menu.ShowPrintPlayers(Game.getTeam());
 
             int n;
 
-            Player plrToChange;
-            Player plrChangedPos;
-            Menu.ShowChangePlayerPos(Game.MyTeam, out n, out plrToChange, out plrChangedPos);
+            HatTrick.TextualView.localhost.Player plrToChange;
+            HatTrick.TextualView.localhost.Player plrChangedPos;
+            Menu.ShowChangePlayerPos(Game.getTeam(), out n, out plrToChange, out plrChangedPos);
             Game.ChangePlayerPosition(plrToChange, plrChangedPos);
         }
 
@@ -207,20 +208,20 @@ namespace HatTrick.TextualView
 
         public static void ChangeTeamFomation()
         {
-            DataRowCollection drColFormations = Game.GetFormations();
-            string strChoice = Menu.ShowTeamFormation(Game.User, drColFormations);
-            Game.MyTeam.Formation = strChoice;
-            Game.ChangeTeamFormation(Game.MyTeam, strChoice);
+            DataTable drColFormations = Game.GetFormations();
+            string strChoice = Menu.ShowTeamFormation(Game.getUser(), drColFormations);
+            Game.getTeam().Formation = strChoice;
+            Game.ChangeTeamFormation(Game.getTeam(), strChoice);
             Menu.ShowFormationChanged();
         }
 
-        public static Player ChoosePlayerByID(List<Player> i_Players)
+        public static HatTrick.TextualView.localhost.Player ChoosePlayerByID(HatTrick.TextualView.localhost.Player[] i_Players)
         {
             int n;
 
-            Console.WriteLine("Please choose player id");
+            Console.WriteLine("Please choose HatTrick.TextualView.localhost.Player id");
             string strPlayerID;
-            Player player = null;
+            HatTrick.TextualView.localhost.Player player = null;
 
             strPlayerID = Console.ReadLine();
 
@@ -230,7 +231,7 @@ namespace HatTrick.TextualView
             {
                 if (int.TryParse(strPlayerID, out n))
                 {
-                    IEnumerable<Player> enumerable = i_Players.Where(T => T.ID == int.Parse(strPlayerID));
+                    IEnumerable<TextualView.localhost.Player> enumerable = i_Players.Where(T => T.ID == int.Parse(strPlayerID));
                     if (enumerable.Count() == 1)
                     {
                         player = enumerable.First();
@@ -238,13 +239,13 @@ namespace HatTrick.TextualView
                     }
                     else
                     {
-                        Console.WriteLine("Please choose player id");
+                        Console.WriteLine("Please choose HatTrick.TextualView.localhost.Player id");
                         strPlayerID = Console.ReadLine();
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Please choose player id");
+                    Console.WriteLine("Please choose HatTrick.TextualView.localhost.Player id");
                     strPlayerID = Console.ReadLine();
                 }
             }
@@ -255,7 +256,7 @@ namespace HatTrick.TextualView
 
 
 
-        public static void HandleBuyPlayer(Team tMyTeam, List<Player> playersForSale, Player playerToBuy)
+        public static void HandleBuyPlayer(HatTrick.TextualView.localhost.Team tMyTeam, List<HatTrick.TextualView.localhost.Player> playersForSale, HatTrick.TextualView.localhost.Player playerToBuy)
         {
             if (playersForSale.Count > 0)
             {
@@ -281,7 +282,7 @@ namespace HatTrick.TextualView
 
         public static void ManageTeam()
         {
-            if (Game.MyTeam == null)
+            if (Game.getTeam() == null)
             {
                 string strTeamName;
                 Menu.ShowCreateNewTeam(out strTeamName);
@@ -300,7 +301,7 @@ namespace HatTrick.TextualView
         public static void ShowCycles()
         {
             Console.Clear();
-            DataView dvAllCycles = Game.GetAllCycles();
+            DataView dvAllCycles = Game.GetAllCycles().DefaultView;
 
             string strGameID;
 
@@ -309,7 +310,7 @@ namespace HatTrick.TextualView
             Console.WriteLine();
 
             int nCycleNo = 1;
-            GameStory gsStory = null;
+            HatTrick.TextualView.localhost.GameStory gsStory = null;
             foreach (DataRowView drvCurr in dvAllCycles)
             {
                 if ((int.Parse((string)drvCurr["CycleNum"]) != nCycleNo))
@@ -364,7 +365,7 @@ namespace HatTrick.TextualView
             {
                 try
                 {
-                    GameStory gsToShow = Game.GetGameStory(nGameToShow);
+                    HatTrick.TextualView.localhost.GameStory gsToShow = Game.GetGameStory(nGameToShow);
                     Menu.ShowGameStory(gsToShow);
                 }
                 catch
@@ -380,10 +381,10 @@ namespace HatTrick.TextualView
             Game.TrainAllTeams(nNumOfTrains);
         }
 
-        private static void ShowTrainingTypes(Team tMyTeam)
+        private static void ShowTrainingTypes(HatTrick.TextualView.localhost.Team tMyTeam)
         {
             string strChoice = Menu.ShowTrainingTypes(tMyTeam);
-            Game.ChangeTeamTrainngType((Consts.TrainingType)(int.Parse(strChoice)));
+            Game.ChangeTeamTrainngType((TextualView.localhost.TrainingType)(int.Parse(strChoice)));
             Console.WriteLine("Training type changed");
             Console.ReadLine();
         }
@@ -398,7 +399,7 @@ namespace HatTrick.TextualView
                 switch (strChoice)
                 {
                     case "1":
-                        ShowSellPlayers(Game.MyTeam);
+                        ShowSellPlayers(Game.getTeam());
                         break;
                     case "2":
                         showBuyPlayer();
@@ -412,17 +413,17 @@ namespace HatTrick.TextualView
 
         private static void showBuyPlayer()
         {
-            ShowPlayersShowForBuy(Game.MyTeam);
-            Player player = ChoosePlayerByID(Game.GetPlayerForSell(Game.MyTeam));
+            ShowPlayersShowForBuy(Game.getTeam());
+            HatTrick.TextualView.localhost.Player player = ChoosePlayerByID(Game.GetPlayerForSell(Game.getTeam()));
             Game.buyPlayer(player);
             Console.Read();
         }
 
-        private static bool ShowPlayersShowForBuy(Team tMyTeam)
+        private static bool ShowPlayersShowForBuy(HatTrick.TextualView.localhost.Team tMyTeam)
         {
-            List<Player> pList = Game.GetPlayerForSell(tMyTeam);
+            HatTrick.TextualView.localhost.Player[] pList = Game.GetPlayerForSell(tMyTeam);
             bool retVal = false;
-            if (pList.Count > 0)
+            if (pList.Length > 0)
             {
                 HatTrick.TextualView.Menu.ShowPlayers(pList);
                 retVal = true;
@@ -430,7 +431,7 @@ namespace HatTrick.TextualView
             return retVal;
         }
 
-        private static void ShowSellPlayers(Team tMyTeam)
+        private static void ShowSellPlayers(HatTrick.TextualView.localhost.Team tMyTeam)
         {
             int intCost;
             String id; 
@@ -474,11 +475,11 @@ namespace HatTrick.TextualView
             
         }
 
-        private static bool ShowMyPlayers(Team tMyTeam)
+        private static bool ShowMyPlayers(HatTrick.TextualView.localhost.Team tMyTeam)
         {
-            List<Player> pList = Game.GetPlayerNotForSell(tMyTeam);
+            HatTrick.TextualView.localhost.Player[] pList = Game.GetPlayerNotForSell(tMyTeam);
             bool retVal = false;
-            if (pList.Count > 0)
+            if (pList.Length > 0)
             {
                 HatTrick.TextualView.Menu.ShowPlayers(pList);
                 retVal = true;

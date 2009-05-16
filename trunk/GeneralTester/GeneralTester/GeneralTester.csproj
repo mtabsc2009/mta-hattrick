@@ -57,9 +57,16 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Tester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -72,10 +79,20 @@
       <Project>{B4A3CBCF-1C62-448A-A071-D2AF9F25387B}</Project>
       <Name>DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Game\Game.csproj">
-      <Project>{78DF7BB6-75F8-4204-B3B1-FE80D1209C7E}</Project>
-      <Name>Game</Name>
+    <ProjectReference Include="..\HattrickGameService\HattrickGameService.csproj">
+      <Project>{6DFEF929-C4B6-4BDB-A5B3-935AB4C49B3D}</Project>
+      <Name>HattrickGameService</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

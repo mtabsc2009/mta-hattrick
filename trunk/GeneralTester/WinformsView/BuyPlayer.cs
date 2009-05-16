@@ -19,12 +19,12 @@ namespace HatTrick.Views.WinformsView
 
         private void BuyPlayer_Load(object sender, EventArgs e)
         {
-            DataView dvPlayers = Game.GetPlayerForSell(Game.MyTeam.Name);
+            DataView dvPlayers = Game.GetPlayerForSell(Game.getTeam().Name).DefaultView;
             
             dgvPlayers.DataSource = dvPlayers;
             dgvPlayers.Columns["PlayerPos"].Visible = false;
             dgvPlayers.Columns["IsForSale"].Visible = false;
-            lblTeamCash.Text = "Your team has " + Game.MyTeam.TeamCash + "$";
+            lblTeamCash.Text = "Your team has " + Game.getTeam().TeamCash + "$";
         }
 
 
@@ -62,7 +62,7 @@ namespace HatTrick.Views.WinformsView
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (Game.MyTeam.TeamCash < int.Parse(lblMoney.Text.Substring(0, lblMoney.Text.Length - 1)))
+            if (Game.getTeam().TeamCash < int.Parse(lblMoney.Text.Substring(0, lblMoney.Text.Length - 1)))
             {
                 MessageBox.Show("You dont have emough money to buy the selected player/s", "Buy players", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

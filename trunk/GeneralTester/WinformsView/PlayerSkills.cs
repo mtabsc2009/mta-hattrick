@@ -12,11 +12,11 @@ namespace HatTrick.Views.WinformsView
 {
     public partial class PlayerSkills : DefaultForm
     {
-        private Player m_Player;
+        private localhost.Player m_Player;
         private string InitialCost { get; set; }
         public bool IsMyTeam { get; set; }
 
-        public Player Player
+        public localhost.Player Player
         {
             get { return m_Player; }
             set

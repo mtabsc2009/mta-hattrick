@@ -8,6 +8,7 @@ namespace HatTrick.CommonModel
     [SerializableAttribute]
     public enum PaneltyCard
     {
+        ptNoCard = 0,
         ptNone = 1,
         ptYellow = 2,
         ptRed = 3
@@ -25,6 +26,10 @@ namespace HatTrick.CommonModel
             Minute = nMinute;
             Actor = plrActor;
         }
+        public GameEvent()
+        {
+
+        }
     }
 
     [SerializableAttribute]
@@ -36,7 +41,10 @@ namespace HatTrick.CommonModel
         {
             this.bShowInSummary = bShowInSummary;
         }
+        public ScoreEvent()
+        {
 
+        }
         public override string ToString()
         {
             return string.Format("GOAL!! {1} from {0} Scored a goal!", teamAttacking.Name, Actor.Name);
@@ -50,10 +58,14 @@ namespace HatTrick.CommonModel
         {
 
         }
+        public FailedEvent()
+        {
+
+        }
     }
 
     [SerializableAttribute]
-    public abstract class FouledEvent : GameEvent
+    public class FouledEvent : GameEvent
     {
         public Player Foulist { get; set; }
 
@@ -64,7 +76,10 @@ namespace HatTrick.CommonModel
             ptCard = PaneltyCard.ptNone;
             bScored = null;
         }
+        public FouledEvent()
+        {
 
+        }
         public PaneltyCard ptCard { get; set; }
         public Team bScored { get; set; }
     }
@@ -80,7 +95,10 @@ namespace HatTrick.CommonModel
         {
             Shooter = plrShooter;
         }
+        public FreeKickEvent()
+        {
 
+        }
         public override string ToString()
         {
             string strMain = string.Format("{0}'s attack lead by {1} was stopped by a foul outside the 16 meteres! followed by a free kick", 
@@ -108,7 +126,10 @@ namespace HatTrick.CommonModel
         {
             Shooter = plrShooter;
         }
+        public PaneltyEvent()
+        {
 
+        }
         public override string ToString()
         {
             string strMain = string.Format(
@@ -132,7 +153,10 @@ namespace HatTrick.CommonModel
         {
 
         }
+        public MissedFouledEvent()
+        {
 
+        }
         public override string ToString()
         {
             return string.Format("The crowed shouted when the referee missed {0}'s from {1} foul on {2}!", 
@@ -150,6 +174,10 @@ namespace HatTrick.CommonModel
         {
 
         }
+        public MissedEvent()
+        {
+
+        }
         public override string ToString()
         {
             return string.Format("{0} from {1} took a long shot and missed !", Actor.Name, teamAttacking.Name);
@@ -164,7 +192,10 @@ namespace HatTrick.CommonModel
         {
 
         }
+        public StoppedEvent()
+        {
 
+        }
         public override string ToString()
         {
             return string.Format("{0}'s from {1} attack was stopped by the defence", Actor.Name, teamAttacking.Name);

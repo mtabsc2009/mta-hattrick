@@ -3,9 +3,10 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
+using System.Collections;
 using HatTrick.CommonModel;
 using HatTrick.DAL;
-using System.Collections;
+using HattrickGameService;
 
 namespace HatTrick
 {
@@ -54,7 +55,7 @@ namespace HatTrick
         public void TestLoadTeamWithoutLogin()
         {
             Game.Reset();
-            Assert.IsNull(DBAccess.LoadTeam(Game.User));
+            Assert.IsNull(DBAccess.LoadTeam(Game.getUser()));
 
         }
         
@@ -62,7 +63,7 @@ namespace HatTrick
         public void TestLoadTeam()
         {
             Game.Login("etay", "etay");
-            Assert.IsNotNull(DBAccess.LoadTeam(Game.User));
+            Assert.IsNotNull(DBAccess.LoadTeam(Game.getUser()));
             
         }
 

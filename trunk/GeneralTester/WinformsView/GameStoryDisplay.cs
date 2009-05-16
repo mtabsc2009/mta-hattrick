@@ -12,14 +12,14 @@ namespace HatTrick.Views.WinformsView
 {
     public partial class GameStoryDisplay : DefaultForm
     {
-        public GameStory GameStory { get; set; }
+        public localhost.GameStory GameStory { get; set; }
         private StringBuilder strBuilder = new StringBuilder();
         public GameStoryDisplay()
         {
             InitializeComponent();
         }
 
-        public GameStoryDisplay(GameStory gsStory)
+        public GameStoryDisplay(localhost.GameStory gsStory)
         {
             InitializeComponent();
             GameStory = gsStory;
@@ -38,7 +38,6 @@ namespace HatTrick.Views.WinformsView
             lblAwayScore.Text = GameStory.AwayScore.ToString();
             lblAwayFormation.Text = GameStory.AwayTeam.Team.Formation;
             lblAwayStrat.Text = GameStory.AwayTeam.IsTeamMiddleMethod == true ? "Middle Field" : "Wings";
-
             lblGameDate.Text = GameStory.GameDate.ToShortDateString();
             lblFans.Text = GameStory.Watchers.ToString();
             lblWeather.Text = GameStory.Weather;
@@ -81,7 +80,7 @@ namespace HatTrick.Views.WinformsView
             tblEvents.Columns.Add(new DataColumn("Player"));
             tblEvents.Columns.Add(new DataColumn("More"));
 
-            foreach (GameEvent evt in GameStory.GameEvents.Values.Where(T => T.Minute >= 0))
+            foreach (localhost.GameEvent evt in GameStory.GameEvents.Where(T => T.Minute >= 0))
             {
                 DataRow r = tblEvents.NewRow();
 
@@ -91,36 +90,36 @@ namespace HatTrick.Views.WinformsView
                 r["Team"] = evt.teamAttacking;
                 r["Player"] = string.Format("{0} ({1})", evt.Actor.Name, evt.Actor.Position);
 
-                if (evt is PaneltyEvent)
+                if (evt is localhost.PaneltyEvent)
                 {
                     r["More"] = string.Format("{0} ({1})",
-                        (evt as PaneltyEvent).Shooter.Name, (evt as PaneltyEvent).Shooter.Position);
+                        (evt as localhost.PaneltyEvent).Shooter.Name, (evt as localhost.PaneltyEvent).Shooter.Position);
                 }
-                else if (evt is FreeKickEvent)
+                else if (evt is localhost.FreeKickEvent)
                 {
                     string strAddition = string.Empty;
-                    if ((evt as FreeKickEvent).bScored != null)
+                    if ((evt as localhost.FreeKickEvent).bScored != null)
                     {
                         strAddition = "Scored!";
                     }
                     r["More"] = string.Format("{0} ({1}) {2}",
-                        (evt as FreeKickEvent).Shooter.Name, (evt as FreeKickEvent).Shooter.Position, strAddition);
+                        (evt as localhost.FreeKickEvent).Shooter.Name, (evt as localhost.FreeKickEvent).Shooter.Position, strAddition);
                 }
-                else if (evt is PaneltyEvent)
+                else if (evt is localhost.PaneltyEvent)
                 {
                     string strAddition = string.Empty;
-                    if ((evt as PaneltyEvent).bScored != null)
+                    if ((evt as localhost.PaneltyEvent).bScored != null)
                     {
                         strAddition = "Scored!";
                     }
                     r["More"] = string.Format("{0} ({1}) {2}",
-                        (evt as PaneltyEvent).Shooter.Name, (evt as PaneltyEvent).Shooter.Position, strAddition);
+                        (evt as localhost.PaneltyEvent).Shooter.Name, (evt as localhost.PaneltyEvent).Shooter.Position, strAddition);
                 }
-                else if (evt is FouledEvent)
+                else if (evt is localhost.FouledEvent)
                 {
-                    FouledEvent f = evt as FouledEvent;
+                    localhost.FouledEvent f = evt as localhost.FouledEvent;
                     string strCard = f.ptCard.ToString().Substring(2);
-                    if (f.ptCard == PaneltyCard.ptNone)
+                    if (f.ptCard == localhost.PaneltyCard.ptNone)
                     {
                         strCard = "No";
                     }
@@ -165,7 +164,7 @@ namespace HatTrick.Views.WinformsView
 
         private void PrintGameStory()
         {
-            GameStory gsGameStory = GameStory;
+            localhost.GameStory gsGameStory = GameStory;
 
             int nStartChange = TextBox1.Text.Length;
             AddLine("Game Summary");
@@ -222,9 +221,9 @@ namespace HatTrick.Views.WinformsView
             TextBox1.SelectionColor = Color.Green;
 
             bool bIsFirstHalf = true;
-            foreach (KeyValuePair<int, GameEvent> evtCurr in gsGameStory.GameEvents)
+            foreach (localhost.GameEvent evtCurr in gsGameStory.GameEvents)
             {
-                if (bIsFirstHalf && evtCurr.Value.Minute > 45)
+                if (bIsFirstHalf && evtCurr.Minute > 45)
                 {
                     nStartChange = TextBox1.Text.Length;
 
@@ -236,23 +235,23 @@ namespace HatTrick.Views.WinformsView
                     TextBox1.Select(nStartChange, nEndChange);
                     TextBox1.SelectionColor = Color.Green;
                 }
-                if ((evtCurr.Value is ScoreEvent))
+                if ((evtCurr is localhost.ScoreEvent))
                 {
-                    if ((evtCurr.Value as ScoreEvent).bShowInSummary)
+                    if ((evtCurr as localhost.ScoreEvent).bShowInSummary)
                     {
                         nStartChange = TextBox1.Text.Length;
-                        AddLine("(Min {0}) {1}", evtCurr.Value.Minute.ToString(), evtCurr.Value.ToString());
+                        AddLine("(Min {0}) {1}", evtCurr.Minute.ToString(), evtCurr.ToString());
                         nEndChange = TextBox1.Text.Length;
                         TextBox1.Select(nStartChange, nEndChange);
                         TextBox1.SelectionColor = Color.Blue;
                     }
                 }
-                else if (evtCurr.Value is FouledEvent)
+                else if (evtCurr is localhost.FouledEvent)
                 {
-                    if ((evtCurr.Value as FouledEvent).bScored != null)
+                    if ((evtCurr as localhost.FouledEvent).bScored != null)
                     {
                         nStartChange = TextBox1.Text.Length;
-                        AddLine("(Min {0}) {1}", evtCurr.Value.Minute.ToString(), evtCurr.Value.ToString());
+                        AddLine("(Min {0}) {1}", evtCurr.Minute.ToString(), evtCurr.ToString());
                         nEndChange = TextBox1.Text.Length;
                         TextBox1.Select(nStartChange, nEndChange);
                         TextBox1.SelectionColor = Color.Blue;
@@ -260,7 +259,7 @@ namespace HatTrick.Views.WinformsView
                 }
                 else
                 {
-                    AddLine("(Min {0}) {1}", evtCurr.Value.Minute.ToString(), evtCurr.Value.ToString());
+                    AddLine("(Min {0}) {1}", evtCurr.Minute.ToString(), evtCurr.ToString());
                 }
                 AddLine();
             }
@@ -293,7 +292,7 @@ namespace HatTrick.Views.WinformsView
                     else
                     {
                         int nMinute = (int)((row.DataBoundItem as DataRowView)["Min"]);
-                        if (GameStory.GameEvents.ContainsKey(-nMinute))
+                        if (GameStory.GameEvents.Count(T => T.Minute == -nMinute) != 0)
                         {
                             row.DefaultCellStyle.Font = new Font(dataGridView1.DefaultCellStyle.Font, FontStyle.Bold);
                             row.DefaultCellStyle.ForeColor = Color.Blue;
