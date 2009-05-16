@@ -10,7 +10,7 @@ using HatTrick.CommonModel;
 
 namespace HatTrick.Views.WinformsView
 {
-    public partial class BuyPlayer : Form
+    public partial class BuyPlayer : DefaultForm
     {
         public BuyPlayer()
         {

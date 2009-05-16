@@ -13,9 +13,22 @@ namespace HatTrick.Views.WinformsView
 {
     public partial class WelcomeScreen : DefaultForm
     {
+        private static Game m_Game;
+        static WelcomeScreen()
+        {
+            m_Game = new Game();
+        }
         public WelcomeScreen()
         {
             InitializeComponent();
+        }
+
+        public static Game Game
+        {
+            get
+            {
+                return m_Game;
+            }
         }
 
         private void WelcomeScreen_Load(object sender, EventArgs e)

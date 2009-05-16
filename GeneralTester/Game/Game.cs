@@ -12,22 +12,22 @@ namespace HatTrick
 {
     public class Game
     {
-        private static User m_usrCurrent = null;
+        private User m_usrCurrent = null;
 
-        private static Team tMyTeam = null;
-        private static bool[] m_barrTakenMinutes = new bool[90];
-        private static Dictionary<string, Team> m_dicTeams = null;
+        private Team tMyTeam = null;
+        private bool[] m_barrTakenMinutes = new bool[90];
+        private Dictionary<string, Team> m_dicTeams = null;
 
-        public static Team MyTeam
+        public Team MyTeam
         {
-            get { return Game.tMyTeam; }
-            set { Game.tMyTeam = value; }
+            get { return tMyTeam; }
+            set { tMyTeam = value; }
         }
-        public static User User
+        public User User
         {
-            get { return Game.m_usrCurrent; }
+            get { return m_usrCurrent; }
         }
-        public static Dictionary<string, Team> Teams
+        public Dictionary<string, Team> Teams
         {
             get
             {
@@ -55,7 +55,7 @@ namespace HatTrick
 
         #region Game Enging
 
-        public static List<CycleGame> CyclesToList(DataView dvAllCycles)
+        public List<CycleGame> CyclesToList(DataView dvAllCycles)
         {
             List<CycleGame> lstCycleGames = new List<CycleGame>();
 
@@ -79,7 +79,7 @@ namespace HatTrick
             return lstCycleGames;
         }
 
-        public static List<CycleGameFinished> GetTeamMatches(Team _Team)
+        public List<CycleGameFinished> GetTeamMatches(Team _Team)
         {
             List<CycleGameFinished> lstCycleGames = new List<CycleGameFinished>();
             DataView dvAllCycles = DAL.DBAccess.GetTeamMatches(_Team);
@@ -105,7 +105,7 @@ namespace HatTrick
 
         }
 
-        public static List<CycleGameFinished> CyclesToListFinished(DataView dvAllCycles)
+        public List<CycleGameFinished> CyclesToListFinished(DataView dvAllCycles)
         {
             List<CycleGameFinished> lstCycleGames = new List<CycleGameFinished>();
 
@@ -129,23 +129,23 @@ namespace HatTrick
             return lstCycleGames;
         }
 
-        public static Team CreateTeam(string strTeamName)
+        public Team CreateTeam(string strTeamName)
         {
             return CreateTeam(User, strTeamName);
         }
 
-        public static Team CreateTeam(User usrUser, string strTeamName)
+        public Team CreateTeam(User usrUser, string strTeamName)
         {
             tMyTeam = DAL.DBAccess.CreateTeam(usrUser, strTeamName);
             return tMyTeam;
         }
 
-        private static void CreateLeagueTable()
+        private void CreateLeagueTable()
         {
             HatTrick.DAL.DBAccess.CreateLeagueEmptyTable();
         }
 
-        public static void CreateNewLeagueCycles()
+        public void CreateNewLeagueCycles()
         {
             if (HatTrick.DAL.DBAccess.CheckShouldCreateNewLeague())
             {
@@ -188,7 +188,7 @@ namespace HatTrick
             }
         }
 
-        private static void RotateTeams(ArrayList alFixedTeams, int nFixedTeam)
+        private void RotateTeams(ArrayList alFixedTeams, int nFixedTeam)
         {
             int nMid = (alFixedTeams.Count / 2);
             string nTemp = alFixedTeams[1].ToString();
@@ -216,7 +216,7 @@ namespace HatTrick
 
         }
 
-        private static ArrayList SetGamesForCycle(ArrayList alRotatedTeams, int nCycleNum)
+        private ArrayList SetGamesForCycle(ArrayList alRotatedTeams, int nCycleNum)
         {
             ArrayList alNewCycleGames = new ArrayList();
 
@@ -242,7 +242,7 @@ namespace HatTrick
             return (alNewCycleGames);
         }
 
-        public static DataView GetLeague()
+        public DataView GetLeague()
         {
             int nCurrLeague = DAL.DBAccess.GetMaxLeagueID();
             DataView dtvLeague = DAL.DBAccess.LoadLeagueTable(nCurrLeague);
@@ -250,7 +250,7 @@ namespace HatTrick
             return dtvLeague;
         }
 
-        public static void PlayNextCycle()
+        public void PlayNextCycle()
         {
             DataView dvAllCycles = GetAllCycles();
 
@@ -261,7 +261,7 @@ namespace HatTrick
             foreach (CycleGame gmCurr in (lstCycleGames.Where(T => T.CycleNum == nMin)))
             {
                 // Run Game
-                GameStory gsNewGame = Game.MatchTeams(gmCurr.HomeTeam, gmCurr.AwayTeam);
+                GameStory gsNewGame = MatchTeams(gmCurr.HomeTeam, gmCurr.AwayTeam);
                 gmCurr.GameID = HatTrick.DAL.DBAccess.SaveStoryToDB(gsNewGame);
                 gmCurr.CycleDate = DateTime.Now;
                 HatTrick.DAL.DBAccess.UpdateCycleData(gmCurr);
@@ -269,20 +269,20 @@ namespace HatTrick
             }
         }
 
-        public static void Reset()
+        public void Reset()
         {
             HatTrick.DAL.DBAccess.ResetDebugUser();
-            Game.m_usrCurrent = null;
+            m_usrCurrent = null;
         }
 
-        public static bool CreateUser(string strName, string strPass)
+        public bool CreateUser(string strName, string strPass)
         {
             User usrUser = new User(strName, strPass);
 
             return HatTrick.DAL.DBAccess.InsertUser(usrUser);
         }
 
-        public static User Login(string strUsername, string strPassword)
+        public User Login(string strUsername, string strPassword)
         {
             m_dicTeams = null;
             m_usrCurrent = HatTrick.DAL.DBAccess.GetUser(strUsername, strPassword);
@@ -291,7 +291,7 @@ namespace HatTrick
         }
 
 
-        //private static void HandleBuyPlayer()
+        //private void HandleBuyPlayer()
         //{
         //    List<Player> playersForSale = DAL.DBAccess.GetPlayersForSale(tMyTeam);
         //    List<Player> dwPlayersToBuy = DAL.DBAccess.GetPlayersForSale(tMyTeam);
@@ -302,12 +302,12 @@ namespace HatTrick
         //}
 
 
-        public static Player GetPlayerByID(int nPlayerID)
+        public Player GetPlayerByID(int nPlayerID)
         {
             return DAL.DBAccess.getPlayerByID(nPlayerID);
         }
 
-        public static bool buyPlayer(Player playerToBuy)
+        public bool buyPlayer(Player playerToBuy)
         {
             try
             {
@@ -327,12 +327,12 @@ namespace HatTrick
             }
         }
 
-        private static bool TeamHasEnoughMoneyToBuyPlayer(Player playerToBuy)
+        private bool TeamHasEnoughMoneyToBuyPlayer(Player playerToBuy)
         {
             return tMyTeam.TeamCash >= playerToBuy.PlayerCost;
         }
   
-        //private static void ShowMyFormation(Team tMyTeam)
+        //private void ShowMyFormation(Team tMyTeam)
         //{
         //    int nDefence = int.Parse(tMyTeam.Formation.Split('-')[0]);
         //    int nMidField = int.Parse(tMyTeam.Formation.Split('-')[1]);
@@ -391,7 +391,7 @@ namespace HatTrick
             
         //}
 
-        //private static void PrintBuffer(int nPos)
+        //private void PrintBuffer(int nPos)
         //{
         //    Console.WriteLine();
         //    Console.WriteLine();
@@ -416,7 +416,7 @@ namespace HatTrick
         //    }
         //}
 
-        //private static void CompleteToTen(string strPlayerName)
+        //private void CompleteToTen(string strPlayerName)
         //{
         //    Console.Write(strPlayerName);
 
@@ -426,7 +426,7 @@ namespace HatTrick
         //    }
         //}
 
-        //private static void PrintExact(int nExact)
+        //private void PrintExact(int nExact)
         //{
         //    for (int nCurr = 0; nCurr < nExact; ++nCurr)
         //    {
@@ -436,20 +436,20 @@ namespace HatTrick
 
 
 
-        public static void ChangeTeamFormation(Team tMyTeam, string strFormation)
+        public void ChangeTeamFormation(Team tMyTeam, string strFormation)
         {
             HatTrick.DAL.DBAccess.ChangeTeamFormation(tMyTeam, strFormation);
         }
 
 
-        public static void ChangePlayerPosition(Player plrToChange, Player plrChangedPos)
+        public void ChangePlayerPosition(Player plrToChange, Player plrChangedPos)
         {
             HatTrick.DAL.DBAccess.UpdatePlayerPosition(plrChangedPos);
             HatTrick.DAL.DBAccess.UpdatePlayerPosition(plrToChange);
         }
 
 
-        public static GameStory MatchTeams(string strHomeTeam, string strAwayTeam)
+        public GameStory MatchTeams(string strHomeTeam, string strAwayTeam)
         {
             GameStory gsGameStory = null;
             Team tmHomeTeam, tmAwayTeam;
@@ -483,7 +483,7 @@ namespace HatTrick
             return gsGameStory;
         }
 
-        private static void GameStoryDetermineScore(GameStory gsGameStory)
+        private void GameStoryDetermineScore(GameStory gsGameStory)
         {
             foreach (GameEvent evtCurr in gsGameStory.GameEvents.Values)
             {
@@ -501,7 +501,7 @@ namespace HatTrick
             }
         }
 
-        private static void GameStoryCreateEvents(GameStory gsGameStory)
+        private void GameStoryCreateEvents(GameStory gsGameStory)
         {
             int nCurrNumOfEvents = gsGameStory.HomeTeamEvents;
             TeamGameData datCurrTeam = gsGameStory.HomeTeam;
@@ -514,7 +514,7 @@ namespace HatTrick
             GameStoryCreateEventsForTeam(gsGameStory, gsGameStory.AwayTeam, gsGameStory.HomeTeam, gsGameStory.AwayTeamEvents);
         }
 
-        private static void GameStoryResetMinutes()
+        private void GameStoryResetMinutes()
         {
             for (int i = 0; i < m_barrTakenMinutes.GetUpperBound(0); i++)
             {
@@ -522,7 +522,7 @@ namespace HatTrick
             }
         }
 
-        private static void GameStoryClacPowers(TeamGameData teamGameData)
+        private void GameStoryClacPowers(TeamGameData teamGameData)
         {
             //Player pCurrPlayer = ((Player)(teamGameData.Team.Players.Where(T => T.Position == 1)).First());
             
@@ -557,7 +557,7 @@ namespace HatTrick
 
         }
 
-        private static void GameStoryCreateEventsForTeam(GameStory gsGameStory, TeamGameData datAttackingTeam, TeamGameData datDefendingTeam, int nNumOfEvents)
+        private void GameStoryCreateEventsForTeam(GameStory gsGameStory, TeamGameData datAttackingTeam, TeamGameData datDefendingTeam, int nNumOfEvents)
         {
             for (int i = 1; i <= nNumOfEvents; i++)
             {
@@ -567,7 +567,7 @@ namespace HatTrick
             }
         }
 
-        private static int GameStoryGetEventMinute(GameStory gsGameStory, int i, int nNumOfEvents, TeamGameData datAttackingTeam)
+        private int GameStoryGetEventMinute(GameStory gsGameStory, int i, int nNumOfEvents, TeamGameData datAttackingTeam)
         {
             int nEventSpan = (90 / nNumOfEvents);
             int nMinute = Consts.GameRandom.Next((i - 1) * nEventSpan + 1, i * nEventSpan);
@@ -581,17 +581,17 @@ namespace HatTrick
             return nMinute;
         }
 
-        private static void MarkMinuteAsTaken(int nMinute, bool bIsHomeTeam)
+        private void MarkMinuteAsTaken(int nMinute, bool bIsHomeTeam)
         {
             m_barrTakenMinutes[nMinute] = true;
         }
 
-        private static bool GameStoryIsMinuteTaken(int nMinute, bool bIsHomeTeam)
+        private bool GameStoryIsMinuteTaken(int nMinute, bool bIsHomeTeam)
         {
             return m_barrTakenMinutes[nMinute];
         }
 
-        private static GameEvent GameStoryCreateMainEvent(GameStory gsGameStory, TeamGameData datAttackingTeam, TeamGameData datDefendingTeam, int nMinute)
+        private GameEvent GameStoryCreateMainEvent(GameStory gsGameStory, TeamGameData datAttackingTeam, TeamGameData datDefendingTeam, int nMinute)
         {
             int nAttackGrade = datAttackingTeam.OffenceGrade * 1;
             int nDefenceGrade = datDefendingTeam.DefenceGrade * 3;
@@ -652,7 +652,7 @@ namespace HatTrick
             return evtNewEvent;
         }
 
-        private static GameEvent GameStoryCreateFouledEvent(GameStory gsGameStory, TeamGameData datAttackingTeam, TeamGameData datDefendingTeam, int nMinute)
+        private GameEvent GameStoryCreateFouledEvent(GameStory gsGameStory, TeamGameData datAttackingTeam, TeamGameData datDefendingTeam, int nMinute)
         {
             FouledEvent evtFoul;
             int nMissedRnd = Consts.GameRandom.Next(1, 100);
@@ -721,7 +721,7 @@ namespace HatTrick
             return evtFoul;
         }
 
-        private static GameEvent GameStoryCreateFailedEvent(GameStory gsGameStory, TeamGameData datAttackingTeam, TeamGameData datDefendingTeam, int nDefenceRatio, int nMinute)
+        private GameEvent GameStoryCreateFailedEvent(GameStory gsGameStory, TeamGameData datAttackingTeam, TeamGameData datDefendingTeam, int nDefenceRatio, int nMinute)
         {
             int nFailedRnd = Consts.GameRandom.Next(1, 100);
             
@@ -739,7 +739,7 @@ namespace HatTrick
             }
         }
 
-        static int CalculateHomeTeamEvents(GameStory gsGameStory, int nTotalEvents)
+        int CalculateHomeTeamEvents(GameStory gsGameStory, int nTotalEvents)
         {
             int nHomeMidFieldPower;
             int nAwayMidFieldPower;
@@ -756,7 +756,7 @@ namespace HatTrick
             return bIsHomeLarger ? nLargerEvents : nTotalEvents - nLargerEvents;
         }
 
-        private static int CalculateMidFieldPower(TeamGameData tmCurrTeam)
+        private int CalculateMidFieldPower(TeamGameData tmCurrTeam)
         {
             int nHomeMidFieldPower = 0;
             TeamFormation tfCurrFormation = tmCurrTeam.Formation;
@@ -771,7 +771,7 @@ namespace HatTrick
             return nHomeMidFieldPower;
         }
 
-        private static void GameStorySetTeamFormationMethod(GameStory gsGameStory, Team tmHomeTeam, Team tmAwayTeam)
+        private void GameStorySetTeamFormationMethod(GameStory gsGameStory, Team tmHomeTeam, Team tmAwayTeam)
         {
             int nDefenceHome = int.Parse(tmHomeTeam.Formation.Split('-')[0]);
             int nMidFieldHome = int.Parse(tmHomeTeam.Formation.Split('-')[1]);
@@ -791,7 +791,7 @@ namespace HatTrick
 
         }
 
-        private static void SumTeamMethod(Team tmHomeTeam, int nDefenceHome, int nMidFieldHome, ref int nHomeTeamPlayMaking, ref int nHomeTeamWings)
+        private void SumTeamMethod(Team tmHomeTeam, int nDefenceHome, int nMidFieldHome, ref int nHomeTeamPlayMaking, ref int nHomeTeamWings)
         {
             // Run on Home defence playrs
             for (int i = 2; i <= nDefenceHome + 1; i++)
@@ -810,35 +810,35 @@ namespace HatTrick
             }
         }
 
-        private static void GameStorySetTeamFormation(GameStory gsGameStory, Team tmHomeTeam, Team tmAwayTeam)
+        private void GameStorySetTeamFormation(GameStory gsGameStory, Team tmHomeTeam, Team tmAwayTeam)
         {
             gsGameStory.AwayTeam.Formation = new TeamFormation(tmAwayTeam.Formation);
             gsGameStory.HomeTeam.Formation = new TeamFormation(tmHomeTeam.Formation);
         }
 
-        private static void GameStorySetWeather(GameStory gsGameStory)
+        private void GameStorySetWeather(GameStory gsGameStory)
         {
             gsGameStory.Weather = Weather.GetRandomWeather();
         }
 
-        private static void GameStorySetWatchers(GameStory gsGameStory)
+        private void GameStorySetWatchers(GameStory gsGameStory)
         {
             int nWatchers = Consts.GameRandom.Next(GameStory.MinWatchers, GameStory.MaxWatchers);
             gsGameStory.Watchers = nWatchers;
         }
 
-        public static int SaveStoryToDB(GameStory gsNewGame)
+        public int SaveStoryToDB(GameStory gsNewGame)
         {
             return HatTrick.DAL.DBAccess.SaveStoryToDB(gsNewGame);
         }
 
-        public static void ChangeTeamTrainngType(Consts.TrainingType ttTeamTrainingType)
+        public void ChangeTeamTrainngType(Consts.TrainingType ttTeamTrainingType)
         {
             tMyTeam.TeamTrainingType = ttTeamTrainingType;
             DAL.DBAccess.ChangeTeamTrainingType(tMyTeam);
         }
 
-        public static void TrainTeam(Team tmTeamToTrain)
+        public void TrainTeam(Team tmTeamToTrain)
         {
             TeamFormation tmFormation = new TeamFormation(tmTeamToTrain.Formation);
             Consts.TrainingType trType = tmTeamToTrain.TeamTrainingType;
@@ -904,7 +904,7 @@ namespace HatTrick
             }
         }
 
-        public static void TrainAllTeams(int nNumOfTrainings)
+        public void TrainAllTeams(int nNumOfTrainings)
         {
             DataView allTeams;
             allTeams = HatTrick.DAL.DBAccess.GetAllTeams();
@@ -919,7 +919,7 @@ namespace HatTrick
             }
         }
 
-        private static void TrainPlayer(Consts.TrainingType trType, Player plrToTrain, float fAdvancedLevel)
+        private void TrainPlayer(Consts.TrainingType trType, Player plrToTrain, float fAdvancedLevel)
         {
 
             switch (trType)
@@ -965,7 +965,7 @@ namespace HatTrick
             }
         }
 
-        private static float AdvancePlayerSkill(Player plrToTrain, float fAdvancedLevel, float fCurrentSkillAdvance, float fCurrentSkill)
+        private float AdvancePlayerSkill(Player plrToTrain, float fAdvancedLevel, float fCurrentSkillAdvance, float fCurrentSkill)
         {
             int nPlayerWholeLevel;
             float fAdvancePower;
@@ -984,9 +984,9 @@ namespace HatTrick
         }
         #endregion
 
-        private static DataRowCollection arrdrFormations = null;
+        private DataRowCollection arrdrFormations = null;
 
-        public static DataRowCollection GetFormations()
+        public DataRowCollection GetFormations()
         {
             if (arrdrFormations == null)
             {
@@ -995,12 +995,12 @@ namespace HatTrick
             return arrdrFormations;
         }
 
-        public static bool TeamExists(string strTeamName)
+        public bool TeamExists(string strTeamName)
         {
             return DAL.DBAccess.DoesTeamExist(strTeamName);
         }
 
-        public static bool LeagueExists
+        public bool LeagueExists
         {
             get
             {
@@ -1008,7 +1008,7 @@ namespace HatTrick
             }
         }
 
-        public static DataView GetAllCycles()
+        public DataView GetAllCycles()
         {
             if (DAL.DBAccess.CheckShouldCreateNewLeague() && Teams.Count%2 == 0)
             {
@@ -1019,71 +1019,71 @@ namespace HatTrick
             return DAL.DBAccess.GetAllCycles();
         }
 
-        public static int GetNumOfCycles()
+        public int GetNumOfCycles()
         {
             return DAL.DBAccess.GetNumOfCycles();
         }
-        public static GameStory GetGameStory(string strGameID)
+        public GameStory GetGameStory(string strGameID)
         {
             return GetGameStory(int.Parse(strGameID));
         }
 
-        public static GameStory GetGameStory(int nGameToShow)
+        public GameStory GetGameStory(int nGameToShow)
         {
             return DAL.DBAccess.LoadGameStory(nGameToShow);
         }
 
-        public static bool UserExists(string strUsername)
+        public bool UserExists(string strUsername)
         {
             return DAL.DBAccess.DoesUserExist(strUsername);
         }
 
-        public static List<Player> GetPlayerNotForSell(Team tMyTeam)
+        public List<Player> GetPlayerNotForSell(Team tMyTeam)
         {
             return DAL.DBAccess.GetNotForSellTeamPlayers(tMyTeam);           
         }
 
-        public static List<Player> GetPlayerForSell(Team tMyTeam)
+        public List<Player> GetPlayerForSell(Team tMyTeam)
         {
             return DAL.DBAccess.GetPlayersForSale(tMyTeam);
         }
 
-        public static DataView GetPlayerForSell(String strMyTeam)
+        public DataView GetPlayerForSell(String strMyTeam)
         {
             return DAL.DBAccess.GetPlayersForSale(strMyTeam);
         }
 
-        public static bool CanISellPlayer(String iD)
+        public bool CanISellPlayer(String iD)
         {
-            return DAL.DBAccess.CanISellPlayer(iD, Game.MyTeam);
+            return DAL.DBAccess.CanISellPlayer(iD, MyTeam);
         }
-        public static void UpdateSellPlayer(String strPlayerId, int intCost)
+        public void UpdateSellPlayer(String strPlayerId, int intCost)
         {
             DAL.DBAccess.UpdateSellPlayer(strPlayerId, intCost);
         }
 
-        public static void CreateNewLeague()
+        public void CreateNewLeague()
         {
             DeleteLeague();
             GetAllCycles();
         }
 
-        public static void DeleteLeague()
+        public void DeleteLeague()
         {
             DAL.DBAccess.DeleteLeague();
         }
 
-        public static void CreateComputerTeam()
+        public void CreateComputerTeam()
         {
             User usrNewUser = null;
             try
             {
                 string strUsername = string.Format("{1}{0}", Consts.GameRandom.Next(1, 100), COMPUTER_USER_PREFIX);
                 
-                if (Game.CreateUser(strUsername, strUsername))
+                if (CreateUser(strUsername, strUsername))
                 {
                     usrNewUser = new User(strUsername, strUsername);
-                    Game.CreateTeam(usrNewUser, string.Format("{1}{0}", Consts.GameRandom.Next(1, 100), COMPUTER_TEAM_PREFIX));
+                    CreateTeam(usrNewUser, string.Format("{1}{0}", Consts.GameRandom.Next(1, 100), COMPUTER_TEAM_PREFIX));
                     m_dicTeams = null;
                 }
             }
@@ -1092,21 +1092,21 @@ namespace HatTrick
             }
         }
 
-        public static string COMPUTER_USER_PREFIX = "Hattricker-";
-        public static string COMPUTER_TEAM_PREFIX = "HatTeam-";
+        public string COMPUTER_USER_PREFIX = "Hattricker-";
+        public string COMPUTER_TEAM_PREFIX = "HatTeam-";
 
-        public static bool DoesComputerTeamExist()
+        public bool DoesComputerTeamExist()
         {
             return DAL.DBAccess.DoesTeamExistLike(COMPUTER_TEAM_PREFIX);
         }
 
-        public static void DeleteComputerTeam()
+        public void DeleteComputerTeam()
         {
             DAL.DBAccess.DeleteComputerTeam(COMPUTER_TEAM_PREFIX, COMPUTER_USER_PREFIX);
             m_dicTeams = null;
         }
 
-        public static bool IsUserInLeague
+        public bool IsUserInLeague
         {
             get
             {
@@ -1117,7 +1117,7 @@ namespace HatTrick
                     int nCurrLeague = DAL.DBAccess.GetMaxLeagueID();
                     DataView dtvLeague = DAL.DBAccess.LoadLeagueTable(nCurrLeague);
 
-                    dtvLeague.RowFilter = string.Format("teamname = '{0}'", Game.MyTeam.Name);
+                    dtvLeague.RowFilter = string.Format("teamname = '{0}'", MyTeam.Name);
                     bIsLeague = (dtvLeague.Count > 0);
                 }
                 catch

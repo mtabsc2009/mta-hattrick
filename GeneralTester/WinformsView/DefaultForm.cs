@@ -11,6 +11,8 @@ namespace HatTrick.Views.WinformsView
 {
     public partial class DefaultForm : Form
     {
+        protected Game Game = WelcomeScreen.Game;
+        
         public DefaultForm()
         {
             InitializeComponent();
