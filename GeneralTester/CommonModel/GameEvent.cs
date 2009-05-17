@@ -19,12 +19,14 @@ namespace HatTrick.CommonModel
         public int Minute { get; set; }
         public Team teamAttacking { get; set; }
         public Player Actor { get; set; }
+        public string GameText { get; set; }
 
         public GameEvent(Team teamSubject, int nMinute, Player plrActor)
         {
             teamAttacking = teamSubject;
             Minute = nMinute;
             Actor = plrActor;
+            GameText = "";
         }
         public GameEvent()
         {
@@ -40,6 +42,7 @@ namespace HatTrick.CommonModel
             base(teamScorer, bShowInSummary ? nMinute : -nMinute, plrActor)
         {
             this.bShowInSummary = bShowInSummary;
+            GameText = this.ToString();
         }
         public ScoreEvent()
         {
@@ -56,7 +59,7 @@ namespace HatTrick.CommonModel
     {
         public FailedEvent(Team teamSubject, int nMinute, Player plrActor) : base(teamSubject, nMinute, plrActor)
         {
-
+            GameText = this.ToString();
         }
         public FailedEvent()
         {
@@ -94,6 +97,7 @@ namespace HatTrick.CommonModel
             : base(teamAttacker, nMinute, plrAttacker, plrFoulist)
         {
             Shooter = plrShooter;
+            GameText = this.ToString();
         }
         public FreeKickEvent()
         {
@@ -101,17 +105,26 @@ namespace HatTrick.CommonModel
         }
         public override string ToString()
         {
-            string strMain = string.Format("{0}'s attack lead by {1} was stopped by a foul outside the 16 meteres! followed by a free kick", 
+            try
+            {
+                string strMain = string.Format("{0}'s attack lead by {1} was stopped by a foul outside the 16 meteres! followed by a free kick",
                 teamAttacking.Name, Actor.Name);
-            string strCard = string.Empty;
-            if (ptCard == PaneltyCard.ptNone) strCard = string.Format("No card was shown to the defender ({0})", Foulist.Name);
-            else string.Format("A {0} card was shown to the {1} (defender)", 
-                ptCard == PaneltyCard.ptRed ? "Red" : "Yellow",
-                Foulist.Name);
-            string strScore = string.Format("{0} took the shot and {1}", 
-                Shooter.Name,
-                    bScored != null ? "SCORED!" : "MISSED it!");
-            return string.Format("{0} {1} {2} {1} {3}", strMain, Environment.NewLine, strCard, strScore);
+                string strCard = string.Empty;
+                if (ptCard == PaneltyCard.ptNone) strCard = string.Format("No card was shown to the defender ({0})", Foulist.Name);
+                else string.Format("A {0} card was shown to the {1} (defender)",
+                    ptCard == PaneltyCard.ptRed ? "Red" : "Yellow",
+                    Foulist.Name);
+                string strScore = string.Format("{0} took the shot and {1}",
+                    Shooter.Name,
+                        bScored != null ? "SCORED!" : "MISSED it!");
+                return string.Format("{0} {1} {2} {1} {3}", strMain, Environment.NewLine, strCard, strScore);
+            }
+            catch
+            {
+                return string.Format("Minor foul error occured");
+
+            }
+            
         }
     }
 
@@ -125,6 +138,7 @@ namespace HatTrick.CommonModel
             base(teamSubject, nMinute, plrActor, plrFoulist)
         {
             Shooter = plrShooter;
+            GameText = this.ToString();
         }
         public PaneltyEvent()
         {
@@ -151,6 +165,7 @@ namespace HatTrick.CommonModel
         public MissedFouledEvent(Team teamSubject, int nMinute, Player plrActor, Player plrFoulist)
             : base(teamSubject, nMinute, plrActor, plrFoulist)
         {
+            GameText = this.ToString();
 
         }
         public MissedFouledEvent()
@@ -172,12 +187,14 @@ namespace HatTrick.CommonModel
         public MissedEvent(Team teamSubject, int nMinute, Player plrActor)
             : base(teamSubject, nMinute, plrActor)
         {
+            GameText = this.ToString();
 
         }
+
         public MissedEvent()
-        {
-
+        { 
         }
+
         public override string ToString()
         {
             return string.Format("{0} from {1} took a long shot and missed !", Actor.Name, teamAttacking.Name);
@@ -190,6 +207,7 @@ namespace HatTrick.CommonModel
         public StoppedEvent(Team teamSubject, int nMinute, Player plrActor)
             : base(teamSubject, nMinute, plrActor)
         {
+            GameText = this.ToString();
 
         }
         public StoppedEvent()

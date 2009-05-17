@@ -166,6 +166,7 @@ namespace HatTrick.Views.WinformsView
         {
             localhost.GameStory gsGameStory = GameStory;
 
+
             int nStartChange = TextBox1.Text.Length;
             AddLine("Game Summary");
             AddLine("=================================");
@@ -175,14 +176,15 @@ namespace HatTrick.Views.WinformsView
             System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-us");
             AddLine(string.Format("{0} hosted the game against {1} at {2}",
                 gsGameStory.HomeTeam.Team.Name, gsGameStory.AwayTeam.Team.Name, gsGameStory.GameDate.ToLongDateString()));
+
             AddLine("{0} sport's fans watched the game in a {1} weather", gsGameStory.Watchers, gsGameStory.Weather);
             AddLine("");
             AddLine(string.Format("{0} played the game with {1} formation playing mostly through the {2}",
-                gsGameStory.HomeTeam.Team.Name, gsGameStory.HomeTeam.Formation,
+                gsGameStory.HomeTeam.Team.Name, gsGameStory.HomeTeam.Team.Formation,
                 (gsGameStory.HomeTeam.IsTeamMiddleMethod == true ? "Middle Field" : "Wings")));
 
             AddLine(string.Format("visitors {0} chose the {1} formation using the {2}",
-                gsGameStory.AwayTeam.Team.Name, gsGameStory.AwayTeam.Formation,
+                gsGameStory.AwayTeam.Team.Name, gsGameStory.AwayTeam.Team.Formation,
                 (gsGameStory.AwayTeam.IsTeamMiddleMethod == true ? "Middle Field" : "Wings")));
             AddLine();
 
@@ -202,7 +204,7 @@ namespace HatTrick.Views.WinformsView
                 if (nDiff == 1) strDesc = "a close";
                 else if (nDiff > 2) strDesc = "a staggering";
 
-                AddLine("{0} won the game with {1} score of {2}-{3}", gsGameStory.Winner, strDesc, gsGameStory.HomeScore, gsGameStory.AwayScore);
+                AddLine("{0} won the game with {1} score of {2}-{3}", gsGameStory.Winner.Name, strDesc, gsGameStory.HomeScore, gsGameStory.AwayScore);
             }
             nEndChange = TextBox1.Text.Length;
             TextBox1.Select(nStartChange, nEndChange);
@@ -240,7 +242,7 @@ namespace HatTrick.Views.WinformsView
                     if ((evtCurr as localhost.ScoreEvent).bShowInSummary)
                     {
                         nStartChange = TextBox1.Text.Length;
-                        AddLine("(Min {0}) {1}", evtCurr.Minute.ToString(), evtCurr.ToString());
+                        AddLine("(Min {0}) {1}", evtCurr.Minute.ToString(), evtCurr.GameText);
                         nEndChange = TextBox1.Text.Length;
                         TextBox1.Select(nStartChange, nEndChange);
                         TextBox1.SelectionColor = Color.Blue;
@@ -251,7 +253,7 @@ namespace HatTrick.Views.WinformsView
                     if ((evtCurr as localhost.FouledEvent).bScored != null)
                     {
                         nStartChange = TextBox1.Text.Length;
-                        AddLine("(Min {0}) {1}", evtCurr.Minute.ToString(), evtCurr.ToString());
+                        AddLine("(Min {0}) {1}", evtCurr.Minute.ToString(), evtCurr.GameText);
                         nEndChange = TextBox1.Text.Length;
                         TextBox1.Select(nStartChange, nEndChange);
                         TextBox1.SelectionColor = Color.Blue;
@@ -259,7 +261,7 @@ namespace HatTrick.Views.WinformsView
                 }
                 else
                 {
-                    AddLine("(Min {0}) {1}", evtCurr.Minute.ToString(), evtCurr.ToString());
+                    AddLine("(Min {0}) {1}", evtCurr.Minute.ToString(), evtCurr.GameText);
                 }
                 AddLine();
             }
