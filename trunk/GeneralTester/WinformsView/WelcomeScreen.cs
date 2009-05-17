@@ -58,7 +58,7 @@ namespace HatTrick.Views.WinformsView
         {
             foreach (HatTrick.Views.WinformsView.localhost.Team team in Game.getTeams().Where(T => T.Name != Game.getTeam().Name))
             {
-                toolStripComboBox1.Items.Add(team);
+                toolStripComboBox1.Items.Add(team.Name);
             }
         }
 

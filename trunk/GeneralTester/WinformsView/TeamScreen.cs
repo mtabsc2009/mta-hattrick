@@ -460,7 +460,7 @@ namespace HatTrick.Views.WinformsView
         {
             if (e.Button == MouseButtons.Left)
             {
-                Player plr = lstPlayers.SelectedItem as Player;
+                localhost.Player plr = (localhost.Player)lstPlayers.SelectedItem;
                 Button b = new Button();
                 b.Text = plr.Name;
                 b.Tag = plr;
