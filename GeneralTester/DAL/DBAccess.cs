@@ -855,6 +855,11 @@ namespace HatTrick.DAL
 
         private static void changePlayerTeams(OleDbCommand cmdCommand, Player playerToBuy, Team tMyTeam)
         {
+
+            cmdCommand.CommandText = string.Format("Update Players set  PlayerPos = PlayerPos - 1 where PlayerPos > {0} and PlayerTeam = \"{1}\"",
+                                                   playerToBuy.Position, playerToBuy.TeamName);
+            cmdCommand.ExecuteNonQuery();
+            
             int maxPos = GetMaxPos(tMyTeam);
 
             cmdCommand.CommandText = string.Format("UPDATE players SET PlayerTeam = \"{1}\" , IsForSale = \"0\", PlayerPos = \"{2}\" where PlayerName = \"{0}\"",
