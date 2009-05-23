@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<HelpForMenus>
+  <ManageTeam>
+    <Help>זהו מסך ניהול הקבוצה שלך. במסך זה ניתן לשנות את מבנה הקבוצה, לצפות במצב השחקנים שלך, לשנות את מיקומם ולהעמיד שחקנים למכירה.</Help>
+  </ManageTeam>
+
+  <BuyPlayer>
+    <Help>במסך זה תוכל לרכוש שחקים חדשים לקבוצתך.</Help>
+  </BuyPlayer>
+
+  <ShowGames>
+    <Help>במסך זה תוכל לצפות במשחקים ששיחקת ולצפות בפרטי המשחק.</Help>
+  </ShowGames>
+
+  <TrainMyTeam>
+    <Help>לחיצה על אפשרות זו תאמן את קבוצתך אימון אחד</Help>
+  </TrainMyTeam>
+
+  <TrainAllTeams>
+    <Help>במסך זה תוכל לבצע אימונים לכל הקבוצות. עליך לבחור את מספר האימונים.</Help>
+  </TrainAllTeams>
+
+  <PlayCycle>
+    <Help>לחיצה על אפשרות זו תריץ סיבוב של הליגה. תוכל לצפות המשחקים בטבלת הליגה</Help>
+  </PlayCycle>
+
+  <LeagueTable>
+    <Help>במסך זה תוכל לראות את טבלת הליגה והמיקומים של הקבוצות בליגה. הקבוצה המובילה תופיע בירוק, האחרונות באדום וקבוצתך תופיע בליכסון.</Help>
+  </LeagueTable>
+
+  <LeagueCycles>
+    <Help>המסך זה תוכל לצפות בטבלת הליגה. תוכל לצפות בסבבים שהיו ולצפות בתוצאות המשחק. כמו כן תוכל לצפות במשחקים עתידיים בליגה.</Help>
+  </LeagueCycles>
+
+  <PlayFriendlyMatch>
+    <Help>במסך זה תוכל לשחק משחק ידידות נגד קבוצה לבחירתך.</Help>
+  </PlayFriendlyMatch>
+
+  <Login>
+    <Help>לחץ כאן כדי להתחבר להטטריק</Help>
+  </Login>
+
+  <Logoff>
+    <Help>לחץ כאן כדי להתנתק מהטטריק</Help>
+  </Logoff>
+
+  <Exit>
+    <Help>לחיצה על אפשרות זו תסגור את המשחק</Help>
+  </Exit>
+</HelpForMenus>

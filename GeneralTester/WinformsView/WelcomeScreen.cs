@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using HatTrick.CommonModel;
 using System.Diagnostics;
 using HatTrick.Views.WinformsView.localhost;
+using System.Xml;
 
 namespace HatTrick.Views.WinformsView
 {
@@ -16,12 +17,16 @@ namespace HatTrick.Views.WinformsView
     {
         private static Game m_Game;
         private static localhost.Team m_Team;
+
+        private Dictionary<string, string> m_FirstTimeHelp = new Dictionary<string, string>();
+        private FirstTimeTooTipForm m_FirstTimeTooTipForm;
+
         static WelcomeScreen()
         {
             System.Net.CookieContainer cookies = new System.Net.CookieContainer();
 
             m_Game = new Game();
-            m_Game.CookieContainer = cookies;
+            m_Game.CookieContainer = cookies;            
         }
         public static localhost.Team Team 
         {
@@ -43,24 +48,68 @@ namespace HatTrick.Views.WinformsView
             }
         }
 
-        private void WelcomeScreen_Load(object sender, EventArgs e)
+        private void loadFirstTimeHelp()
         {
-            if (GoLogin())
-            {
-                m_Team = m_Game.getTeam();
-                LoadTeams();
-                leagueTableToolStripMenuItem_Click(sender, e);
-                teamFormationToolStripMenuItem_Click(sender, e);
+            XmlTextReader textReader = new XmlTextReader("./ScreensHelpText.xml");
+            skipTags(textReader, 3);
+
+            switch (textReader.NodeType)
+                {
+                case XmlNodeType.Element: 
+
+                    skipTags(textReader, 1);
+
+                    while (textReader.Read())
+                    {
+                        string screen = textReader.Name;
+
+                        skipTags(textReader, 3);
+
+                        string help = textReader.Value;
+
+                        m_FirstTimeHelp.Add(screen, help);
+
+                        skipTags(textReader, 4);
+                    }
+
+                    break;
             }
         }
 
-        private void LoadTeams()
+        private void skipTags(XmlTextReader i_TextReader, int m_NumberOfTagsToSkip)
         {
-            foreach (HatTrick.Views.WinformsView.localhost.Team team in Game.getTeams().Where(T => T.Name != Game.getTeam().Name))
+            for (int i = 0; i < m_NumberOfTagsToSkip; i++)
             {
-                toolStripComboBox1.Items.Add(team.Name);
+                i_TextReader.Read();
             }
         }
+
+        private void WelcomeScreen_Load(object sender, EventArgs e)
+        {
+            loadFirstTimeHelp();
+
+            m_FirstTimeTooTipForm = new FirstTimeTooTipForm();
+            m_FirstTimeTooTipForm.TopLevel = false;
+            m_FirstTimeTooTipForm.Parent = this;
+
+            //if (GoLogin())
+            //{
+            //    m_Team = m_Game.getTeam();
+            //    LoadTeams();
+            //    //leagueTableToolStripMenuItem_Click(sender, e);
+            //    //teamFormationToolStripMenuItem_Click(sender, e);
+            //}
+
+            //showFirstTimeHelpScreen();
+        }
+
+        //private void LoadTeams()
+        //{
+        //    foreach (HatTrick.Views.WinformsView.localhost.Team team in Game.getTeams().Where(T => T.Name != Game.getTeam().Name))
+        //    {
+        //        toolStripComboBox1.Items.Add(team.Name);
+        //    }
+        //}
 
         private void LoadWelcome()
         {
@@ -126,6 +175,22 @@ namespace HatTrick.Views.WinformsView
             }
         }
 
+        private void showFirstTimeHelpScreen()
+        {
+            DefaultForm f = new DefaultForm();
+            f.MdiParent = this;
+            Label l = new Label();
+            f.Size = splitContainer1.Panel2.Size;
+            l.Size = splitContainer1.Panel2.Size;
+            l.Font = new Font("Arial", 20);
+            l.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            l.TextAlign = ContentAlignment.MiddleCenter;
+            l.BackColor = Color.Transparent;
+            l.Text = "זהו מסך הפתיחה הראשוני";
+            f.Controls.Add(l);
+            changeScreens(f);
+        }
+
         void changeFormationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Game.ChangeTeamFormation(Game.getTeam(), ((ToolStripMenuItem)sender).Text);
@@ -185,8 +250,7 @@ namespace HatTrick.Views.WinformsView
                 else
                 {
                     GameStoryDisplay frmGameStory = new GameStoryDisplay(gsStory);
-                    frmGameStory.MdiParent = this;
-                    frmGameStory.Show();
+                    frmGameStory.ShowDialog();
                 }
             }
         }
@@ -198,7 +262,7 @@ namespace HatTrick.Views.WinformsView
 
         private bool GoLogin()
         {
-            Hide();
+            //Hide();
             Entrance frmEntrance = new Entrance();
             DialogResult res = frmEntrance.ShowDialog();
             if (res == DialogResult.Cancel)
@@ -208,8 +272,10 @@ namespace HatTrick.Views.WinformsView
             }
             else
             {
-                Show();
+                //Show();
                 LoadWelcome();
+                m_Team = m_Game.getTeam();
+                //LoadTeams();
                 return true;
             }
         }
@@ -454,6 +520,269 @@ namespace HatTrick.Views.WinformsView
             {
                 MessageBox.Show("Cannot find Getting Started file", "Getting Started", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        //private void initializeScreenSliderTimer()
+        //{
+        //    timer2.Tick += clearScreen_Tick;
+        //    timer2.Interval = 25;
+        //}
+
+        //void clearScreen_Tick(object sender, EventArgs e)
+        //{
+        //    if (m_ShowingForm.Location.X + m_ShowingForm.Width > m_OriginalPos.X)
+        //    {
+        //        m_ShowingForm.Location = new Point(m_ShowingForm.Location.X - (int)(m_ShowingForm.Width * (timer2.Interval / 1000.0)), m_ShowingForm.Location.Y);
+        //    }
+        //    else
+        //    {
+        //        timer2.Stop();
+        //        m_IsSliding = false;
+        //        splitContainer1.Panel2.Controls.Remove(m_ShowingForm);
+        //        m_ShowingForm.Close();
+        //        m_ShowingForm = null;
+        //    }                
+        //}
+
+
+        private DefaultForm m_ShowingForm = null;
+
+        //private void timer1_Tick(object sender, EventArgs e)
+        //{
+        //    if (m_SlidingInForm.Location.X > m_OriginalPos.X)
+        //    {
+        //        if (m_ShowingForm == null)
+        //        {
+        //            m_SlidingInForm.Location = new Point(m_SlidingInForm.Location.X - (int)(m_SlidingInForm.Width * (timer1.Interval / 1000.0)), m_SlidingInForm.Location.Y);
+        //        }
+        //        else
+        //        {
+        //            m_SlidingInForm.Location = new Point(m_SlidingInForm.Location.X - (int)(m_SlidingInForm.Width * (timer1.Interval / 1000.0)), m_SlidingInForm.Location.Y);
+        //            m_ShowingForm.Location = new Point(m_ShowingForm.Location.X - (int)(m_SlidingInForm.Width * (timer1.Interval / 1000.0)), m_ShowingForm.Location.Y);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        timer1.Stop();
+        //        m_IsSliding = false;
+        //        m_SlidingInForm.Location = m_OriginalPos;
+        //        splitContainer1.Panel2.Controls.Remove(m_ShowingForm);
+        //        m_ShowingForm = m_SlidingInForm;
+        //        m_SlidingInForm = null;
+        //    }
+        //}
+
+        private bool canShowForm(Type i_Type)
+        {
+            if (m_ShowingForm == null)
+            {
+                return true;
+            }
+
+            if (i_Type != m_ShowingForm.GetType())
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private  void changeScreens(DefaultForm i_FormToInsert)
+        {
+            m_ShowingForm = i_FormToInsert;
+            m_ShowingForm.FormBorderStyle = FormBorderStyle.None;
+            m_ShowingForm.Size = splitContainer1.Panel2.Size;
+            m_ShowingForm.Dock = DockStyle.Fill;
+            splitContainer1.Panel2.Controls.Clear();
+            splitContainer1.Panel2.Controls.Add(m_ShowingForm);
+            m_ShowingForm.Show();
+        }
+
+        //private void changeScreens(DefaultForm i_FormToInsert)
+        //{
+        //    m_IsSliding = true;
+        //    m_OriginalPos = Point.Empty;
+        //    m_SlidingInForm = i_FormToInsert;
+        //    m_SlidingInForm.Size = splitContainer1.Panel2.Size;
+        //    i_FormToInsert.Dock = DockStyle.Fill;
+        //    m_SlidingInForm.Location = new Point(splitContainer1.Panel2.Width, splitContainer1.Panel2.Location.Y);
+        //    timer1.Interval = 25;
+        //    splitContainer1.Panel2.Controls.Add(i_FormToInsert);
+        //    i_FormToInsert.FormBorderStyle = FormBorderStyle.None;
+        //    i_FormToInsert.Show();
+        //    timer1.Start();
+        //}
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (canShowForm(typeof(TeamScreen)))
+            {
+                TeamScreen frmTeam = new TeamScreen();
+                frmTeam.MdiParent = this;
+                changeScreens(frmTeam);
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (canShowForm(typeof(BuyPlayer)))
+            {
+                BuyPlayer frmBuyPlayer = new BuyPlayer();
+                frmBuyPlayer.MdiParent = this;
+                changeScreens(frmBuyPlayer);                    
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (canShowForm(typeof(ShowMatchesScreen)))
+            {
+                ShowMatchesScreen frmMatches = new ShowMatchesScreen(Game.getTeam());
+                frmMatches.MdiParent = this;
+                changeScreens(frmMatches);
+            }
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            playCycleToolStripMenuItem_Click(sender, e);
+            clearScreen();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            DataView dtvGameLeague = Game.GetLeague().DefaultView;
+
+            if (canShowForm(typeof(LeagueTableDisplay)))
+            {
+                LeagueTableDisplay frmLeagueTable = new LeagueTableDisplay(dtvGameLeague);
+                frmLeagueTable.MdiParent = this;
+                changeScreens(frmLeagueTable);                
+            }
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            if (Game.getLeagueExists())
+            {
+                if (canShowForm(typeof(LeagueCyclesScreen)))
+                {
+                    LeagueCyclesScreen frmGameStory = new LeagueCyclesScreen();
+                    frmGameStory.MdiParent = this;
+                    changeScreens(frmGameStory);
+                }
+            }
+            else
+            {
+                if (DialogResult.Yes == MessageBox.Show("There is no league" + Environment.NewLine + "Do you want to create a new league?", "Run cycle", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+                {
+                    if (canShowForm(typeof(LeagueCyclesScreen)))
+                    {
+                        Game.CreateNewLeague();
+                        LeagueCyclesScreen frmGameStory = new LeagueCyclesScreen();
+                        frmGameStory.MdiParent = this;
+                        changeScreens(frmGameStory);
+                    }
+                }
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            FriendlyMatchScreen fms = new FriendlyMatchScreen();
+            fms.ShowDialog();
+        }
+
+        private void button1_MouseEnter(object sender, EventArgs e)
+        {
+            if (showTipsToolStripMenuItem.Checked)
+            {
+                Button b = sender as Button;
+                if (b.Tag != null)
+                {
+                    if (m_FirstTimeHelp.ContainsKey(b.Tag.ToString()))
+                    {
+                        m_FirstTimeTooTipForm.m_Label.Text = m_FirstTimeHelp[b.Tag.ToString()];
+                        m_FirstTimeTooTipForm.Location = b.Location + new Size(b.Width + 5, 0);
+                        m_FirstTimeTooTipForm.BringToFront();
+                        m_FirstTimeTooTipForm.Visible = true;                        
+                    }                    
+                }
+            }
+        }
+
+        private void button1_MouseLeave(object sender, EventArgs e)
+        {
+            if (showTipsToolStripMenuItem.Checked)
+            {
+                m_FirstTimeTooTipForm.Visible = false;
+            }
+        }
+
+        private void clearScreen()
+        {
+            if (m_ShowingForm != null)
+            {
+                m_ShowingForm.Close();
+                splitContainer1.Panel2.Controls.Remove(m_ShowingForm);
+                m_ShowingForm = null;
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (!LogedIn())
+            {
+                GoLogin();
+                ActivateButtons();
+                pictureBox1.Visible = false;
+                (sender as Button).Text = "התנתק";
+                (sender as Button).Tag = "Logoff";
+            }
+            else
+            {
+                DeActivateButtons();
+                pictureBox1.Visible = true;
+                (sender as Button).Tag = "Login";
+                (sender as Button).Text = "התחבר";
+            }
+
+        }
+
+        private void DeActivateButtons()
+        {
+            button1.Enabled = false;
+            button2.Enabled = false;
+            button5.Enabled = false;
+            button6.Enabled = false;
+            button7.Enabled = false;
+            button8.Enabled = false;
+            button9.Enabled = false;
+            button10.Enabled = false;
+            button11.Enabled = false;
+        }
+
+        private bool LogedIn()
+        {
+            return button1.Enabled;
+        }
+
+        private void ActivateButtons()
+        {
+            button1.Enabled = true;
+            button2.Enabled = true;
+            button5.Enabled = true;
+            button6.Enabled = true;
+            button7.Enabled = true;
+            button8.Enabled = true;
+            button9.Enabled = true;
+            button10.Enabled = true;
+            button11.Enabled = true;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

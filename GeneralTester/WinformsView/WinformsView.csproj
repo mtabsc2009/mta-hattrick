@@ -64,6 +64,18 @@
     <Compile Include="BuyPlayer.Designer.cs">
       <DependentUpon>BuyPlayer.cs</DependentUpon>
     </Compile>
+    <Compile Include="FriendlyMatchScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FriendlyMatchScreen.Designer.cs">
+      <DependentUpon>FriendlyMatchScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ShowMatchesScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowMatchesScreen.Designer.cs">
+      <DependentUpon>ShowMatchesScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="DefaultForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +87,12 @@
     </Compile>
     <Compile Include="Entrance.Designer.cs">
       <DependentUpon>Entrance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FirstTimeTooTipForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FirstTimeTooTipForm.Designer.cs">
+      <DependentUpon>FirstTimeTooTipForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GettingStartedForm.cs">
       <SubType>Form</SubType>
@@ -117,12 +135,24 @@
       <DependentUpon>BuyPlayer.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="FriendlyMatchScreen.resx">
+      <DependentUpon>FriendlyMatchScreen.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShowMatchesScreen.resx">
+      <DependentUpon>ShowMatchesScreen.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="DefaultForm.resx">
       <DependentUpon>DefaultForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Entrance.resx">
       <DependentUpon>Entrance.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FirstTimeTooTipForm.resx">
+      <DependentUpon>FirstTimeTooTipForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GettingStartedForm.resx">
@@ -227,6 +257,50 @@
     <Content Include="Getting Started With Hattrick.mht">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\30-1.gif" />
+    <Content Include="Resources\ajax-loader.gif" />
+    <None Include="Resources\field\field2.jpg" />
+    <None Include="Resources\Calendar-32.png" />
+    <Content Include="Resources\friends.jpg" />
+    <Content Include="Resources\gamelist.jpg" />
+    <Content Include="Resources\left_arrow.jpg" />
+    <Content Include="Resources\loading.gif" />
+    <None Include="Resources\Money-32x32.png" />
+    <Content Include="Resources\msrokit.JPG" />
+    <Content Include="Resources\question-mark.gif" />
+    <Content Include="Resources\trainAll.png" />
+    <Content Include="ScreensHelpText.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\User-32.png" />
+    <None Include="Resources\Sign - Dollar-32.png" />
+    <None Include="Web References\localhost-DontTouch\CycleGameFinished.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\localhost-DontTouch\FouledEvent.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\localhost-DontTouch\FreeKickEvent.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\localhost-DontTouch\GameStory.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\localhost-DontTouch\PaneltyEvent.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\localhost-DontTouch\Player.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\localhost-DontTouch\ScoreEvent.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\localhost-DontTouch\Team.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\localhost-DontTouch\User.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
     <None Include="Web References\localhost\CycleGameFinished.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>

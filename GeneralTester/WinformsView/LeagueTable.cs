@@ -116,9 +116,8 @@ namespace HatTrick.Views.WinformsView
 
         private void btnMatches_Click(object sender, EventArgs e)
         {
-            LeagueCyclesScreen frmMatches = new LeagueCyclesScreen(SelectedTeam);
-            frmMatches.MdiParent = this.MdiParent;
-            frmMatches.Show();
+            ShowMatchesScreen frmMatches = new ShowMatchesScreen(SelectedTeam);
+            frmMatches.ShowDialog();
         }
 
         private localhost.Team SelectedTeam
@@ -140,8 +139,7 @@ namespace HatTrick.Views.WinformsView
         private void btnTeam_Click(object sender, EventArgs e)
         {
             TeamScreen frmTeam = new TeamScreen(SelectedTeam);
-            frmTeam.MdiParent = this.MdiParent;
-            frmTeam.Show();
+            frmTeam.ShowDialog();
         }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

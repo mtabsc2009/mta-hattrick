@@ -11,20 +11,21 @@ using System.Collections;
 
 namespace HatTrick.Views.WinformsView
 {
-    public partial class LeagueCyclesScreen : DefaultForm
+    public partial class ShowMatchesScreen : DefaultForm
     {
         const int SHOW_GAME_COLUMN = 4;
 
         localhost.CycleGameFinished[] lstGames;
         localhost.Team Team { get; set; }
 
-        public LeagueCyclesScreen()
+        public ShowMatchesScreen()
         {
             InitializeComponent();
             Team = null;
         }
 
-        public LeagueCyclesScreen(localhost.Team _Team) : this()
+        public ShowMatchesScreen(localhost.Team _Team)
+            : this()
         {
             Team = _Team;
         }
@@ -38,38 +39,10 @@ namespace HatTrick.Views.WinformsView
 
         public void RefreshCyclesGrid()
         {
-            if (Team != null)
-            {                
-                groupBox1.Hide();
-                groupBox2.Dock = DockStyle.Fill;
                 lstGames = Game.GetTeamMatches(this.Team);
                 dgCycleGames.AutoGenerateColumns = false;
                 ShowMatches();
                 this.Text = string.Format("{0}'s Matches", Team.Name);
-            }
-            else
-            {
-                DataView dvCycles = Game.GetAllCycles().DefaultView;
-                lstGames = Game.CyclesToListFinished(dvCycles.Table);
-
-                dgCycleGames.AutoGenerateColumns = false;
-                int nLastCycle = 0;
-                lstCycles.Items.Clear();
-                foreach (localhost.CycleGame cgCurr in lstGames)
-                {
-                    if (nLastCycle != cgCurr.CycleNum)
-                    {
-                        nLastCycle = cgCurr.CycleNum;
-                        string strDate = cgCurr.CycleDate.ToShortDateString();
-
-                        if (cgCurr.CycleDate.Year == 1)
-                        {
-                            strDate = "Not Played";
-                        }
-                        lstCycles.Items.Add(cgCurr.CycleNum.ToString() + " :\t " + strDate);
-                    }
-                }
-            }
         }
 
         private void ShowMatches()
@@ -107,32 +80,6 @@ namespace HatTrick.Views.WinformsView
             }
 
             dgCycleGames.DataSource = lstGames.Where(T => T.CycleDate.Year != 1).ToArray();
-        }
-
-        private void lstCycles_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            dgCycleGames.Columns[SHOW_GAME_COLUMN].Visible = true;
-            dgCycleGames.Columns[3].Visible = true;
-            dgCycleGames.Columns[2].Visible = true;
-
-            foreach (localhost.CycleGameFinished cgCurr in lstGames.Where(t => t.CycleNum == lstCycles.SelectedIndex + 1))
-	        {
-                if (cgCurr.CycleDate.Year != 1)
-                {
-                    localhost.GameStory gsNew = Game.GetGameStory(cgCurr.GameID);
-                    cgCurr.AwayScore = gsNew.AwayScore;
-                    cgCurr.HomeScore = gsNew.HomeScore;
-                }
-                else
-                {
-                    dgCycleGames.Columns[3].Visible = false;
-                    dgCycleGames.Columns[2].Visible = false;
-                    dgCycleGames.Columns[SHOW_GAME_COLUMN].Visible = false;
-                }
-	        }
-
-            dgCycleGames.DataSource = lstGames.Where(t => t.CycleNum == lstCycles.SelectedIndex + 1).ToArray();
-            
         }
 
         private void dgCycleGames_CellClick(object sender, DataGridViewCellEventArgs e)

@@ -402,7 +402,17 @@ namespace HatTrick.Views.WinformsView
                 m_btnLastFocused.FlatAppearance.BorderSize = 0;
             }
 
-            frmPlayerSkills.Hide();
+            bool isMouseOnPlayerSkills =
+                frmPlayerSkills.Bounds.IntersectsWith(new Rectangle(MousePosition, new Size(1, 1)));
+
+            if (!isMouseOnPlayerSkills)
+            {
+                frmPlayerSkills.Hide();                
+            }
+            else
+            {
+                frmPlayerSkills.BringToFront();
+            }
         }
 
         private void lstPlayers_SelectedIndexChanged(object sender, EventArgs e)

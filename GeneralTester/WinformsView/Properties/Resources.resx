@@ -121,14 +121,35 @@
   <data name="תמונה1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\תמונה1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Shutdown-32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Shutdown-32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Money-32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Money-32x32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="soccer_5_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\soccer_5_32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="30-1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\30-1.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="question-mark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\question-mark.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Calendar-32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Calendar-32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Sign - Dollar-32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sign - Dollar-32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="field2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\field\field2.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="loading" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\loading.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Getting_Started_With_Hattrick" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Getting Started With Hattrick.mht;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="soccer_5_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\soccer_5_48.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="User-32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\User-32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="soccer_5_64" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\soccer_5_64.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -136,7 +157,22 @@
   <data name="field3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\field\field3.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Getting_Started_With_Hattrick" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Getting Started With Hattrick.mht;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="friends" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\friends.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="left_arrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\left_arrow.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="soccer_5_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\soccer_5_32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Shutdown-32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Shutdown-32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ajax-loader" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ajax-loader.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="trainAll" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\trainAll.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
