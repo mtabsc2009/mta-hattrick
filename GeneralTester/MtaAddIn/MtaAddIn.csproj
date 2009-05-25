@@ -4,13 +4,14 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8596AC61-34CD-4671-905A-834AE1EC2A1B}</ProjectGuid>
+    <ProjectGuid>{4391C211-4CDA-42E6-BB85-01CEEFC57C76}</ProjectGuid>
     <OutputType>Library</OutputType>
     <StartupObject>
     </StartupObject>
     <NoStandardLibraries>false</NoStandardLibraries>
     <AssemblyName>MtaAddIn</AssemblyName>
     <RootNamespace>MtaAddIn</RootNamespace>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,7 +34,11 @@
   <ItemGroup>
     <Reference Include="Extensibility, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -45,9 +50,20 @@
     <Compile Include="Connect.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="GameBord.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GameBord.Designer.cs">
+      <DependentUpon>GameBord.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menus.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CommandBar.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GameBord.resx">
+      <DependentUpon>GameBord.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
@@ -94,15 +110,23 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="C:\Users\EtayAdmin\Documents\Visual Studio 2008\Addins\MtaAddIn - For Testing.AddIn">
+    <Content Include="C:\Documents and Settings\Home\My Documents\Visual Studio 2008\Addins\MtaAddIn - For Testing.AddIn">
       <Link>MtaAddIn - For Testing.AddIn</Link>
     </Content>
     <Content Include="MtaAddIn.AddIn" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WinformsView\WinformsView.csproj">
-      <Project>{5CF8862F-F591-4812-8440-F12D59CC902F}</Project>
-      <Name>WinformsView</Name>
+    <ProjectReference Include="..\CommonModel\CommonModel.csproj">
+      <Project>{AC139903-5638-44D4-8A17-0C94A11D33AF}</Project>
+      <Name>CommonModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{B4A3CBCF-1C62-448A-A071-D2AF9F25387B}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Game\Game.csproj">
+      <Project>{78DF7BB6-75F8-4204-B3B1-FE80D1209C7E}</Project>
+      <Name>Game</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
