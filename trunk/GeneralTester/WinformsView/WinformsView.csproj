@@ -215,11 +215,6 @@
     <Compile Include="TeamScreen.Designer.cs">
       <DependentUpon>TeamScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="Web References\localhost-DontTouch\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
     <Compile Include="Web References\localhost\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -272,35 +267,6 @@
     <Content Include="ScreensHelpText.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\User-32.png" />
-    <None Include="Resources\Sign - Dollar-32.png" />
-    <None Include="Web References\localhost-DontTouch\CycleGameFinished.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost-DontTouch\FouledEvent.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost-DontTouch\FreeKickEvent.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost-DontTouch\GameStory.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost-DontTouch\PaneltyEvent.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost-DontTouch\Player.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost-DontTouch\ScoreEvent.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost-DontTouch\Team.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost-DontTouch\User.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
     <None Include="Web References\localhost\CycleGameFinished.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -311,42 +277,11 @@
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\localhost\Game.disco" />
-    <None Include="Web References\localhost-DontTouch\CycleGameFinished1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost-DontTouch\FouledEvent1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost-DontTouch\FreeKickEvent1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost-DontTouch\game.disco" />
+    <None Include="Resources\User-32.png" />
+    <None Include="Resources\Sign - Dollar-32.png" />
     <None Include="app.config" />
     <None Include="Resources\field\field3.PNG" />
     <None Include="Resources\Getting Started With Hattrick.mht" />
-    <None Include="Web References\localhost-DontTouch\game.wsdl" />
-    <None Include="Web References\localhost-DontTouch\GameStory1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost-DontTouch\PaneltyEvent1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost-DontTouch\Player1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost-DontTouch\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\localhost-DontTouch\ScoreEvent1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost-DontTouch\Team1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost-DontTouch\User1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
     <None Include="Web References\localhost\Game.wsdl" />
     <None Include="Web References\localhost\GameStory.datasource">
       <DependentUpon>Reference.map</DependentUpon>
@@ -382,17 +317,6 @@
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\localhost\</RelPath>
       <UpdateFromURL>http://localhost:4299/Game.asmx</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>WinformsView_localhost_Game</CachedSettingsPropName>
-    </WebReferenceUrl>
-    <WebReferenceUrl Include="http://mta-hattrick.ddns.info/hattrick/game.asmx">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\localhost-DontTouch\</RelPath>
-      <UpdateFromURL>http://mta-hattrick.ddns.info/hattrick/game.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
