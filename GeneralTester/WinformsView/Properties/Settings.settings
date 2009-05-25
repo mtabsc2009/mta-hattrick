@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="WinformsView_localhost_Game" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://mta-hattrick.ddns.info/hattrick/game.asmx</Value>
+      <Value Profile="(Default)">http://localhost:4299/Game.asmx</Value>
     </Setting>
   </Settings>
 </SettingsFile>
