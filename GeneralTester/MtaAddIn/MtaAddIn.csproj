@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{4391C211-4CDA-42E6-BB85-01CEEFC57C76}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -56,15 +56,11 @@
     <Compile Include="GameBord.Designer.cs">
       <DependentUpon>GameBord.cs</DependentUpon>
     </Compile>
-    <Compile Include="Menus.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CommandBar.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+    <EmbeddedResource Include="CommandBar.resx" />
     <EmbeddedResource Include="GameBord.resx">
       <DependentUpon>GameBord.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -123,10 +119,6 @@
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{B4A3CBCF-1C62-448A-A071-D2AF9F25387B}</Project>
       <Name>DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Game\Game.csproj">
-      <Project>{78DF7BB6-75F8-4204-B3B1-FE80D1209C7E}</Project>
-      <Name>Game</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
