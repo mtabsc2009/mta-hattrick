@@ -120,6 +120,17 @@
       <Project>{B4A3CBCF-1C62-448A-A071-D2AF9F25387B}</Project>
       <Name>DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HattrickGameService\HattrickGameService.csproj">
+      <Project>{6DFEF929-C4B6-4BDB-A5B3-935AB4C49B3D}</Project>
+      <Name>HattrickGameService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WinformsView\WinformsView.csproj">
+      <Project>{5CF8862F-F591-4812-8440-F12D59CC902F}</Project>
+      <Name>WinformsView</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>
