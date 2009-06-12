@@ -29,6 +29,17 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameBord));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
@@ -42,51 +53,32 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.logOffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.teamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.teamFormationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.buyPlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
-            this.changeFormationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.trainingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.trainMyTeamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.trainTeamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.trainingTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.attackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.defenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.wingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.playMakingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setPiecesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.leagueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.playCycleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.leagueTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.leagueCyclesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.friendlyGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripSeparator();
-            this.infraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripSeparator();
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.windowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cascaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
-            this.closeAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.m_ShowTipsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gettingStartedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showTipsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtUsername = new System.Windows.Forms.TextBox();
+            this.txtPassword = new System.Windows.Forms.TextBox();
+            this.txtTeamName = new System.Windows.Forms.TextBox();
+            this.lstCycles = new System.Windows.Forms.ListBox();
+            this.dgCycleGames = new System.Windows.Forms.DataGridView();
+            this.HomeTeam = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AwayTeam = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HomeScore = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AwayScore = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ShowGame = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.position = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.teamname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MatchesPlayed = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.wins = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.draws = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.loses = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.goalsfor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.goalsagainst = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Diff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.points = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dgCycleGames)).BeginInit();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // button4
@@ -121,6 +113,7 @@
             this.button3.Text = "צא";
             this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click_1);
             // 
             // button8
             // 
@@ -174,6 +167,7 @@
             this.button10.Text = "טבלת הליגה";
             this.button10.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click_1);
             // 
             // button7
             // 
@@ -313,348 +307,273 @@
             this.label2.Text = "ניהול ליגה";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // menuStrip1
-            // 
-            this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.teamToolStripMenuItem,
-            this.leagueToolStripMenuItem,
-            this.windowsToolStripMenuItem,
-            this.m_ShowTipsMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.MdiWindowListItem = this.windowsToolStripMenuItem;
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(825, 24);
-            this.menuStrip1.TabIndex = 32;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.logOffToolStripMenuItem,
-            this.toolStripMenuItem5,
-            this.exitToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
-            this.fileToolStripMenuItem.Text = "User";
-            this.fileToolStripMenuItem.Visible = false;
-            // 
-            // logOffToolStripMenuItem
-            // 
-            this.logOffToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("logOffToolStripMenuItem.Image")));
-            this.logOffToolStripMenuItem.Name = "logOffToolStripMenuItem";
-            this.logOffToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
-            this.logOffToolStripMenuItem.Text = "Log off";
-            // 
-            // toolStripMenuItem5
-            // 
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(105, 6);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            // 
-            // teamToolStripMenuItem
-            // 
-            this.teamToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.teamFormationToolStripMenuItem,
-            this.buyPlayerToolStripMenuItem1,
-            this.toolStripMenuItem3,
-            this.toolStripMenuItem4,
-            this.changeFormationToolStripMenuItem,
-            this.trainingToolStripMenuItem});
-            this.teamToolStripMenuItem.Name = "teamToolStripMenuItem";
-            this.teamToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
-            this.teamToolStripMenuItem.Text = "Team";
-            this.teamToolStripMenuItem.Visible = false;
-            // 
-            // teamFormationToolStripMenuItem
-            // 
-            this.teamFormationToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("teamFormationToolStripMenuItem.Image")));
-            this.teamFormationToolStripMenuItem.Name = "teamFormationToolStripMenuItem";
-            this.teamFormationToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.teamFormationToolStripMenuItem.Text = "Manage Team";
-            // 
-            // buyPlayerToolStripMenuItem1
-            // 
-            this.buyPlayerToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("buyPlayerToolStripMenuItem1.Image")));
-            this.buyPlayerToolStripMenuItem1.Name = "buyPlayerToolStripMenuItem1";
-            this.buyPlayerToolStripMenuItem1.Size = new System.Drawing.Size(162, 22);
-            this.buyPlayerToolStripMenuItem1.Text = "Buy Player";
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(162, 22);
-            this.toolStripMenuItem3.Text = "Show Matches";
-            // 
-            // toolStripMenuItem4
-            // 
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(159, 6);
-            // 
-            // changeFormationToolStripMenuItem
-            // 
-            this.changeFormationToolStripMenuItem.Name = "changeFormationToolStripMenuItem";
-            this.changeFormationToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.changeFormationToolStripMenuItem.Text = "Change Formation";
-            this.changeFormationToolStripMenuItem.Visible = false;
-            // 
-            // trainingToolStripMenuItem
-            // 
-            this.trainingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.trainMyTeamToolStripMenuItem,
-            this.trainTeamToolStripMenuItem,
-            this.trainingTypeToolStripMenuItem});
-            this.trainingToolStripMenuItem.Name = "trainingToolStripMenuItem";
-            this.trainingToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.trainingToolStripMenuItem.Text = "Training";
-            // 
-            // trainMyTeamToolStripMenuItem
-            // 
-            this.trainMyTeamToolStripMenuItem.Name = "trainMyTeamToolStripMenuItem";
-            this.trainMyTeamToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.trainMyTeamToolStripMenuItem.Text = "Train my team";
-            // 
-            // trainTeamToolStripMenuItem
-            // 
-            this.trainTeamToolStripMenuItem.Name = "trainTeamToolStripMenuItem";
-            this.trainTeamToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.trainTeamToolStripMenuItem.Text = "Train all teams";
-            // 
-            // trainingTypeToolStripMenuItem
-            // 
-            this.trainingTypeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.attackToolStripMenuItem,
-            this.defenceToolStripMenuItem,
-            this.wingsToolStripMenuItem,
-            this.playMakingToolStripMenuItem,
-            this.setPiecesToolStripMenuItem});
-            this.trainingTypeToolStripMenuItem.Name = "trainingTypeToolStripMenuItem";
-            this.trainingTypeToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.trainingTypeToolStripMenuItem.Text = "Training type";
-            this.trainingTypeToolStripMenuItem.Visible = false;
-            // 
-            // attackToolStripMenuItem
-            // 
-            this.attackToolStripMenuItem.Name = "attackToolStripMenuItem";
-            this.attackToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.attackToolStripMenuItem.Tag = "1";
-            this.attackToolStripMenuItem.Text = "Attack";
-            // 
-            // defenceToolStripMenuItem
-            // 
-            this.defenceToolStripMenuItem.Name = "defenceToolStripMenuItem";
-            this.defenceToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.defenceToolStripMenuItem.Tag = "2";
-            this.defenceToolStripMenuItem.Text = "Defence";
-            // 
-            // wingsToolStripMenuItem
-            // 
-            this.wingsToolStripMenuItem.Name = "wingsToolStripMenuItem";
-            this.wingsToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.wingsToolStripMenuItem.Tag = "3";
-            this.wingsToolStripMenuItem.Text = "Wings";
-            // 
-            // playMakingToolStripMenuItem
-            // 
-            this.playMakingToolStripMenuItem.Name = "playMakingToolStripMenuItem";
-            this.playMakingToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.playMakingToolStripMenuItem.Tag = "4";
-            this.playMakingToolStripMenuItem.Text = "PlayMaking";
-            // 
-            // setPiecesToolStripMenuItem
-            // 
-            this.setPiecesToolStripMenuItem.Name = "setPiecesToolStripMenuItem";
-            this.setPiecesToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.setPiecesToolStripMenuItem.Tag = "5";
-            this.setPiecesToolStripMenuItem.Text = "SetPieces";
-            // 
-            // leagueToolStripMenuItem
-            // 
-            this.leagueToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.playCycleToolStripMenuItem,
-            this.leagueTableToolStripMenuItem,
-            this.leagueCyclesToolStripMenuItem,
-            this.toolStripMenuItem1,
-            this.friendlyGameToolStripMenuItem,
-            this.toolStripMenuItem7,
-            this.infraToolStripMenuItem});
-            this.leagueToolStripMenuItem.Name = "leagueToolStripMenuItem";
-            this.leagueToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
-            this.leagueToolStripMenuItem.Text = "League";
-            // 
-            // playCycleToolStripMenuItem
-            // 
-            this.playCycleToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("playCycleToolStripMenuItem.Image")));
-            this.playCycleToolStripMenuItem.Name = "playCycleToolStripMenuItem";
-            this.playCycleToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.playCycleToolStripMenuItem.Text = "Play Cycle";
-            this.playCycleToolStripMenuItem.Visible = false;
-            // 
-            // leagueTableToolStripMenuItem
-            // 
-            this.leagueTableToolStripMenuItem.Name = "leagueTableToolStripMenuItem";
-            this.leagueTableToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.leagueTableToolStripMenuItem.Text = "League Table";
-            this.leagueTableToolStripMenuItem.Visible = false;
-            // 
-            // leagueCyclesToolStripMenuItem
-            // 
-            this.leagueCyclesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("leagueCyclesToolStripMenuItem.Image")));
-            this.leagueCyclesToolStripMenuItem.Name = "leagueCyclesToolStripMenuItem";
-            this.leagueCyclesToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.leagueCyclesToolStripMenuItem.Text = "League Cycles";
-            this.leagueCyclesToolStripMenuItem.Visible = false;
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(140, 6);
-            // 
-            // friendlyGameToolStripMenuItem
-            // 
-            this.friendlyGameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripComboBox1,
-            this.toolStripMenuItem2,
-            this.playToolStripMenuItem});
-            this.friendlyGameToolStripMenuItem.Name = "friendlyGameToolStripMenuItem";
-            this.friendlyGameToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.friendlyGameToolStripMenuItem.Text = "Friendly Game";
-            this.friendlyGameToolStripMenuItem.Visible = false;
-            // 
-            // toolStripComboBox1
-            // 
-            this.toolStripComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.toolStripComboBox1.Name = "toolStripComboBox1";
-            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 21);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(178, 6);
-            // 
-            // playToolStripMenuItem
-            // 
-            this.playToolStripMenuItem.Name = "playToolStripMenuItem";
-            this.playToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.playToolStripMenuItem.Text = "Play";
-            // 
-            // toolStripMenuItem7
-            // 
-            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(140, 6);
-            // 
-            // infraToolStripMenuItem
-            // 
-            this.infraToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.resetToolStripMenuItem,
-            this.toolStripMenuItem8,
-            this.deleteToolStripMenuItem});
-            this.infraToolStripMenuItem.Name = "infraToolStripMenuItem";
-            this.infraToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.infraToolStripMenuItem.Text = "Infra";
-            // 
-            // resetToolStripMenuItem
-            // 
-            this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.resetToolStripMenuItem.Text = "Create New League";
-            // 
-            // toolStripMenuItem8
-            // 
-            this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(180, 6);
-            // 
-            // deleteToolStripMenuItem
-            // 
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.deleteToolStripMenuItem.Text = "Delete Current League";
-            // 
-            // windowsToolStripMenuItem
-            // 
-            this.windowsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cascaseToolStripMenuItem,
-            this.tileToolStripMenuItem,
-            this.toolStripMenuItem6,
-            this.closeAllToolStripMenuItem});
-            this.windowsToolStripMenuItem.Name = "windowsToolStripMenuItem";
-            this.windowsToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
-            this.windowsToolStripMenuItem.Text = "Windows";
-            this.windowsToolStripMenuItem.Visible = false;
-            // 
-            // cascaseToolStripMenuItem
-            // 
-            this.cascaseToolStripMenuItem.Name = "cascaseToolStripMenuItem";
-            this.cascaseToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.cascaseToolStripMenuItem.Text = "Cascase";
-            // 
-            // tileToolStripMenuItem
-            // 
-            this.tileToolStripMenuItem.Name = "tileToolStripMenuItem";
-            this.tileToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.tileToolStripMenuItem.Text = "Tile Horizontaly";
-            // 
-            // toolStripMenuItem6
-            // 
-            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(144, 6);
-            // 
-            // closeAllToolStripMenuItem
-            // 
-            this.closeAllToolStripMenuItem.Name = "closeAllToolStripMenuItem";
-            this.closeAllToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.closeAllToolStripMenuItem.Text = "Close All";
-            // 
-            // m_ShowTipsMenuItem
-            // 
-            this.m_ShowTipsMenuItem.Checked = true;
-            this.m_ShowTipsMenuItem.CheckOnClick = true;
-            this.m_ShowTipsMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.m_ShowTipsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.gettingStartedToolStripMenuItem,
-            this.showTipsToolStripMenuItem});
-            this.m_ShowTipsMenuItem.Name = "m_ShowTipsMenuItem";
-            this.m_ShowTipsMenuItem.Size = new System.Drawing.Size(40, 20);
-            this.m_ShowTipsMenuItem.Text = "Help";
-            // 
-            // gettingStartedToolStripMenuItem
-            // 
-            this.gettingStartedToolStripMenuItem.Name = "gettingStartedToolStripMenuItem";
-            this.gettingStartedToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.gettingStartedToolStripMenuItem.Text = "Getting Started";
-            // 
-            // showTipsToolStripMenuItem
-            // 
-            this.showTipsToolStripMenuItem.Checked = true;
-            this.showTipsToolStripMenuItem.CheckOnClick = true;
-            this.showTipsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.showTipsToolStripMenuItem.Name = "showTipsToolStripMenuItem";
-            this.showTipsToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.showTipsToolStripMenuItem.Text = "Show Tips";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox1.Location = new System.Drawing.Point(174, 408);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(91, 50);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 33;
-            this.pictureBox1.TabStop = false;
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(169, 408);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 33;
+            // 
+            // txtUsername
+            // 
+            this.txtUsername.Location = new System.Drawing.Point(169, 324);
+            this.txtUsername.Name = "txtUsername";
+            this.txtUsername.Size = new System.Drawing.Size(102, 20);
+            this.txtUsername.TabIndex = 34;
+            // 
+            // txtPassword
+            // 
+            this.txtPassword.Location = new System.Drawing.Point(170, 353);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '*';
+            this.txtPassword.Size = new System.Drawing.Size(101, 20);
+            this.txtPassword.TabIndex = 35;
+            // 
+            // txtTeamName
+            // 
+            this.txtTeamName.Location = new System.Drawing.Point(170, 382);
+            this.txtTeamName.Name = "txtTeamName";
+            this.txtTeamName.Size = new System.Drawing.Size(102, 20);
+            this.txtTeamName.TabIndex = 36;
+            this.txtTeamName.Visible = false;
+            // 
+            // lstCycles
+            // 
+            this.lstCycles.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstCycles.FormattingEnabled = true;
+            this.lstCycles.Location = new System.Drawing.Point(3, 16);
+            this.lstCycles.Name = "lstCycles";
+            this.lstCycles.Size = new System.Drawing.Size(136, 368);
+            this.lstCycles.TabIndex = 5;
+            // 
+            // dgCycleGames
+            // 
+            this.dgCycleGames.AllowUserToAddRows = false;
+            this.dgCycleGames.AllowUserToDeleteRows = false;
+            this.dgCycleGames.AllowUserToResizeColumns = false;
+            this.dgCycleGames.AllowUserToResizeRows = false;
+            this.dgCycleGames.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgCycleGames.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgCycleGames.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgCycleGames.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.HomeTeam,
+            this.AwayTeam,
+            this.HomeScore,
+            this.AwayScore,
+            this.ShowGame});
+            this.dgCycleGames.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgCycleGames.Location = new System.Drawing.Point(3, 16);
+            this.dgCycleGames.Name = "dgCycleGames";
+            this.dgCycleGames.ReadOnly = true;
+            this.dgCycleGames.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dgCycleGames.Size = new System.Drawing.Size(593, 379);
+            this.dgCycleGames.TabIndex = 8;
+            // 
+            // HomeTeam
+            // 
+            this.HomeTeam.DataPropertyName = "HomeTeam";
+            this.HomeTeam.Frozen = true;
+            this.HomeTeam.HeaderText = "HomeTeam";
+            this.HomeTeam.Name = "HomeTeam";
+            this.HomeTeam.ReadOnly = true;
+            this.HomeTeam.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.HomeTeam.Width = 87;
+            // 
+            // AwayTeam
+            // 
+            this.AwayTeam.DataPropertyName = "AwayTeam";
+            this.AwayTeam.Frozen = true;
+            this.AwayTeam.HeaderText = "AwayTeam";
+            this.AwayTeam.Name = "AwayTeam";
+            this.AwayTeam.ReadOnly = true;
+            this.AwayTeam.Width = 85;
+            // 
+            // HomeScore
+            // 
+            this.HomeScore.DataPropertyName = "HomeScore";
+            this.HomeScore.Frozen = true;
+            this.HomeScore.HeaderText = "HomeScore";
+            this.HomeScore.Name = "HomeScore";
+            this.HomeScore.ReadOnly = true;
+            this.HomeScore.Width = 88;
+            // 
+            // AwayScore
+            // 
+            this.AwayScore.DataPropertyName = "AwayScore";
+            this.AwayScore.Frozen = true;
+            this.AwayScore.HeaderText = "AwayScore";
+            this.AwayScore.Name = "AwayScore";
+            this.AwayScore.ReadOnly = true;
+            this.AwayScore.Width = 86;
+            // 
+            // ShowGame
+            // 
+            this.ShowGame.HeaderText = "Game Story";
+            this.ShowGame.Name = "ShowGame";
+            this.ShowGame.ReadOnly = true;
+            this.ShowGame.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.ShowGame.Text = "Details...";
+            this.ShowGame.UseColumnTextForLinkValue = true;
+            this.ShowGame.Width = 68;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.dataGridView1);
+            this.panel2.Location = new System.Drawing.Point(155, 12);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(660, 302);
+            this.panel2.TabIndex = 38;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToResizeRows = false;
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Maroon;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridView1.ColumnHeadersHeight = 32;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.position,
+            this.teamname,
+            this.MatchesPlayed,
+            this.wins,
+            this.draws,
+            this.loses,
+            this.goalsfor,
+            this.goalsagainst,
+            this.Diff,
+            this.points});
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HotTrack;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle11;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dataGridView1.GridColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView1.MultiSelect = false;
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(660, 302);
+            this.dataGridView1.TabIndex = 1;
+            // 
+            // position
+            // 
+            this.position.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.position.HeaderText = " ";
+            this.position.Name = "position";
+            this.position.ReadOnly = true;
+            this.position.Width = 37;
+            // 
+            // teamname
+            // 
+            this.teamname.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.teamname.DefaultCellStyle = dataGridViewCellStyle2;
+            this.teamname.HeaderText = "Team Name";
+            this.teamname.Name = "teamname";
+            this.teamname.ReadOnly = true;
+            // 
+            // MatchesPlayed
+            // 
+            this.MatchesPlayed.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.MatchesPlayed.DefaultCellStyle = dataGridViewCellStyle3;
+            this.MatchesPlayed.HeaderText = "Matches";
+            this.MatchesPlayed.Name = "MatchesPlayed";
+            this.MatchesPlayed.ReadOnly = true;
+            this.MatchesPlayed.Width = 88;
+            // 
+            // wins
+            // 
+            this.wins.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.wins.DefaultCellStyle = dataGridViewCellStyle4;
+            this.wins.HeaderText = "w";
+            this.wins.Name = "wins";
+            this.wins.ReadOnly = true;
+            this.wins.Width = 44;
+            // 
+            // draws
+            // 
+            this.draws.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.draws.DefaultCellStyle = dataGridViewCellStyle5;
+            this.draws.HeaderText = "d";
+            this.draws.Name = "draws";
+            this.draws.ReadOnly = true;
+            this.draws.Width = 41;
+            // 
+            // loses
+            // 
+            this.loses.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.loses.DefaultCellStyle = dataGridViewCellStyle6;
+            this.loses.HeaderText = "l";
+            this.loses.Name = "loses";
+            this.loses.ReadOnly = true;
+            this.loses.Width = 36;
+            // 
+            // goalsfor
+            // 
+            this.goalsfor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.goalsfor.DefaultCellStyle = dataGridViewCellStyle7;
+            this.goalsfor.HeaderText = "gf";
+            this.goalsfor.Name = "goalsfor";
+            this.goalsfor.ReadOnly = true;
+            this.goalsfor.Width = 46;
+            // 
+            // goalsagainst
+            // 
+            this.goalsagainst.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.goalsagainst.DefaultCellStyle = dataGridViewCellStyle8;
+            this.goalsagainst.HeaderText = "ga";
+            this.goalsagainst.Name = "goalsagainst";
+            this.goalsagainst.ReadOnly = true;
+            this.goalsagainst.Width = 49;
+            // 
+            // Diff
+            // 
+            this.Diff.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Diff.DefaultCellStyle = dataGridViewCellStyle9;
+            this.Diff.HeaderText = "+-";
+            this.Diff.Name = "Diff";
+            this.Diff.ReadOnly = true;
+            this.Diff.Width = 50;
+            // 
+            // points
+            // 
+            this.points.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.points.DefaultCellStyle = dataGridViewCellStyle10;
+            this.points.HeaderText = "pts";
+            this.points.Name = "points";
+            this.points.ReadOnly = true;
+            this.points.Width = 54;
             // 
             // GameBord
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.txtTeamName);
+            this.Controls.Add(this.txtPassword);
+            this.Controls.Add(this.txtUsername);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button8);
@@ -670,9 +589,9 @@
             this.Controls.Add(this.label2);
             this.Name = "GameBord";
             this.Size = new System.Drawing.Size(825, 592);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgCycleGames)).EndInit();
+            this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -693,49 +612,29 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem logOffToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem teamToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem teamFormationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem buyPlayerToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
-        private System.Windows.Forms.ToolStripMenuItem changeFormationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem trainingToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem trainMyTeamToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem trainTeamToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem trainingTypeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem attackToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem defenceToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem wingsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem playMakingToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem setPiecesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem leagueToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem playCycleToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem leagueTableToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem leagueCyclesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem friendlyGameToolStripMenuItem;
-        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem playToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
-        private System.Windows.Forms.ToolStripMenuItem infraToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem8;
-        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem windowsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cascaseToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
-        private System.Windows.Forms.ToolStripMenuItem closeAllToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem m_ShowTipsMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem gettingStartedToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem showTipsToolStripMenuItem;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtUsername;
+        private System.Windows.Forms.TextBox txtPassword;
+        private System.Windows.Forms.TextBox txtTeamName;
+        private System.Windows.Forms.ListBox lstCycles;
+        private System.Windows.Forms.DataGridView dgCycleGames;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HomeTeam;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AwayTeam;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HomeScore;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AwayScore;
+        private System.Windows.Forms.DataGridViewLinkColumn ShowGame;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn position;
+        private System.Windows.Forms.DataGridViewTextBoxColumn teamname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MatchesPlayed;
+        private System.Windows.Forms.DataGridViewTextBoxColumn wins;
+        private System.Windows.Forms.DataGridViewTextBoxColumn draws;
+        private System.Windows.Forms.DataGridViewTextBoxColumn loses;
+        private System.Windows.Forms.DataGridViewTextBoxColumn goalsfor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn goalsagainst;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Diff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn points;
 
     }
 }
