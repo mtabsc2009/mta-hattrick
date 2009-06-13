@@ -1,0 +1,2011 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="mta.hattrick" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="mta.hattrick" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="mta.hattrick">
+      <s:element name="getUser">
+        <s:complexType />
+      </s:element>
+      <s:element name="getUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getUserResult" type="tns:User" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="User">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getTeam">
+        <s:complexType />
+      </s:element>
+      <s:element name="getTeamResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getTeamResult" type="tns:Team" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Team">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Players" type="tns:ArrayOfPlayer" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Formation" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Position" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TeamTrainingType" type="tns:TrainingType" />
+          <s:element minOccurs="0" maxOccurs="1" name="Owner" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CreationDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="TeamCash" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPlayer">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Player" nillable="true" type="tns:Player" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Player">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Age" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="TeamName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="KeeperVal" type="s:float" />
+          <s:element minOccurs="1" maxOccurs="1" name="DefendingVal" type="s:float" />
+          <s:element minOccurs="1" maxOccurs="1" name="PlaymakingVal" type="s:float" />
+          <s:element minOccurs="1" maxOccurs="1" name="WingerVal" type="s:float" />
+          <s:element minOccurs="1" maxOccurs="1" name="PassingVal" type="s:float" />
+          <s:element minOccurs="1" maxOccurs="1" name="ScoringVal" type="s:float" />
+          <s:element minOccurs="1" maxOccurs="1" name="SetPiecesVal" type="s:float" />
+          <s:element minOccurs="1" maxOccurs="1" name="Position" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PlayerCost" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsForSale" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="TrainingType">
+        <s:restriction base="s:string">
+          <s:enumeration value="ATTACK" />
+          <s:enumeration value="DEFENCE" />
+          <s:enumeration value="WING" />
+          <s:enumeration value="PLAYMAKING" />
+          <s:enumeration value="SETPIECES" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="getIsUserInLeague">
+        <s:complexType />
+      </s:element>
+      <s:element name="getIsUserInLeagueResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="getIsUserInLeagueResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getTeams">
+        <s:complexType />
+      </s:element>
+      <s:element name="getTeamsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getTeamsResult" type="tns:ArrayOfTeam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTeam">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Team" nillable="true" type="tns:Team" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getLeagueExists">
+        <s:complexType />
+      </s:element>
+      <s:element name="getLeagueExistsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="getLeagueExistsResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTeamMatches">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="_Team" type="tns:Team" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTeamMatchesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTeamMatchesResult" type="tns:ArrayOfCycleGameFinished" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCycleGameFinished">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CycleGameFinished" nillable="true" type="tns:CycleGameFinished" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CycleGameFinished">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:CycleGame">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="HomeScore" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="AwayScore" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="CycleGame">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CycleNum" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="HomeTeam" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AwayTeam" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="GameID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CycleDate" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CyclesToListFinished">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dvAllCycles">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CyclesToListFinishedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CyclesToListFinishedResult" type="tns:ArrayOfCycleGameFinished" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateTeamWithName">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strTeamName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateTeamWithNameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateTeamWithNameResult" type="tns:Team" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateTeamWithUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usrUser" type="tns:User" />
+            <s:element minOccurs="0" maxOccurs="1" name="strTeamName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateTeamWithUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateTeamWithUserResult" type="tns:Team" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateNewLeagueCycles">
+        <s:complexType />
+      </s:element>
+      <s:element name="CreateNewLeagueCyclesResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetLeague">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetLeagueResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLeagueResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PlayNextCycle">
+        <s:complexType />
+      </s:element>
+      <s:element name="PlayNextCycleResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="Reset">
+        <s:complexType />
+      </s:element>
+      <s:element name="ResetResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="CreateUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPass" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateUserResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Login">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginResult" type="tns:User" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPlayerByID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nPlayerID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPlayerByIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPlayerByIDResult" type="tns:Player" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="buyPlayer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="playerToBuy" type="tns:Player" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="buyPlayerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="buyPlayerResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangeTeamFormation">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="tMyTeam" type="tns:Team" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFormation" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangeTeamFormationResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="ChangePlayerPosition">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="plrToChange" type="tns:Player" />
+            <s:element minOccurs="0" maxOccurs="1" name="plrChangedPos" type="tns:Player" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangePlayerPositionResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="MatchTeams">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strHomeTeam" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAwayTeam" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MatchTeamsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MatchTeamsResult" type="tns:GameStory" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GameStory">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Winner" type="tns:Team" />
+          <s:element minOccurs="1" maxOccurs="1" name="AwayScore" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="HomeScore" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="GameEvents" type="tns:ArrayOfGameEvent" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalEvents" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="HomeTeamEvents" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="HomeTeam" type="tns:TeamGameData" />
+          <s:element minOccurs="0" maxOccurs="1" name="AwayTeam" type="tns:TeamGameData" />
+          <s:element minOccurs="1" maxOccurs="1" name="GameDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Watchers" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Weather" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfGameEvent">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="GameEvent" nillable="true" type="tns:GameEvent" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GameEvent" abstract="true">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Minute" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="teamAttacking" type="tns:Team" />
+          <s:element minOccurs="0" maxOccurs="1" name="Actor" type="tns:Player" />
+          <s:element minOccurs="0" maxOccurs="1" name="GameText" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FailedEvent" abstract="true">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:GameEvent" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="StoppedEvent">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:FailedEvent" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="MissedEvent">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:FailedEvent" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="FouledEvent">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:GameEvent">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Foulist" type="tns:Player" />
+              <s:element minOccurs="1" maxOccurs="1" name="ptCard" type="tns:PaneltyCard" />
+              <s:element minOccurs="0" maxOccurs="1" name="bScored" type="tns:Team" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:simpleType name="PaneltyCard">
+        <s:restriction base="s:string">
+          <s:enumeration value="ptNoCard" />
+          <s:enumeration value="ptNone" />
+          <s:enumeration value="ptYellow" />
+          <s:enumeration value="ptRed" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="MissedFouledEvent">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:FouledEvent" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="TeamGameData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Team" type="tns:Team" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsTeamMiddleMethod" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Formation" type="tns:TeamFormation" />
+          <s:element minOccurs="1" maxOccurs="1" name="OffenceGrade" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MidFieldGrade" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DefenceGrade" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="KeepingGrade" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SetPiecesGrade" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TeamFormation">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Defence" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MiddleField" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Offence" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="dummyGetPanelty">
+        <s:complexType />
+      </s:element>
+      <s:element name="dummyGetPaneltyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dummyGetPaneltyResult" type="tns:PaneltyEvent" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PaneltyEvent">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:FouledEvent">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Shooter" type="tns:Player" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="dummyGetFreeKick">
+        <s:complexType />
+      </s:element>
+      <s:element name="dummyGetFreeKickResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dummyGetFreeKickResult" type="tns:FreeKickEvent" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FreeKickEvent">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:FouledEvent">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Shooter" type="tns:Player" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="dummyGetFouled">
+        <s:complexType />
+      </s:element>
+      <s:element name="dummyGetFouledResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dummyGetFouledResult" type="tns:FouledEvent" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="dummyGetScore">
+        <s:complexType />
+      </s:element>
+      <s:element name="dummyGetScoreResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dummyGetScoreResult" type="tns:ScoreEvent" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ScoreEvent">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:GameEvent">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="bShowInSummary" type="s:boolean" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="SaveStoryToDB">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="gsNewGame" type="tns:GameStory" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveStoryToDBResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SaveStoryToDBResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangeTeamTrainngType">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ttTeamTrainingType" type="tns:TrainingType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangeTeamTrainngTypeResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="TrainTeam">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="tmTeamToTrain" type="tns:Team" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TrainTeamResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="TrainAllTeams">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nNumOfTrainings" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TrainAllTeamsResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetFormations">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetFormationsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFormationsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TeamExists">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strTeamName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TeamExistsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="TeamExistsResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllCycles">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAllCyclesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllCyclesResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNumOfCycles">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetNumOfCyclesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetNumOfCyclesResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGameStoryWithStringID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strGameID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGameStoryWithStringIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGameStoryWithStringIDResult" type="tns:GameStory" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGameStoryWithIntegerID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nGameToShow" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGameStoryWithIntegerIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGameStoryWithIntegerIDResult" type="tns:GameStory" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UserExists">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strUsername" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UserExistsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UserExistsResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPlayerNotForSell">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="tMyTeam" type="tns:Team" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPlayerNotForSellResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPlayerNotForSellResult" type="tns:ArrayOfPlayer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPlayerForSellWithTeamObject">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="tMyTeam" type="tns:Team" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPlayerForSellWithTeamObjectResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPlayerForSellWithTeamObjectResult" type="tns:ArrayOfPlayer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPlayerForSellWithTeamName">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strMyTeam" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPlayerForSellWithTeamNameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPlayerForSellWithTeamNameResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CanISellPlayer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iD" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CanISellPlayerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CanISellPlayerResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateSellPlayer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strPlayerId" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="intCost" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateSellPlayerResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="CreateNewLeague">
+        <s:complexType />
+      </s:element>
+      <s:element name="CreateNewLeagueResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="DeleteLeague">
+        <s:complexType />
+      </s:element>
+      <s:element name="DeleteLeagueResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="CreateComputerTeam">
+        <s:complexType />
+      </s:element>
+      <s:element name="CreateComputerTeamResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="DoesComputerTeamExist">
+        <s:complexType />
+      </s:element>
+      <s:element name="DoesComputerTeamExistResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DoesComputerTeamExistResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteComputerTeam">
+        <s:complexType />
+      </s:element>
+      <s:element name="DeleteComputerTeamResponse">
+        <s:complexType />
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="getUserSoapIn">
+    <wsdl:part name="parameters" element="tns:getUser" />
+  </wsdl:message>
+  <wsdl:message name="getUserSoapOut">
+    <wsdl:part name="parameters" element="tns:getUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="getTeamSoapIn">
+    <wsdl:part name="parameters" element="tns:getTeam" />
+  </wsdl:message>
+  <wsdl:message name="getTeamSoapOut">
+    <wsdl:part name="parameters" element="tns:getTeamResponse" />
+  </wsdl:message>
+  <wsdl:message name="getIsUserInLeagueSoapIn">
+    <wsdl:part name="parameters" element="tns:getIsUserInLeague" />
+  </wsdl:message>
+  <wsdl:message name="getIsUserInLeagueSoapOut">
+    <wsdl:part name="parameters" element="tns:getIsUserInLeagueResponse" />
+  </wsdl:message>
+  <wsdl:message name="getTeamsSoapIn">
+    <wsdl:part name="parameters" element="tns:getTeams" />
+  </wsdl:message>
+  <wsdl:message name="getTeamsSoapOut">
+    <wsdl:part name="parameters" element="tns:getTeamsResponse" />
+  </wsdl:message>
+  <wsdl:message name="getLeagueExistsSoapIn">
+    <wsdl:part name="parameters" element="tns:getLeagueExists" />
+  </wsdl:message>
+  <wsdl:message name="getLeagueExistsSoapOut">
+    <wsdl:part name="parameters" element="tns:getLeagueExistsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTeamMatchesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTeamMatches" />
+  </wsdl:message>
+  <wsdl:message name="GetTeamMatchesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTeamMatchesResponse" />
+  </wsdl:message>
+  <wsdl:message name="CyclesToListFinishedSoapIn">
+    <wsdl:part name="parameters" element="tns:CyclesToListFinished" />
+  </wsdl:message>
+  <wsdl:message name="CyclesToListFinishedSoapOut">
+    <wsdl:part name="parameters" element="tns:CyclesToListFinishedResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateTeamWithNameSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateTeamWithName" />
+  </wsdl:message>
+  <wsdl:message name="CreateTeamWithNameSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateTeamWithNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateTeamWithUserSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateTeamWithUser" />
+  </wsdl:message>
+  <wsdl:message name="CreateTeamWithUserSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateTeamWithUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateNewLeagueCyclesSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateNewLeagueCycles" />
+  </wsdl:message>
+  <wsdl:message name="CreateNewLeagueCyclesSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateNewLeagueCyclesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLeagueSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLeague" />
+  </wsdl:message>
+  <wsdl:message name="GetLeagueSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLeagueResponse" />
+  </wsdl:message>
+  <wsdl:message name="PlayNextCycleSoapIn">
+    <wsdl:part name="parameters" element="tns:PlayNextCycle" />
+  </wsdl:message>
+  <wsdl:message name="PlayNextCycleSoapOut">
+    <wsdl:part name="parameters" element="tns:PlayNextCycleResponse" />
+  </wsdl:message>
+  <wsdl:message name="ResetSoapIn">
+    <wsdl:part name="parameters" element="tns:Reset" />
+  </wsdl:message>
+  <wsdl:message name="ResetSoapOut">
+    <wsdl:part name="parameters" element="tns:ResetResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateUserSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateUser" />
+  </wsdl:message>
+  <wsdl:message name="CreateUserSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginSoapIn">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="LoginSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPlayerByIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPlayerByID" />
+  </wsdl:message>
+  <wsdl:message name="GetPlayerByIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPlayerByIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="buyPlayerSoapIn">
+    <wsdl:part name="parameters" element="tns:buyPlayer" />
+  </wsdl:message>
+  <wsdl:message name="buyPlayerSoapOut">
+    <wsdl:part name="parameters" element="tns:buyPlayerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ChangeTeamFormationSoapIn">
+    <wsdl:part name="parameters" element="tns:ChangeTeamFormation" />
+  </wsdl:message>
+  <wsdl:message name="ChangeTeamFormationSoapOut">
+    <wsdl:part name="parameters" element="tns:ChangeTeamFormationResponse" />
+  </wsdl:message>
+  <wsdl:message name="ChangePlayerPositionSoapIn">
+    <wsdl:part name="parameters" element="tns:ChangePlayerPosition" />
+  </wsdl:message>
+  <wsdl:message name="ChangePlayerPositionSoapOut">
+    <wsdl:part name="parameters" element="tns:ChangePlayerPositionResponse" />
+  </wsdl:message>
+  <wsdl:message name="MatchTeamsSoapIn">
+    <wsdl:part name="parameters" element="tns:MatchTeams" />
+  </wsdl:message>
+  <wsdl:message name="MatchTeamsSoapOut">
+    <wsdl:part name="parameters" element="tns:MatchTeamsResponse" />
+  </wsdl:message>
+  <wsdl:message name="dummyGetPaneltySoapIn">
+    <wsdl:part name="parameters" element="tns:dummyGetPanelty" />
+  </wsdl:message>
+  <wsdl:message name="dummyGetPaneltySoapOut">
+    <wsdl:part name="parameters" element="tns:dummyGetPaneltyResponse" />
+  </wsdl:message>
+  <wsdl:message name="dummyGetFreeKickSoapIn">
+    <wsdl:part name="parameters" element="tns:dummyGetFreeKick" />
+  </wsdl:message>
+  <wsdl:message name="dummyGetFreeKickSoapOut">
+    <wsdl:part name="parameters" element="tns:dummyGetFreeKickResponse" />
+  </wsdl:message>
+  <wsdl:message name="dummyGetFouledSoapIn">
+    <wsdl:part name="parameters" element="tns:dummyGetFouled" />
+  </wsdl:message>
+  <wsdl:message name="dummyGetFouledSoapOut">
+    <wsdl:part name="parameters" element="tns:dummyGetFouledResponse" />
+  </wsdl:message>
+  <wsdl:message name="dummyGetScoreSoapIn">
+    <wsdl:part name="parameters" element="tns:dummyGetScore" />
+  </wsdl:message>
+  <wsdl:message name="dummyGetScoreSoapOut">
+    <wsdl:part name="parameters" element="tns:dummyGetScoreResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveStoryToDBSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveStoryToDB" />
+  </wsdl:message>
+  <wsdl:message name="SaveStoryToDBSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveStoryToDBResponse" />
+  </wsdl:message>
+  <wsdl:message name="ChangeTeamTrainngTypeSoapIn">
+    <wsdl:part name="parameters" element="tns:ChangeTeamTrainngType" />
+  </wsdl:message>
+  <wsdl:message name="ChangeTeamTrainngTypeSoapOut">
+    <wsdl:part name="parameters" element="tns:ChangeTeamTrainngTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="TrainTeamSoapIn">
+    <wsdl:part name="parameters" element="tns:TrainTeam" />
+  </wsdl:message>
+  <wsdl:message name="TrainTeamSoapOut">
+    <wsdl:part name="parameters" element="tns:TrainTeamResponse" />
+  </wsdl:message>
+  <wsdl:message name="TrainAllTeamsSoapIn">
+    <wsdl:part name="parameters" element="tns:TrainAllTeams" />
+  </wsdl:message>
+  <wsdl:message name="TrainAllTeamsSoapOut">
+    <wsdl:part name="parameters" element="tns:TrainAllTeamsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFormationsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFormations" />
+  </wsdl:message>
+  <wsdl:message name="GetFormationsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFormationsResponse" />
+  </wsdl:message>
+  <wsdl:message name="TeamExistsSoapIn">
+    <wsdl:part name="parameters" element="tns:TeamExists" />
+  </wsdl:message>
+  <wsdl:message name="TeamExistsSoapOut">
+    <wsdl:part name="parameters" element="tns:TeamExistsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllCyclesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllCycles" />
+  </wsdl:message>
+  <wsdl:message name="GetAllCyclesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllCyclesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetNumOfCyclesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNumOfCycles" />
+  </wsdl:message>
+  <wsdl:message name="GetNumOfCyclesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNumOfCyclesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGameStoryWithStringIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGameStoryWithStringID" />
+  </wsdl:message>
+  <wsdl:message name="GetGameStoryWithStringIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGameStoryWithStringIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGameStoryWithIntegerIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGameStoryWithIntegerID" />
+  </wsdl:message>
+  <wsdl:message name="GetGameStoryWithIntegerIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGameStoryWithIntegerIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="UserExistsSoapIn">
+    <wsdl:part name="parameters" element="tns:UserExists" />
+  </wsdl:message>
+  <wsdl:message name="UserExistsSoapOut">
+    <wsdl:part name="parameters" element="tns:UserExistsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPlayerNotForSellSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPlayerNotForSell" />
+  </wsdl:message>
+  <wsdl:message name="GetPlayerNotForSellSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPlayerNotForSellResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPlayerForSellWithTeamObjectSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPlayerForSellWithTeamObject" />
+  </wsdl:message>
+  <wsdl:message name="GetPlayerForSellWithTeamObjectSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPlayerForSellWithTeamObjectResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPlayerForSellWithTeamNameSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPlayerForSellWithTeamName" />
+  </wsdl:message>
+  <wsdl:message name="GetPlayerForSellWithTeamNameSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPlayerForSellWithTeamNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="CanISellPlayerSoapIn">
+    <wsdl:part name="parameters" element="tns:CanISellPlayer" />
+  </wsdl:message>
+  <wsdl:message name="CanISellPlayerSoapOut">
+    <wsdl:part name="parameters" element="tns:CanISellPlayerResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateSellPlayerSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateSellPlayer" />
+  </wsdl:message>
+  <wsdl:message name="UpdateSellPlayerSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateSellPlayerResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateNewLeagueSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateNewLeague" />
+  </wsdl:message>
+  <wsdl:message name="CreateNewLeagueSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateNewLeagueResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteLeagueSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteLeague" />
+  </wsdl:message>
+  <wsdl:message name="DeleteLeagueSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteLeagueResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateComputerTeamSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateComputerTeam" />
+  </wsdl:message>
+  <wsdl:message name="CreateComputerTeamSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateComputerTeamResponse" />
+  </wsdl:message>
+  <wsdl:message name="DoesComputerTeamExistSoapIn">
+    <wsdl:part name="parameters" element="tns:DoesComputerTeamExist" />
+  </wsdl:message>
+  <wsdl:message name="DoesComputerTeamExistSoapOut">
+    <wsdl:part name="parameters" element="tns:DoesComputerTeamExistResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteComputerTeamSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteComputerTeam" />
+  </wsdl:message>
+  <wsdl:message name="DeleteComputerTeamSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteComputerTeamResponse" />
+  </wsdl:message>
+  <wsdl:portType name="GameSoap">
+    <wsdl:operation name="getUser">
+      <wsdl:input message="tns:getUserSoapIn" />
+      <wsdl:output message="tns:getUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getTeam">
+      <wsdl:input message="tns:getTeamSoapIn" />
+      <wsdl:output message="tns:getTeamSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getIsUserInLeague">
+      <wsdl:input message="tns:getIsUserInLeagueSoapIn" />
+      <wsdl:output message="tns:getIsUserInLeagueSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getTeams">
+      <wsdl:input message="tns:getTeamsSoapIn" />
+      <wsdl:output message="tns:getTeamsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getLeagueExists">
+      <wsdl:input message="tns:getLeagueExistsSoapIn" />
+      <wsdl:output message="tns:getLeagueExistsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTeamMatches">
+      <wsdl:input message="tns:GetTeamMatchesSoapIn" />
+      <wsdl:output message="tns:GetTeamMatchesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CyclesToListFinished">
+      <wsdl:input message="tns:CyclesToListFinishedSoapIn" />
+      <wsdl:output message="tns:CyclesToListFinishedSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateTeam">
+      <wsdl:input name="CreateTeamWithName" message="tns:CreateTeamWithNameSoapIn" />
+      <wsdl:output name="CreateTeamWithName" message="tns:CreateTeamWithNameSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateTeam">
+      <wsdl:input name="CreateTeamWithUser" message="tns:CreateTeamWithUserSoapIn" />
+      <wsdl:output name="CreateTeamWithUser" message="tns:CreateTeamWithUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateNewLeagueCycles">
+      <wsdl:input message="tns:CreateNewLeagueCyclesSoapIn" />
+      <wsdl:output message="tns:CreateNewLeagueCyclesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLeague">
+      <wsdl:input message="tns:GetLeagueSoapIn" />
+      <wsdl:output message="tns:GetLeagueSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PlayNextCycle">
+      <wsdl:input message="tns:PlayNextCycleSoapIn" />
+      <wsdl:output message="tns:PlayNextCycleSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Reset">
+      <wsdl:input message="tns:ResetSoapIn" />
+      <wsdl:output message="tns:ResetSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateUser">
+      <wsdl:input message="tns:CreateUserSoapIn" />
+      <wsdl:output message="tns:CreateUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <wsdl:input message="tns:LoginSoapIn" />
+      <wsdl:output message="tns:LoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerByID">
+      <wsdl:input message="tns:GetPlayerByIDSoapIn" />
+      <wsdl:output message="tns:GetPlayerByIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="buyPlayer">
+      <wsdl:input message="tns:buyPlayerSoapIn" />
+      <wsdl:output message="tns:buyPlayerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeTeamFormation">
+      <wsdl:input message="tns:ChangeTeamFormationSoapIn" />
+      <wsdl:output message="tns:ChangeTeamFormationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangePlayerPosition">
+      <wsdl:input message="tns:ChangePlayerPositionSoapIn" />
+      <wsdl:output message="tns:ChangePlayerPositionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MatchTeams">
+      <wsdl:input message="tns:MatchTeamsSoapIn" />
+      <wsdl:output message="tns:MatchTeamsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="dummyGetPanelty">
+      <wsdl:input message="tns:dummyGetPaneltySoapIn" />
+      <wsdl:output message="tns:dummyGetPaneltySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="dummyGetFreeKick">
+      <wsdl:input message="tns:dummyGetFreeKickSoapIn" />
+      <wsdl:output message="tns:dummyGetFreeKickSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="dummyGetFouled">
+      <wsdl:input message="tns:dummyGetFouledSoapIn" />
+      <wsdl:output message="tns:dummyGetFouledSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="dummyGetScore">
+      <wsdl:input message="tns:dummyGetScoreSoapIn" />
+      <wsdl:output message="tns:dummyGetScoreSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveStoryToDB">
+      <wsdl:input message="tns:SaveStoryToDBSoapIn" />
+      <wsdl:output message="tns:SaveStoryToDBSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeTeamTrainngType">
+      <wsdl:input message="tns:ChangeTeamTrainngTypeSoapIn" />
+      <wsdl:output message="tns:ChangeTeamTrainngTypeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TrainTeam">
+      <wsdl:input message="tns:TrainTeamSoapIn" />
+      <wsdl:output message="tns:TrainTeamSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TrainAllTeams">
+      <wsdl:input message="tns:TrainAllTeamsSoapIn" />
+      <wsdl:output message="tns:TrainAllTeamsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFormations">
+      <wsdl:input message="tns:GetFormationsSoapIn" />
+      <wsdl:output message="tns:GetFormationsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TeamExists">
+      <wsdl:input message="tns:TeamExistsSoapIn" />
+      <wsdl:output message="tns:TeamExistsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCycles">
+      <wsdl:input message="tns:GetAllCyclesSoapIn" />
+      <wsdl:output message="tns:GetAllCyclesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNumOfCycles">
+      <wsdl:input message="tns:GetNumOfCyclesSoapIn" />
+      <wsdl:output message="tns:GetNumOfCyclesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGameStory">
+      <wsdl:input name="GetGameStoryWithStringID" message="tns:GetGameStoryWithStringIDSoapIn" />
+      <wsdl:output name="GetGameStoryWithStringID" message="tns:GetGameStoryWithStringIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGameStory">
+      <wsdl:input name="GetGameStoryWithIntegerID" message="tns:GetGameStoryWithIntegerIDSoapIn" />
+      <wsdl:output name="GetGameStoryWithIntegerID" message="tns:GetGameStoryWithIntegerIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UserExists">
+      <wsdl:input message="tns:UserExistsSoapIn" />
+      <wsdl:output message="tns:UserExistsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerNotForSell">
+      <wsdl:input message="tns:GetPlayerNotForSellSoapIn" />
+      <wsdl:output message="tns:GetPlayerNotForSellSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerForSell">
+      <wsdl:input name="GetPlayerForSellWithTeamObject" message="tns:GetPlayerForSellWithTeamObjectSoapIn" />
+      <wsdl:output name="GetPlayerForSellWithTeamObject" message="tns:GetPlayerForSellWithTeamObjectSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerForSell">
+      <wsdl:input name="GetPlayerForSellWithTeamName" message="tns:GetPlayerForSellWithTeamNameSoapIn" />
+      <wsdl:output name="GetPlayerForSellWithTeamName" message="tns:GetPlayerForSellWithTeamNameSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CanISellPlayer">
+      <wsdl:input message="tns:CanISellPlayerSoapIn" />
+      <wsdl:output message="tns:CanISellPlayerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSellPlayer">
+      <wsdl:input message="tns:UpdateSellPlayerSoapIn" />
+      <wsdl:output message="tns:UpdateSellPlayerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateNewLeague">
+      <wsdl:input message="tns:CreateNewLeagueSoapIn" />
+      <wsdl:output message="tns:CreateNewLeagueSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteLeague">
+      <wsdl:input message="tns:DeleteLeagueSoapIn" />
+      <wsdl:output message="tns:DeleteLeagueSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateComputerTeam">
+      <wsdl:input message="tns:CreateComputerTeamSoapIn" />
+      <wsdl:output message="tns:CreateComputerTeamSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DoesComputerTeamExist">
+      <wsdl:input message="tns:DoesComputerTeamExistSoapIn" />
+      <wsdl:output message="tns:DoesComputerTeamExistSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteComputerTeam">
+      <wsdl:input message="tns:DeleteComputerTeamSoapIn" />
+      <wsdl:output message="tns:DeleteComputerTeamSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GameSoap" type="tns:GameSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getUser">
+      <soap:operation soapAction="mta.hattrick/getUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTeam">
+      <soap:operation soapAction="mta.hattrick/getTeam" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getIsUserInLeague">
+      <soap:operation soapAction="mta.hattrick/getIsUserInLeague" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTeams">
+      <soap:operation soapAction="mta.hattrick/getTeams" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getLeagueExists">
+      <soap:operation soapAction="mta.hattrick/getLeagueExists" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTeamMatches">
+      <soap:operation soapAction="mta.hattrick/GetTeamMatches" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CyclesToListFinished">
+      <soap:operation soapAction="mta.hattrick/CyclesToListFinished" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateTeam">
+      <soap:operation soapAction="mta.hattrick/CreateTeamWithName" style="document" />
+      <wsdl:input name="CreateTeamWithName">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CreateTeamWithName">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateTeam">
+      <soap:operation soapAction="mta.hattrick/CreateTeamWithUser" style="document" />
+      <wsdl:input name="CreateTeamWithUser">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CreateTeamWithUser">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateNewLeagueCycles">
+      <soap:operation soapAction="mta.hattrick/CreateNewLeagueCycles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLeague">
+      <soap:operation soapAction="mta.hattrick/GetLeague" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlayNextCycle">
+      <soap:operation soapAction="mta.hattrick/PlayNextCycle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Reset">
+      <soap:operation soapAction="mta.hattrick/Reset" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateUser">
+      <soap:operation soapAction="mta.hattrick/CreateUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="mta.hattrick/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerByID">
+      <soap:operation soapAction="mta.hattrick/GetPlayerByID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="buyPlayer">
+      <soap:operation soapAction="mta.hattrick/buyPlayer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeTeamFormation">
+      <soap:operation soapAction="mta.hattrick/ChangeTeamFormation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangePlayerPosition">
+      <soap:operation soapAction="mta.hattrick/ChangePlayerPosition" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MatchTeams">
+      <soap:operation soapAction="mta.hattrick/MatchTeams" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="dummyGetPanelty">
+      <soap:operation soapAction="mta.hattrick/dummyGetPanelty" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="dummyGetFreeKick">
+      <soap:operation soapAction="mta.hattrick/dummyGetFreeKick" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="dummyGetFouled">
+      <soap:operation soapAction="mta.hattrick/dummyGetFouled" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="dummyGetScore">
+      <soap:operation soapAction="mta.hattrick/dummyGetScore" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveStoryToDB">
+      <soap:operation soapAction="mta.hattrick/SaveStoryToDB" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeTeamTrainngType">
+      <soap:operation soapAction="mta.hattrick/ChangeTeamTrainngType" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TrainTeam">
+      <soap:operation soapAction="mta.hattrick/TrainTeam" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TrainAllTeams">
+      <soap:operation soapAction="mta.hattrick/TrainAllTeams" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFormations">
+      <soap:operation soapAction="mta.hattrick/GetFormations" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TeamExists">
+      <soap:operation soapAction="mta.hattrick/TeamExists" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCycles">
+      <soap:operation soapAction="mta.hattrick/GetAllCycles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNumOfCycles">
+      <soap:operation soapAction="mta.hattrick/GetNumOfCycles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGameStory">
+      <soap:operation soapAction="mta.hattrick/GetGameStoryWithStringID" style="document" />
+      <wsdl:input name="GetGameStoryWithStringID">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetGameStoryWithStringID">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGameStory">
+      <soap:operation soapAction="mta.hattrick/GetGameStoryWithIntegerID" style="document" />
+      <wsdl:input name="GetGameStoryWithIntegerID">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetGameStoryWithIntegerID">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserExists">
+      <soap:operation soapAction="mta.hattrick/UserExists" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerNotForSell">
+      <soap:operation soapAction="mta.hattrick/GetPlayerNotForSell" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerForSell">
+      <soap:operation soapAction="mta.hattrick/GetPlayerForSellWithTeamObject" style="document" />
+      <wsdl:input name="GetPlayerForSellWithTeamObject">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetPlayerForSellWithTeamObject">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerForSell">
+      <soap:operation soapAction="mta.hattrick/GetPlayerForSellWithTeamName" style="document" />
+      <wsdl:input name="GetPlayerForSellWithTeamName">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetPlayerForSellWithTeamName">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CanISellPlayer">
+      <soap:operation soapAction="mta.hattrick/CanISellPlayer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSellPlayer">
+      <soap:operation soapAction="mta.hattrick/UpdateSellPlayer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateNewLeague">
+      <soap:operation soapAction="mta.hattrick/CreateNewLeague" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteLeague">
+      <soap:operation soapAction="mta.hattrick/DeleteLeague" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateComputerTeam">
+      <soap:operation soapAction="mta.hattrick/CreateComputerTeam" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DoesComputerTeamExist">
+      <soap:operation soapAction="mta.hattrick/DoesComputerTeamExist" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteComputerTeam">
+      <soap:operation soapAction="mta.hattrick/DeleteComputerTeam" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="GameSoap12" type="tns:GameSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getUser">
+      <soap12:operation soapAction="mta.hattrick/getUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTeam">
+      <soap12:operation soapAction="mta.hattrick/getTeam" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getIsUserInLeague">
+      <soap12:operation soapAction="mta.hattrick/getIsUserInLeague" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTeams">
+      <soap12:operation soapAction="mta.hattrick/getTeams" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getLeagueExists">
+      <soap12:operation soapAction="mta.hattrick/getLeagueExists" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTeamMatches">
+      <soap12:operation soapAction="mta.hattrick/GetTeamMatches" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CyclesToListFinished">
+      <soap12:operation soapAction="mta.hattrick/CyclesToListFinished" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateTeam">
+      <soap12:operation soapAction="mta.hattrick/CreateTeamWithName" style="document" />
+      <wsdl:input name="CreateTeamWithName">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CreateTeamWithName">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateTeam">
+      <soap12:operation soapAction="mta.hattrick/CreateTeamWithUser" style="document" />
+      <wsdl:input name="CreateTeamWithUser">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CreateTeamWithUser">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateNewLeagueCycles">
+      <soap12:operation soapAction="mta.hattrick/CreateNewLeagueCycles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLeague">
+      <soap12:operation soapAction="mta.hattrick/GetLeague" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlayNextCycle">
+      <soap12:operation soapAction="mta.hattrick/PlayNextCycle" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Reset">
+      <soap12:operation soapAction="mta.hattrick/Reset" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateUser">
+      <soap12:operation soapAction="mta.hattrick/CreateUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <soap12:operation soapAction="mta.hattrick/Login" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerByID">
+      <soap12:operation soapAction="mta.hattrick/GetPlayerByID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="buyPlayer">
+      <soap12:operation soapAction="mta.hattrick/buyPlayer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeTeamFormation">
+      <soap12:operation soapAction="mta.hattrick/ChangeTeamFormation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangePlayerPosition">
+      <soap12:operation soapAction="mta.hattrick/ChangePlayerPosition" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MatchTeams">
+      <soap12:operation soapAction="mta.hattrick/MatchTeams" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="dummyGetPanelty">
+      <soap12:operation soapAction="mta.hattrick/dummyGetPanelty" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="dummyGetFreeKick">
+      <soap12:operation soapAction="mta.hattrick/dummyGetFreeKick" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="dummyGetFouled">
+      <soap12:operation soapAction="mta.hattrick/dummyGetFouled" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="dummyGetScore">
+      <soap12:operation soapAction="mta.hattrick/dummyGetScore" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveStoryToDB">
+      <soap12:operation soapAction="mta.hattrick/SaveStoryToDB" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeTeamTrainngType">
+      <soap12:operation soapAction="mta.hattrick/ChangeTeamTrainngType" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TrainTeam">
+      <soap12:operation soapAction="mta.hattrick/TrainTeam" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TrainAllTeams">
+      <soap12:operation soapAction="mta.hattrick/TrainAllTeams" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFormations">
+      <soap12:operation soapAction="mta.hattrick/GetFormations" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TeamExists">
+      <soap12:operation soapAction="mta.hattrick/TeamExists" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCycles">
+      <soap12:operation soapAction="mta.hattrick/GetAllCycles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNumOfCycles">
+      <soap12:operation soapAction="mta.hattrick/GetNumOfCycles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGameStory">
+      <soap12:operation soapAction="mta.hattrick/GetGameStoryWithStringID" style="document" />
+      <wsdl:input name="GetGameStoryWithStringID">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetGameStoryWithStringID">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGameStory">
+      <soap12:operation soapAction="mta.hattrick/GetGameStoryWithIntegerID" style="document" />
+      <wsdl:input name="GetGameStoryWithIntegerID">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetGameStoryWithIntegerID">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserExists">
+      <soap12:operation soapAction="mta.hattrick/UserExists" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerNotForSell">
+      <soap12:operation soapAction="mta.hattrick/GetPlayerNotForSell" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerForSell">
+      <soap12:operation soapAction="mta.hattrick/GetPlayerForSellWithTeamObject" style="document" />
+      <wsdl:input name="GetPlayerForSellWithTeamObject">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetPlayerForSellWithTeamObject">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerForSell">
+      <soap12:operation soapAction="mta.hattrick/GetPlayerForSellWithTeamName" style="document" />
+      <wsdl:input name="GetPlayerForSellWithTeamName">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetPlayerForSellWithTeamName">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CanISellPlayer">
+      <soap12:operation soapAction="mta.hattrick/CanISellPlayer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSellPlayer">
+      <soap12:operation soapAction="mta.hattrick/UpdateSellPlayer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateNewLeague">
+      <soap12:operation soapAction="mta.hattrick/CreateNewLeague" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteLeague">
+      <soap12:operation soapAction="mta.hattrick/DeleteLeague" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateComputerTeam">
+      <soap12:operation soapAction="mta.hattrick/CreateComputerTeam" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DoesComputerTeamExist">
+      <soap12:operation soapAction="mta.hattrick/DoesComputerTeamExist" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteComputerTeam">
+      <soap12:operation soapAction="mta.hattrick/DeleteComputerTeam" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Game">
+    <wsdl:port name="GameSoap" binding="tns:GameSoap">
+      <soap:address location="http://localhost:4299/Game.asmx" />
+    </wsdl:port>
+    <wsdl:port name="GameSoap12" binding="tns:GameSoap12">
+      <soap12:address location="http://localhost:4299/Game.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
