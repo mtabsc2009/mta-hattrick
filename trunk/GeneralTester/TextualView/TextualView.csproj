@@ -89,10 +89,10 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://localhost:4299/Game.asmx">
+    <WebReferenceUrl Include="http://www.moviez.4pu.com/hattrick/game.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\localhost\</RelPath>
-      <UpdateFromURL>http://localhost:4299/Game.asmx</UpdateFromURL>
+      <UpdateFromURL>http://www.moviez.4pu.com/hattrick/game.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
