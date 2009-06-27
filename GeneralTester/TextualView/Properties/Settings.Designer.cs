@@ -26,7 +26,7 @@ namespace HatTrick.TextualView.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:4299/Game.asmx")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://www.moviez.4pu.com/hattrick/game.asmx")]
         public string TextualView_localhost_Game {
             get {
                 return ((string)(this["TextualView_localhost_Game"]));

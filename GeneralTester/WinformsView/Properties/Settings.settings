@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="WinformsView_localhost_Game" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://localhost:4299/Game.asmx</Value>
+      <Value Profile="(Default)">http://www.moviez.4pu.com/hattrick/game.asmx</Value>
     </Setting>
   </Settings>
 </SettingsFile>

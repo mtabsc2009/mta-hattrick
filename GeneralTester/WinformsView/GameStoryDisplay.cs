@@ -242,7 +242,7 @@ namespace HatTrick.Views.WinformsView
                     if ((evtCurr as localhost.ScoreEvent).bShowInSummary)
                     {
                         nStartChange = TextBox1.Text.Length;
-                        AddLine("(Min {0}) {1}", evtCurr.Minute.ToString(), evtCurr);
+                        AddLine("(Min {0}) {1}", evtCurr.Minute.ToString(), evtCurr.GameText);
                         nEndChange = TextBox1.Text.Length;
                         TextBox1.Select(nStartChange, nEndChange);
                         TextBox1.SelectionColor = Color.Blue;
@@ -253,7 +253,7 @@ namespace HatTrick.Views.WinformsView
                     if ((evtCurr as localhost.FouledEvent).bScored != null)
                     {
                         nStartChange = TextBox1.Text.Length;
-                        AddLine("(Min {0}) {1}", evtCurr.Minute.ToString(), evtCurr);
+                        AddLine("(Min {0}) {1}", evtCurr.Minute.ToString(), evtCurr.GameText);
                         nEndChange = TextBox1.Text.Length;
                         TextBox1.Select(nStartChange, nEndChange);
                         TextBox1.SelectionColor = Color.Blue;
@@ -261,7 +261,7 @@ namespace HatTrick.Views.WinformsView
                 }
                 else
                 {
-                    AddLine("(Min {0}) {1}", evtCurr.Minute.ToString(), evtCurr);
+                    AddLine("(Min {0}) {1}", evtCurr.Minute.ToString(), evtCurr.GameText);
                 }
                 AddLine();
             }
